@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Header from './components/Header';
@@ -9,8 +10,8 @@ import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Register from './pages/Register';
 
-
 import './App.css'
+
 
 function App() {
 
