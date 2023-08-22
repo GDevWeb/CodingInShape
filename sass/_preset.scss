@@ -1,67 +1,8 @@
-// danger Red :
+// _preset.scss
 
-.danger {
-    background-color: #dc3545;
-    color: #fff;
-  }
-  
-  .danger:hover {
-    background-color: #c82333;
-  }
-
-  
-  // success Green :
-
-.success {
-    background-color: #28a745;
-    color: #fff;
-  }
-  
-  .success:hover {
-    background-color: #218838;
-  }
-
-  // Warning Yellow :
-
-.warning {
-    background-color: #ffc107;
-    color: #000;
-  }
-  
-  .warning:hover {
-    background-color: #e0a800;
-  }
-  
-// info Blue :
-
-.info {
-    background-color: #17a2b8;
-    color: #fff;
-  }
-  
-  .info:hover {
-    background-color: #138496;
-  }
-
-  // Primary Blue :
-
-.primary {
-    background-color: #007bff;
-    color: #fff;
-  }
-  
-  .primary:hover {
-    background-color: #0056b3;
-  }
-
-  // secondary Gray :
-
-.secondary {
-    background-color: #6c757d;
-    color: #fff;
-  }
-  
-  .secondary:hover {
-    background-color: #545b62;
-  }
-  
+$color-danger: #dc3545;
+$color-success: #28a745;
+$color-warning: #ffc107;
+$color-info: #17a2b8;
+$color-primary: #007bff;
+$color-secondary: #6c757d;
