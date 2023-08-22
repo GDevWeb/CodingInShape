@@ -1,5 +1,6 @@
 import React from 'react'
 import './FormConnexion.scss';
+import { Link } from 'react-router-dom';
 
 export default function FormConnexion() {
   return (
@@ -23,7 +24,9 @@ export default function FormConnexion() {
     </div>
 
     <button type="submit">Se connecter</button>
-
+    <p className='invitCreateAccount'>Pas encore de compte ?  
+    <Link className='createAccountLink' to="/register" > Créer un compte</Link>
+    </p>
       </div>
     </form>
 

@@ -8,7 +8,7 @@ import ExerciseDetail from './pages/ExerciseDetail';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
-import Register from './pages/Register';
+import Register from './pages/Register/Register';
 import MyAccount from './pages/MyAccount';
 import Contact from './pages/Contact';
 import './App.css'
