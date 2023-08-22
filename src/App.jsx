@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React from 'react';
-=======
 import React from 'react'
->>>>>>> devGaëtan
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar/Navbar';
 import Header from './components/Header/Header';
@@ -15,7 +11,6 @@ import NotFound from './pages/NotFound';
 import Register from './pages/Register/Register';
 import MyAccount from './pages/MyAccount';
 import Contact from './pages/Contact';
->>>>>>> devGaëtan
 import './App.css'
 
 
