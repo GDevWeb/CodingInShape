@@ -61,8 +61,9 @@ form.formConnexion {
     }
 
     button {
-        width: 50%;
+        min-width: 50%;
         height: 3rem;
+        padding: 0.25rem;
         font-size: 1.6rem;
         font-weight: 700;
         border: none;
@@ -76,19 +77,18 @@ form.formConnexion {
     }
 }
 
-.invitCreateAccount {
+.invitCreateAccount, .recupPassword {
     font-size: 1.6rem;
     font-weight: 700;
     color: $secondary-color;
     text-decoration: none;
     margin-top: 2rem;
 
-    .createAccountLink {
-        color: $color-primary; // Utilisation de la couleur primaire définie dans _preset.scss
+    .createAccountLink, .forgottenPasswordLink {
+        color: $color-primary; 
         text-decoration: none;
       
         &:hover {
-          color: lighten($color-primary, 10%); // Éclaircissement au survol
-        //   text-decoration: underline;
+          color: lighten($color-primary, 10%); 
         }
     }}

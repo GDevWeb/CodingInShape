@@ -20,10 +20,15 @@ export default function FormConnexion() {
     <div className="form-group">
     <label htmlFor="password">Mot de passe</label>
     <input type="password" name="password" id="password" placeholder="Votre mot de passe" required />
-      <p className='forgetPassword'>mot de passe oublié ?</p>
+      
+      <p className="recupPassword">
+      <Link className='forgottenPasswordLink' to="/forgotten">mot de passe oublié ?</Link>
+      </p>
+
     </div>
 
     <button type="submit">Se connecter</button>
+
     <p className='invitCreateAccount'>Pas encore de compte ?  
     <Link className='createAccountLink' to="/register" > Créer un compte</Link>
     </p>

@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Register from './pages/Register/Register';
 import MyAccount from './pages/MyAccount';
+import ForgottenPassWord from './pages/ForgottenPassWord/ForgottenPassWord';
 import Contact from './pages/Contact';
 import './App.css'
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/account" element={<MyAccount/>} />
+        <Route path="/forgotten" element={<ForgottenPassWord/>} />
         <Route path="/contact" element={<Contact/>} />
 
         {/* Routes imbriquées : */}
