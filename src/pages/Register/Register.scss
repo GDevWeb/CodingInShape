@@ -1,11 +1,12 @@
 @import '../../../sass/index.scss';
 
 
-form.formConnexion {
+form.formRegister {
 
-    .formConnexion__container {
+    .formRegister__container {
         display: flex;
         flex-direction: column;
+        flex-wrap: wrap;
         justify-content: center;
         align-items: center;
         margin-top: 5rem;
@@ -13,7 +14,7 @@ form.formConnexion {
         border: 1px solid $tertiary-color;
         border-radius: 0.5rem;
 
-        .formConnexion__title {
+        .formRegister__title {
             margin-bottom: 2rem;
             font-size: 2rem;
             font-weight: 700;
@@ -46,49 +47,33 @@ form.formConnexion {
             }
 
 
-            p.forgetPassword {
-                margin-top: 1rem;
-                font-size: 1.6rem;
-                font-weight: 700;
-                color: $color-info;
-                text-decoration: none;
-
-                &:hover {
-                    color: lighten($color-info, 10%);
-                }
-            }
         }
     }
 
     button {
-        width: 50%;
+        width: 30%;
         height: 3rem;
         font-size: 1.6rem;
         font-weight: 700;
         border: none;
         border-radius: 0.5rem;
-        background-color: $color-primary;
+        background-color: $color-success;
         color: $quaternary-color;
 
         &:hover {
-            background-color: lighten($color-primary, 10%);
+            background-color: lighten($color-success, 10%);
         }
     }
 }
 
-.invitCreateAccount {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: $secondary-color;
-    text-decoration: none;
-    margin-top: 2rem;
+.form-group-one{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+}
 
-    .createAccountLink {
-        color: $color-primary; // Utilisation de la couleur primaire définie dans _preset.scss
-        text-decoration: none;
-      
-        &:hover {
-          color: lighten($color-primary, 10%); // Éclaircissement au survol
-        //   text-decoration: underline;
-        }
-    }}
+.form-group-two{
+    @extend .form-group-one;
+}

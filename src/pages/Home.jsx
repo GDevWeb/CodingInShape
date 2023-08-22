@@ -18,7 +18,6 @@ export default function Home() {
     <p>Pour accéder au contenu de l'application, veuillez vous connecter </p>
 
     <FormConnexion/>
-
     </div>
   )
 }
