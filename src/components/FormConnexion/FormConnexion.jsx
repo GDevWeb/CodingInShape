@@ -1,0 +1,31 @@
+import React from 'react'
+import './FormConnexion.scss';
+
+export default function FormConnexion() {
+  return (
+    <form className='formConnexion'>
+
+      <div className="formConnexion__container">
+
+
+    <h2>Se connecter :</h2>
+
+
+    <div className="form-group">
+    <label htmlFor="email">Email</label>
+    <input type="email" name="email" id="email" placeholder="Votre email" required />
+    </div>
+
+    <div className="form-group">
+    <label htmlFor="password">Mot de passe</label>
+    <input type="password" name="password" id="password" placeholder="Votre mot de passe" required />
+      <p className='forgetPassword'>mot de passe oublié ?</p>
+    </div>
+
+    <button type="submit">Se connecter</button>
+
+      </div>
+    </form>
+
+  )
+}
