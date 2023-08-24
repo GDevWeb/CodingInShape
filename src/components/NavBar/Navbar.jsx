@@ -22,19 +22,19 @@ export default function Navbar() {
 
         <li>
         <Link to="/account" className="logo-link">
-          <a href="#">Mon compte</a>
+          Mon compte
           </Link>
         </li>
 
         <li>
         <Link to="/register" className="logo-link">
-          <a href="#">Inscription</a>
+          Inscription
           </Link>
         </li>
 
         <li>
         <Link to="/contact" className="logo-link">
-          <a href="#">Contact</a>
+          Contact
           </Link>
         </li>
       </ul>
