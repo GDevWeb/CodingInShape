@@ -7,7 +7,7 @@ export default function ForgottenPassWord() {
     <div className="formRegister__container">
 
 
-  <h2>Récupérer mot de passe :</h2>
+  <h2>Récupération du mot de passe :</h2>
 
 
   <div className="form-group-one">
