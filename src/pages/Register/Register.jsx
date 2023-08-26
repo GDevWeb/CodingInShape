@@ -34,7 +34,7 @@ export default function Register() {
 
     {/* confirm password : */}
     <div className="form-group-two">
-      
+    
 
     <div className="form-group">
     <label htmlFor= "password">Mot de passe: </label>
