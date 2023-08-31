@@ -30,7 +30,7 @@ export default function FormConnexion() {
     <button type="submit">Se connecter</button>
 
     <p className='invitCreateAccount'>Pas encore de compte ?  
-    <Link className='createAccountLink' to="/register" > Créer un compte</Link>
+    <Link className='createAccountLink' to="/signup" > Créer un compte</Link>
     </p>
       </div>
     </form>
