@@ -1,5 +1,5 @@
 import React from 'react'
-import FormConnexion from '../components/FormConnexion/FormConnexion'
+import FormLogin from '../components/LoginForm/LoginForm'
 
 export default function Home() {
   return (
@@ -17,7 +17,7 @@ export default function Home() {
 
     <p>Pour accéder au contenu de l'application, veuillez vous connecter </p>
 
-    <FormConnexion/>
+    <FormLogin/>
     </div>
   )
 }

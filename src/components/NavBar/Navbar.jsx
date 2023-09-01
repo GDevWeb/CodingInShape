@@ -27,7 +27,7 @@ export default function Navbar() {
         </li>
 
         <li>
-        <Link to="/register" className="logo-link">
+        <Link to="/signup" className="logo-link">
           Inscription
           </Link>
         </li>

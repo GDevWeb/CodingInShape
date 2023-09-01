@@ -72,7 +72,8 @@ export default function SignUpForm() {
 
     // Vérification du mot de passe :
     if (name === "password") {
-      const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,12}$/;
+      const regexPassword =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,12}$/;
       const testPassword = regexPassword.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -81,7 +82,7 @@ export default function SignUpForm() {
           : "Le mot de passe doit contenir entre 8 et 12 caractères, au moins une majuscule, un chiffre et un caractère spécial",
       }));
     }
-            
+
     // Vérification de l'email :
     if (name === "email") {
       const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -114,7 +115,7 @@ export default function SignUpForm() {
 
     setSuccess("Votre compte a bien été créé");
 
-    // Création d'un objet pour les données à envoyer
+    // Création d'un objet contenant les données du formulaire à envoyer au serveur :
     const requestData = {
       firstName: formData.firstName,
       lastName: formData.lastName,
@@ -133,16 +134,15 @@ export default function SignUpForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
-        
       });
 
       if (response.ok) {
         // La requête a réussi (statut 200 OK)
         const responseData = await response.json();
         console.log("Réponse du serveur :", responseData);
-        
-        setFormData({ 
-          
+
+        // On vide le formulaire :
+        setFormData({
           firstName: "",
           lastName: "",
           pseudo: "",
@@ -151,9 +151,8 @@ export default function SignUpForm() {
           isAdmin: false,
           isBan: false,
         });
-        
-        navigate("/login");
 
+        navigate("/login");
       } else {
         // La requête a échoué
         console.error("Échec de la requête :", response.statusText);
@@ -240,7 +239,6 @@ export default function SignUpForm() {
             />
             <span className="error">{errors.password}</span>
           </div>
-
         </div>
 
         <button type="submit">S'inscrire</button>

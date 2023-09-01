@@ -8,7 +8,7 @@ import ExerciseDetail from './pages/ExerciseDetail';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
-import Register from './pages/SingUp/SignUp';
+import SignUp from './pages/SingUp/SignUp';
 import MyAccount from './pages/MyAccount';
 import ForgottenPassWord from './pages/ForgottenPassWord/ForgottenPassWord';
 import Contact from './pages/Contact';
@@ -31,7 +31,7 @@ function App() {
         <Route path="/dashboard" element={<DashBoard/>} />
         <Route path="/exercice_detail" element={<ExerciseDetail/>} />
         <Route path="/login" element={<Login/>} />
-        <Route path="/signup" element={<Register/>} />
+        <Route path="/signup" element={<SignUp/>} />
         <Route path="/account" element={<MyAccount/>} />
         <Route path="/forgotten" element={<ForgottenPassWord/>} />
         <Route path="/contact" element={<Contact/>} />
