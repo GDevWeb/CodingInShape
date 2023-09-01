@@ -66,7 +66,7 @@ form.formRegister {
     }
 }
 
-.form-group-one{
+.form-group-one {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -74,17 +74,17 @@ form.formRegister {
     width: 45%;
 }
 
-.form-group-two{
+.form-group-two {
     @extend .form-group-one;
 }
 
-.error{
+.error {
     color: $color-danger;
     font-weight: bold;
     text-align: center;
 }
 
-.success{
+.success {
     margin-top: 0.5rem;
     color: $color-success;
     font-weight: bold;

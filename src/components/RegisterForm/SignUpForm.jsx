@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./SignUpForm.scss";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -39,7 +40,9 @@ export default function SignUpForm() {
       const testFirstName = regexFirstName.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
-        firstName: testFirstName ? "" : "Le prénom doit contenir au moins 3 caractères",
+        firstName: testFirstName
+          ? ""
+          : "Le prénom doit contenir au moins 3 caractères",
       }));
     }
 
@@ -49,7 +52,9 @@ export default function SignUpForm() {
       const testLastName = regexLastName.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
-        lastName: testLastName ? "" : "Le nom doit contenir au moins 3 caractères",
+        lastName: testLastName
+          ? ""
+          : "Le nom doit contenir au moins 3 caractères",
       }));
     }
 
@@ -59,7 +64,9 @@ export default function SignUpForm() {
       const testPseudo = regexPseudo.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
-        pseudo: testPseudo ? "" : "Le pseudo doit contenir au moins 3 caractères",
+        pseudo: testPseudo
+          ? ""
+          : "Le pseudo doit contenir au moins 3 caractères",
       }));
     }
 
@@ -74,7 +81,19 @@ export default function SignUpForm() {
           : "Le mot de passe doit contenir entre 8 et 12 caractères, au moins une majuscule, un chiffre et un caractère spécial",
       }));
     }
+            
+    // Vérification de l'email :
+    if (name === "email") {
+      const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const testEmail = regexEmail.test(value);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: testEmail ? "" : "L'email n'est pas valide",
+      }));
+    }
   };
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -114,22 +133,35 @@ export default function SignUpForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
+        
       });
 
       if (response.ok) {
         // La requête a réussi (statut 200 OK)
         const responseData = await response.json();
         console.log("Réponse du serveur :", responseData);
-        return response({ success: "Votre compte a bien été créé" })
+        
+        setFormData({ 
+          
+          firstName: "",
+          lastName: "",
+          pseudo: "",
+          email: "",
+          password: "",
+          isAdmin: false,
+          isBan: false,
+        });
+        
+        navigate("/login");
+
       } else {
         // La requête a échoué
         console.error("Échec de la requête :", response.statusText);
-        return response({ error: "Une erreur est survenue" })
+        return response({ error: "Une erreur est survenue" });
       }
     } catch (error) {
       // Une erreur s'est produite lors de l'envoi de la requête
       console.error("Erreur lors de l'envoi de la requête :", error);
-      // Vous pouvez gérer l'erreur ici
     }
   };
 
@@ -208,6 +240,7 @@ export default function SignUpForm() {
             />
             <span className="error">{errors.password}</span>
           </div>
+
         </div>
 
         <button type="submit">S'inscrire</button>
