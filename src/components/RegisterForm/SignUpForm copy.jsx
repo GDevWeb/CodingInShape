@@ -7,7 +7,9 @@ export default function SignUpForm() {
     lastName: "",
     pseudo: "",
     email: "",
+    confirmEmail: "",
     password: "",
+    confirmPassword: "",
     isAdmin: false,
     isBan: false,
   });
@@ -22,6 +24,7 @@ export default function SignUpForm() {
     pseudo: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const handleChange = (e) => {
@@ -74,9 +77,40 @@ export default function SignUpForm() {
           : "Le mot de passe doit contenir entre 8 et 12 caractères, au moins une majuscule, un chiffre et un caractère spécial",
       }));
     }
+
+    // Vérification de l'email :
+    if (name === "email") {
+      const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+      const testEmail = regexEmail.test(value);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: testEmail ? "" : "L'adresse email n'est pas valide",
+      }));
+    }
+
+    const requestData = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      pseudo: formData.pseudo,
+      email: formData.email,
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+      isAdmin: formData.isAdmin,
+      isBan: formData.isBan,
+    };
+
+    console.log(requestData);
+
+    try {
+      const  async response = await fetch("http://localhost:5000/api/users/signup", { 
+
+
+      });
+    }
+
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     // Vérification de la saisie des inputs :
@@ -86,6 +120,7 @@ export default function SignUpForm() {
       formData.pseudo &&
       formData.email &&
       formData.password &&
+      formData.confirmPassword &&
       Object.values(errors).every((error) => error === "");
 
     if (!isValid) {
@@ -95,42 +130,8 @@ export default function SignUpForm() {
 
     setSuccess("Votre compte a bien été créé");
 
-    // Création d'un objet pour les données à envoyer
-    const requestData = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      pseudo: formData.pseudo,
-      email: formData.email,
-      password: formData.password,
-      isAdmin: formData.isAdmin,
-      isBan: formData.isBan,
-    };
-
-    try {
-      // Envoi de la requête POST au serveur
-      const response = await fetch("http://localhost:4000/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
-
-      if (response.ok) {
-        // La requête a réussi (statut 200 OK)
-        const responseData = await response.json();
-        console.log("Réponse du serveur :", responseData);
-        return response({ success: "Votre compte a bien été créé" })
-      } else {
-        // La requête a échoué
-        console.error("Échec de la requête :", response.statusText);
-        return response({ error: "Une erreur est survenue" })
-      }
-    } catch (error) {
-      // Une erreur s'est produite lors de l'envoi de la requête
-      console.error("Erreur lors de l'envoi de la requête :", error);
-      // Vous pouvez gérer l'erreur ici
-    }
+    // Effectuez votre appel API ici avec formData.
+    console.log(formData);
   };
 
   return (
@@ -182,33 +183,20 @@ export default function SignUpForm() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">Votre e-mail :</label>
-            <input
-              value={formData.email}
-              onChange={handleChange}
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Votre mot de passe"
-              required
-            />
-            <span className="error">{errors.email}</span>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">Mot de passe :</label>
+            <label htmlFor="pseudo">Mot de passe :</label>
             <input
               value={formData.password}
               onChange={handleChange}
-              type="password"
+              type="text"
               name="password"
               id="password"
-              placeholder="Votre mot de passe"
+              placeholder="Votre pseudo"
               required
             />
             <span className="error">{errors.password}</span>
           </div>
         </div>
+
 
         <button type="submit">S'inscrire</button>
         <span className="success">{success}</span>

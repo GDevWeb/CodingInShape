@@ -77,3 +77,16 @@ form.formRegister {
 .form-group-two{
     @extend .form-group-one;
 }
+
+.error{
+    color: $color-danger;
+    font-weight: bold;
+    text-align: center;
+}
+
+.success{
+    margin-top: 0.5rem;
+    color: $color-success;
+    font-weight: bold;
+    text-align: center;
+}
