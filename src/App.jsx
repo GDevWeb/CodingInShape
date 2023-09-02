@@ -8,9 +8,9 @@ import ExerciseDetail from './pages/ExerciseDetail';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
-import SignUp from './pages/SingUp/SignUp';
+import SignUp from './pages/SignUp';
 import MyAccount from './pages/MyAccount';
-import ForgottenPassWord from './pages/ForgottenPassWord/ForgottenPassWord';
+import ForgottenPassWord from './pages/ForgottenPassWord';
 import Contact from './pages/Contact';
 import './App.scss'
 

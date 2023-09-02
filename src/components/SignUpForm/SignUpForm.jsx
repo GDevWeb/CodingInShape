@@ -66,13 +66,12 @@ export default function SignUpForm() {
 
     //03. Vérification de l'âge :
     if (name === "age") {
-      const testAge = value;
-      if (value === "" || value < 13){
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          age: testAge ? "" : "L'âge doit contenir au moins 2 chiffres",
-        }));
-      }
+      const regexAge = /^[0-9]{2,}$/; // Au moins 2 chiffres
+      const testAge = regexAge.test(value);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        age: testAge ? "" : "L'âge doit contenir au moins 2 chiffres",
+      }));
     }
 
     //04. Vérification du pseudo :
@@ -248,11 +247,17 @@ export default function SignUpForm() {
             <span className="error">{errors.firstName}</span>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="age">Age :</label>
-            <input type="number" name="age" id="age" />
-            <span className="error">{errors.age}</span>
-          </div>
+      <div className="form-group">
+            <label htmlFor="age">Âge :</label>
+          <input
+            type="number"
+            name="age"
+            id="age"
+            value={formData.age}
+            onChange={handleChange}
+            />
+          <span className="error">{errors.age}</span>
+            </div>
 
           <div className="form-group">
             <label htmlFor="pseudo">Pseudo :</label>
