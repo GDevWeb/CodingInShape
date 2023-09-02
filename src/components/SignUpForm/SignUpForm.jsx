@@ -6,9 +6,12 @@ export default function SignUpForm() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
+    age: "",
     pseudo: "",
     email: "",
     password: "",
+    securityQuestion: "",
+    securityAnswer: "",
     isAdmin: false,
     isBan: false,
   });
@@ -20,9 +23,12 @@ export default function SignUpForm() {
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
+    age: "",
     pseudo: "",
     email: "",
     password: "",
+    securityQuestion: "",
+    securityAnswer: "",
   });
 
   const handleChange = (e) => {
@@ -34,7 +40,7 @@ export default function SignUpForm() {
 
     // Vérifications des inputs :
 
-    // Vérification du prénom :
+    //01. Vérification du prénom :
     if (name === "firstName") {
       const regexFirstName = /^.{3,}$/; // Au moins 3 caractères
       const testFirstName = regexFirstName.test(value);
@@ -46,7 +52,7 @@ export default function SignUpForm() {
       }));
     }
 
-    // Vérification du nom :
+    //02. Vérification du nom :
     if (name === "lastName") {
       const regexLastName = /^.{3,}$/; // Au moins 3 caractères
       const testLastName = regexLastName.test(value);
@@ -58,7 +64,18 @@ export default function SignUpForm() {
       }));
     }
 
-    // Vérification du pseudo :
+    //03. Vérification de l'âge :
+    if (name === "age") {
+      const testAge = value;
+      if (value === "" || value < 13){
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          age: testAge ? "" : "L'âge doit contenir au moins 2 chiffres",
+        }));
+      }
+    }
+
+    //04. Vérification du pseudo :
     if (name === "pseudo") {
       const regexPseudo = /^.{3,}$/; // Au moins 3 caractères
       const testPseudo = regexPseudo.test(value);
@@ -70,7 +87,17 @@ export default function SignUpForm() {
       }));
     }
 
-    // Vérification du mot de passe :
+    //05. Vérification de l'email :
+    if (name === "email") {
+      const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const testEmail = regexEmail.test(value);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: testEmail ? "" : "L'email n'est pas valide",
+      }));
+    }
+
+    //06. Vérification du mot de passe :
     if (name === "password") {
       const regexPassword =
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,12}$/;
@@ -83,13 +110,27 @@ export default function SignUpForm() {
       }));
     }
 
-    // Vérification de l'email :
-    if (name === "email") {
-      const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const testEmail = regexEmail.test(value);
+    //07. Vérification de la question secrète :
+    if (name === "securityQuestion") {
+      const regexSecurityQuestion = /^.{3,}$/; // Au moins 3 caractères
+      const testSecurityQuestion = regexSecurityQuestion.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
-        email: testEmail ? "" : "L'email n'est pas valide",
+        securityQuestion: testSecurityQuestion
+          ? ""
+          : "La question secrète doit contenir au moins 3 caractères",
+      }));
+    }
+
+    // 08. Vérification de la réponse à la question secrète :
+    if (name === "securityAnswer") {
+      const regexSecurityAnswer = /^.{3,}$/; // Au moins 3 caractères
+      const testSecurityAnswer = regexSecurityAnswer.test(value);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        securityAnswer: testSecurityAnswer
+          ? ""
+          : "La réponse à la question secrète doit contenir au moins 3 caractères",
       }));
     }
   };
@@ -103,9 +144,12 @@ export default function SignUpForm() {
     const isValid =
       formData.firstName &&
       formData.lastName &&
+      formData.age &&
       formData.pseudo &&
       formData.email &&
       formData.password &&
+      formData.securityQuestion &&
+      formData.securityAnswer &&
       Object.values(errors).every((error) => error === "");
 
     if (!isValid) {
@@ -119,9 +163,12 @@ export default function SignUpForm() {
     const requestData = {
       firstName: formData.firstName,
       lastName: formData.lastName,
+      age: formData.age,
       pseudo: formData.pseudo,
       email: formData.email,
       password: formData.password,
+      securityQuestion: formData.securityQuestion,
+      securityAnswer: formData.securityAnswer,
       isAdmin: formData.isAdmin,
       isBan: formData.isBan,
     };
@@ -145,9 +192,12 @@ export default function SignUpForm() {
         setFormData({
           firstName: "",
           lastName: "",
+          age: "",
           pseudo: "",
           email: "",
           password: "",
+          securityQuestion: "",
+          securityAnswer: "",
           isAdmin: false,
           isBan: false,
         });
@@ -199,6 +249,12 @@ export default function SignUpForm() {
           </div>
 
           <div className="form-group">
+            <label htmlFor="age">Age :</label>
+            <input type="number" name="age" id="age" />
+            <span className="error">{errors.age}</span>
+          </div>
+
+          <div className="form-group">
             <label htmlFor="pseudo">Pseudo :</label>
             <input
               value={formData.pseudo}
@@ -238,6 +294,48 @@ export default function SignUpForm() {
               required
             />
             <span className="error">{errors.password}</span>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="securityQuestion">Question de sécurité</label>
+            <select
+              value={formData.securityQuestion}
+              onChange={handleChange}
+              name="securityQuestion"
+              id="securityQuestion"
+            >
+              <option value="0">Choisissez votre question secrète</option>
+              <option value="nomAnimal">
+                {" "}
+                Quel est le nom de votre premier animal de compagnie ?
+              </option>
+              <option value="nomMere">
+                Quel est le nom de jeune fille de votre mère ?
+              </option>
+              <option value="villeNatale">
+                Quel est le nom de votre ville natale ?
+              </option>
+              <option value="seriePreferee">
+                Quelle est votre série préférée ?
+              </option>
+            </select>
+            <span className="error">{errors.securityQuestion}</span>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="securityAnswer">
+              Réponse à la question secrète :
+            </label>
+            <input
+              value={formData.securityAnswer}
+              onChange={handleChange}
+              type="text"
+              name="securityAnswer"
+              id="securityAnswer"
+              placeholder="Votre réponse"
+              required
+            />
+            <span className="error">{errors.email}</span>
           </div>
         </div>
 

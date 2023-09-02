@@ -61,11 +61,11 @@ form.LoginForm {
     }
 
     button {
-        min-width: 50%;
         height: 3rem;
-        padding: 0.25rem;
+        padding: 1rem;
         font-size: 1.6rem;
         font-weight: 700;
+        line-height: 1.6rem;
         border: none;
         border-radius: 0.5rem;
         background-color: $color-primary;

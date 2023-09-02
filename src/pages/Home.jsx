@@ -1,5 +1,6 @@
 import React from 'react'
 import FormLogin from '../components/LoginForm/LoginForm'
+import { Link } from 'react-router-dom'
 
 export default function Home() {
   return (
@@ -15,9 +16,11 @@ export default function Home() {
       Votre partenaire fit et bien être !
     </p>
 
-    <p>Pour accéder au contenu de l'application, veuillez vous connecter </p>
+    <p>Pour accéder au contenu de l'application, veuillez  
+      
+      <Link to="/login" className='linkTo'> vous connecter</Link>
+       </p>
 
-    <FormLogin/>
     </div>
   )
 }

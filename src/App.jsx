@@ -12,7 +12,7 @@ import SignUp from './pages/SingUp/SignUp';
 import MyAccount from './pages/MyAccount';
 import ForgottenPassWord from './pages/ForgottenPassWord/ForgottenPassWord';
 import Contact from './pages/Contact';
-import './App.css'
+import './App.scss'
 
 
 function App() {

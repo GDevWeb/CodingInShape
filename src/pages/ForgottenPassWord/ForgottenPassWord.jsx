@@ -32,8 +32,24 @@ export default function ForgottenPassWord() {
   <input type="email" name="email" id="email" placeholder="Votre email" required />
   </div>
 
+  <div className="form-group">
+    <label htmlFor="securityQuestion">Question secrète :</label>
+    <select name="securityQuestion" 
+    id="securityQuestion">
+      <option value="0">Choisissez votre question secrète</option>
+      <option value="nomAnimal">Quel est le nom de votre premier animal de compagnie ?</option> 
+      <option value="nomMere">Quel est le nom de jeune fille de votre mère ?</option>
+      <option value="villeNatale">Quel est le nom de votre ville natale ?</option>
+      <option value="seriePreferee">Quelle est votre série préférée ?</option>
+    </select>
   </div>
-  {/* end form(group-one ) */}
+
+  <div className="form-group">
+  <label htmlFor="securityAnswer">Réponse à la question secrète :</label>
+  <input type="text" name="securityAnswer" id="securityAnswer" placeholder="Votre réponse" required />
+  </div>
+
+  </div>
 
 
   <button type="submit">Se connecter</button>
