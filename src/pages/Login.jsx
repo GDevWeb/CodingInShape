@@ -5,8 +5,7 @@ export default function Login() {
   return (
    <>
    <h1>Page de connexion :</h1>
-    <p>Vous êtes sur la page de connexion</p>
-
+    <p>Connectez-vous pour accéder à votre espace personnel</p>
     <FormLogin/>
    </>
   )

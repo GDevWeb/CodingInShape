@@ -8,11 +8,11 @@ import ExerciseDetail from './pages/ExerciseDetail';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
-import SignUp from './pages/SingUp/SignUp';
+import SignUp from './pages/SignUp';
 import MyAccount from './pages/MyAccount';
-import ForgottenPassWord from './pages/ForgottenPassWord/ForgottenPassWord';
+import ForgottenPassWord from './pages/ForgottenPassWord';
 import Contact from './pages/Contact';
-import './App.css'
+import './App.scss'
 
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
         <Route path="/exercice_detail" element={<ExerciseDetail/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<SignUp/>} />
-        <Route path="/account" element={<MyAccount/>} />
+        <Route path="/myaccount" element={<MyAccount/>} />
         <Route path="/forgotten" element={<ForgottenPassWord/>} />
         <Route path="/contact" element={<Contact/>} />
 

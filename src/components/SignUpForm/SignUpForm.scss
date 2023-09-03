@@ -32,7 +32,7 @@ form.formRegister {
                 font-weight: 700;
             }
 
-            input {
+            input, select, option{
                 display: flex;
                 flex-direction: column;
                 margin-bottom: 2rem;
@@ -45,8 +45,6 @@ form.formRegister {
                 text-align: center;
                 border-radius: 0.5rem;
             }
-
-
         }
     }
 

@@ -87,16 +87,15 @@ export default function LoginForm() {
       // Si la requête s'est bien passée 200:
       if (response.ok) {
         // On stocke le token dans le localStorage :
+        document.cookie = `token=${data.token}; path=/account`;
         console.log(data.token);
-        localStorage.setItem("token", data.token);
-
         setFormData({ 
           email: "",
           password: "",
         });
-        
+
         // On redirige l'utilisateur vers la page d'accueil :
-        navigate("/");
+        navigate("/myaccount");
       } else {
         // Sinon, on affiche un message d'erreur :
         alert(data.error);
@@ -139,7 +138,7 @@ export default function LoginForm() {
           <span className="error">{errors.password}</span>
         </div>
         <p className="recupPassword">
-          <Link className="forgottenPasswordLink" to="/forgotten">
+          <Link  to="/forgotten" className="forgottenPasswordLink">
             mot de passe oublié ?
           </Link>
         </p>
