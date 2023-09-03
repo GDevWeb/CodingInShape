@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState} from "react";
+import { Link } from "react-router-dom";
+import "./ForgottenPassWordForm.scss";
 
 export default function ForgottenPassWordForm() {
   const [formData, setFormData] = useState({
@@ -18,6 +19,7 @@ export default function ForgottenPassWordForm() {
     securityAnswer: "",
   });
 
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -61,8 +63,13 @@ export default function ForgottenPassWordForm() {
     }
   };
 
-  const navigate = useNavigate();
+  // Génération du mot de passe : 
+  const [generatedPassword, setGeneratedPassword] = useState("");
 
+  const [passwordReset, setPasswordReset] = useState(false);
+
+
+  // Gestion de la soumission du formulaire : 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -98,16 +105,18 @@ export default function ForgottenPassWordForm() {
         }
       );
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       //Si la requête s'est bien passée 200 :
       if (response.ok) {
+        setGeneratedPassword(data.sendResetPassword);
         setSuccess("Mot de passe réinitialisé !");
-        navigate("/login");
+        setPasswordReset(true);
       } else {
         alert(data.error);
       }
+      
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setSuccess("Une erreur est survenue, veuillez réessayer");
     }
   };
@@ -173,6 +182,20 @@ export default function ForgottenPassWordForm() {
 
         <button type="submit">Réinitialiser mot de passe</button>
       </div>
-    </form>
+
+        
+      {passwordReset ? (
+        <div className="passwordResetSuccess">
+          <p>Votre nouveau mot de passe est :
+          <span className="generatedPassword">{generatedPassword}</span> 
+           copier le et connectez vous avec !
+          </p>
+          <p className="passwordResetSuccess__message">{success}</p>
+          <Link to="/login" className="linkTo">Se connecter</Link>
+        </div>
+        
+      ) : null}
+        
+        </form>
   );
 }
