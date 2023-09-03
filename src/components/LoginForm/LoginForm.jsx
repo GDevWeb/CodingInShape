@@ -95,7 +95,7 @@ export default function LoginForm() {
         });
 
         // On redirige l'utilisateur vers la page d'accueil :
-        navigate("/");
+        navigate("/myaccount");
       } else {
         // Sinon, on affiche un message d'erreur :
         alert(data.error);

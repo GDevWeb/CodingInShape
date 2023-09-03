@@ -8,8 +8,6 @@ export default function ForgottenPassWordForm() {
     securityAnswer: "",
   });
 
-  const [isValid, setIsValid] = useState(false);
-
   // Pour gérer le message de succès si tous les inputs sont valides :
   const [success, setSuccess] = useState("");
 
@@ -41,8 +39,7 @@ export default function ForgottenPassWordForm() {
 
     // Vérification de la question secrète :
     if (name === "securityQuestion") {
-      const regexSecurityQuestion = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const testSecurityQuestion = regexSecurityQuestion.test(value);
+      const testSecurityQuestion = value !== "0";
       setErrors((prevErrors) => ({
         ...prevErrors,
         securityQuestion: testSecurityQuestion
@@ -53,7 +50,7 @@ export default function ForgottenPassWordForm() {
 
     // Vérification de la réponse à la question secrète :
     if (name === "securityAnswer") {
-      const regexSecurityAnswer = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const regexSecurityAnswer = /\S+/;
       const testSecurityAnswer = regexSecurityAnswer.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -81,7 +78,6 @@ export default function ForgottenPassWordForm() {
       return;
     }
     setSuccess("");
-
     // Création d'un objet contenant les données du formulaire à envoyer au serveur :
     const requestData = {
       email: formData.email,
@@ -92,7 +88,7 @@ export default function ForgottenPassWordForm() {
     try {
       // Envoi de la requête POST au serveur:
       const response = await fetch(
-        "http://localhost:4000/api/users/resetPassword",
+        "http://localhost:4000/api/auth/resetPassword",
         {
           method: "POST",
           headers: {
@@ -162,7 +158,7 @@ export default function ForgottenPassWordForm() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="securityQuestion">Votre réponse :</label>
+            <label htmlFor="securityAnswer">Votre réponse :</label>
             <input
               value={formData.securityAnswer}
               onChange={handleChange}
@@ -175,7 +171,7 @@ export default function ForgottenPassWordForm() {
           </div>
         </div>
 
-        <button type="submit">Se connecter</button>
+        <button type="submit">Réinitialiser mot de passe</button>
       </div>
     </form>
   );
