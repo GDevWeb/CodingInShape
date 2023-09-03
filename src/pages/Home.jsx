@@ -1,6 +1,11 @@
 import React from 'react'
+<<<<<<< HEAD
 import FormLogin from '../components/LoginForm/LoginForm'
 import { Link } from 'react-router-dom'
+=======
+import FormConnexion from '../components/FormConnexion/FormConnexion'
+import TestFetch from './testfetch'
+>>>>>>> 813bddeb0ab3aa90775af6a011a2f474c2cd3d8d
 
 export default function Home() {
   return (
@@ -21,6 +26,12 @@ export default function Home() {
       <Link to="/login" className='linkTo'> vous connecter</Link>
        </p>
 
+<<<<<<< HEAD
+=======
+    <FormConnexion/>
+
+    <TestFetch />
+>>>>>>> 813bddeb0ab3aa90775af6a011a2f474c2cd3d8d
     </div>
   )
 }

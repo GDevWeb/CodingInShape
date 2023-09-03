@@ -27,7 +27,11 @@ export default function Navbar() {
         </li>
 
         <li>
+<<<<<<< HEAD
         <Link to="/signup" className="logo-link">
+=======
+        <Link to="/register" className="logo-link">
+>>>>>>> 813bddeb0ab3aa90775af6a011a2f474c2cd3d8d
           Inscription
           </Link>
         </li>
