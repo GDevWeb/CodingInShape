@@ -21,7 +21,7 @@ export default function Navbar() {
         </li>
 
         <li>
-        <Link to="/account" className="logo-link">
+        <Link to="/myaccount" className="logo-link">
           Mon compte
           </Link>
         </li>

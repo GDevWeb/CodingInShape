@@ -7,6 +7,7 @@ import UserExercises from './UserExercises'
 import UserHistory from './UserHistory'
 import UserProfile from './UserProfile'
 import UserSettings from './UserSettings'
+import { get } from 'mongoose'
 
 
 export default function MyAccountPage() {
@@ -17,23 +18,14 @@ export default function MyAccountPage() {
   // utilisation du token stocké dans le cookie pour s'authentifier auprès du serveur
   // Mise à jour du state userData avec les données reçues du serveur 
 
-  useEffect(() => { 
-
-
-
-  }, [])
   return (
     <div className="my-account-page">
 
     <h1>Mon compte</h1>
 
     {/* // Affichage des données de l'utilisateur connecté : */}
-    {userData && (
-      <div className="user-profile-section">
-      <UserProfile userData={userData} />
-      </div>
-    )}
 
+    <UserProfile/>
     {/* Mise à jour du mail :  */}
     {userData && (
 

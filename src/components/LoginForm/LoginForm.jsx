@@ -80,7 +80,7 @@ export default function LoginForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
-        bearer: JSON.stringify(requestData),
+        credentials: "include",
       });
       const data = await response.json();
       console.log(data);
