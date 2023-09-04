@@ -22,7 +22,7 @@ export default function FormConnexion() {
     <input type="password" name="password" id="password" placeholder="Votre mot de passe" required />
       
       <p className="recupPassword">
-      <Link className='forgottenPasswordLink' to="/forgotten">mot de passe oublié ?</Link>
+      <Link className='forgottenPasswordLink' to="/forgotten">Mot de passe oublié ?</Link>
       </p>
 
     </div>

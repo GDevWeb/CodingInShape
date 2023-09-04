@@ -39,7 +39,7 @@ export default function Register() {
     <div className="form-group">
     <label htmlFor= "password">Mot de passe: </label>
     <p>(entre 8 et 12 caractères 1 majuscule, 1 chiffre et 1 caractère spécial requis) :</p>
-    <input type="password" name=" password" id="password" placeholder="votre pseudo" required />
+    <input type="password" name=" password" id="password" placeholder="Votre mot de passe" required />
     </div>
 
     <div className="form-group">
@@ -58,7 +58,7 @@ export default function Register() {
     </div>
 </div>
 
-    <button type="submit">Se connecter</button>
+    <button type="submit">Créer un compte</button>
       </div>
     </form>
   )

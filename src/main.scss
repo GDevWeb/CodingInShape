@@ -3,6 +3,17 @@
 @import "../sass/mixins";
 @import "../sass/preset";
 
+
+// import de la police Montserrat
+@font-face {
+    font-family: 'montserrat_alternatesregular';
+    src: url('../src/assets/fonts/montserratalternates-regular-webfont.woff2') format('woff2'),
+         url('../src/assets/fonts/montserratalternates-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 // Reset CSS
 *, ::before, ::after {
     margin: 0;
@@ -32,6 +43,8 @@ body {
     font-size: 1.6rem;
     color: $secondary-color;
     border-color: $tertiary-color;
+    font-family: 'montserrat_alternatesregular';
+
 }
 
 // Conteneur principal
@@ -100,12 +113,21 @@ body {
     width: 1.5rem;
 }
 
+@media (min-width: 641px) {
+    .navbar {
+        display: none;
+    }
+}
+
 /* Media Query pour les petits écrans */
 @media (max-width: 640px) {
+
+.navbar {
+    background-color: $color-success;
+}
     .navbar ul {
         flex-direction: row;
         position: relative;
-        background-color: transparent;
         top: 0;
     }
 
@@ -163,10 +185,6 @@ main {
         text-align: center;
         font-weight: 800;
         margin-bottom: 2rem;
-    }
-
-    p{
-        
     }
 }
 

@@ -6,7 +6,8 @@ import Footer from './components/Footer';
 import DashBoard from './pages/DashBoard';
 import ExerciseDetail from './pages/ExerciseDetail';
 import Home from './pages/Home';
-import Login from './pages/Login';
+// import Login from './pages/Login';
+import FormConnexion from './components/FormConnexion/FormConnexion';
 import NotFound from './pages/NotFound';
 import Register from './pages/Register/Register';
 import MyAccount from './pages/MyAccount';
@@ -30,7 +31,8 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/dashboard" element={<DashBoard/>} />
         <Route path="/exercice_detail" element={<ExerciseDetail/>} />
-        <Route path="/login" element={<Login/>} />
+        {/* <Route path="/login" element={<Login/>} /> */}
+        <Route path="/login" element={<FormConnexion/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/account" element={<MyAccount/>} />
         <Route path="/forgotten" element={<ForgottenPassWord/>} />

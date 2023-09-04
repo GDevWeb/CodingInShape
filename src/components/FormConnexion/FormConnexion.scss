@@ -68,11 +68,11 @@ form.formConnexion {
         font-weight: 700;
         border: none;
         border-radius: 0.5rem;
-        background-color: $color-primary;
+        background-color: $color-success;
         color: $quaternary-color;
 
         &:hover {
-            background-color: lighten($color-primary, 10%);
+            background-color: lighten($color-success, 10%);
         }
     }
 }
@@ -85,10 +85,10 @@ form.formConnexion {
     margin-top: 2rem;
 
     .createAccountLink, .forgottenPasswordLink {
-        color: $color-primary; 
+        color: $color-success;
         text-decoration: none;
       
         &:hover {
-          color: lighten($color-primary, 10%); 
+            color: lighten($color-success, 10%);
         }
     }}
