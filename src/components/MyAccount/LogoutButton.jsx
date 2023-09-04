@@ -1,11 +1,16 @@
 import React from 'react'
 
 export default function LogoutButton() {
+
+  const handleLogout = () => { 
+
+    localStorage.removeItem("token");
+    }
   return (
     <>
     
-    <button>LogoutButton</button>
-    
+    <button onClick={handleLogout}>Déconnexion</button>  
+
     </>
   )
 }

@@ -2,12 +2,16 @@ import React from 'react'
 
 export default function UserSettings() {
   return (
-    <div>UserSettings</div>
+    <div>
+      
+      <h2>UserSettings</h2>
 
-    // préférences de l'utilisateur :
-    // - langue
-    // - unités de mesure
-    // - thème (dark mode ou autre)
 
+    <ul> préférences de l'utilisateur :</ul>
+    <li>mailing</li>
+    <li>unités de mesure</li> 
+    <li> thème (dark mode ou autre)</li>
+
+    </div>
   )
 }

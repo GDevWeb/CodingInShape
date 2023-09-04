@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
 import Spinner from '../../assets/icons/spinner.svg'
 
 export default function UserProfile() {
@@ -12,7 +11,6 @@ export default function UserProfile() {
         const token = localStorage.getItem('token');
         console.log('Token obtenu :', token);
                 
-        // const token = localStorage.getItem('token');
         if (!token) {
           // Gérer le cas où l'utilisateur n'est pas authentifié
           console.log("Vous n'êtes pas authentifié.");
@@ -32,9 +30,8 @@ export default function UserProfile() {
         if (response.ok) {
           const data = await response.json();
           console.log(data);
-          setUser(data.user);
+          setUser(data.userData);
           document.cookie = `token=${data.token}; path=/account`;
-          console.log(data.token);
         } else {
           console.log('Impossible de récupérer le profil utilisateur.');
         }

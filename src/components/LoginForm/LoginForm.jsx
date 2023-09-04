@@ -10,7 +10,7 @@ export default function LoginForm() {
   });
 
   // Pour gérer le message de succès si tous les inputs sont valides :
-  const [success, setSuccess] = useState("");
+  const [success, setSuccess] = useState("Connexion réussie");
 
   // Pour gérer les messages d'erreurs dans le formulaire selon l'input :
   const [errors, setErrors] = useState({
@@ -38,7 +38,7 @@ export default function LoginForm() {
 
     // Vérification du mot de passe :
     if (name === "password") {
-      const regexPassword = /^.{8,}$/; // Au moins 6 caractères
+      const regexPassword = /^.{8,}$/; // Au moins 8 caractères
       const testPassword = regexPassword.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -151,6 +151,8 @@ export default function LoginForm() {
             {" "}
             Créer un compte
           </Link>
+
+          {success && <span className="success">{success}</span>}
         </p>
       </div>
     </form>

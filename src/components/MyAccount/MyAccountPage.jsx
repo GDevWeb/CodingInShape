@@ -1,82 +1,103 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react'
-import LogoutButton from './LogoutButton'
-import UpdateEmailForm from './UpdateEmailForm'
-import UpdatePasswordForm from './UpdatePasswordForm'
-import UserExercises from './UserExercises'
-import UserHistory from './UserHistory'
-import UserProfile from './UserProfile'
-import UserSettings from './UserSettings'
-import { get } from 'mongoose'
-
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import LogoutButton from './LogoutButton';
+import UpdateEmailForm from './UpdateEmailForm';
+import UpdatePasswordForm from './UpdatePasswordForm';
+import UserExercises from './UserExercises';
+import UserHistory from './UserHistory';
+import UserProfile from './UserProfile';
+import UserSettings from './UserSettings';
 
 export default function MyAccountPage() {
+  const [userData, setUserData] = useState(null);
+  const navigate = useNavigate();
 
-  const [userData, setUserData] = useState(null)
+  useEffect(() => {
 
-  // req au serveur pour récupérer les données de l'utilisateur connecté
-  // utilisation du token stocké dans le cookie pour s'authentifier auprès du serveur
-  // Mise à jour du state userData avec les données reçues du serveur 
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          console.log("Vous n'êtes pas authentifié.");
+          navigate("/login");
+          return;
+        }
+
+        const response = await fetch(
+          "http://localhost:4000/api/auth/MyProfile",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            credentials: "include",
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          setUserData(data.userData);
+        } else {
+          console.error('Impossible de récupérer les données de l\'utilisateur.');
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données de l\'utilisateur :', error);
+      }
+    };
+
+    fetchUserData();
+  }, [navigate]);
 
   return (
     <div className="my-account-page">
+      <h1>Mon compte</h1>
 
-    <h1>Mon compte</h1>
+      {/* Affichage des données de l'utilisateur connecté */}
+      {userData && <UserProfile userData={userData} />}
 
-    {/* // Affichage des données de l'utilisateur connecté : */}
-
-    <UserProfile/>
-    {/* Mise à jour du mail :  */}
-    {userData && (
-
-      <div className="update-email-section">
-    <h2>Modifier mon email</h2>
-    <UpdateEmailForm/>
-    </div>
+      {/* Mise à jour du mail */}
+      {userData && (
+        <div className="update-email-section">
+          <h2>Modifier mon email</h2>
+          <UpdateEmailForm userData={userData} />
+        </div>
       )}
 
-    {/* Mise à jour du mot de passe :  */}
-    {userData && ( 
-      <div className="update-password-section">
-    <h2>Modifier mon mot de passe</h2>
-    <UpdatePasswordForm/>
-    </div>
+      {/* Mise à jour du mot de passe */}
+      {userData && (
+        <div className="update-password-section">
+          <h2>Modifier mon mot de passe</h2>
+          <UpdatePasswordForm userData={userData} />
+        </div>
       )}
 
-    {/* Affichage des exercices :  */}
-    {userData && (
+      {/* Affichage des exercices */}
+      {userData && (
+        <div className="user-exercises-section">
+          <h2>Mes exercices</h2>
+          <UserExercises userData={userData} />
+        </div>
+      )}
 
-      <div className="user-exercises-section">
-    <h2>Mes exercices</h2>
-    <UserExercises/>
+      {/* Section paramètres de l'utilisateur */}
+      {userData && (
+        <div className="user-settings-section">
+          <h2>Paramètres</h2>
+          <UserSettings userData={userData} />
+        </div>
+      )}
+
+      {/* Section historique de l'utilisateur */}
+      {userData && (
+        <div className="user-history-section">
+          <h2>Historique</h2>
+          <UserHistory userData={userData} />
+        </div>
+      )}
+
+      {/* Bouton de déconnexion */}
+      <LogoutButton />
     </div>
-    )}
-
-    {/* Section paramètres de l'utilisateur : */}
-
-    {userData && (
-      <div className="user-settings-section">
-    <h2>Paramètres</h2>
-    <UserSettings/>
-      </div>
-    )}
-
-    {/* Section historique de l'utilisateur :  */}
-
-    {userData && (
-      <div className="user-history-section">
-    <h2>Historique</h2>
-      <UserHistory/>
-      </div>
-    )}
-
-
-      {/* Bouton de déconnexion : */}
-      <LogoutButton/>
- 
-
-
-    </div>
-
-  )
+  );
 }
