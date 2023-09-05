@@ -3,6 +3,10 @@
 
 form.formRegister {
 
+    h2 {
+        margin-bottom: 5rem;
+    }
+
     .formRegister__container {
         display: flex;
         flex-direction: column;
@@ -24,10 +28,12 @@ form.formRegister {
             display: flex;
             flex-direction: column;
             width: 60%;
-            margin-bottom: 2rem;
+            // margin-bottom: 2rem;
+            padding: 1rem;
 
             label {
-                margin-bottom: 0.5rem;
+                margin-bottom: 1rem;
+                padding-left: 0.5rem;
                 font-size: 1.6rem;
                 font-weight: 700;
             }
@@ -53,6 +59,7 @@ form.formRegister {
     button {
         width: 30%;
         height: 3rem;
+        margin-top: 5rem;
         font-size: 1.6rem;
         font-weight: 700;
         border: none;
@@ -68,12 +75,17 @@ form.formRegister {
 
 .form-group-one{
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 45%;
+    width: 100%;
+    margin-bottom: 5rem;
 }
 
 .form-group-two{
-    @extend .form-group-one;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
+
+

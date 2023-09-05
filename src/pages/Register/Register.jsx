@@ -37,23 +37,22 @@ export default function Register() {
     
 
     <div className="form-group">
-    <label htmlFor= "password">Mot de passe: </label>
-    <p>(entre 8 et 12 caractères 1 majuscule, 1 chiffre et 1 caractère spécial requis) :</p>
+    <label htmlFor= "password">Mot de passe : </label>
     <input type="password" name=" password" id="password" placeholder="votre pseudo" required />
     </div>
 
     <div className="form-group">
-    <label htmlFor="confirmPassword">Confirmer votre mot de passe</label>
+    <label htmlFor="confirmPassword">Confirmer votre mot de passe :</label>
     <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Votre mot de passe" required />
     </div>
 
     <div className="form-group">
-    <label htmlFor="email">Votre email</label>
+    <label htmlFor="email">Votre email :</label>
     <input type="email" name="email" id="email" placeholder="Votre email" required />
     </div>
 
     <div className="form-group">
-    <label htmlFor="confirmEmail">Confirmer votre email</label>
+    <label htmlFor="confirmEmail">Confirmer votre email :</label>
     <input type="email" name="confirmEmail" id="confirmEmail" placeholder="Votre email" required />
     </div>
 </div>
