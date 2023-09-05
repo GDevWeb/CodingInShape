@@ -5,6 +5,13 @@ import Spinner from "../../assets/icons/spinner.svg";
 export default function UserExercises({ userData }) {
   const [exercises, setExercises] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [filterOptions, setFiltetrOptions] = useState({ 
+
+    type: "",
+    muscle: "",
+
+  });
+  
   const navigate = useNavigate();
 
   useEffect(() => {

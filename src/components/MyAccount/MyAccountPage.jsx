@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import LogoutButton from './LogoutButton';
 import UpdateEmailForm from './UpdateEmailForm';
@@ -57,6 +57,7 @@ export default function MyAccountPage() {
 
   return (
     <div className="my-account-page">
+      {isLoading && <img src={Spinner} alt="Chargement en cours..." />}
       {/* Affichage des données de l'utilisateur connecté */}
     {userData && (
       <div className="user-profile-section">
@@ -85,7 +86,8 @@ export default function MyAccountPage() {
       {userData && (
         <div className="user-exercises-section">
           <h2>Mes exercices</h2>
-          <UserExercises userData={userData} />
+          {/* button link  */}
+          <Link to="/allExercises" className='linkTo'>Voir la liste des exercices</Link> 
         </div>
       )}
 
