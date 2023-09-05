@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../assets/icons/spinner.svg";
-import { SassColor } from "sass";
+
 
 export default function UserExercises({ userData }) {
   const [exercises, setExercises] = useState([]);
@@ -12,7 +12,7 @@ export default function UserExercises({ userData }) {
   });
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [exercisePerPage] = useState(6);
+  const [exercisePerPage] = useState(4);
 
   const navigate = useNavigate();
 
@@ -134,7 +134,7 @@ export default function UserExercises({ userData }) {
           </li>
         ))}
       </ul>
-      
+
 <button
   onClick={() => setCurrentPage(currentPage - 1)}
   disabled={currentPage === 1}
@@ -152,6 +152,3 @@ export default function UserExercises({ userData }) {
   );
 }
 
-{
-  /* // #Ajoutez un pagination :  */
-}
