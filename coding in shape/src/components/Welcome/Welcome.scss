@@ -1,0 +1,58 @@
+@import '../../../sass/index.scss';
+
+.welcomePage {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 1rem;
+
+  h1, h2 {
+    margin-top: 1rem;
+  }
+
+  p {
+    margin: 5rem 0;
+    line-height: 3rem;
+  }
+
+  .buttons {
+    margin-top: 8rem;
+  }
+
+  //style des Link
+  .createAccountLink,
+  .FormConnexion {
+    background-color: $color-success;
+    color: $quaternary-color;
+    padding: 10px;
+    margin: 0 100px;
+    border-radius: 5px;
+    text-decoration: none;
+
+    &:hover {
+      background-color: lighten($color-success, 10%);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+
+    .header {
+      display: none;
+    }
+
+    p {
+      margin: 1rem 0;
+      line-height: 2.5rem;
+    }
+
+    .createAccountLink,
+    .FormConnexion {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0; // Ajustement de la marge pour une meilleure disposition
+      width: 100%; // Pleine largeur pour les écrans mobiles
+    }
+  }
+}

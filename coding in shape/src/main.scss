@@ -1,0 +1,208 @@
+// Import des fichiers SASS
+@import "../sass/variables";
+@import "../sass/mixins";
+@import "../sass/preset";
+
+
+// import de la police Montserrat
+@font-face {
+    font-family: 'montserrat_alternatesregular';
+    src: url('../src/assets/fonts/montserratalternates-regular-webfont.woff2') format('woff2'),
+         url('../src/assets/fonts/montserratalternates-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+// Reset CSS
+*, ::before, ::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// Styles des liens
+li {
+    list-style: none;
+}
+
+a {
+    color: $secondary-color;
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+// Styles globaux
+html {
+    font-size: $base-font-size;
+}
+
+body {
+    height: 100%;
+    font-size: 1.6rem;
+    color: $secondary-color;
+    border-color: $tertiary-color;
+    font-family: 'montserrat_alternatesregular';
+
+}
+
+// Conteneur principal
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 140rem;
+    height: 100vh;
+    margin: 0 auto;
+    padding: 0.5rem 2rem 0 2rem;
+}
+
+// Barre de navigation
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    // height: 60px;
+    width: 100%;
+    padding: 1rem;
+    background-color: $secondary-color;
+    display: flex;
+    justify-content: center;
+    z-index: 999;
+}
+
+.navbar ul {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0.5rem;
+}
+
+.navbar.show-menu ul {
+    display: flex;
+    position: relative;
+}
+
+.navbar li {
+    margin: 0.5rem 0;
+}
+
+.navbar a {
+    display: inline-block;
+    padding: 0.5rem;
+    color: $quaternary-color;
+    font-size: 1.5rem;
+    text-decoration: none;
+}
+
+.navbar button {
+    margin-left: auto;
+    display: block;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.navbar button img {
+    width: 1.5rem;
+}
+
+@media (min-width: 641px) {
+    .navbar {
+        display: none;
+    }
+}
+
+/* Media Query pour les petits écrans */
+@media (max-width: 640px) {
+
+.navbar {
+    background-color: $color-success;
+}
+    .navbar ul {
+        flex-direction: row;
+        position: relative;
+        top: 0;
+    }
+
+    .navbar ul li {
+        margin: 0 0.5rem;
+    }
+}
+
+// En-tête
+header {
+    display: flex;
+    width: 100%;
+    height: 15vh;
+    margin-top: 5vh;
+    background-color: $primary-color;
+    border-radius: 0.5rem;
+
+    .logo {
+        display: flex;
+        width: 100%;
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        display: none; /* Masquer le header sur les écrans mobiles */
+    }
+}
+
+// Conteneur principal du contenu
+main {
+    height: 100vh;
+    width: 100%;
+    margin: 5vh 0;
+    padding: 2rem;
+    background-color: $shade-primary-color;
+    border-radius: 0.5rem;
+}
+
+
+.welcome{
+    width: 80%;
+    height: 90%;
+    margin: 2.5vh auto;
+    border-radius: 0.5rem;
+
+    .title{
+        text-align: center;
+        font-weight: 800;
+        margin-bottom: 2rem;
+    }
+}
+
+// Pied de page
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 10vh;
+    background-color: $primary-color;
+    border-radius: 0.5rem;
+}
+
