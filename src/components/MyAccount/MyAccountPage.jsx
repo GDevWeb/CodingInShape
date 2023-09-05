@@ -8,9 +8,12 @@ import UserExercises from './UserExercises';
 import UserHistory from './UserHistory';
 import UserProfile from './UserProfile';
 import UserSettings from './UserSettings';
+import Spinner from "../../assets/icons/spinner.svg";
+
 
 export default function MyAccountPage() {
   const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,11 +41,14 @@ export default function MyAccountPage() {
         if (response.ok) {
           const data = await response.json();
           setUserData(data.userData);
+          setIsLoading(false);
         } else {
           console.error('Impossible de récupérer les données de l\'utilisateur.');
+          setIsLoading(false);
         }
       } catch (error) {
         console.error('Erreur lors de la récupération des données de l\'utilisateur :', error);
+        setIsLoading(false);
       }
     };
 
@@ -51,10 +57,13 @@ export default function MyAccountPage() {
 
   return (
     <div className="my-account-page">
-      <h1>Mon compte</h1>
-
       {/* Affichage des données de l'utilisateur connecté */}
-      {userData && <UserProfile userData={userData} />}
+    {userData && (
+      <div className="user-profile-section">
+      <h1>Mon compte</h1>
+      <UserProfile userData={userData} />
+      </div>
+      )}
 
       {/* Mise à jour du mail */}
       {userData && (
