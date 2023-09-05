@@ -6,7 +6,7 @@ export default function UserSettings() {
       
       <h2>UserSettings</h2>
 
-
+    <h3>Pour une V2</h3>
     <ul> préférences de l'utilisateur :</ul>
     <li>mailing</li>
     <li>unités de mesure</li> 

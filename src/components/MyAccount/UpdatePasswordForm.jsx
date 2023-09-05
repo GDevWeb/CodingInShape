@@ -96,7 +96,7 @@ export default function UpdatePasswordForm() {
         });
         console.log(data);
         setSuccessMessage(data.message);
-        // Pas besoin de réinitialiser le cookie ici car il est géré par le serveur
+        
       } else {
         const errorData = await response.json();
         console.log(errorData);

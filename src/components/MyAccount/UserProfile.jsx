@@ -8,18 +8,16 @@ export default function UserProfile() {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        
+        // Récupérer le token depuis les cookies
         // const token = Cookies.get("token");
         const token = localStorage.getItem("token");
         console.log('Token obtenu :', token);
                 
         if (!token) {
-          // Gérer le cas où l'utilisateur n'est pas authentifié
           console.log("Vous n'êtes pas authentifié.");
           return;
         }
 
-        // Envoyer une requête GET vers votre API pour récupérer le profil utilisateur
         const response = await fetch(`http://localhost:4000/api/auth/myProfile/`, {
           method: 'GET',
           headers: {

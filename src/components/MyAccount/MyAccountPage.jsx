@@ -21,14 +21,11 @@ export default function MyAccountPage() {
         const token = localStorage.getItem("token");
         console.log('Token obtenu :', token);
 
-        // Vérifier si le token existe
         if (!token) {
-          // Rediriger l'utilisateur vers la page de connexion s'il n'est pas authentifié
           navigate("/login");
           return;
         }
 
-        // Envoyer une requête GET vers le serveur pour récupérer les données de l'utilisateur
         const response = await fetch("http://localhost:4000/api/auth/MyProfile", {
           method: "GET",
           headers: {
