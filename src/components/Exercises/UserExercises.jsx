@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../assets/icons/spinner.svg";
+import { SassColor } from "sass";
 
 export default function UserExercises({ userData }) {
   const [exercises, setExercises] = useState([]);
@@ -9,6 +10,9 @@ export default function UserExercises({ userData }) {
     type: "",
     muscle: "",
   });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [exercisePerPage] = useState(6);
 
   const navigate = useNavigate();
 
@@ -36,7 +40,6 @@ export default function UserExercises({ userData }) {
           const data = await response.json();
           console.log("Données des exercices récupérées :", data);
           setExercises(data);
-          console.log(data.exercises);
           setIsLoading(false);
         } else {
           console.error(
@@ -72,6 +75,14 @@ export default function UserExercises({ userData }) {
         (exercise) => exercise.muscle === filterOptions.muscle
       );
     }
+
+    // PAgination :
+    const indexOfLastExercise = currentPage * exercisePerPage;
+    const indexOfFirstExercise = indexOfLastExercise - exercisePerPage;
+    filteredExercises = filteredExercises.slice(
+      indexOfFirstExercise,
+      indexOfLastExercise
+    );
 
     return filteredExercises;
   };
@@ -123,8 +134,24 @@ export default function UserExercises({ userData }) {
           </li>
         ))}
       </ul>
+      
+<button
+  onClick={() => setCurrentPage(currentPage - 1)}
+  disabled={currentPage === 1}
+>
+  Page précédente
+</button>
+
+<button
+  onClick={() => setCurrentPage(currentPage + 1)}
+  disabled={currentPage === Math.ceil(exercises.length / exercisePerPage)}
+  >
+  Page suivante
+</button>
     </div>
   );
 }
 
-// #Ajoutez un pagination : 
+{
+  /* // #Ajoutez un pagination :  */
+}

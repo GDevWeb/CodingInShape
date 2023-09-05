@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserExercises from "./UserExercises";
+import GetRandomRoutine from "./GetRandomRoutine";
 
 export default function ExercisesPage() {
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
 
     const fetchUserData = async () => {
@@ -57,8 +58,9 @@ export default function ExercisesPage() {
 
   return (
     <>
-      <h2>Exercise</h2>
+      <h2>Exercises</h2>
       <UserExercises />
+      <GetRandomRoutine/>
     </>
   );
 }
