@@ -15,6 +15,13 @@ export default function MyAccountPage() {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
+  // toggle :
+  const [showUserProfile, setShowUserProfile] = useState(false);
+  const [showUpdateEmailForm, setShowUpdateEmailForm] = useState(false);
+  const [showUpdatePasswordForm, setShowUpdatePasswordForm] = useState(false);
+  const [showUserSettings, setShowUserSettings] = useState(false);
+  const [showUserHistory, setShowUserHistory] = useState(false);
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -42,7 +49,6 @@ export default function MyAccountPage() {
           const data = await response.json();
           setUserData(data.userData);
           setIsLoading(false);
-          const welcome = (userData.firstName)
         } else {
           console.error('Impossible de récupérer les données de l\'utilisateur.');
           setIsLoading(false);
@@ -57,22 +63,28 @@ export default function MyAccountPage() {
   }, [navigate]);
 
   return (
+    <>
     <div className="my-account-page">
       {isLoading && <img src={Spinner} alt="Chargement en cours..." />}
       {/* Affichage des données de l'utilisateur connecté */}
     {userData && (
       <div className="user-profile-section">
         <h1>Bienvenue sur votre espace personnel {userData.firstName}</h1>
-      <h1>Mon compte</h1>
-      <UserProfile userData={userData} />
-      </div>
-      )}
+      <button onClick={() => setShowUserProfile(!showUserProfile)}>
+        {showUserProfile ? "Cacher mon profil" : "Afficher mon profil"}
+      </button>
+{showUserProfile && <UserProfile userData={userData} />}
+      </div> )}
+      
 
       {/* Mise à jour du mail */}
+      <h2>Modifier mon email</h2>
+      <button onClick={() => setShowUpdateEmailForm(!showUpdateEmailForm)}>
+        {showUpdateEmailForm ? "Cacher le formulaire de mise à jour de l'email" : "Afficher le formulaire de mise à jour de l'email"}
+      </button>
       {userData && (
         <div className="update-email-section">
-          <h2>Modifier mon email</h2>
-          <UpdateEmailForm userData={userData} />
+          {showUpdateEmailForm && <UpdateEmailForm userData={userData} /> }
         </div>
       )}
 
@@ -80,7 +92,10 @@ export default function MyAccountPage() {
       {userData && (
         <div className="update-password-section">
           <h2>Modifier mon mot de passe</h2>
-          <UpdatePasswordForm userData={userData} />
+          <button onClick={()=> setShowUpdatePasswordForm(!showUpdatePasswordForm)}>
+          {showUpdatePasswordForm ? "Cacher le formulaire de mise à jour du mot de passe" : "Afficher le formulaire de mise à jour du mot de passe"}
+          </button>
+          {showUpdatePasswordForm && <UpdatePasswordForm userData={userData} />}
         </div>
       )}
 
@@ -97,7 +112,10 @@ export default function MyAccountPage() {
       {userData && (
         <div className="user-settings-section">
           <h2>Paramètres</h2>
-          <UserSettings userData={userData} />
+          <button onClick={()=> setShowUserSettings(!showUserSettings)}>
+          {showUserSettings ? "Cacher les paramètres" : "Afficher les paramètres"}
+          </button>
+          {showUserSettings && <UserSettings userData={userData} /> }
         </div>
       )}
 
@@ -105,12 +123,16 @@ export default function MyAccountPage() {
       {userData && (
         <div className="user-history-section">
           <h2>Historique</h2>
-          <UserHistory userData={userData} />
+      <button onClick={()=> setShowUserHistory(!showUserHistory)}>
+      {showUserHistory ? "Cacher l'historique" : "Afficher l'historique"}
+      </button>
+      {showUserHistory && <UserHistory userData={userData} /> }
         </div>
       )}
 
       {/* Bouton de déconnexion */}
       <LogoutButton />
     </div>
+    </>
   );
 }

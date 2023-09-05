@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Spinner from "../../assets/icons/spinner.svg";
 
 
-export default function UserExercises({ userData }) {
+export default function ListOfExercises() {
   const [exercises, setExercises] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filterOptions, setFilterOptions] = useState({
@@ -126,7 +126,7 @@ export default function UserExercises({ userData }) {
             <p>Description : {exercise.description}</p>
             <p>Type : {exercise.type}</p>
             <p>Muscle ciblé : {exercise.muscle}</p>
-            <img src={exercise.image} alt={`Image de ${exercise.name}`} />
+            <img src={exercise.image} alt={`Image de ${exercise.name}`} width={"200px"}/>
             <video controls>
               <source src={exercise.video} type="video/mp4" />
               Votre navigateur ne prend pas en charge la lecture de la vidéo.
@@ -148,6 +148,8 @@ export default function UserExercises({ userData }) {
   >
   Page suivante
 </button>
+{/* Revoir le calcul pour trouver la dernière page : */}
+<p>page {currentPage} sur {currentPage+1}</p>
     </div>
   );
 }

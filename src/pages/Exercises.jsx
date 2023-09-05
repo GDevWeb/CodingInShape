@@ -4,7 +4,7 @@ import ExercisePage from '../components/Exercises/ExercisesPage';
 export default function Exercises() {
   return (
     <>
-    <h2>Liste des exercices disponibles:</h2>
+    <h1>Page d'exercices :</h1>
     <ExercisePage/>
     </>
   )

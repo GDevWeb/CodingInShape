@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import UserExercises from "./UserExercises";
 import GetRandomRoutine from "./GetRandomRoutine";
+import ListOfExercises from "./ListOfExercises";
 
 export default function ExercisesPage() {
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showListOfExercises, setShowListOfExercises] = useState(false);
+  const [showGetRandomRoutine, setShowGetRandomRoutine] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,9 +60,18 @@ export default function ExercisesPage() {
 
   return (
     <>
-      <h2>Exercises</h2>
-      <UserExercises />
-      <GetRandomRoutine/>
+      <h2>Liste des Exercises</h2>
+      <button onClick={() => setShowListOfExercises(!showListOfExercises)}>
+        {showListOfExercises ? "Cacher la liste des exercices" : "Afficher la liste des exercices"}
+      </button>
+      {showListOfExercises && <ListOfExercises />}
+
+
+      <h2>GetRandomRoutine</h2>
+      <button onClick={()=> setShowGetRandomRoutine(!showGetRandomRoutine)}>
+    {showGetRandomRoutine ? "Cacher la routine d'exercices" : "Afficher la routine d'exercices"}
+      </button>
+      {showGetRandomRoutine && <GetRandomRoutine/>} 
     </>
   );
 }

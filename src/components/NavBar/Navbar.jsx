@@ -33,7 +33,7 @@ export default function Navbar() {
         </li>
 
         <li>
-        <Link to="/myexercises" className="logo-link">
+        <Link to="/exercises" className="logo-link">
           Mes exercices
           </Link>
         </li>
