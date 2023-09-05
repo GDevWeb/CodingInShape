@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 import Spinner from '../../assets/icons/spinner.svg'
 
 export default function UserProfile() {
@@ -8,7 +9,7 @@ export default function UserProfile() {
     const fetchUserProfile = async () => {
       try {
         
-        const token = localStorage.getItem('token');
+        const token = Cookies.get("token");
         console.log('Token obtenu :', token);
                 
         if (!token) {

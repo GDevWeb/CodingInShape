@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import LogoutButton from './LogoutButton';
 import UpdateEmailForm from './UpdateEmailForm';
 import UpdatePasswordForm from './UpdatePasswordForm';
@@ -16,10 +17,12 @@ export default function MyAccountPage() {
 
     const fetchUserData = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const token = Cookies.get("token");
+        console.log('Token obtenu :', token);
+                
         if (!token) {
+          // Gérer le cas où l'utilisateur n'est pas authentifié
           console.log("Vous n'êtes pas authentifié.");
-          navigate("/login");
           return;
         }
 
@@ -28,8 +31,8 @@ export default function MyAccountPage() {
           {
             method: "GET",
             headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
             },
             credentials: "include",
           }

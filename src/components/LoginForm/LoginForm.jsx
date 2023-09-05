@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import "./LoginForm.scss";
-import { set } from "mongoose";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
@@ -87,8 +87,10 @@ export default function LoginForm() {
       // Si la requête s'est bien passée 200:
       if (response.ok) {
         // On stocke le token dans le localStorage :
-        document.cookie = `token=${data.token}; path=/account`;
+        Cookies.set("token", data.token, { path: '/', expires: 1 });
+        // document.cookie = `token=${data.token}; path=/account`;
         console.log(data.token);
+        // success("Vous êtes connecté(e) !");
         setFormData({ 
           email: "",
           password: "",
@@ -152,7 +154,6 @@ export default function LoginForm() {
             Créer un compte
           </Link>
 
-          {success && <span className="success">{success}</span>}
         </p>
       </div>
     </form>

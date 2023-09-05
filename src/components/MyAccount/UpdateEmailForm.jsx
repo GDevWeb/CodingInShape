@@ -160,3 +160,5 @@ export default function UpdateEmailForm() {
     </div>
   );
 }
+
+// DEBUG : crash du serveur lors de la modification du mot de passe
