@@ -87,10 +87,13 @@ export default function LoginForm() {
       // Si la requête s'est bien passée 200:
       if (response.ok) {
         // On stocke le token dans le localStorage :
-        Cookies.set("token", data.token, { path: '/', expires: 1 });
+        // Cookie :
+        // Cookies.set("token", data.token, { path: '/', expires: 1 });
         // document.cookie = `token=${data.token}; path=/account`;
-        console.log(data.token);
-        // success("Vous êtes connecté(e) !");
+        // Au lieu de Cookies.set("token", data.token, { path: '/', expires: 1 });
+
+localStorage.setItem("token", data.token);
+        console.log(Cookies.set("token"))
         setFormData({ 
           email: "",
           password: "",

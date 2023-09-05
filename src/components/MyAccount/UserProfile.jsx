@@ -9,7 +9,8 @@ export default function UserProfile() {
     const fetchUserProfile = async () => {
       try {
         
-        const token = Cookies.get("token");
+        // const token = Cookies.get("token");
+        const token = localStorage.getItem("token");
         console.log('Token obtenu :', token);
                 
         if (!token) {

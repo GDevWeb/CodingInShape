@@ -14,29 +14,29 @@ export default function MyAccountPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     const fetchUserData = async () => {
       try {
-        const token = Cookies.get("token");
+        // Récupérer le token depuis les cookies
+        // const token = Cookies.get("token");
+        const token = localStorage.getItem("token");
         console.log('Token obtenu :', token);
-                
+
+        // Vérifier si le token existe
         if (!token) {
-          // Gérer le cas où l'utilisateur n'est pas authentifié
-          console.log("Vous n'êtes pas authentifié.");
+          // Rediriger l'utilisateur vers la page de connexion s'il n'est pas authentifié
+          navigate("/login");
           return;
         }
 
-        const response = await fetch(
-          "http://localhost:4000/api/auth/MyProfile",
-          {
-            method: "GET",
-            headers: {
+        // Envoyer une requête GET vers le serveur pour récupérer les données de l'utilisateur
+        const response = await fetch("http://localhost:4000/api/auth/MyProfile", {
+          method: "GET",
+          headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
-            },
-            credentials: "include",
-          }
-        );
+          },
+          credentials: "include",
+        });
 
         if (response.ok) {
           const data = await response.json();
