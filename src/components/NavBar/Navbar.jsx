@@ -21,16 +21,23 @@ export default function Navbar() {
         </li>
 
         <li>
+        <Link to="/signup" className="logo-link">
+          Inscription
+          </Link>
+        </li>
+
+        <li>
         <Link to="/myaccount" className="logo-link">
           Mon compte
           </Link>
         </li>
 
         <li>
-        <Link to="/signup" className="logo-link">
-          Inscription
+        <Link to="/myexercises" className="logo-link">
+          Mes exercices
           </Link>
         </li>
+
 
         <li>
         <Link to="/contact" className="logo-link">

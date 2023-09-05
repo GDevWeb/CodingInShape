@@ -1,4 +1,3 @@
-import React from 'react'
 import Listusers from '../components/ListUsers'
 
 export default function DashBoard() {

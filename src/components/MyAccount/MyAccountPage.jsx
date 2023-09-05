@@ -4,7 +4,6 @@ import Cookies from 'js-cookie';
 import LogoutButton from './LogoutButton';
 import UpdateEmailForm from './UpdateEmailForm';
 import UpdatePasswordForm from './UpdatePasswordForm';
-import UserExercises from './UserExercises';
 import UserHistory from './UserHistory';
 import UserProfile from './UserProfile';
 import UserSettings from './UserSettings';
@@ -24,6 +23,7 @@ export default function MyAccountPage() {
         const token = localStorage.getItem("token");
         console.log('Token obtenu :', token);
 
+
         if (!token) {
           navigate("/login");
           return;
@@ -42,6 +42,7 @@ export default function MyAccountPage() {
           const data = await response.json();
           setUserData(data.userData);
           setIsLoading(false);
+          const welcome = (userData.firstName)
         } else {
           console.error('Impossible de récupérer les données de l\'utilisateur.');
           setIsLoading(false);
@@ -61,6 +62,7 @@ export default function MyAccountPage() {
       {/* Affichage des données de l'utilisateur connecté */}
     {userData && (
       <div className="user-profile-section">
+        <h1>Bienvenue sur votre espace personnel {userData.firstName}</h1>
       <h1>Mon compte</h1>
       <UserProfile userData={userData} />
       </div>
@@ -87,7 +89,7 @@ export default function MyAccountPage() {
         <div className="user-exercises-section">
           <h2>Mes exercices</h2>
           {/* button link  */}
-          <Link to="/allExercises" className='linkTo'>Voir la liste des exercices</Link> 
+          <Link to="/exercises" className='linkTo'>Voir la liste des exercices</Link> 
         </div>
       )}
 
