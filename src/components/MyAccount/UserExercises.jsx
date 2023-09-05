@@ -5,13 +5,13 @@ import Spinner from "../../assets/icons/spinner.svg";
 export default function UserExercises({ userData }) {
   const [exercises, setExercises] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [filterOptions, setFiltetrOptions] = useState({ 
+  const [filterOptions, setFilterOptions] = useState({ 
 
     type: "",
     muscle: "",
 
   });
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,8 +59,56 @@ export default function UserExercises({ userData }) {
     fetchExercises();
   }, [navigate]);
 
+  // Filtres :
+  const filterExercises = (exercises, filterOptions) => {
+    let filteredExercises = [...exercises];
+
+    if (filterOptions.type) {
+      filteredExercises = filteredExercises.filter(
+        (exercise) => exercise.type === filterOptions.type
+      );
+    }
+
+    if (filterOptions.muscle) {
+      filteredExercises = filteredExercises.filter(
+        (exercise) => exercise.muscle === filterOptions.muscle
+      );
+    }
+
+    return filteredExercises;
+  }
+
+
   return (
+      <div>
     <div>
+      <label>Type :</label>
+      <select
+        value={filterOptions.type}
+        onChange={(e) =>
+          setFilterOptions({ ...filterOptions, type: e.target.value })
+        }
+      >
+        <option value="">Tous</option>
+        <option value="Haut du corps">Haut du corps</option>
+        <option value="Bas du corps">Bas du corps</option>
+      </select>
+    </div>
+    <div>
+      <label>Muscle ciblé :</label>
+      <select
+        value={filterOptions.muscle}
+        onChange={(e) =>
+          setFilterOptions({ ...filterOptions, muscle: e.target.value })
+        }
+      >
+        <option value="">Tous</option>
+        <option value="Neck">Cervicaux</option>
+        <option value="Shoulders">Épaules</option>
+        <option value="Hips">Hanches</option>
+        <option value="Legs">Jambes</option>
+      </select>
+    </div>
       <p>Exercices</p>
       {isLoading && <img src={Spinner} alt="Chargement en cours..." />}
       <ul>
