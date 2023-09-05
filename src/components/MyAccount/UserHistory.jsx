@@ -4,9 +4,9 @@ export default function UserHistory() {
   return (
     <div>
 
-    <h1>Historique de l'utilisateur</h1>
+    <h3>Historique de l'utilisateur</h3>
 
-    <p>À venir</p>
+    <p>Pour la V2</p>
 
     </div>
 

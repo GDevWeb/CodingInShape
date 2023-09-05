@@ -1,4 +1,3 @@
-import React from 'react'
 import FormLogin from '../components/LoginForm/LoginForm'
 
 export default function Login() {
