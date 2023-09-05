@@ -1,11 +1,10 @@
-import React from 'react'
 
 export default function LogoutButton() {
-  return (
-    <>
-    
-    <button>LogoutButton</button>
-    
-    </>
-  )
+  async function logoutUser() {
+    localStorage.removeItem("token");
+
+    window.location.href = "/login";
+  }
+
+  return <button onClick={logoutUser}>Déconnexion</button>;
 }

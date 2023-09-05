@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import "./LoginForm.scss";
-import { set } from "mongoose";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({
@@ -10,7 +10,7 @@ export default function LoginForm() {
   });
 
   // Pour gérer le message de succès si tous les inputs sont valides :
-  const [success, setSuccess] = useState("");
+  const [success, setSuccess] = useState("Connexion réussie");
 
   // Pour gérer les messages d'erreurs dans le formulaire selon l'input :
   const [errors, setErrors] = useState({
@@ -38,7 +38,7 @@ export default function LoginForm() {
 
     // Vérification du mot de passe :
     if (name === "password") {
-      const regexPassword = /^.{8,}$/; // Au moins 6 caractères
+      const regexPassword = /^.{8,}$/; // Au moins 8 caractères
       const testPassword = regexPassword.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -80,15 +80,20 @@ export default function LoginForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
-        bearer: JSON.stringify(requestData),
+        credentials: "include",
       });
       const data = await response.json();
       console.log(data);
       // Si la requête s'est bien passée 200:
       if (response.ok) {
         // On stocke le token dans le localStorage :
-        document.cookie = `token=${data.token}; path=/account`;
-        console.log(data.token);
+        // Cookie :
+        // Cookies.set("token", data.token, { path: '/', expires: 1 });
+        // document.cookie = `token=${data.token}; path=/account`;
+        // Au lieu de Cookies.set("token", data.token, { path: '/', expires: 1 });
+
+localStorage.setItem("token", data.token);
+        console.log(Cookies.set("token"))
         setFormData({ 
           email: "",
           password: "",
@@ -151,6 +156,7 @@ export default function LoginForm() {
             {" "}
             Créer un compte
           </Link>
+
         </p>
       </div>
     </form>

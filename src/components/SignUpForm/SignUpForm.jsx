@@ -209,7 +209,7 @@ export default function SignUpForm() {
       }
     } catch (error) {
       // Une erreur s'est produite lors de l'envoi de la requête
-      console.error("Erreur lors de l'envoi de la requête :", error);
+      console.error(error);
     }
   };
 
