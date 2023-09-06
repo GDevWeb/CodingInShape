@@ -15,7 +15,7 @@ export default function Welcome() {
       </p>
       
       <div className="buttons">
-      <Link className='createAccountLink' to="/register" > Créer un compte</Link>
+      <Link className='createAccountLink' to="/signup" > Créer un compte</Link>
       <Link className='FormConnexion' to="/login" > Se connecter</Link>
       </div>
     </div>
