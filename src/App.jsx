@@ -1,4 +1,3 @@
-import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar/Navbar';
 import Header from './components/Header/Header';
@@ -7,8 +6,7 @@ import DashBoard from './pages/DashBoard';
 import Exercises from './pages/Exercises';
 import ExerciseDetail from './pages/ExerciseDetail';
 import Home from './pages/Home';
-// import Login from './pages/Login';
-import FormConnexion from './components/FormConnexion/FormConnexion';
+import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import SignUp from './pages/SignUp';
 import MyAccount from './pages/MyAccount';

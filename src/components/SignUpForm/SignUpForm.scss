@@ -73,8 +73,6 @@ form.formRegister {
 
 .form-group-two {
     @extend .form-group-one;
-<<<<<<< HEAD:src/pages/Register/Register.scss
-=======
 }
 
 .error {
@@ -88,5 +86,4 @@ form.formRegister {
     color: $color-success;
     font-weight: bold;
     text-align: center;
->>>>>>> devPullMe:src/components/SignUpForm/SignUpForm.scss
 }
