@@ -33,6 +33,13 @@ a {
     font-weight: 700;
 }
 
+.linkTo{
+    color: $color-primary;
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
 // Styles globaux
 html {
     font-size: $base-font-size;
@@ -199,3 +206,4 @@ footer {
     border-radius: 0.5rem;
 }
 
+// welcoem page

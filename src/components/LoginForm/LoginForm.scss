@@ -1,9 +1,9 @@
 @import '../../../sass/index.scss';
 
 
-form.formConnexion {
+form.LoginForm {
 
-    .formConnexion__container {
+    .LoginForm__container {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -13,7 +13,7 @@ form.formConnexion {
         border: 1px solid $tertiary-color;
         border-radius: 0.5rem;
 
-        .formConnexion__title {
+        .LoginForm__title {
             margin-bottom: 2rem;
             font-size: 2rem;
             font-weight: 700;
@@ -61,11 +61,11 @@ form.formConnexion {
     }
 
     button {
-        min-width: 50%;
         height: 3rem;
-        padding: 0.25rem;
+        padding: 1rem;
         font-size: 1.6rem;
         font-weight: 700;
+        line-height: 1.6rem;
         border: none;
         border-radius: 0.5rem;
         background-color: $color-success;
@@ -92,3 +92,10 @@ form.formConnexion {
             color: lighten($color-success, 10%);
         }
     }}
+
+    .error{
+        color: $color-danger;
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1rem;
+    }

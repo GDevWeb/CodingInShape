@@ -31,7 +31,7 @@ form.formRegister {
                 font-weight: 700;
             }
 
-            input {
+            input, select, option{
                 display: flex;
                 flex-direction: column;
                 margin-bottom: 2rem;
@@ -44,8 +44,6 @@ form.formRegister {
                 text-align: center;
                 border-radius: 0.5rem;
             }
-
-
         }
     }
 
@@ -65,7 +63,7 @@ form.formRegister {
     }
 }
 
-.form-group-one{
+.form-group-one {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -73,6 +71,22 @@ form.formRegister {
     width: 45%;
 }
 
-.form-group-two{
+.form-group-two {
     @extend .form-group-one;
+<<<<<<< HEAD:src/pages/Register/Register.scss
+=======
+}
+
+.error {
+    color: $color-danger;
+    font-weight: bold;
+    text-align: center;
+}
+
+.success {
+    margin-top: 0.5rem;
+    color: $color-success;
+    font-weight: bold;
+    text-align: center;
+>>>>>>> devPullMe:src/components/SignUpForm/SignUpForm.scss
 }

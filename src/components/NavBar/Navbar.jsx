@@ -21,20 +21,27 @@ export default function Navbar() {
         </li>
 
         <li>
-        <Link to="/account" className="logo-link">
-          <a href="#">Mon compte</a>
+        <Link to="/signup" className="logo-link">
+          Inscription
           </Link>
         </li>
 
         <li>
-        <Link to="/register" className="logo-link">
-          <a href="#">Inscription</a>
+        <Link to="/myaccount" className="logo-link">
+          Mon compte
           </Link>
         </li>
+
+        <li>
+        <Link to="/exercises" className="logo-link">
+          Mes exercices
+          </Link>
+        </li>
+
 
         <li>
         <Link to="/contact" className="logo-link">
-          <a href="#">Contact</a>
+          Contact
           </Link>
         </li>
       </ul>
