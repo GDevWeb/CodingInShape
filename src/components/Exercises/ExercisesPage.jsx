@@ -75,3 +75,6 @@ export default function ExercisesPage() {
     </>
   );
 }
+
+
+// Bon courage pour le style ! 😎 
