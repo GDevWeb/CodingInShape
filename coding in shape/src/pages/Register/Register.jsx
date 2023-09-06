@@ -42,10 +42,10 @@ export default function Register() {
     <input type="password" name=" password" id="password" placeholder="Votre mot de passe" required />
     </div>
 
-    <div className="form-group">
+    {/* <div className="form-group">
     <label htmlFor="confirmPassword">Confirmer votre mot de passe</label>
     <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Votre mot de passe" required />
-    </div>
+    </div> */}
 
     <div className="form-group">
     <label htmlFor="email">Votre email</label>
