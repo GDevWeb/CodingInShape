@@ -1,4 +1,4 @@
-import Listusers from '../components/ListUsers'
+import DashBoardPage from '../components/DashBoard/DashBoardPage'
 
 export default function DashBoard() {
   return (
@@ -7,7 +7,7 @@ export default function DashBoard() {
 
     <h2>Liste des utilisateurs :</h2>
 
-    <Listusers/>
+    <DashBoardPage/>
 
     </>
   )
