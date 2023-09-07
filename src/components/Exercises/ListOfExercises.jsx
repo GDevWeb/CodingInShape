@@ -120,7 +120,7 @@ export default function ListOfExercises() {
       <p>Exercices</p>
       {isLoading && <img src={Spinner} alt="Chargement en cours..." />}
       <ul>
-        {filterExercises(exercises, filterOptions).map((exercise, index) => (
+        {filterExercises(exercises, filterOptions).map((exercise) => (
           <li key={exercise._id}>
             <h2>{exercise.name}</h2>
             <p>Description : {exercise.description}</p>
