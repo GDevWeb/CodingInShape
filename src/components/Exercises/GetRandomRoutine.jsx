@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../../assets/icons/spinner.svg";
 
 export default function GetRandomRoutine() {
   const [exercises, setExercises] = useState([]);
@@ -57,6 +58,20 @@ export default function GetRandomRoutine() {
     fetchExercises();
   }, [navigate]);
 
+  useEffect(() => {
+    let timer;
+    
+    if(isPlaying){
+      timer = setTimeout(() => {
+        handleNext();
+      }, 20000);
+    }
+
+    return () => {
+      clearTimeout(timer);
+    };
+  },[currentIndex, isPlaying]);
+
   // Slider :
   // Exercice suivant :
   const handleNext = () => {
@@ -70,30 +85,33 @@ export default function GetRandomRoutine() {
     );
   };
     
-    return (
-      <div>
-        {isLoading ? (
-          <p>Chargement en cours...</p>
-          ) : (
-            <div>
-            <h2>Diaporama d'exercices</h2>
-            <div>
-              <button onClick={handlePrevious}>Précédent</button>
-              <button onClick={handleNext}>Suivant</button>
-              <button onClick={() => setIsPlaying(!isPlaying)}>
-                {isPlaying ? "Pause" : "Démarrer"}
-              </button>
-              <button onClick={() => setCurrentIndex(0)}>Recommencer</button>
-            </div>
-            <div>
-              <h3>{exercises[currentIndex].name}</h3>
-              <p>Description : {exercises[currentIndex].description}</p>
-
-              <img src={exercises.image} alt="Image de l'exercice" />
-
-            </div>
+  return (
+    <div>
+      {isLoading ? (
+        <>
+        <img src={Spinner} alt="Chargement en cours" />
+        <p>Chargement en cours...</p>
+        </>
+      ) : (
+        <div>
+          <h2>Diaporama d'exercices</h2>
+          <div>
+            <button onClick={handlePrevious}>Précédent</button>
+            <button onClick={handleNext}>Suivant</button>
+            <button onClick={() => setIsPlaying(!isPlaying)}>
+              {isPlaying ? "Pause" : "Démarrer"}
+            </button>
+            <button onClick={() => setCurrentIndex(0)}>Recommencer</button>
           </div>
-        )}
-      </div>
-    );
+          <div>
+            <h3>{exercises[currentIndex].name}</h3>
+            <p>Description : {exercises[currentIndex].description}</p>
+
+            <img src={exercises[currentIndex].image} alt="Image de l'exercice" />
+
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
