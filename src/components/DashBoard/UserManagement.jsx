@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import AddUser from "./AddUser";
 
 export default function UserManagement() {
-  const [usersData, setUsersData] = useState(null);
+  const [usersData, setUsersData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [showAddUserForm, setShowAddUserForm] = useState(false);
 
   const navigate = useNavigate();
 
@@ -58,8 +61,9 @@ export default function UserManagement() {
         return;
       }
 
+      // Méthode pour passer un utilisateur en administrateur ou retirer les droits admin :
       const response = await fetch(
-        `http://localhost:4000/api/admin/users/admin/${userId}`,
+        `http://localhost:4000/api/admin/users/unadmin/${userId}`,
         {
           method: "PUT",
           headers: {
@@ -72,7 +76,12 @@ export default function UserManagement() {
 
       if (response.ok) {
         console.log("Statut administrateur mis à jour avec succès");
-        // Mettez à jour l'état de l'utilisateur administrateur ici si nécessaire
+        const updatedUsersData = usersData.map((user) =>
+          user._id === userId
+            ? { ...user, isAdmin: !user.isAdmin } 
+            : user
+        );
+        setUsersData(updatedUsersData);
       } else {
         console.error(
           "Impossible de mettre à jour le statut administrateur. Statut HTTP :",
@@ -97,6 +106,7 @@ export default function UserManagement() {
         return;
       }
 
+      // Méthode pour bannir un utilisateur :
       const response = await fetch(
         `http://localhost:4000/api/admin/users/ban/${userId}`,
         {
@@ -135,6 +145,7 @@ export default function UserManagement() {
         return;
       }
 
+      // Méthode pour débannir un utilisateur :
       const response = await fetch(
         `http://localhost:4000/api/admin/users/unban/${userId}`,
         {
@@ -188,11 +199,12 @@ export default function UserManagement() {
                 <td>{user.email}</td>
                 <td>
                   <label className="switch">
-                    <input
+                    {user.isAdmin ? <p>Admin</p> : <p>User</p>}
+                    <button
                       type="checkbox"
-                      checked={user.isAdmin}
+                      onClick={() => handleAdminChange(user._id)}
                       onChange={() => handleAdminChange(user._id)}
-                    />
+                    >{user.isAdmin ? "Oui" : "Non"}</button>
                     <span className="slider round"></span>
                   </label>
                 </td>
@@ -218,6 +230,12 @@ export default function UserManagement() {
             ))}
         </tbody>
       </table>
+
+      <h2>Ajouter un utilisateur :</h2>
+      <button onClick={() => setShowAddUserForm(!showAddUserForm)}>
+        {showAddUserForm ? "Annuler" : "Ajouter un utilisateur"}
+      </button>
+      {showAddUserForm && <AddUser />}
     </>
   );
 }
