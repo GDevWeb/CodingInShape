@@ -7,6 +7,8 @@ export default function UserManagement() {
   const [isLoading, setIsLoading] = useState(true);
 
   const [showAddUserForm, setShowAddUserForm] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
+  const [confirmationVisible, setConfirmationVisible] = useState(true);
 
   const navigate = useNavigate();
 
@@ -175,6 +177,49 @@ export default function UserManagement() {
     }
   };
 
+  // Méthode pour supprimer un utilisateur
+  const handleDeleteUser = async (userId) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+
+      // Méthode pour supprimer un utilisateur :
+      const response = await fetch(
+        `http://localhost:4000/api/admin/users/${userId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          credentials: "include",
+        }
+      );
+
+      if (response.ok) {
+        console.log("Utilisateur supprimé avec succès");
+        const updatedUsersData = usersData.filter(
+          (user) => user._id !== userId
+        );
+        setUsersData(updatedUsersData);
+        setUserToDelete(null);
+        setConfirmationVisible(false);
+      } else {
+        console.error(
+          "Impossible de supprimer l'utilisateur. Statut HTTP :",
+          response.status
+        );
+      }
+    } catch (error) {
+      console.error("Erreur lors de la suppression de l'utilisateur :", error);
+    }
+  };
+
+
   return (
     <>
       <h1>Gestion des utilisateurs</h1>
@@ -188,6 +233,7 @@ export default function UserManagement() {
             <th>Administrateur</th>
             <th>Banni</th>
             <th>Actions</th>
+            <th>Supprimer</th>
           </tr>
         </thead>
         <tbody>
@@ -226,10 +272,25 @@ export default function UserManagement() {
                     {user.isBan ? "Débannir" : "Bannir"}
                   </button>
                 </td>
+                <td>
+                  <button onClick={()=> setUserToDelete(user)}>Supprimer</button>
+                </td>
               </tr>
             ))}
         </tbody>
       </table>
+
+      {/* Confirmation de suppression de user : */}
+    {/* Confirmation de suppression de l'utilisateur */}
+    {userToDelete && confirmationVisible && (
+        <div className="confirmation">
+          <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
+          <button onClick={() => handleDeleteUser(userToDelete._id)}>
+            Oui
+          </button>
+          <button onClick={() => setConfirmationVisible(false)}>Non</button>
+        </div>
+      )}
 
       <h2>Ajouter un utilisateur :</h2>
       <button onClick={() => setShowAddUserForm(!showAddUserForm)}>
@@ -239,3 +300,6 @@ export default function UserManagement() {
     </>
   );
 }
+
+// #Debogage de  suppression d'utilisateur : 
+// Si suppr de 1 user le 2nd user ne sera pas supprimé 
