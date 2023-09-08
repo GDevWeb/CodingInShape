@@ -5,7 +5,6 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer';
 import DashBoard from './pages/DashBoard';
 import Exercises from './pages/Exercises';
-import ExerciseDetail from './pages/ExerciseDetail';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
@@ -31,7 +30,6 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/dashboard" element={<DashBoard/>} />
         <Route path="/exercises" element={<Exercises/>} />
-        <Route path="/exercice_detail" element={<ExerciseDetail/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/myaccount" element={<MyAccount/>} />
