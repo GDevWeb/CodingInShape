@@ -149,7 +149,7 @@ export default function ListOfExercises() {
   Page suivante
 </button>
 {/* Revoir le calcul pour trouver la dernière page : */}
-<p>page {currentPage} sur {currentPage+1}</p>
+<p>page {currentPage} sur {currentPage}</p>
     </div>
   );
 }

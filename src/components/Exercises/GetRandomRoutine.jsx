@@ -136,8 +136,8 @@ export default function GetRandomRoutine() {
               <p>Félicitations, vous avez terminé les 5 exercices de la routine !</p>
             ) : (
               <>
-                <h3>{exercises[currentIndex].name}</h3>
-                <p>Description : {exercises[currentIndex].description}</p>
+<h3>{exercises[currentIndex].muscle}</h3>
+<p>Description : {exercises[currentIndex].description}</p>
 
                 <img
                   src={exercises[currentIndex].image}
