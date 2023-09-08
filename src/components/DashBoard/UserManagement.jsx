@@ -278,10 +278,8 @@ export default function UserManagement() {
               </tr>
             ))}
         </tbody>
-      </table>
-
-      {/* Confirmation de suppression de user : */}
-    {/* Confirmation de suppression de l'utilisateur */}
+      </table>   
+      
     {userToDelete && confirmationVisible && (
         <div className="confirmation">
           <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
