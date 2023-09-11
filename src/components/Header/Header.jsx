@@ -1,5 +1,7 @@
 import logo from '../../assets/logos/logo.png';
 import { Link} from 'react-router-dom';
+import LogoutButton from '../LogOutButton/LogoutButton';
+import LoginForm from '../LoginForm/LoginForm';
 
 export default function Header() {
 
@@ -14,6 +16,10 @@ export default function Header() {
   <h1 className="title">Coding in Shape</h1>
 </Link>
 </div>
+
+{/* <LoginForm/> */}
+<LogoutButton/>
+
     </header>
   )
 }

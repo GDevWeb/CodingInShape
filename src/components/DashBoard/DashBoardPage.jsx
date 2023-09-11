@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserManagement from "./UserManagement";
+import AddUser from "./AddUser";
 import ExerciseManagement from "./ExerciseManagement";
 
 export default function DashBoardPage() {
@@ -9,6 +10,8 @@ export default function DashBoardPage() {
 
   // toggle CRUD Users :
   const [showListOfUsers, setShowListOfUsers] = useState(false);
+
+  const [showAddUserForm, setShowAddUserForm] = useState(false);
 
   // toggle CRUD Exercises :
   const [showListOfExercises, setShowListOfExercises] = useState(false);
@@ -68,6 +71,13 @@ export default function DashBoardPage() {
           : "Afficher la liste des utilisateurs"}
       </button>
       {showListOfUsers && <UserManagement />}
+
+      <h2>Ajouter un utilisateur :</h2>
+      <button onClick={() => setShowAddUserForm(!showAddUserForm)}>
+        {showAddUserForm ? "Cacher formulaire Ajout utilisateur" : "Ajouter un utilisateur"}
+      </button>
+      {showAddUserForm && <AddUser />}
+
 
       
 

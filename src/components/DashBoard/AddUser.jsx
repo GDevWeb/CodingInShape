@@ -215,7 +215,7 @@ export default function AddUser() {
   return (
     <form onSubmit={handleSubmit} className="formRegister">
       <div className="formRegister__container">
-        <h2>Créer un compte :</h2>
+        <h2>Créer un compte utilisateur:</h2>
 
         <div className="form-group-one">
           <div className="form-group">
@@ -226,7 +226,7 @@ export default function AddUser() {
               type="text"
               name="lastName"
               id="lastName"
-              placeholder="Votre nom"
+              placeholder="Son nom"
               required
             />
             <span className="error">{errors.lastName}</span>
@@ -240,7 +240,7 @@ export default function AddUser() {
               type="text"
               name="firstName"
               id="firstName"
-              placeholder="Votre prénom"
+              placeholder="Son prénom"
               required
             />
             <span className="error">{errors.firstName}</span>
@@ -252,6 +252,7 @@ export default function AddUser() {
             type="number"
             name="age"
             id="age"
+            placeholder="Son âge"
             value={formData.age}
             onChange={handleChange}
             />
@@ -280,7 +281,7 @@ export default function AddUser() {
               type="email"
               name="email"
               id="email"
-              placeholder="Votre mot de passe"
+              placeholder="Son e-mail"
               required
             />
             <span className="error">{errors.email}</span>
@@ -294,7 +295,7 @@ export default function AddUser() {
               type="password"
               name="password"
               id="password"
-              placeholder="Votre mot de passe"
+              placeholder="Son mot de passe"
               required
             />
             <span className="error">{errors.password}</span>
@@ -343,7 +344,7 @@ export default function AddUser() {
           </div>
         </div>
 
-        <button type="submit">S'inscrire</button>
+        <button type="submit">L'inscrire</button>
         <span className="success">{success}</span>
       </div>
     </form>

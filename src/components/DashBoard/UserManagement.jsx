@@ -290,11 +290,6 @@ export default function UserManagement() {
         </div>
       )}
 
-      <h2>Ajouter un utilisateur :</h2>
-      <button onClick={() => setShowAddUserForm(!showAddUserForm)}>
-        {showAddUserForm ? "Annuler" : "Ajouter un utilisateur"}
-      </button>
-      {showAddUserForm && <AddUser />}
     </>
   );
 }

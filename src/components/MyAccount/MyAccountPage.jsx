@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import LogoutButton from './LogoutButton';
+import LogoutButton from '../LogOutButton/LogoutButton';
 import UpdateEmailForm from './UpdateEmailForm';
 import UpdatePasswordForm from './UpdatePasswordForm';
 import UserHistory from './UserHistory';
