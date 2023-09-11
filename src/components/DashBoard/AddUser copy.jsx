@@ -158,6 +158,7 @@ const handleSubmit = async (e) => {
     return;
   }
 
+  setSuccess("Votre compte a bien été créé");
   setServerErrors(""); 
 
   // Création d'un objet contenant les données du formulaire à envoyer au serveur :
@@ -194,7 +195,6 @@ const handleSubmit = async (e) => {
       // La requête a réussi (statut 200 OK)
       const responseData = await response.json();
       console.log("Réponse du serveur :", responseData);
-      setSuccess("Votre compte a bien été créé");
 
       // On vide le formulaire :
       setFormData({
@@ -213,17 +213,18 @@ const handleSubmit = async (e) => {
       navigate("/dashboard");
     } else {
       // La requête a échoué
-      const responseData = await response.json();
-      console.log("Réponse du serveur :", responseData);
-      setServerErrors(responseData.message);
+      const errorData = await response.json();
+      console.error("Échec de la requête :", response.statusText);
+      setServerErrors(errorData.message || "Une erreur est survenue");
     }
-
   } catch (error) {
     console.error(error);
   }
 };
 
 // ...
+
+<div className="server-error">{serverError}</div>
 
   return (
     <form onSubmit={handleSubmit} className="formRegister">
@@ -359,7 +360,6 @@ const handleSubmit = async (e) => {
 
         <button type="submit">L'inscrire</button>
         <span className="success">{success}</span>
-        <div className="server-error">{serverErrors && <p>{serverErrors}</p>}</div>
       </div>
     </form>
   );
