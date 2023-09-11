@@ -52,6 +52,7 @@ export default function MyAccountPage() {
         } else {
           console.error('Impossible de récupérer les données de l\'utilisateur.');
           setIsLoading(false);
+          navigate("/login");
         }
       } catch (error) {
         console.error('Erreur lors de la récupération des données de l\'utilisateur :', error);
