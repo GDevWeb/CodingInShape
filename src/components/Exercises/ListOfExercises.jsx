@@ -127,10 +127,10 @@ export default function ListOfExercises() {
             <p>Type : {exercise.type}</p>
             <p>Muscle ciblé : {exercise.muscle}</p>
             <img src={exercise.image} alt={`Image de ${exercise.name}`} width={"200px"}/>
-            <video controls>
+            {/* <video controls>
               <source src={exercise.video} type="video/mp4" />
               Votre navigateur ne prend pas en charge la lecture de la vidéo.
-            </video>
+            </video> */}
           </li>
         ))}
       </ul>
@@ -149,7 +149,7 @@ export default function ListOfExercises() {
   Page suivante
 </button>
 {/* Revoir le calcul pour trouver la dernière page : */}
-<p>page {currentPage} sur {currentPage}</p>
+<p>page {currentPage} sur {Math.ceil(exercises.length / exercisePerPage)}</p>
     </div>
   );
 }
