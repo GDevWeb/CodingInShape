@@ -45,6 +45,7 @@ export default function ExercisesPage() {
             "Impossible de récupérer les données de l'utilisateur."
           );
           setIsLoading(false);
+          navigate("/login");
         }
       } catch (error) {
         console.error(

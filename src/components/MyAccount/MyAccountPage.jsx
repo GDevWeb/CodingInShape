@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import LogoutButton from './LogoutButton';
+import LogoutButton from '../LogOutButton/LogoutButton';
 import UpdateEmailForm from './UpdateEmailForm';
 import UpdatePasswordForm from './UpdatePasswordForm';
 import UserHistory from './UserHistory';
@@ -52,6 +52,7 @@ export default function MyAccountPage() {
         } else {
           console.error('Impossible de récupérer les données de l\'utilisateur.');
           setIsLoading(false);
+          navigate("/login");
         }
       } catch (error) {
         console.error('Erreur lors de la récupération des données de l\'utilisateur :', error);
