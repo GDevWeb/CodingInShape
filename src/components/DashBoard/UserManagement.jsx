@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AddUser from "./AddUser";
+import UserRow from "./UserRow";
 
 export default function UserManagement() {
   const [usersData, setUsersData] = useState([]);
@@ -294,11 +295,12 @@ export default function UserManagement() {
                     {user.isBan ? "Débannir" : "Bannir"}
                   </button>
                 </td>
-                <td>
-                  <button onClick={() => setUserToDelete(user)}>
-                    Supprimer
-                  </button>
-                </td>
+                  <UserRow 
+                    key={user._id}
+                    user={user}
+                    handleDeleteUser={handleDeleteUser}
+
+                  />
               </tr>
             ))}
         </tbody>
