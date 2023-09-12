@@ -78,9 +78,6 @@ export default function DashBoardPage() {
       </button>
       {showAddUserForm && <AddUser />}
 
-
-      
-
       <h3>Gestion des exercices :</h3>
       <button onClick={() => setShowListOfExercises(!showListOfExercises)}>
         {showListOfExercises

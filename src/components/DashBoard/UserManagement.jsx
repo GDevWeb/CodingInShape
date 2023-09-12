@@ -7,7 +7,6 @@ export default function UserManagement() {
   const [usersData, setUsersData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [showAddUserForm, setShowAddUserForm] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
   const [confirmationVisible, setConfirmationVisible] = useState(true);
 
@@ -218,32 +217,14 @@ export default function UserManagement() {
     }
   };
 
+  if (isLoading) {
+
+    return <p>Chargement des données...</p>;
+  }
+
   return (
     <>
       <h1>Gestion des utilisateurs</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre d'utilisateurs</th>
-            <th>Nombre d'utilisateurs connectés</th>
-            <th>Nombre d'Administrateurs</th>
-            <th>Nombre d'Administrateurs connectés</th>
-            <th>Nombre d'utilisateurs Bannis</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* Nbr total d'utilisateurs  */}
-          <td>{usersData.length}</td>
-          {/* Nbr total d'utilisateurs connectés  */}
-          <td>À venir</td>
-          {/* Nbr total d'administrateurs  */}
-          <td>{usersData.filter(user => user.isAdmin).length}</td>
-          {/*//A modifier pour afficher le nombre d'administrateurs connectés*/}
-          <td>À venir</td>
-          {/*//A modifier pour afficher le nombre d'utilisateurs connectés*/}
-          <td>{usersData.filter(user => user.isBan).length}</td>
-        </tbody>
-      </table>
       <h2>Liste des utilisateurs :</h2>
       <table>
         <thead>
@@ -260,62 +241,26 @@ export default function UserManagement() {
         <tbody>
           {usersData &&
             usersData.map((user) => (
-              <tr key={user._id}>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
-                <td>{user.email}</td>
-                <td>
-                  <label className="switch">
-                    {user.isAdmin ? <p>Admin</p> : <p>User</p>}
-                    <button
-                      type="checkbox"
-                      onClick={() => handleAdminChange(user._id)}
-                      onChange={() => handleAdminChange(user._id)}
-                    >
-                      {user.isAdmin ? "Oui" : "Non"}
-                    </button>
-                    <span className="slider round"></span>
-                  </label>
-                </td>
-                <td>
-                  <label className="switch">
-                    {user.isBan ? <p>Oui</p> : <p>Non</p>}
-                    <span className="slider round"></span>
-                  </label>
-                </td>
-                <td>
-                  <button
-                    onClick={() =>
-                      user.isBan
-                        ? handleUnbanChange(user._id)
-                        : handleBanChange(user._id)
-                    }
-                    className={user.isBan ? "banned-button" : ""}
-                  >
-                    {user.isBan ? "Débannir" : "Bannir"}
-                  </button>
-                </td>
-                  <UserRow 
-                    key={user._id}
-                    user={user}
-                    handleDeleteUser={handleDeleteUser}
-
-                  />
-              </tr>
+              <UserRow
+                key={user._id}
+                user={user}
+                handleAdminChange={handleAdminChange}
+                handleBanChange={handleBanChange}
+                handleUnbanChange={handleUnbanChange}
+                handleDeleteUser={handleDeleteUser}
+              />
             ))}
         </tbody>
       </table>
-
+  
       {userToDelete && confirmationVisible && (
         <div className="confirmation">
           <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
-          <button onClick={() => handleDeleteUser(userToDelete._id)}>
-            Oui
-          </button>
+          <button onClick={() => handleDeleteUser(userToDelete._id)}>Oui</button>
           <button onClick={() => setConfirmationVisible(false)}>Non</button>
         </div>
       )}
     </>
   );
+  
 }
-
