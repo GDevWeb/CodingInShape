@@ -319,7 +319,3 @@ export default function UserManagement() {
   );
 }
 
-{
-  /* // #Debogage de  suppression d'utilisateur : 
-// Si suppr de 1 user le 2nd user ne sera pas supprimé  */
-}
