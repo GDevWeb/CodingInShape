@@ -137,3 +137,5 @@ export default function MyAccountPage() {
     </>
   );
 }
+
+// Bon courage pour la suite ! 🚀
