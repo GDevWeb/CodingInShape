@@ -9,12 +9,15 @@ export default function DashBoardPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   // toggle CRUD Users :
-  const [showListOfUsers, setShowListOfUsers] = useState(false);
+  const [showListOfUsers, setShowListOfUsers] = useState(true);
 
   const [showAddUserForm, setShowAddUserForm] = useState(false);
 
   // toggle CRUD Exercises :
   const [showListOfExercises, setShowListOfExercises] = useState(false);
+
+  // Actualisation de liste des USers :
+  const [toggleUpdate, setToggleUpdate] = useState(false)
 
   const navigate = useNavigate();
 
@@ -70,13 +73,13 @@ export default function DashBoardPage() {
           ? "Cacher la liste des utilisateurs"
           : "Afficher la liste des utilisateurs"}
       </button>
-      {showListOfUsers && <UserManagement />}
+      {showListOfUsers && <UserManagement toggleUpdate = {toggleUpdate}/>}
 
       <h2>Ajouter un utilisateur :</h2>
       <button onClick={() => setShowAddUserForm(!showAddUserForm)}>
         {showAddUserForm ? "Cacher formulaire Ajout utilisateur" : "Ajouter un utilisateur"}
       </button>
-      {showAddUserForm && <AddUser />}
+      {showAddUserForm && <AddUser/>}
 
       <h3>Gestion des exercices :</h3>
       <button onClick={() => setShowListOfExercises(!showListOfExercises)}>

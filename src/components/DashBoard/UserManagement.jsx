@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserRow from "./UserRow";
+import Spinner from '../../assets/icons/spinner.svg'
 
-export default function UserManagement() {
+export default function UserManagement(toggleUpdate) {
   const [usersData, setUsersData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
   const [userToDelete, setUserToDelete] = useState(null);
   const [confirmationVisible, setConfirmationVisible] = useState(true);
-
+  const [updatedList, setUpdatedList] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,7 +51,7 @@ export default function UserManagement() {
       }
     };
     fetchUsersData();
-  }, [navigate]);
+  }, [navigate, toggleUpdate]);
 
   // Méthode pour mettre à jour le statut administrateur
   const handleAdminChange = async (userId) => {
@@ -199,10 +200,12 @@ export default function UserManagement() {
 
       if (response.ok) {
         console.log("Utilisateur supprimé avec succès");
-        const updatedUsersData = usersData.filter(
-          (user) => user._id !== userId
-        );
-        setUsersData(updatedUsersData);
+        setUpdatedList((prev) => prev)
+        // const updatedUsersData = usersData.filter(
+        //   (user) => user._id !== userId
+        // );
+        // setUsersData(updatedUsersData);
+        setUpdatedList(updatedList + 1)
         setUserToDelete(null);
         setConfirmationVisible(false);
       } else {
