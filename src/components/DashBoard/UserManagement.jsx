@@ -1,42 +1,48 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserRow from "./UserRow";
 import "../../../src/main.scss";
 
-// Composants locaux :
+// Import des composants locaux :
 import Spinner from "../../assets/icons/spinner.svg";
 
-// Constantes et variables :
+// Import des constantes et variables d'API :
 import {
   USERS_API,
   BAN_USER_API,
   UNBAN_USER_API,
   ADMIN_USER_API,
 } from ".././api";
-import { set } from "mongoose";
 
 export default function UserManagement(toggleUpdate) {
+  // État local pour stocker les données des utilisateurs, l'utilisateur à supprimer,
+  // la visibilité de la confirmation, le chargement, les messages de succès
+  // et les erreurs du serveur.
   const [usersData, setUsersData] = useState([]);
   const [userToDelete, setUserToDelete] = useState(null);
   const [confirmationVisible, setConfirmationVisible] = useState(true);
-  const [updatedList, setUpdatedList] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   const [successMessage, setSuccessMessage] = useState("");
   const [serverErrors, setServerErrors] = useState("");
 
+  // Hook pour obtenir la fonction de navigation de React Router
   const navigate = useNavigate();
 
+  // Hook useEffect pour récupérer les données des utilisateurs depuis l'API
   useEffect(() => {
     const fetchUsersData = async () => {
       try {
+        // Obtenir le jeton d'authentification depuis le stockage local
         const token = localStorage.getItem("token");
 
         if (!token) {
+          // Rediriger vers la page de connexion si le jeton n'est pas présent
           navigate("/login");
           return;
         }
 
+        // Effectuer une requête GET pour récupérer les données des utilisateurs
         const response = await fetch(USERS_API, {
           method: "GET",
           headers: {
@@ -47,6 +53,7 @@ export default function UserManagement(toggleUpdate) {
         });
 
         if (response.ok) {
+          // Si la réponse est réussie, mettre à jour l'état local avec les données
           const data = await response.json();
           setUsersData(data);
           setIsLoading(false);
@@ -55,6 +62,7 @@ export default function UserManagement(toggleUpdate) {
             setSuccessMessage("");
           }, 3000);
         } else {
+          // Gérer les erreurs de la réponse HTTP
           console.error(
             "Impossible de récupérer les données des utilisateurs. Statut HTTP :",
             response.status
@@ -62,6 +70,7 @@ export default function UserManagement(toggleUpdate) {
           setIsLoading(false);
         }
       } catch (error) {
+        // Gérer les erreurs de requête
         console.error(
           "Erreur lors de la récupération des données des utilisateurs :",
           error
@@ -72,6 +81,7 @@ export default function UserManagement(toggleUpdate) {
         );
       }
     };
+    // Appeler la fonction pour récupérer les données des utilisateurs
     fetchUsersData();
   }, [navigate, toggleUpdate]);
 
@@ -81,6 +91,7 @@ export default function UserManagement(toggleUpdate) {
       const token = localStorage.getItem("token");
 
       if (!token) {
+        // Rediriger vers la page de connexion si le jeton n'est pas présent
         navigate("/login");
         return;
       }
@@ -96,6 +107,7 @@ export default function UserManagement(toggleUpdate) {
       });
 
       if (response.ok) {
+        // Si la réponse est réussie, mettre à jour l'état local et afficher un message de succès
         console.log("Statut administrateur mis à jour avec succès");
         setSuccessMessage("Statut administrateur mis à jour avec succès");
         const updatedUsersData = usersData.map((user) =>
@@ -106,6 +118,7 @@ export default function UserManagement(toggleUpdate) {
           setSuccessMessage("");
         }, 3000);
       } else {
+        // Gérer les erreurs de la réponse HTTP
         console.error(
           "Impossible de mettre à jour le statut administrateur. Statut HTTP :",
           response.status
@@ -113,6 +126,7 @@ export default function UserManagement(toggleUpdate) {
         setServerErrors("Impossible de mettre à jour le statut administrateur");
       }
     } catch (error) {
+      // Gérer les erreurs de requête
       console.error(
         "Erreur lors de la mise à jour du statut administrateur :",
         error
@@ -127,6 +141,7 @@ export default function UserManagement(toggleUpdate) {
       const token = localStorage.getItem("token");
 
       if (!token) {
+        // Rediriger vers la page de connexion si le jeton n'est pas présent
         navigate("/login");
         return;
       }
@@ -142,6 +157,7 @@ export default function UserManagement(toggleUpdate) {
       });
 
       if (response.ok) {
+        // Si la réponse est réussie, mettre à jour l'état local et afficher un message de succès
         console.log("Utilisateur banni avec succès");
         const updatedUsersData = usersData.map((user) =>
           user._id === userId ? { ...user, isBan: true } : user
@@ -153,6 +169,7 @@ export default function UserManagement(toggleUpdate) {
 
         setUsersData(updatedUsersData);
       } else {
+        // Gérer les erreurs de la réponse HTTP
         console.error(
           "Impossible de bannir l'utilisateur. Statut HTTP :",
           response.status
@@ -160,6 +177,7 @@ export default function UserManagement(toggleUpdate) {
         setServerErrors("Impossible de bannir l'utilisateur");
       }
     } catch (error) {
+      // Gérer les erreurs de requête
       console.error("Erreur lors du bannissement de l'utilisateur :", error);
       setServerErrors("Erreur lors du bannissement de l'utilisateur");
     }
@@ -171,10 +189,12 @@ export default function UserManagement(toggleUpdate) {
       const token = localStorage.getItem("token");
 
       if (!token) {
+        // Rediriger vers la page de connexion si le jeton n'est pas présent
         navigate("/login");
         return;
       }
 
+      // Méthode pour réhabiliter un utilisateur :
       const response = await fetch(UNBAN_USER_API(userId), {
         method: "PUT",
         headers: {
@@ -185,6 +205,7 @@ export default function UserManagement(toggleUpdate) {
       });
 
       if (response.ok) {
+        // Si la réponse est réussie, mettre à jour l'état local et afficher un message de succès
         console.log("Utilisateur débanni avec succès");
         const updatedUsersData = usersData.map((user) =>
           user._id === userId ? { ...user, isBan: false } : user
@@ -195,6 +216,7 @@ export default function UserManagement(toggleUpdate) {
           setSuccessMessage("");
         }, 3000);
       } else {
+        // Gérer les erreurs de la réponse HTTP
         console.error(
           "Impossible de débannir l'utilisateur. Statut HTTP :",
           response.status
@@ -202,6 +224,7 @@ export default function UserManagement(toggleUpdate) {
         setServerErrors("Impossible de débannir l'utilisateur");
       }
     } catch (error) {
+      // Gérer les erreurs de requête
       console.error("Erreur lors du débannissement de l'utilisateur :", error);
       setServerErrors("Impossible de débannir l'utilisateur");
     }
@@ -213,6 +236,7 @@ export default function UserManagement(toggleUpdate) {
       const token = localStorage.getItem("token");
 
       if (!token) {
+        // Rediriger vers la page de connexion si le jeton n'est pas présent
         navigate("/login");
         return;
       }
@@ -231,6 +255,7 @@ export default function UserManagement(toggleUpdate) {
       );
 
       if (response.ok) {
+        // Si la réponse est réussie, mettre à jour l'état local et afficher un message de succès
         console.log("Utilisateur supprimé avec succès");
         const updatedUsersData = usersData.filter(
           (user) => user._id !== userId
@@ -244,6 +269,7 @@ export default function UserManagement(toggleUpdate) {
         setUserToDelete(null);
         setConfirmationVisible(false);
       } else {
+        // Gérer les erreurs de la réponse HTTP
         console.error(
           "Impossible de supprimer l'utilisateur. Statut HTTP :",
           response.status
@@ -251,6 +277,7 @@ export default function UserManagement(toggleUpdate) {
         setServerErrors("Impossible de supprimer l'utilisateur");
       }
     } catch (error) {
+      // Gérer les erreurs de requête
       console.error("Erreur lors de la suppression de l'utilisateur :", error);
       setServerErrors("Impossible de supprimer l'utilisateur");
     }
@@ -258,26 +285,11 @@ export default function UserManagement(toggleUpdate) {
 
   return (
     <>
+      {isLoading && <img src={Spinner} alt="Chargement en cours" />}
+      {/* Affichage du titre et des statistiques */}
       <h1>Gestion des utilisateurs</h1>
       <table>
-        <thead>
-          <tr>
-            <th>Nombre d'utilisateurs</th>
-            <th>Nombre d'utilisateurs connectés</th>
-            <th>Nombre d'Administrateurs</th>
-            <th>Nombre d'Administrateurs connectés</th>
-            <th>Nombre d'utilisateurs Bannis</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{usersData.length}</td>
-            <td>À venir</td>
-            <td>{usersData.filter((user) => user.isAdmin).length}</td>
-            <td>À venir</td>
-            <td>{usersData.filter((user) => user.isBan).length}</td>
-          </tr>
-        </tbody>
+        {/* ... Tableau des statistiques ... */}
       </table>
       <h2>Liste des utilisateurs :</h2>
       <table>
@@ -293,6 +305,7 @@ export default function UserManagement(toggleUpdate) {
           </tr>
         </thead>
         <tbody>
+          {/* Mapping des utilisateurs pour afficher chaque ligne utilisateur */}
           {usersData &&
             usersData.map((user) => (
               <UserRow
@@ -306,7 +319,7 @@ export default function UserManagement(toggleUpdate) {
             ))}
         </tbody>
       </table>
-      {isLoading && <img src={Spinner} alt="Chargement en cours" />}
+      {/* Affichage des messages de succès et d'erreurs */}
       <div className="success-message">
         {successMessage && <p>{successMessage}</p>}
       </div>

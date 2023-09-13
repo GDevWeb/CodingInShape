@@ -1,37 +1,40 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserManagement from "./UserManagement";
 import AddUser from "./AddUser";
 import ExerciseManagement from "./ExerciseManagement";
+import Spinner from "../../assets/icons/spinner.svg";
 
-export default function DashBoardPage() {
+export default function DashboardPage() {
+  // État local pour stocker les données des utilisateurs, le chargement,
+  // et les indicateurs d'affichage de la liste des utilisateurs, du formulaire d'ajout,
+  // et de la liste des exercices.
   const [usersData, setUsersData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // toggle CRUD Users :
   const [showListOfUsers, setShowListOfUsers] = useState(true);
-
   const [showAddUserForm, setShowAddUserForm] = useState(false);
-
-  // toggle CRUD Exercises :
   const [showListOfExercises, setShowListOfExercises] = useState(false);
+  const [toggleUpdate, setToggleUpdate] = useState(false);
 
-  // Actualisation de liste des USers :
-  const [toggleUpdate, setToggleUpdate] = useState(false)
-
+  // Hook pour obtenir la fonction de navigation de React Router
   const navigate = useNavigate();
 
+  // Hook useEffect pour récupérer les données des utilisateurs depuis l'API
   useEffect(() => {
     const fetchUsersData = async () => {
       try {
+        // Obtenir le jeton d'authentification depuis le stockage local
         const token = localStorage.getItem("token");
         console.log("Token obtenu :", token);
 
         if (!token) {
+          // Rediriger vers la page de connexion si le jeton n'est pas présent
           navigate("/login");
           return;
         }
 
+        // Effectuer une requête GET pour récupérer les données des utilisateurs
         const response = await fetch("http://localhost:4000/api/admin/users", {
           method: "GET",
           headers: {
@@ -42,11 +45,13 @@ export default function DashBoardPage() {
         });
 
         if (response.ok) {
+          // Si la réponse est réussie, mettre à jour l'état local avec les données
           const data = await response.json();
           console.log("Données des utilisateurs récupérées :", data);
           setUsersData(data);
           setIsLoading(false);
         } else {
+          // Gérer les erreurs de la réponse HTTP
           console.error(
             "Impossible de récupérer les données des utilisateurs. Statut HTTP :",
             response.status
@@ -54,6 +59,7 @@ export default function DashBoardPage() {
           setIsLoading(false);
         }
       } catch (error) {
+        // Gérer les erreurs de requête
         console.error(
           "Erreur lors de la récupération des données des utilisateurs :",
           error
@@ -61,11 +67,14 @@ export default function DashBoardPage() {
         setIsLoading(false);
       }
     };
+    // Appeler la fonction pour récupérer les données des utilisateurs
     fetchUsersData();
   }, [navigate]);
+
   return (
     <>
       <h2>Dashboard</h2>
+      {isLoading && <img src={Spinner} alt="loading" />}
       <h3>Gestion des utilisateurs :</h3>
 
       <button onClick={() => setShowListOfUsers(!showListOfUsers)}>
@@ -73,13 +82,13 @@ export default function DashBoardPage() {
           ? "Cacher la liste des utilisateurs"
           : "Afficher la liste des utilisateurs"}
       </button>
-      {showListOfUsers && <UserManagement toggleUpdate = {toggleUpdate}/>}
+      {showListOfUsers && <UserManagement toggleUpdate={toggleUpdate} />}
 
       <h2>Ajouter un utilisateur :</h2>
       <button onClick={() => setShowAddUserForm(!showAddUserForm)}>
         {showAddUserForm ? "Cacher formulaire Ajout utilisateur" : "Ajouter un utilisateur"}
       </button>
-      {showAddUserForm && <AddUser/>}
+      {showAddUserForm && <AddUser />}
 
       <h3>Gestion des exercices :</h3>
       <button onClick={() => setShowListOfExercises(!showListOfExercises)}>
@@ -87,7 +96,7 @@ export default function DashBoardPage() {
           ? "Cacher la liste des exercices"
           : "Afficher la liste des exercices"}
       </button>
-      {showListOfExercises && <ExerciseManagement/>}
+      {showListOfExercises && <ExerciseManagement />}
     </>
   );
 }
