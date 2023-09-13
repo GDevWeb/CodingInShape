@@ -1,20 +1,19 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserRow from "./UserRow";
+import "../../../src/main.scss";
 
 // Composants locaux :
-import Spinner from '../../assets/icons/spinner.svg'
+import Spinner from "../../assets/icons/spinner.svg";
 
 // Constantes et variables :
 import {
   USERS_API,
-  USER_API,
   BAN_USER_API,
   UNBAN_USER_API,
   ADMIN_USER_API,
-  UNADMIN_USER_API,
-} from '.././api';
-
+} from ".././api";
+import { set } from "mongoose";
 
 export default function UserManagement(toggleUpdate) {
   const [usersData, setUsersData] = useState([]);
@@ -23,9 +22,9 @@ export default function UserManagement(toggleUpdate) {
   const [updatedList, setUpdatedList] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [successMessage, setSuccessMessage] = useState("");
   const [serverErrors, setServerErrors] = useState("");
 
-  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,6 +50,10 @@ export default function UserManagement(toggleUpdate) {
           const data = await response.json();
           setUsersData(data);
           setIsLoading(false);
+          setSuccessMessage("Données des utilisateurs récupérées avec succès");
+          setTimeout(() => {
+            setSuccessMessage("");
+          }, 3000);
         } else {
           console.error(
             "Impossible de récupérer les données des utilisateurs. Statut HTTP :",
@@ -64,6 +67,9 @@ export default function UserManagement(toggleUpdate) {
           error
         );
         setIsLoading(false);
+        setServerErrors(
+          "Erreur lors de la récupération des données des utilisateurs"
+        );
       }
     };
     fetchUsersData();
@@ -80,35 +86,38 @@ export default function UserManagement(toggleUpdate) {
       }
 
       // Méthode pour passer un utilisateur en administrateur ou retirer les droits admin :
-      const response = await fetch(
-       ADMIN_USER_API(userId),
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          credentials: "include",
-        }
-      );
+      const response = await fetch(ADMIN_USER_API(userId), {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: "include",
+      });
 
       if (response.ok) {
         console.log("Statut administrateur mis à jour avec succès");
+        setSuccessMessage("Statut administrateur mis à jour avec succès");
         const updatedUsersData = usersData.map((user) =>
           user._id === userId ? { ...user, isAdmin: !user.isAdmin } : user
         );
         setUsersData(updatedUsersData);
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 3000);
       } else {
         console.error(
           "Impossible de mettre à jour le statut administrateur. Statut HTTP :",
           response.status
         );
+        setServerErrors("Impossible de mettre à jour le statut administrateur");
       }
     } catch (error) {
       console.error(
         "Erreur lors de la mise à jour du statut administrateur :",
         error
       );
+      setServerErrors("Impossible de mettre à jour le statut administrateur");
     }
   };
 
@@ -123,32 +132,36 @@ export default function UserManagement(toggleUpdate) {
       }
 
       // Méthode pour bannir un utilisateur :
-      const response = await fetch(
-        BAN_USER_API(userId),
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          credentials: "include",
-        }
-      );
+      const response = await fetch(BAN_USER_API(userId), {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: "include",
+      });
 
       if (response.ok) {
         console.log("Utilisateur banni avec succès");
         const updatedUsersData = usersData.map((user) =>
           user._id === userId ? { ...user, isBan: true } : user
         );
+        setSuccessMessage("Utilisateur banni avec succès");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 3000);
+
         setUsersData(updatedUsersData);
       } else {
         console.error(
           "Impossible de bannir l'utilisateur. Statut HTTP :",
           response.status
         );
+        setServerErrors("Impossible de bannir l'utilisateur");
       }
     } catch (error) {
       console.error("Erreur lors du bannissement de l'utilisateur :", error);
+      setServerErrors("Erreur lors du bannissement de l'utilisateur");
     }
   };
 
@@ -162,10 +175,53 @@ export default function UserManagement(toggleUpdate) {
         return;
       }
 
+      const response = await fetch(UNBAN_USER_API(userId), {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: "include",
+      });
+
+      if (response.ok) {
+        console.log("Utilisateur débanni avec succès");
+        const updatedUsersData = usersData.map((user) =>
+          user._id === userId ? { ...user, isBan: false } : user
+        );
+        setUsersData(updatedUsersData);
+        setSuccessMessage("Utilisateur débanni avec succès");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 3000);
+      } else {
+        console.error(
+          "Impossible de débannir l'utilisateur. Statut HTTP :",
+          response.status
+        );
+        setServerErrors("Impossible de débannir l'utilisateur");
+      }
+    } catch (error) {
+      console.error("Erreur lors du débannissement de l'utilisateur :", error);
+      setServerErrors("Impossible de débannir l'utilisateur");
+    }
+  };
+
+  // Méthode pour supprimer un utilisateur
+  const handleDeleteUser = async (userId) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+
+      // Méthode pour supprimer un utilisateur :
       const response = await fetch(
-        UNBAN_USER_API(userId),
+        `http://localhost:4000/api/admin/users/${userId}`,
         {
-          method: "PUT",
+          method: "DELETE",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -175,64 +231,33 @@ export default function UserManagement(toggleUpdate) {
       );
 
       if (response.ok) {
-        console.log("Utilisateur débanni avec succès");
-        const updatedUsersData = usersData.map((user) =>
-          user._id === userId ? { ...user, isBan: false } : user
+        console.log("Utilisateur supprimé avec succès");
+        const updatedUsersData = usersData.filter(
+          (user) => user._id !== userId
         );
+        setSuccessMessage("Utilisateur supprimé avec succès");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 3000);
+
         setUsersData(updatedUsersData);
+        setUserToDelete(null);
+        setConfirmationVisible(false);
       } else {
         console.error(
-          "Impossible de débannir l'utilisateur. Statut HTTP :",
+          "Impossible de supprimer l'utilisateur. Statut HTTP :",
           response.status
         );
+        setServerErrors("Impossible de supprimer l'utilisateur");
       }
     } catch (error) {
-      console.error("Erreur lors du débannissement de l'utilisateur :", error);
+      console.error("Erreur lors de la suppression de l'utilisateur :", error);
+      setServerErrors("Impossible de supprimer l'utilisateur");
     }
   };
 
-// Méthode pour supprimer un utilisateur
-const handleDeleteUser = async (userId) => {
-  try {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      navigate("/login");
-      return;
-    }
-
-    // Méthode pour supprimer un utilisateur :
-    const response = await fetch(
-      `http://localhost:4000/api/admin/users/${userId}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        credentials: "include",
-      }
-    );
-
-    if (response.ok) {
-      console.log("Utilisateur supprimé avec succès");
-      const updatedUsersData = usersData.filter((user) => user._id !== userId);
-      setUsersData(updatedUsersData); 
-      setUserToDelete(null);
-      setConfirmationVisible(false);
-    } else {
-      console.error(
-        "Impossible de supprimer l'utilisateur. Statut HTTP :",
-        response.status
-      );
-    }
-  } catch (error) {
-    console.error("Erreur lors de la suppression de l'utilisateur :", error);
-  }
-};
-
   return (
-<>
+    <>
       <h1>Gestion des utilisateurs</h1>
       <table>
         <thead>
@@ -277,14 +302,17 @@ const handleDeleteUser = async (userId) => {
                 handleBanChange={handleBanChange}
                 handleUnbanChange={handleUnbanChange}
                 handleDeleteUser={handleDeleteUser}
-                />
-                ))}
+              />
+            ))}
         </tbody>
       </table>
-
-      <div className="server-error">{serverErrors && <p>{serverErrors}</p>}</div>
-
+      {isLoading && <img src={Spinner} alt="Chargement en cours" />}
+      <div className="success-message">
+        {successMessage && <p>{successMessage}</p>}
+      </div>
+      <div className="server-error">
+        {serverErrors && <p>{serverErrors}</p>}
+      </div>
     </>
   );
 }
-

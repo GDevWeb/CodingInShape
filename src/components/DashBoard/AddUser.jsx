@@ -194,7 +194,7 @@ const handleSubmit = async (e) => {
       // La requête a réussi (statut 200 OK)
       const responseData = await response.json();
       console.log("Réponse du serveur :", responseData);
-      setSuccess("Votre compte a bien été créé");
+      setSuccess(responseData.message);
 
       // On vide le formulaire :
       setFormData({
