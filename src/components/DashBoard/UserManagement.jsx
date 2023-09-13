@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import AddUser from "./AddUser";
 import UserRow from "./UserRow";
 
 export default function UserManagement() {
@@ -217,14 +216,29 @@ export default function UserManagement() {
     }
   };
 
-  if (isLoading) {
-
-    return <p>Chargement des données...</p>;
-  }
-
   return (
-    <>
+<>
       <h1>Gestion des utilisateurs</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre d'utilisateurs</th>
+            <th>Nombre d'utilisateurs connectés</th>
+            <th>Nombre d'Administrateurs</th>
+            <th>Nombre d'Administrateurs connectés</th>
+            <th>Nombre d'utilisateurs Bannis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{usersData.length}</td>
+            <td>À venir</td>
+            <td>{usersData.filter((user) => user.isAdmin).length}</td>
+            <td>À venir</td>
+            <td>{usersData.filter((user) => user.isBan).length}</td>
+          </tr>
+        </tbody>
+      </table>
       <h2>Liste des utilisateurs :</h2>
       <table>
         <thead>
@@ -252,15 +266,8 @@ export default function UserManagement() {
             ))}
         </tbody>
       </table>
-  
-      {userToDelete && confirmationVisible && (
-        <div className="confirmation">
-          <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
-          <button onClick={() => handleDeleteUser(userToDelete._id)}>Oui</button>
-          <button onClick={() => setConfirmationVisible(false)}>Non</button>
-        </div>
-      )}
+
     </>
   );
-  
 }
+

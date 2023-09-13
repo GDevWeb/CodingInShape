@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 export default function UserRow({
   user,
@@ -28,11 +29,20 @@ export default function UserRow({
         </label>
       </td>
       <td>
-        <label className="switch">
-          {user.isBan ? <p>Oui</p> : <p>Non</p>}
-          <span className="slider round"></span>
-        </label>
-      </td>
+  <label className="switch">
+    {user.isBan ? <p>Oui</p> : <p>Non</p>}
+    <button
+      type="button"
+      onClick={() =>
+        user.isBan ? handleUnbanChange(user._id) : handleBanChange(user._id)
+      }
+      className={user.isBan ? "banned-button" : ""}
+    >
+      {user.isBan ? "Débannir" : "Bannir"}
+    </button>
+    <span className="slider round"></span>
+  </label>
+</td>
       <td>
         <button onClick={() => setConfirmationVisible(true)}>
           Supprimer
@@ -52,3 +62,11 @@ export default function UserRow({
     </tr>
   );
 }
+
+UserRow.propTypes = {
+  user: PropTypes.object.isRequired,
+  handleAdminChange: PropTypes.func.isRequired,
+  handleBanChange: PropTypes.func.isRequired,
+  handleUnbanChange: PropTypes.func.isRequired,
+  handleDeleteUser: PropTypes.func.isRequired,
+};
