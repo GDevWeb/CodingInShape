@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import { useDeleteConfirmation } from "../Hooks/useDeleteConfirmation";
 
 export default function UserRow({
   user,
@@ -8,7 +9,12 @@ export default function UserRow({
   handleUnbanChange,
   handleDeleteUser,
 }) {
-  const [confirmationVisible, setConfirmationVisible] = useState(false);
+  // Utilise le hook de confirmation de suppression
+  const {
+    confirmationVisible,
+    showConfirmation,
+    hideConfirmation,
+  } = useDeleteConfirmation();
 
   return (
     <tr key={user._id}>
@@ -29,33 +35,29 @@ export default function UserRow({
         </label>
       </td>
       <td>
-  <label className="switch">
-    {user.isBan ? <p>Oui</p> : <p>Non</p>}
-    <button
-      type="button"
-      onClick={() =>
-        user.isBan ? handleUnbanChange(user._id) : handleBanChange(user._id)
-      }
-      className={user.isBan ? "banned-button" : ""}
-    >
-      {user.isBan ? "Débannir" : "Bannir"}
-    </button>
-    <span className="slider round"></span>
-  </label>
-</td>
+        <label className="switch">
+          {user.isBan ? <p>Oui</p> : <p>Non</p>}
+          <button
+            type="button"
+            onClick={() =>
+              user.isBan ? handleUnbanChange(user._id) : handleBanChange(user._id)
+            }
+            className={user.isBan ? "banned-button" : ""}
+          >
+            {user.isBan ? "Débannir" : "Bannir"}
+          </button>
+          <span className="slider round"></span>
+        </label>
+      </td>
       <td>
-        <button onClick={() => setConfirmationVisible(true)}>
-          Supprimer
-        </button>
+        <button onClick={() => showConfirmation(user._id)}>Supprimer</button>
       </td>
       {confirmationVisible && (
         <td>
           <div className="confirmation">
             <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
-            <button onClick={() => handleDeleteUser(user._id)}>
-              Oui
-            </button>
-            <button onClick={() => setConfirmationVisible(false)}>Non</button>
+            <button onClick={() => handleDeleteUser(user._id)}>Oui</button>
+            <button onClick={hideConfirmation}>Non</button>
           </div>
         </td>
       )}

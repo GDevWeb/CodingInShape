@@ -9,6 +9,9 @@ export default function UserManagement(toggleUpdate) {
   const [confirmationVisible, setConfirmationVisible] = useState(true);
   const [updatedList, setUpdatedList] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [serverErrors, setServerErrors] = useState("");
+
   
   const navigate = useNavigate();
 
@@ -175,49 +178,45 @@ export default function UserManagement(toggleUpdate) {
     }
   };
 
-  // Méthode pour supprimer un utilisateur
-  const handleDeleteUser = async (userId) => {
-    try {
-      const token = localStorage.getItem("token");
+// Méthode pour supprimer un utilisateur
+const handleDeleteUser = async (userId) => {
+  try {
+    const token = localStorage.getItem("token");
 
-      if (!token) {
-        navigate("/login");
-        return;
-      }
-
-      // Méthode pour supprimer un utilisateur :
-      const response = await fetch(
-        `http://localhost:4000/api/admin/users/${userId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          credentials: "include",
-        }
-      );
-
-      if (response.ok) {
-        console.log("Utilisateur supprimé avec succès");
-        setUpdatedList((prev) => prev)
-        // const updatedUsersData = usersData.filter(
-        //   (user) => user._id !== userId
-        // );
-        // setUsersData(updatedUsersData);
-        setUpdatedList(updatedList + 1)
-        setUserToDelete(null);
-        setConfirmationVisible(false);
-      } else {
-        console.error(
-          "Impossible de supprimer l'utilisateur. Statut HTTP :",
-          response.status
-        );
-      }
-    } catch (error) {
-      console.error("Erreur lors de la suppression de l'utilisateur :", error);
+    if (!token) {
+      navigate("/login");
+      return;
     }
-  };
+
+    // Méthode pour supprimer un utilisateur :
+    const response = await fetch(
+      `http://localhost:4000/api/admin/users/${userId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: "include",
+      }
+    );
+
+    if (response.ok) {
+      console.log("Utilisateur supprimé avec succès");
+      const updatedUsersData = usersData.filter((user) => user._id !== userId);
+      setUsersData(updatedUsersData); 
+      setUserToDelete(null);
+      setConfirmationVisible(false);
+    } else {
+      console.error(
+        "Impossible de supprimer l'utilisateur. Statut HTTP :",
+        response.status
+      );
+    }
+  } catch (error) {
+    console.error("Erreur lors de la suppression de l'utilisateur :", error);
+  }
+};
 
   return (
 <>
@@ -265,10 +264,12 @@ export default function UserManagement(toggleUpdate) {
                 handleBanChange={handleBanChange}
                 handleUnbanChange={handleUnbanChange}
                 handleDeleteUser={handleDeleteUser}
-              />
-            ))}
+                />
+                ))}
         </tbody>
       </table>
+
+      <div className="server-error">{serverErrors && <p>{serverErrors}</p>}</div>
 
     </>
   );
