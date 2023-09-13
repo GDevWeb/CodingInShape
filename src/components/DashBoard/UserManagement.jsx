@@ -1,7 +1,20 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import UserRow from "./UserRow";
+
+// Composants locaux :
 import Spinner from '../../assets/icons/spinner.svg'
+
+// Constantes et variables :
+import {
+  USERS_API,
+  USER_API,
+  BAN_USER_API,
+  UNBAN_USER_API,
+  ADMIN_USER_API,
+  UNADMIN_USER_API,
+} from '.././api';
+
 
 export default function UserManagement(toggleUpdate) {
   const [usersData, setUsersData] = useState([]);
@@ -25,7 +38,7 @@ export default function UserManagement(toggleUpdate) {
           return;
         }
 
-        const response = await fetch("http://localhost:4000/api/admin/users", {
+        const response = await fetch(USERS_API, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -68,7 +81,7 @@ export default function UserManagement(toggleUpdate) {
 
       // Méthode pour passer un utilisateur en administrateur ou retirer les droits admin :
       const response = await fetch(
-        `http://localhost:4000/api/admin/users/unadmin/${userId}`,
+       ADMIN_USER_API(userId),
         {
           method: "PUT",
           headers: {
@@ -111,7 +124,7 @@ export default function UserManagement(toggleUpdate) {
 
       // Méthode pour bannir un utilisateur :
       const response = await fetch(
-        `http://localhost:4000/api/admin/users/ban/${userId}`,
+        BAN_USER_API(userId),
         {
           method: "PUT",
           headers: {
@@ -139,6 +152,7 @@ export default function UserManagement(toggleUpdate) {
     }
   };
 
+  // Méthode pour réhabiliter un utilisateur :
   const handleUnbanChange = async (userId) => {
     try {
       const token = localStorage.getItem("token");
@@ -148,9 +162,8 @@ export default function UserManagement(toggleUpdate) {
         return;
       }
 
-      // Méthode pour débannir un utilisateur :
       const response = await fetch(
-        `http://localhost:4000/api/admin/users/unban/${userId}`,
+        UNBAN_USER_API(userId),
         {
           method: "PUT",
           headers: {
