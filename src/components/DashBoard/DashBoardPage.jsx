@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { fetchUsersData } from "./fetchUserData";
 import UserManagement from "./UserManagement";
 import AddUser from "./AddUser";
 import ExerciseManagement from "./ExerciseManagement";
@@ -22,56 +23,18 @@ export default function DashboardPage() {
 
   // Hook useEffect pour récupérer les données des utilisateurs depuis l'API
   useEffect(() => {
-    const fetchUsersData = async () => {
+    const fetchData = async () => {
       try {
-        // Obtenir le jeton d'authentification depuis le stockage local
-        const token = localStorage.getItem("token");
-        console.log("Token obtenu :", token);
-
-        if (!token) {
-          // Rediriger vers la page de connexion si le jeton n'est pas présent
-          navigate("/login");
-          return;
-        }
-
-        // Effectuer une requête GET pour récupérer les données des utilisateurs
-        const response = await fetch("http://localhost:4000/api/admin/users", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          credentials: "include",
-        });
-
-        if (response.ok) {
-          // Si la réponse est réussie, mettre à jour l'état local avec les données
-          const data = await response.json();
-          console.log("Données des utilisateurs récupérées :", data);
-          setUsersData(data);
-          setIsLoading(false);
-        } else {
-          // Gérer les erreurs de la réponse HTTP
-          console.error(
-            "Impossible de récupérer les données des utilisateurs. Statut HTTP :",
-            response.status
-          );
-          setIsLoading(false);
-        }
+        const data = await fetchUsersData(); // Utilisez la fonction fetchUsersData
+        setUsersData(data);
+        setIsLoading(false);
       } catch (error) {
-        // Gérer les erreurs de requête
-        console.error(
-          "Erreur lors de la récupération des données des utilisateurs :",
-          error
-        );
+        console.error(error);
         setIsLoading(false);
       }
     };
-    // Appeler la fonction pour récupérer les données des utilisateurs
-    fetchUsersData();
-  }, [navigate]);
-
-  return (
+    fetchData();
+  }, [navigate]);  return (
     <>
       <h2>Dashboard</h2>
       {isLoading && <img src={Spinner} alt="loading" />}
