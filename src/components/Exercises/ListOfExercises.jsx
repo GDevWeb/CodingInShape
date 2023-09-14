@@ -148,7 +148,6 @@ export default function ListOfExercises() {
   >
   Page suivante
 </button>
-{/* Revoir le calcul pour trouver la dernière page : */}
 <p>page {currentPage} sur {Math.ceil(exercises.length / exercisePerPage)}</p>
     </div>
   );

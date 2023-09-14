@@ -5,27 +5,22 @@ import UserManagement from "./UserManagement";
 import AddUser from "./AddUser";
 import ExerciseManagement from "./ExerciseManagement";
 import Spinner from "../../assets/icons/spinner.svg";
+import usePagination from "../Hooks/usePagination";
 
 export default function DashboardPage() {
-  // État local pour stocker les données des utilisateurs, le chargement,
-  // et les indicateurs d'affichage de la liste des utilisateurs, du formulaire d'ajout,
-  // et de la liste des exercices.
   const [usersData, setUsersData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
   const [showListOfUsers, setShowListOfUsers] = useState(true);
   const [showAddUserForm, setShowAddUserForm] = useState(false);
   const [showListOfExercises, setShowListOfExercises] = useState(false);
   const [toggleUpdate, setToggleUpdate] = useState(false);
 
-  // Hook pour obtenir la fonction de navigation de React Router
   const navigate = useNavigate();
 
-  // Hook useEffect pour récupérer les données des utilisateurs depuis l'API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchUsersData(); // Utilisez la fonction fetchUsersData
+        const data = await fetchUsersData();
         setUsersData(data);
         setIsLoading(false);
       } catch (error) {
@@ -34,18 +29,35 @@ export default function DashboardPage() {
       }
     };
     fetchData();
-  }, [navigate]);  return (
+  }, [navigate]);
+
+  // pagination :
+  const { currentPage, displayedData, pageNumbers, setPage, itemsPerPage, lastPage } = usePagination(
+    usersData || [],
+    4
+  );
+
+  return (
     <>
       <h2>Dashboard</h2>
       {isLoading && <img src={Spinner} alt="loading" />}
-      <h3>Gestion des utilisateurs :</h3>
-
-      <button onClick={() => setShowListOfUsers(!showListOfUsers)}>
-        {showListOfUsers
-          ? "Cacher la liste des utilisateurs"
-          : "Afficher la liste des utilisateurs"}
-      </button>
-      {showListOfUsers && <UserManagement toggleUpdate={toggleUpdate} />}
+      {showListOfUsers && usersData && (
+        <UserManagement toggleUpdate={toggleUpdate} displayedUsers={displayedData} />
+      )}
+      {usersData && (
+        <div className="pagination-buttons">
+          {Array.from({ length: pageNumbers }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => setPage(index + 1)}
+              className={currentPage === index + 1 ? "active" : ""}
+            >
+              {index + 1}
+            </button>
+          ))}
+          <p>page {currentPage} sur {lastPage}</p>
+        </div>
+      )}
 
       <h2>Ajouter un utilisateur :</h2>
       <button onClick={() => setShowAddUserForm(!showAddUserForm)}>

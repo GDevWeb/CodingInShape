@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types"
 import UserRow from "./UserRow";
 import "../../../src/main.scss";
 
@@ -14,7 +15,7 @@ import {
   ADMIN_USER_API,
 } from "../apiAdmin";
 
-export default function UserManagement(toggleUpdate) {
+export default function UserManagement({toggleUpdate, displayedUsers}) {
   // État local pour stocker les données des utilisateurs, l'utilisateur à supprimer,
   // la visibilité de la confirmation, le chargement, les messages de succès
   // et les erreurs du serveur.
@@ -306,8 +307,8 @@ export default function UserManagement(toggleUpdate) {
         </thead>
         <tbody>
           {/* Mapping des utilisateurs pour afficher chaque ligne utilisateur */}
-          {usersData &&
-            usersData.map((user) => (
+          {displayedUsers &&
+            displayedUsers.map((user) => (
               <UserRow
                 key={user._id}
                 user={user}
@@ -329,3 +330,6 @@ export default function UserManagement(toggleUpdate) {
     </>
   );
 }
+UserManagement.propTypes = {
+  displayedUsers: PropTypes.array.isRequired,
+};
