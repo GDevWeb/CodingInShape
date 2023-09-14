@@ -32,7 +32,7 @@ export default function DashboardPage() {
   }, [navigate]);
 
   // pagination :
-  const { currentPage, displayedData, pageNumbers, setPage, itemsPerPage, lastPage } = usePagination(
+  const { currentPage, displayedData, pageNumbers, setPage, lastPage } = usePagination(
     usersData || [],
     4
   );
