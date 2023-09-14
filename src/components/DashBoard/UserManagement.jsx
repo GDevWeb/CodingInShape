@@ -14,6 +14,7 @@ import {
   UNBAN_USER_API,
   ADMIN_USER_API,
 } from "../apiAdmin";
+import StatsTab from "./StatsTab";
 
 export default function UserManagement({toggleUpdate, displayedUsers}) {
   // État local pour stocker les données des utilisateurs, l'utilisateur à supprimer,
@@ -289,9 +290,7 @@ export default function UserManagement({toggleUpdate, displayedUsers}) {
       {isLoading && <img src={Spinner} alt="Chargement en cours" />}
       {/* Affichage du titre et des statistiques */}
       <h1>Gestion des utilisateurs</h1>
-      <table>
-        {/* ... Tableau des statistiques ... */}
-      </table>
+      <StatsTab usersData={usersData}/>
       <h2>Liste des utilisateurs :</h2>
       <table>
         <thead>

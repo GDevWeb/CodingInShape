@@ -8,6 +8,7 @@ export default function UserRow({
   handleBanChange,
   handleUnbanChange,
   handleDeleteUser,
+  handleUpdateUser,
 }) {
   // Utilise le hook de confirmation de suppression
   const {
@@ -16,6 +17,13 @@ export default function UserRow({
     hideConfirmation,
   } = useDeleteConfirmation();
 
+  const handleUpdateClick = () => {
+    console.log("click UpdateUser");
+    if (typeof handleUpdateUser === 'function') {
+      handleUpdateUser(user);
+    }
+  };
+  
   return (
     <tr key={user._id}>
       <td>{user.firstName}</td>
@@ -61,6 +69,12 @@ export default function UserRow({
           </div>
         </td>
       )}
+      <td>{}</td>
+      <td>{}</td>
+            <td>
+        <button onClick={handleUpdateClick}>Mettre à jour</button>
+      </td>
+
     </tr>
   );
 }
