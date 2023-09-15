@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import StatsTab from "./StatsTab";
+import useUserFilter from "../Hooks/useUserFilter";
 import usePagination from "../Hooks/usePagination";
 import UserRow from "./UserRow";
 import "../../../src/main.scss";
@@ -15,27 +16,29 @@ import {
   UNBAN_USER_API,
   ADMIN_USER_API,
 } from "../apiAdmin";
-import { current } from "@reduxjs/toolkit";
+
 
 export default function UserManagement(toggleUpdate) {
   // État local pour stocker les données des utilisateurs, l'utilisateur à supprimer,
   // la visibilité de la confirmation, le chargement, les messages de succès
   // et les erreurs du serveur.
-  const [usersData, setUsersData] = useState([]);
-  const [userToDelete, setUserToDelete] = useState(null);
-  const [confirmationVisible, setConfirmationVisible] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
+    const [usersData, setUsersData] = useState([]);
+    const [filterText, setFilterText] = useState("");
+    const [userToDelete, setUserToDelete] = useState(null);
+    const [confirmationVisible, setConfirmationVisible] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
 
-  // pagination :
-  const {
-    currentPage,
-    displayedData,
-    pageNumbers,
-    lastPage,
-    setPage,
-    itemsPerpage,
-  } = usePagination(usersData, 4);
-
+  // Filtres :
+  const { filteredUsers } = useUserFilter(usersData, filterText);  // pagination :
+// pagination :
+const {
+  currentPage,
+  displayedData,
+  pageNumbers,
+  lastPage,
+  setPage,
+  itemsPerpage,
+} = usePagination(filteredUsers, 4);
   const [successMessage, setSuccessMessage] = useState("");
   const [serverErrors, setServerErrors] = useState("");
 
@@ -302,7 +305,17 @@ export default function UserManagement(toggleUpdate) {
       {/* Affichage du titre et des statistiques */}
       <h2>Liste des utilisateurs</h2>
       <StatsTab usersData={usersData} adminCount={usersData.adminCount} />
-      <table>
+      <label htmlFor="filtre">Rechercher par nom, prénom ...</label>
+      <input
+        type="text"
+        placeholder="Filtre"
+        value={filterText}
+        onChange={(e) => {
+          setFilterText(e.target.value);
+        } }
+        name="filtre"
+        id="filtre"
+      />      <table>
         <thead>
           <tr>
             <th>Prénom</th>
@@ -332,10 +345,10 @@ export default function UserManagement(toggleUpdate) {
 
       {/* Buttons de pagination : */}
       <div>
-        <span>page {currentPage} sur {lastPage}</span>
         <button onClick={() => setPage(currentPage - 1)} disabled={currentPage === 1}>
           Previous
         </button>
+        <span>page {currentPage} sur {lastPage}</span>
         <button onClick={() => setPage(currentPage + 1)} disabled={currentPage === lastPage}>
           Next
         </button>
