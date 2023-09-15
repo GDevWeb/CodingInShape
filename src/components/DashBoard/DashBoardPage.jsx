@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { fetchUsersData } from "./fetchUserData";
 import UserManagement from "./UserManagement";
 import AddUser from "./AddUser";
-import StatsTab from "./StatsTab";
 import ExerciseManagement from "./ExerciseManagement";
 import Spinner from "../../assets/icons/spinner.svg";
 
@@ -35,16 +34,10 @@ export default function DashboardPage() {
 
   return (
     <>
-      <h2>Dashboard</h2>
       {isLoading && <img src={Spinner} alt="loading" />}
 
-      {usersData && ( // Check if usersData is not null
+      {usersData && (
         <>
-          <StatsTab
-            usersData={usersData}
-            adminCount={usersData.adminCount}
-          />
-          <h3>Gestion des utilisateurs :</h3>
           <button onClick={() => setShowListOfUsers(!showListOfUsers)}>
             {showListOfUsers
               ? "Cacher la liste des utilisateurs"

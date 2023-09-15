@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import StatsTab from "./StatsTab";
 import UserRow from "./UserRow";
 import "../../../src/main.scss";
 
@@ -287,11 +288,11 @@ export default function UserManagement(toggleUpdate) {
     <>
       {isLoading && <img src={Spinner} alt="Chargement en cours" />}
       {/* Affichage du titre et des statistiques */}
-      <h1>Gestion des utilisateurs</h1>
-      <table>
-        {/* ... Tableau des statistiques ... */}
-      </table>
-      <h2>Liste des utilisateurs :</h2>
+      <h2>Liste des utilisateurs</h2>
+      <StatsTab
+            usersData={usersData}
+            adminCount={usersData.adminCount}
+          />
       <table>
         <thead>
           <tr>
