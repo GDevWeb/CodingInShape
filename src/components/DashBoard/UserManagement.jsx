@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types"
 import UserRow from "./UserRow";
 import "../../../src/main.scss";
 
@@ -14,9 +13,8 @@ import {
   UNBAN_USER_API,
   ADMIN_USER_API,
 } from "../apiAdmin";
-import StatsTab from "./StatsTab";
 
-export default function UserManagement({toggleUpdate, displayedUsers}) {
+export default function UserManagement(toggleUpdate) {
   // État local pour stocker les données des utilisateurs, l'utilisateur à supprimer,
   // la visibilité de la confirmation, le chargement, les messages de succès
   // et les erreurs du serveur.
@@ -290,7 +288,9 @@ export default function UserManagement({toggleUpdate, displayedUsers}) {
       {isLoading && <img src={Spinner} alt="Chargement en cours" />}
       {/* Affichage du titre et des statistiques */}
       <h1>Gestion des utilisateurs</h1>
-      <StatsTab usersData={usersData}/>
+      <table>
+        {/* ... Tableau des statistiques ... */}
+      </table>
       <h2>Liste des utilisateurs :</h2>
       <table>
         <thead>
@@ -306,8 +306,8 @@ export default function UserManagement({toggleUpdate, displayedUsers}) {
         </thead>
         <tbody>
           {/* Mapping des utilisateurs pour afficher chaque ligne utilisateur */}
-          {displayedUsers &&
-            displayedUsers.map((user) => (
+          {usersData &&
+            usersData.map((user) => (
               <UserRow
                 key={user._id}
                 user={user}
@@ -329,6 +329,3 @@ export default function UserManagement({toggleUpdate, displayedUsers}) {
     </>
   );
 }
-UserManagement.propTypes = {
-  displayedUsers: PropTypes.array.isRequired,
-};

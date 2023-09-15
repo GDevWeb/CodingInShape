@@ -1,5 +1,3 @@
-// api.js
-
 export const fetchUsersData = async () => {
     try {
       const token = localStorage.getItem("token");
