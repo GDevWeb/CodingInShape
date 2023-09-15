@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import StatsTab from "./StatsTab";
+import usePagination from "../Hooks/usePagination";
 import UserRow from "./UserRow";
 import "../../../src/main.scss";
 
@@ -14,6 +15,7 @@ import {
   UNBAN_USER_API,
   ADMIN_USER_API,
 } from "../apiAdmin";
+import { current } from "@reduxjs/toolkit";
 
 export default function UserManagement(toggleUpdate) {
   // État local pour stocker les données des utilisateurs, l'utilisateur à supprimer,
@@ -23,6 +25,16 @@ export default function UserManagement(toggleUpdate) {
   const [userToDelete, setUserToDelete] = useState(null);
   const [confirmationVisible, setConfirmationVisible] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
+
+  // pagination :
+  const {
+    currentPage,
+    displayedData,
+    pageNumbers,
+    lastPage,
+    setPage,
+    itemsPerpage,
+  } = usePagination(usersData, 4);
 
   const [successMessage, setSuccessMessage] = useState("");
   const [serverErrors, setServerErrors] = useState("");
@@ -289,10 +301,7 @@ export default function UserManagement(toggleUpdate) {
       {isLoading && <img src={Spinner} alt="Chargement en cours" />}
       {/* Affichage du titre et des statistiques */}
       <h2>Liste des utilisateurs</h2>
-      <StatsTab
-            usersData={usersData}
-            adminCount={usersData.adminCount}
-          />
+      <StatsTab usersData={usersData} adminCount={usersData.adminCount} />
       <table>
         <thead>
           <tr>
@@ -307,8 +316,8 @@ export default function UserManagement(toggleUpdate) {
         </thead>
         <tbody>
           {/* Mapping des utilisateurs pour afficher chaque ligne utilisateur */}
-          {usersData &&
-            usersData.map((user) => (
+          {displayedData &&
+            displayedData.map((user) => (
               <UserRow
                 key={user._id}
                 user={user}
@@ -320,6 +329,17 @@ export default function UserManagement(toggleUpdate) {
             ))}
         </tbody>
       </table>
+
+      {/* Buttons de pagination : */}
+      <div>
+        <span>page {currentPage} sur {lastPage}</span>
+        <button onClick={() => setPage(currentPage - 1)} disabled={currentPage === 1}>
+          Previous
+        </button>
+        <button onClick={() => setPage(currentPage + 1)} disabled={currentPage === lastPage}>
+          Next
+        </button>
+      </div>
       {/* Affichage des messages de succès et d'erreurs */}
       <div className="success-message">
         {successMessage && <p>{successMessage}</p>}
