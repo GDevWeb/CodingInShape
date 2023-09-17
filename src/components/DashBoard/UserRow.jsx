@@ -1,4 +1,5 @@
-import React from "react";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useDeleteConfirmation } from "../Hooks/useDeleteConfirmation";
 
@@ -17,12 +18,6 @@ export default function UserRow({
     hideConfirmation,
   } = useDeleteConfirmation();
 
-  const handleUpdateClick = () => {
-    console.log("click UpdateUser");
-    if (typeof handleUpdateUser === 'function') {
-      handleUpdateUser(user);
-    }
-  };
   
   return (
     <tr key={user._id}>
@@ -69,10 +64,11 @@ export default function UserRow({
           </div>
         </td>
       )}
-      <td>{}</td>
-      <td>{}</td>
             <td>
-        <button onClick={handleUpdateClick}>Mettre à jour</button>
+
+              <Link to={`/update-user/${user._id}`}>
+        Modifier
+              </Link>
       </td>
 
     </tr>

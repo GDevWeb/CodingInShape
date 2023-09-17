@@ -1,12 +1,25 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function UpdateUser({ userId, onUpdateUser }) {
+import {
+  USERS_API,  
+  UPDATE_USER,
+} from "../apiAdmin";
+
+export default function UpdateUser() {
+  const { userId } = useParams();
+  const navigate = useNavigate();
+  
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
-    email: "", // Include the email field
+    email: "",
+    securityQuestion:"",
+    securityAnswer: "",
   });
+
+  const [successMessage, setSuccessMessage] = useState("");
+  const [serverErrors, setServerErrors] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,10 +29,40 @@ export default function UpdateUser({ userId, onUpdateUser }) {
     });
   };
 
-  const [successMessage, setSuccessMessage] = useState("");
-  const [serverErrors, setServerErrors] = useState("");
+  useEffect(() => {
 
-  const navigate = useNavigate(); // Invoke useNavigate as a function
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          navigate("/login");
+          return;
+        }
+
+        const response = await fetch(`${USERS_API}/${userId}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          credentials: "include",
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setUserData(data);
+        } else {
+          console.error("Impossible d'obtenir les données de l'utilisateur. HTTP Status:", response.status);
+          setServerErrors("Impossible d'obtenir les données de l'utilisateur");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération des données:", error);
+        setServerErrors("Erreur lors de la récupération des données");
+      }
+    };
+
+    fetchUserData();
+  }, [userId, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,13 +71,11 @@ export default function UpdateUser({ userId, onUpdateUser }) {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        // Redirect to the login page if the token is not present
         navigate("/login");
         return;
       }
 
-      // Send a PUT request to update the user data
-      const response = await fetch(`YOUR_UPDATE_USER_API/${userId}`, {
+      const response = await fetch(`http://localhost:4000/api/admin/users/${userId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -45,28 +86,24 @@ export default function UpdateUser({ userId, onUpdateUser }) {
       });
 
       if (response.ok) {
-        // If the response is successful, update the local user data
-        // and display a success message
         onUpdateUser(userId, userData);
-        setSuccessMessage("User updated successfully");
+        setSuccessMessage("Utilisateur mis à jour avec succès");
         setTimeout(() => {
           setSuccessMessage("");
         }, 3000);
       } else {
-        // Handle HTTP errors
-        console.error("Unable to update user. HTTP Status:", response.status);
-        setServerErrors("Unable to update user");
+        console.error("Impossible de mettre à jour les informations de l'utilisateur. HTTP Status:", response.status);
+        setServerErrors("Impossible de mettre à jour les informations de l'utilisateur");
       }
     } catch (error) {
-      // Handle request errors
-      console.error("Error updating user:", error);
-      setServerErrors("Error updating user");
+      console.error("Erreur lors de la mise à jour des données:", error);
+      setServerErrors("Erreur lors de la mise à jour des données");
     }
   };
 
   return (
     <>
-      <h3>Modification des données utilisateur</h3>
+      <h3>Modification des données utilisateur </h3>
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -98,6 +135,43 @@ export default function UpdateUser({ userId, onUpdateUser }) {
             name="email"
             id="email"
             value={userData.email}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+            <label htmlFor="securityQuestion">Question de sécurité</label>
+            <select
+              value={userData.securityQuestion}
+              onChange={handleChange}
+              name="securityQuestion"
+              id="securityQuestion"
+            >
+              <option value="0">Choisissez votre question secrète</option>
+              <option value="nomAnimal">
+                {" "}
+                Quel est le nom de votre premier animal de compagnie ?
+              </option>
+              <option value="nomMere">
+                Quel est le nom de jeune fille de votre mère ?
+              </option>
+              <option value="villeNatale">
+                Quel est le nom de votre ville natale ?
+              </option>
+              <option value="seriePreferee">
+                Quelle est votre série préférée ?
+              </option>
+            </select>
+          </div>
+
+
+        <div className="form-group">
+          <label htmlFor="securityAnswer">Réponse</label>
+          <input
+            type="text"
+            name="securityAnswer"
+            id="securityAnswer"
+            value={userData.securityAnswer}
             onChange={handleChange}
           />
         </div>

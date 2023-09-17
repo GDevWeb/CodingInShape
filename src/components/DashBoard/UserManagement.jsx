@@ -18,7 +18,7 @@ import {
 } from "../apiAdmin";
 
 
-export default function UserManagement(toggleUpdate) {
+export default function UserManagement({onUpdateUser}) {
   // État local pour stocker les données des utilisateurs, l'utilisateur à supprimer,
   // la visibilité de la confirmation, le chargement, les messages de succès
   // et les erreurs du serveur.
@@ -99,7 +99,7 @@ const {
     };
     // Appeler la fonction pour récupérer les données des utilisateurs
     fetchUsersData();
-  }, [navigate, toggleUpdate]);
+  }, [navigate]);
 
   // Méthode pour mettre à jour le statut administrateur
   const handleAdminChange = async (userId) => {
@@ -325,6 +325,7 @@ const {
             <th>Banni</th>
             <th>Actions</th>
             <th>Supprimer</th>
+            <th>Modifier</th>
           </tr>
         </thead>
         <tbody>
@@ -332,13 +333,14 @@ const {
           {displayedData &&
             displayedData.map((user) => (
               <UserRow
-                key={user._id}
-                user={user}
-                handleAdminChange={handleAdminChange}
-                handleBanChange={handleBanChange}
-                handleUnbanChange={handleUnbanChange}
-                handleDeleteUser={handleDeleteUser}
-              />
+              key={user._id}
+              user={user}
+              handleAdminChange={handleAdminChange}
+              handleBanChange={handleBanChange}
+              handleUnbanChange={handleUnbanChange}
+              handleDeleteUser={handleDeleteUser}
+              onUpdateUser={onUpdateUser}
+            />
             ))}
         </tbody>
       </table>
