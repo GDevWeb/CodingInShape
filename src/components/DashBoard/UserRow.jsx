@@ -82,3 +82,5 @@ UserRow.propTypes = {
   handleUnbanChange: PropTypes.func.isRequired,
   handleDeleteUser: PropTypes.func.isRequired,
 };
+
+//finir admin/updateUser
