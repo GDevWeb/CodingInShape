@@ -2,6 +2,7 @@ import { useState } from "react";
 import hamburger from "../../assets/icons/hamburger.svg";
 import close from "../../assets/icons/close.svg";
 import { Link } from "react-router-dom";
+import  './Navbar.scss'
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);

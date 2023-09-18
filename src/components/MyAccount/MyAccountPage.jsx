@@ -8,6 +8,7 @@ import UserHistory from './UserHistory';
 import UserProfile from './UserProfile';
 import UserSettings from './UserSettings';
 import Spinner from "../../assets/icons/spinner.svg";
+import './MyAccountPage.scss'
 
 
 export default function MyAccountPage() {

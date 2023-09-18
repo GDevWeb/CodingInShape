@@ -2,12 +2,13 @@ import logo from '../../assets/logos/logo.png';
 import { Link} from 'react-router-dom';
 import LogoutButton from '../LogOutButton/LogoutButton';
 import LoginForm from '../LoginForm/LoginForm';
+import './header.scss'
 
 export default function Header() {
 
   
   return (
-    <header>
+    <header className='box'>
 <div className="logo">
 <Link to="/" className="logo-link">
   <figure>

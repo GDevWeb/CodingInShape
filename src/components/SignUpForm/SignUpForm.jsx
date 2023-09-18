@@ -281,7 +281,7 @@ export default function SignUpForm() {
               type="email"
               name="email"
               id="email"
-              placeholder="Votre mot de passe"
+              placeholder="Votre email"
               required
             />
             <span className="error">{errors.email}</span>
