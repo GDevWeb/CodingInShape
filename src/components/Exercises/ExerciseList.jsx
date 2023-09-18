@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Spinner from "../../assets/icons/spinner.svg";
+import ExerciseDetail from "../../pages/ExerciseDetail";
 
-
-export default function ListOfExercises() {
+export default function ExerciseList() {
   const [exercises, setExercises] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filterOptions, setFilterOptions] = useState({
@@ -89,7 +89,9 @@ export default function ListOfExercises() {
 
   return (
     <div>
+      <h2>Liste des exercices disponibles :</h2>
       <div>
+        <h3>Filtres :</h3>
         <label>Type :</label>
         <select
           value={filterOptions.type}
@@ -126,30 +128,42 @@ export default function ListOfExercises() {
             <p>Description : {exercise.description}</p>
             <p>Type : {exercise.type}</p>
             <p>Muscle ciblé : {exercise.muscle}</p>
-            <img src={exercise.image} alt={`Image de ${exercise.name}`} width={"200px"}/>
-            {/* <video controls>
-              <source src={exercise.video} type="video/mp4" />
-              Votre navigateur ne prend pas en charge la lecture de la vidéo.
-            </video> */}
+            <Link to={`/exercise/${exercise._id}/${exercise.name}`}>Voir détail l'exercice</Link>
+            <img
+              src={exercise.image}
+              alt={`Image de ${exercise.name}`}
+              width={"200px"}
+            />
           </li>
         ))}
       </ul>
 
-<button
-  onClick={() => setCurrentPage(currentPage - 1)}
-  disabled={currentPage === 1}
->
-  Page précédente
-</button>
+      <button
+        onClick={() => setCurrentPage(currentPage - 1)}
+        disabled={currentPage === 1}
+      >
+        Page précédente
+      </button>
 
-<button
-  onClick={() => setCurrentPage(currentPage + 1)}
-  disabled={currentPage === Math.ceil(exercises.length / exercisePerPage)}
-  >
-  Page suivante
-</button>
-<p>page {currentPage} sur {Math.ceil(exercises.length / exercisePerPage)}</p>
+      <button
+        onClick={() => setCurrentPage(currentPage + 1)}
+        disabled={currentPage === Math.ceil(exercises.length / exercisePerPage)}
+      >
+        Page suivante
+      </button>
+      <p>
+        page {currentPage} sur {Math.ceil(exercises.length / exercisePerPage)}
+      </p>
+
+          <div className="navigate-links">
+            <div className="navigate-link">
+      <Link to={"/exercise-management"}>Retour à gestion des exercices</Link>
+            </div>
+            <div className="navigate-link">
+      <Link to={"/dashboard"}>Retour au dashboard</Link>
+            </div>
+          </div>
+            
     </div>
   );
 }
-

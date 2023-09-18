@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import StatsTab from "./StatsTab";
 import useUserFilter from "../Hooks/useUserFilter";
 import usePagination from "../Hooks/usePagination";
@@ -15,10 +15,10 @@ import {
   BAN_USER_API,
   UNBAN_USER_API,
   ADMIN_USER_API,
-} from "../apiAdmin";
+} from "../API/apiAdmin";
 
 
-export default function UserManagement({onUpdateUser}) {
+export default function UserManagement() {
   // État local pour stocker les données des utilisateurs, l'utilisateur à supprimer,
   // la visibilité de la confirmation, le chargement, les messages de succès
   // et les erreurs du serveur.
@@ -38,7 +38,7 @@ const {
   lastPage,
   setPage,
   itemsPerpage,
-} = usePagination(filteredUsers, 4);
+} = usePagination(filteredUsers, 8);
   const [successMessage, setSuccessMessage] = useState("");
   const [serverErrors, setServerErrors] = useState("");
 
@@ -339,7 +339,6 @@ const {
               handleBanChange={handleBanChange}
               handleUnbanChange={handleUnbanChange}
               handleDeleteUser={handleDeleteUser}
-              onUpdateUser={onUpdateUser}
             />
             ))}
         </tbody>
@@ -362,6 +361,8 @@ const {
       <div className="server-error">
         {serverErrors && <p>{serverErrors}</p>}
       </div>
+
+      <Link to={"/dashboard"}>Retour au dashboard</Link>
     </>
   );
 }

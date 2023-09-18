@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import GetRandomRoutine from "./GetRandomRoutine";
-import ListOfExercises from "./ListOfExercises";
+import ListOfExercises from "./ExerciseList";
 
 export default function ExercisesPage() {
   const [userData, setUserData] = useState(null);

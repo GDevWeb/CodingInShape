@@ -1,6 +1,5 @@
-import { set } from "mongoose";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function AddUser() {
   const [formData, setFormData] = useState({
@@ -367,6 +366,9 @@ export default function AddUser() {
           {serverErrors && <p>{serverErrors}</p>}
         </div>
       </div>
+      <Link to={"/dashboard"}>Retour au dashboard</Link>
     </form>
+    
+
   );
 }
