@@ -11,6 +11,7 @@ export default function UpdateUser() {
     firstName: "",
     lastName: "",
     email: "",
+    password: "",
     securityQuestion: "",
     securityAnswer: "",
   });
@@ -288,7 +289,7 @@ export default function UpdateUser() {
             value={userData.password}
             onChange={handleChange}
           />
-          <span className="error">{formErrors.lastName}</span>
+          <span className="error">{formErrors.password}</span>
         </div>
 
 
