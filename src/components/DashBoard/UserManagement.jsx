@@ -15,7 +15,7 @@ import {
   BAN_USER_API,
   UNBAN_USER_API,
   ADMIN_USER_API,
-} from "../apiAdmin";
+} from "../API/apiAdmin";
 
 
 export default function UserManagement() {

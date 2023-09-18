@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { USERS_API } from "../apiAdmin";
+import { USERS_API } from "../API/apiAdmin";
 
 export default function UpdateUser() {
   const { userId } = useParams();
@@ -280,6 +280,19 @@ export default function UpdateUser() {
         </div>
 
         <div className="form-group">
+          <label htmlFor="lastName">Mot de passe</label>
+          <input
+            type="text"
+            name="password"
+            id="password"
+            value={userData.password}
+            onChange={handleChange}
+          />
+          <span className="error">{formErrors.lastName}</span>
+        </div>
+
+
+        <div className="form-group">
           <label htmlFor="securityQuestion">Question de sécurité</label>
           <select
             value={userData.securityQuestion}
@@ -329,3 +342,5 @@ export default function UpdateUser() {
     </>
   );
 }
+
+//Revoir la gestion de password par l'admin
