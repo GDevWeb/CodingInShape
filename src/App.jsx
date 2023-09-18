@@ -8,6 +8,7 @@ import UserManagement from "./components/DashBoard/UserManagement";
 import AddUser from "./components/DashBoard/AddUser";
 import UpdateUser from "./components/DashBoard/UpdateUser";
 import ExerciseList from "./components/Exercises/ExerciseList";
+import ExerciseDetail from "./pages/ExerciseDetail";
 import ExerciseManagement from "./components/DashBoard/ExerciseManagementPage";
 import AddExercise from "./components/Exercises/AddExercise";
 import Exercises from "./pages/Exercises";
@@ -35,6 +36,7 @@ function App() {
             <Route path="/update-user/:userId" element={<UpdateUser />} />
             <Route path="/exercise-management" element={<ExerciseManagement/>}/>
             <Route path="/exercises-list" element={<ExerciseList/>}/>
+            <Route path="/exercise/:exerciseId" element={<ExerciseDetail/>}/>
             <Route path="/add-exercise" element={<AddExercise/>}/>
             <Route path="/exercises" element={<Exercises />} />
             <Route path="/login" element={<Login />} />

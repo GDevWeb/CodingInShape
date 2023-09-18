@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Spinner from "../../assets/icons/spinner.svg";
+import ExerciseDetail from "../../pages/ExerciseDetail";
 
 export default function ExerciseList() {
   const [exercises, setExercises] = useState([]);
@@ -88,7 +89,9 @@ export default function ExerciseList() {
 
   return (
     <div>
+      <h2>Liste des exercices disponibles :</h2>
       <div>
+        <h3>Filtres :</h3>
         <label>Type :</label>
         <select
           value={filterOptions.type}
@@ -125,15 +128,12 @@ export default function ExerciseList() {
             <p>Description : {exercise.description}</p>
             <p>Type : {exercise.type}</p>
             <p>Muscle ciblé : {exercise.muscle}</p>
+            <Link to={`/exercise/${exercise._id}/${exercise.name}`}>Voir détail l'exercice</Link>
             <img
               src={exercise.image}
               alt={`Image de ${exercise.name}`}
               width={"200px"}
             />
-            {/* <video controls>
-              <source src={exercise.video} type="video/mp4" />
-              Votre navigateur ne prend pas en charge la lecture de la vidéo.
-            </video> */}
           </li>
         ))}
       </ul>
