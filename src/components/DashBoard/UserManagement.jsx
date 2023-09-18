@@ -18,7 +18,7 @@ import {
 } from "../apiAdmin";
 
 
-export default function UserManagement({onUpdateUser}) {
+export default function UserManagement() {
   // État local pour stocker les données des utilisateurs, l'utilisateur à supprimer,
   // la visibilité de la confirmation, le chargement, les messages de succès
   // et les erreurs du serveur.
@@ -339,7 +339,6 @@ const {
               handleBanChange={handleBanChange}
               handleUnbanChange={handleUnbanChange}
               handleDeleteUser={handleDeleteUser}
-              onUpdateUser={onUpdateUser}
             />
             ))}
         </tbody>

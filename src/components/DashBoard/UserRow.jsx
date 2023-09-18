@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useDeleteConfirmation } from "../Hooks/useDeleteConfirmation";
 
@@ -9,16 +8,11 @@ export default function UserRow({
   handleBanChange,
   handleUnbanChange,
   handleDeleteUser,
-  handleUpdateUser,
 }) {
-  // Utilise le hook de confirmation de suppression
-  const {
-    confirmationVisible,
-    showConfirmation,
-    hideConfirmation,
-  } = useDeleteConfirmation();
 
-  
+  const { confirmationVisible, showConfirmation, hideConfirmation } =
+    useDeleteConfirmation();
+
   return (
     <tr key={user._id}>
       <td>{user.firstName}</td>
@@ -43,7 +37,9 @@ export default function UserRow({
           <button
             type="button"
             onClick={() =>
-              user.isBan ? handleUnbanChange(user._id) : handleBanChange(user._id)
+              user.isBan
+                ? handleUnbanChange(user._id)
+                : handleBanChange(user._id)
             }
             className={user.isBan ? "banned-button" : ""}
           >
@@ -64,13 +60,9 @@ export default function UserRow({
           </div>
         </td>
       )}
-            <td>
-
-              <Link to={`/update-user/${user._id}`}>
-        Modifier
-              </Link>
+      <td>
+        <Link to={`/update-user/${user._id}`}>Modifier</Link>
       </td>
-
     </tr>
   );
 }

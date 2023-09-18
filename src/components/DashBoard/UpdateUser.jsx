@@ -1,20 +1,19 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import {
-  USERS_API,  
-  UPDATE_USER,
+  USERS_API,
 } from "../apiAdmin";
 
 export default function UpdateUser() {
   const { userId } = useParams();
   const navigate = useNavigate();
-  
+
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    securityQuestion:"",
+    securityQuestion: "",
     securityAnswer: "",
   });
 
@@ -30,7 +29,6 @@ export default function UpdateUser() {
   };
 
   useEffect(() => {
-
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -51,8 +49,11 @@ export default function UpdateUser() {
         if (response.ok) {
           const data = await response.json();
           setUserData(data);
-        } else {
-          console.error("Impossible d'obtenir les données de l'utilisateur. HTTP Status:", response.status);
+7        } else {
+          console.error(
+            "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",
+            response.status
+          );
           setServerErrors("Impossible d'obtenir les données de l'utilisateur");
         }
       } catch (error) {
@@ -75,7 +76,7 @@ export default function UpdateUser() {
         return;
       }
 
-      const response = await fetch(`http://localhost:4000/api/admin/users/${userId}`, {
+      const response = await fetch(`${USERS_API}/${userId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -86,14 +87,20 @@ export default function UpdateUser() {
       });
 
       if (response.ok) {
-        onUpdateUser(userId, userData);
         setSuccessMessage("Utilisateur mis à jour avec succès");
         setTimeout(() => {
           setSuccessMessage("");
+          navigate("/dashboard")
         }, 3000);
+
       } else {
-        console.error("Impossible de mettre à jour les informations de l'utilisateur. HTTP Status:", response.status);
-        setServerErrors("Impossible de mettre à jour les informations de l'utilisateur");
+        console.error(
+          "Impossible de mettre à jour les informations de l'utilisateur. HTTP Status:",
+          response.status
+        );
+        setServerErrors(
+          "Impossible de mettre à jour les informations de l'utilisateur"
+        );
       }
     } catch (error) {
       console.error("Erreur lors de la mise à jour des données:", error);
@@ -107,7 +114,7 @@ export default function UpdateUser() {
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="firstName">First Name</label>
+          <label htmlFor="firstName">Prénom</label>
           <input
             type="text"
             name="firstName"
@@ -118,7 +125,7 @@ export default function UpdateUser() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="lastName">Last Name</label>
+          <label htmlFor="lastName">Nom</label>
           <input
             type="text"
             name="lastName"
@@ -129,7 +136,7 @@ export default function UpdateUser() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">e-mail</label>
           <input
             type="text"
             name="email"
