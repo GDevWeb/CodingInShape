@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-import { USERS_API } from "../apiAdmin";
+import {
+  USERS_API,
+} from "../apiAdmin";
 
 export default function UpdateUser() {
   const { userId } = useParams();
@@ -18,13 +20,14 @@ export default function UpdateUser() {
   const [successMessage, setSuccessMessage] = useState("");
   const [serverErrors, setServerErrors] = useState("");
   const [formErrors, setFormErrors] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    securityAnswer: "",
-    securityQuestion: "",
-  });
+
+      firstName : "",
+      lastName : "",
+      email : "",
+      password : "",
+      securityAnswer : "",
+      securityQuestion : "",
+  })
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,9 +36,9 @@ export default function UpdateUser() {
       [name]: value,
     });
 
-    // Vérifications des inputs :
+        // Vérifications des inputs :
 
-    // 01. Vérification du prénom :
+    //01. Vérification du prénom :
     if (name === "firstName") {
       const regexFirstName = /^.{3,}$/; // Au moins 3 caractères
       const testFirstName = regexFirstName.test(value);
@@ -47,7 +50,7 @@ export default function UpdateUser() {
       }));
     }
 
-    // 02. Vérification du nom :
+    //02. Vérification du nom :
     if (name === "lastName") {
       const regexLastName = /^.{3,}$/; // Au moins 3 caractères
       const testLastName = regexLastName.test(value);
@@ -59,7 +62,7 @@ export default function UpdateUser() {
       }));
     }
 
-    // 03. Vérification de l'âge :
+    //03. Vérification de l'âge :
     if (name === "age") {
       const regexAge = /^[0-9]{2,3}$/; // Au moins 2 chiffres
       const testAge = regexAge.test(value);
@@ -129,6 +132,7 @@ export default function UpdateUser() {
     }
   };
 
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -150,7 +154,7 @@ export default function UpdateUser() {
         if (response.ok) {
           const data = await response.json();
           setUserData(data);
-        } else {
+7        } else {
           console.error(
             "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",
             response.status
@@ -169,16 +173,16 @@ export default function UpdateUser() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Vérification de la saisie des inputs :
-    const isValid =
-      userData.firstName &&
-      userData.lastName &&
-      userData.email &&
-      userData.password &&
-      userData.securityQuestion &&
-      userData.securityAnswer &&
-      Object.values(formErrors).every((error) => error === "");
-
+        // Vérification de la saisie des inputs :
+        const isValid =
+        userData.firstName &&
+        userData.lastName &&
+        userData.email &&
+        userData.password &&
+        userData.securityQuestion &&
+        userData.securityAnswer &&
+        Object.values(formErrors).every((error) => error === "");
+      
     if (!isValid) {
       setSuccessMessage("");
       return;
@@ -186,18 +190,20 @@ export default function UpdateUser() {
 
     setSuccessMessage("Compte utilisateur mis à jour avec succès");
 
+    // Création d'un objet contenant les données du formulaire à envoyer au serveur :
     const updatedUserData = {
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      age: userData.age,
-      pseudo: userData.pseudo,
-      email: userData.email,
-      password: userData.password,
-      securityQuestion: userData.securityQuestion,
-      securityAnswer: userData.securityAnswer,
-      isAdmin: userData.isAdmin,
-      isBan: userData.isBan,
+      firstName: setUserData.firstName,
+      lastName: setUserData.lastName,
+      age: setUserData.age,
+      pseudo: setUserData.pseudo,
+      email: setUserData.email,
+      password: setUserData.password,
+      securityQuestion: setUserData.securityQuestion,
+      securityAnswer: setUserData.securityAnswer,
+      isAdmin: setUserData.isAdmin,
+      isBan: setUserData.isBan,
     };
+
 
     try {
       const token = localStorage.getItem("token");
@@ -221,8 +227,9 @@ export default function UpdateUser() {
         setSuccessMessage("Utilisateur mis à jour avec succès");
         setTimeout(() => {
           setSuccessMessage("");
-          navigate("/dashboard");
+          navigate("/dashboard")
         }, 3000);
+
       } else {
         console.error(
           "Impossible de mettre à jour les informations de l'utilisateur. HTTP Status:",
@@ -240,7 +247,7 @@ export default function UpdateUser() {
 
   return (
     <>
-      <h3>Modification des données utilisateur</h3>
+      <h3>Modification des données utilisateur </h3>
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -252,7 +259,10 @@ export default function UpdateUser() {
             value={userData.firstName}
             onChange={handleChange}
           />
-          <span className="error">{formErrors.firstName}</span>
+          <span
+          className="error"
+          >{formErrors.firstName}
+          </span>
         </div>
 
         <div className="form-group">
@@ -264,11 +274,15 @@ export default function UpdateUser() {
             value={userData.lastName}
             onChange={handleChange}
           />
-          <span className="error">{formErrors.lastName}</span>
+                    <span
+          className="error"
+          >{formErrors.lastName}
+          </span>
+
         </div>
 
         <div className="form-group">
-          <label htmlFor="email">E-mail</label>
+          <label htmlFor="email">e-mail</label>
           <input
             type="text"
             name="email"
@@ -276,34 +290,41 @@ export default function UpdateUser() {
             value={userData.email}
             onChange={handleChange}
           />
-          <span className="error">{formErrors.email}</span>
+                    <span
+          className="error"
+          >{formErrors.email}
+          </span>
         </div>
 
         <div className="form-group">
-          <label htmlFor="securityQuestion">Question de sécurité</label>
-          <select
-            value={userData.securityQuestion}
-            onChange={handleChange}
-            name="securityQuestion"
-            id="securityQuestion"
-          >
-            <option value="0">Choisissez votre question secrète</option>
-            <option value="nomAnimal">
-              {" "}
-              Quel est le nom de votre premier animal de compagnie ?
-            </option>
-            <option value="nomMere">
-              Quel est le nom de jeune fille de votre mère ?
-            </option>
-            <option value="villeNatale">
-              Quel est le nom de votre ville natale ?
-            </option>
-            <option value="seriePreferee">
-              Quelle est votre série préférée ?
-            </option>
-          </select>
-          <span className="error">{formErrors.securityQuestion}</span>
-        </div>
+            <label htmlFor="securityQuestion">Question de sécurité</label>
+            <select
+              value={userData.securityQuestion}
+              onChange={handleChange}
+              name="securityQuestion"
+              id="securityQuestion"
+            >
+              <option value="0">Choisissez votre question secrète</option>
+              <option value="nomAnimal">
+                {" "}
+                Quel est le nom de votre premier animal de compagnie ?
+              </option>
+              <option value="nomMere">
+                Quel est le nom de jeune fille de votre mère ?
+              </option>
+              <option value="villeNatale">
+                Quel est le nom de votre ville natale ?
+              </option>
+              <option value="seriePreferee">
+                Quelle est votre série préférée ?
+              </option>
+            </select>
+            <span
+          className="error"
+          >{formErrors.securityQuestion}
+          </span>
+          </div>
+
 
         <div className="form-group">
           <label htmlFor="securityAnswer">Réponse</label>
@@ -314,10 +335,14 @@ export default function UpdateUser() {
             value={userData.securityAnswer}
             onChange={handleChange}
           />
-          <span className="error">{formErrors.securityAnswer}</span>
+                    <span
+          className="error"
+          >{formErrors.securityAnswer}
+          </span>
+
         </div>
 
-        <button type="submit">Mettre à jour</button>
+        <button type="submit">Update</button>
       </form>
 
       <div className="success-message">
