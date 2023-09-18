@@ -4,7 +4,12 @@ import NavBar from "./components/NavBar/Navbar";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer";
 import DashBoard from "./pages/DashBoard";
+import UserManagement from "./components/DashBoard/UserManagement";
+import AddUser from "./components/DashBoard/AddUser";
 import UpdateUser from "./components/DashBoard/UpdateUser";
+import ExerciseList from "./components/Exercises/ExerciseList";
+import ExerciseManagement from "./components/DashBoard/ExerciseManagementPage";
+import AddExercise from "./components/Exercises/AddExercise";
 import Exercises from "./pages/Exercises";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -25,7 +30,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<DashBoard />}/> 
+            <Route path="/users-list" element={<UserManagement/>}/>
+            <Route path="add-user" element={<AddUser />} />            
             <Route path="/update-user/:userId" element={<UpdateUser />} />
+            <Route path="/exercise-management" element={<ExerciseManagement/>}/>
+            <Route path="/exercises-list" element={<ExerciseList/>}/>
+            <Route path="/add-exercise" element={<AddExercise/>}/>
             <Route path="/exercises" element={<Exercises />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />

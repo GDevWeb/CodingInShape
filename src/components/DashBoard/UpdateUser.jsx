@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 import { USERS_API } from "../API/apiAdmin";
 
@@ -340,8 +340,10 @@ export default function UpdateUser() {
       <div className="server-error">
         {serverErrors && <p>{serverErrors}</p>}
       </div>
+
+      <Link to={"/dashboard"}>Retour au dashboard</Link>
+
     </>
   );
 }
 
-//Revoir la gestion de password par l'admin

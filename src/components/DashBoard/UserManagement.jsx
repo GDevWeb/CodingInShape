@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import StatsTab from "./StatsTab";
 import useUserFilter from "../Hooks/useUserFilter";
 import usePagination from "../Hooks/usePagination";
@@ -38,7 +38,7 @@ const {
   lastPage,
   setPage,
   itemsPerpage,
-} = usePagination(filteredUsers, 4);
+} = usePagination(filteredUsers, 8);
   const [successMessage, setSuccessMessage] = useState("");
   const [serverErrors, setServerErrors] = useState("");
 
@@ -361,6 +361,8 @@ const {
       <div className="server-error">
         {serverErrors && <p>{serverErrors}</p>}
       </div>
+
+      <Link to={"/dashboard"}>Retour au dashboard</Link>
     </>
   );
 }
