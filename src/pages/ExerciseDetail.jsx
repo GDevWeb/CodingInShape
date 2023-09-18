@@ -23,3 +23,5 @@ export default function ExerciseDetail() {
     </div>
   );
 }
+
+// en cours  src/components/Exercises/ExerciseList.jsx
