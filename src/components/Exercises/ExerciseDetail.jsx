@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Spinner from '../assets/icons/spinner.svg';
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Spinner from '../../assets/icons/spinner.svg';
 
 export default function ExerciseDetail() {
   const { id } = useParams();
@@ -78,6 +78,7 @@ export default function ExerciseDetail() {
           )}
         </>
       )}
+      <Link to={'/exercises-list'}>Retour à la liste des exercices</Link>
     </div>
   );
 }

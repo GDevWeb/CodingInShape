@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AddExercise() {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    age: "",
     image: "",
     video: "",
     type: "",
@@ -19,7 +18,6 @@ export default function AddExercise() {
   const [errors, setErrors] = useState({
     name: "",
     description: "",
-    age: "",
     image: "",
     video: "",
     type: "",
@@ -35,83 +33,67 @@ export default function AddExercise() {
 
     // Vérifications des inputs :
 
-    //01. Vérification du prénom :
+    //01. Vérification du nom de l'exercice :
     if (name === "name") {
-      const regexFirstName = /^.{3,}$/; // Au moins 3 caractères
-      const testFirstName = regexFirstName.test(value);
+      const regexName = /^.{3,}$/; // Au moins 3 caractères
+      const testName = regexName.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
-        name: testFirstName
+        name: testName
           ? ""
-          : "Le prénom doit contenir au moins 3 caractères",
+          : "Le nom de l'exercice doit contenir au moins 3 caractères",
       }));
     }
 
-    //02. Vérification du nom :
+    //02. Vérification de la description :
     if (name === "description") {
-      const regexLastName = /^.{3,}$/; // Au moins 3 caractères
-      const testLastName = regexLastName.test(value);
+      const regexDescription = /^.{25,}$/; // Au moins 3 caractères
+      const testDescription = regexDescription.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
-        description: testLastName
+        description: testDescription
           ? ""
-          : "Le nom doit contenir au moins 3 caractères",
+          : "La description doit contenir au moins 25 caractères",
       }));
     }
 
-    //03. Vérification de l'âge :
-    if (name === "age") {
-      const regexAge = /^[0-9]{2,}$/; // Au moins 2 chiffres
-      const testAge = regexAge.test(value);
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        age: testAge ? "" : "L'âge doit contenir au moins 2 chiffres",
-      }));
-    }
-
-    //04. Vérification du image :
+    //03. Vérification du champ image :
     if (name === "image") {
-      const regexPseudo = /^.{3,}$/; // Au moins 3 caractères
-      const testPseudo = regexPseudo.test(value);
+      const regexImgURL = /\.(jpeg|jpg|gif|png|bmp|svg)$/i;
+      const testImageUrl = regexImgURL.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
-        image: testPseudo
-          ? ""
-          : "Le image doit contenir au moins 3 caractères",
+        image: testImageUrl ? "" : "L'url de l'image n'est pas valide",
       }));
     }
 
-    //05. Vérification de l'video :
+    //04. Vérification du champ video :
     if (name === "video") {
-      const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const testEmail = regexEmail.test(value);
+      const regexVideoURL = /\.(mp4|avi|mov|mkv|wmv|flv|webm)$/i;
+      const testVideoUrl = regexVideoURL.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
-        video: testEmail ? "" : "L'video n'est pas valide",
+        video: testVideoUrl ? "" : "L'url de la vidéo n'est pas valide",
       }));
     }
 
-    //06. Vérification de la question secrète :
+    //05. Vérification du champ type d'exercice :
     if (name === "type") {
-      const regexSecurityQuestion = /^.{3,}$/; // Au moins 3 caractères
-      const testSecurityQuestion = regexSecurityQuestion.test(value);
+      const regexType = /^.{3,}$/; // Au moins 3 caractères
+      const testType = regexType.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
-        type: testSecurityQuestion
-          ? ""
-          : "La question secrète doit contenir au moins 3 caractères",
+        type: testType ? "" : "Le champs type ne peut être vide",
       }));
     }
 
-    // 07. Vérification de la réponse à la question secrète :
+    // 07. Vérification du champ muscle :
     if (name === "muscle") {
-      const regexSecurityAnswer = /^.{3,}$/; // Au moins 3 caractères
-      const testSecurityAnswer = regexSecurityAnswer.test(value);
+      const regexMuscle = /^.{3,}$/; // Au moins 3 caractères
+      const testMuscle = regexMuscle.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
-        muscle: testSecurityAnswer
-          ? ""
-          : "La réponse à la question secrète doit contenir au moins 3 caractères",
+        muscle: testMuscle ? "" : "Le champ zone travaillée ne peut être vide",
       }));
     }
   };
@@ -121,14 +103,15 @@ export default function AddExercise() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log("formData:", formData);
+    console.log("errors:", errors);
+
     // Vérification de la saisie des inputs :
     const isValid =
       formData.name &&
       formData.description &&
-      formData.age &&
       formData.image &&
       formData.video &&
-      formData.password &&
       formData.type &&
       formData.muscle &&
       Object.values(errors).every((error) => error === "");
@@ -144,20 +127,25 @@ export default function AddExercise() {
     const requestData = {
       name: formData.name,
       description: formData.description,
-      age: formData.age,
       image: formData.image,
       video: formData.video,
       type: formData.type,
       muscle: formData.muscle,
     };
 
+    // Envoi de la requête au serveur :
+    const token = localStorage.getItem("token");
+    console.log("Token obtenu :", token);
+
     try {
       // Envoi de la requête POST au serveur
-      const response = await fetch("http://localhost:4000/api/admin/users", {
+      const response = await fetch("http://localhost:3000/api/exercises", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
+        credentials: "include",
         body: JSON.stringify(requestData),
       });
 
@@ -165,72 +153,124 @@ export default function AddExercise() {
         // La requête a réussi (statut 200 OK)
         const responseData = await response.json();
         console.log("Réponse du serveur :", responseData);
+        console.log(`Tentative d'envoi du form`);
 
         // On vide le formulaire :
         setFormData({
           name: "",
           description: "",
-          age: "",
           image: "",
           video: "",
           type: "",
           muscle: "",
         });
 
-        navigate("/login");
+        navigate("/exercise-management");
       } else {
-        // La requête a échoué
         console.error("Échec de la requête :", response.statusText);
+        console.log(`Échec d'envoi du form`);
+
         return response({ error: "Une erreur est survenue" });
       }
     } catch (error) {
-      // Une erreur s'est produite lors de l'envoi de la requête
       console.error(error);
+      console.log(`Error`);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-
+    <>
+      <h2>Ajouter un exercice</h2>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
-            <label htmlFor="name">Nom</label>
-            <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} />
-            {errors.name && <p className="form-error">{errors.name}</p>}
+          <label htmlFor="name">Nom</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+          {errors.name && <p className="form-error">{errors.name}</p>}
         </div>
 
         <div className="form-group">
-            <label htmlFor="description">Description</label>
-            <input type="text" id="description" name="description" value={formData.description} onChange={handleChange} />
-            {errors.description && <p className="form-error">{errors.description}</p>}
+          <label htmlFor="description">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            cols={50}
+            rows={25}
+          />
+          {errors.description && (
+            <p className="form-error">{errors.description}</p>
+          )}
         </div>
 
         <div className="form-group">
-            <label htmlFor="image">Image</label>
-            <input type="text" id="image" name="image" value={formData.image} onChange={handleChange} />
-            {errors.image && <p className="form-error">{errors.image}</p>}
+          <label htmlFor="image">Image</label>
+          <input
+            type="text"
+            id="image"
+            name="image"
+            value={formData.image}
+            onChange={handleChange}
+          />
+          {errors.image && <p className="form-error">{errors.image}</p>}
         </div>
 
         <div className="form-group">
-            <label htmlFor="video">Video</label>
-            <input type="text" id="video" name="video" value={formData.video} onChange={handleChange} />
-            {errors.video && <p className="form-error">{errors.video}</p>}
+          <label htmlFor="video">Video</label>
+          <input
+            type="text"
+            id="video"
+            name="video"
+            value={formData.video}
+            onChange={handleChange}
+          />
+          {errors.video && <p className="form-error">{errors.video}</p>}
         </div>
 
         <div className="form-group">
-            <label htmlFor="type">Type</label>
-            <input type="text" id="type" name="type" value={formData.type} onChange={handleChange} />
-            {errors.type && <p className="form-error">{errors.type}</p>}
+          <label htmlFor="type">Type d'exercice</label>
+          <select
+            value={formData.type}
+            onChange={handleChange}
+            name="type"
+            id="type"
+          >
+            <option value="0">Choisissez le type d'exercice</option>
+            <option value="Upper Body">Exercice pour le haut du corps</option>
+            <option value="Lower Body">Exercice pour le bas du corps</option>
+          </select>
+          <span className="error">{errors.type}</span>
         </div>
 
         <div className="form-group">
-            <label htmlFor="muscle">Muscle</label>
-            <input type="text" id="muscle" name="muscle" value={formData.muscle} onChange={handleChange} />
-            {errors.muscle && <p className="form-error">{errors.muscle}</p>}
+          <label htmlFor="muscle">Zone travaillée</label>
+          <select
+            value={formData.muscle}
+            onChange={handleChange}
+            name="muscle"
+            id="muscle"
+          >
+            <option value="0">Choisissez la zone musculaire travaillée</option>
+            <option value="Neck"> Cervical</option>
+            <option value="Shoulders">Épaules</option>
+            <option value="Back">Dos</option>
+            <option value="Hips">Hanches</option>
+            <option value="Legs">Jambes</option>
+          </select>
+          <span className="error">{errors.muscle}</span>
         </div>
 
         <button type="submit">Ajouter</button>
         {success && <p className="form-success">{success}</p>}
-
-    </form>
+      </form>
+      <Link to={"/dashboard"}>Retour au dashboard</Link>
+      <Link to={"/exercise-management"}>Retour à gestion des exercices</Link>
+    </>
   );
 }
