@@ -1,5 +1,5 @@
-import {useState} from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function AddUser() {
   const [formData, setFormData] = useState({
@@ -66,7 +66,7 @@ export default function AddUser() {
 
     //03. Vérification de l'âge :
     if (name === "age") {
-      const regexAge = /^[0-9]{2,}$/; // Au moins 2 chiffres
+      const regexAge = /^[0-9]{2,3}$/; // Au moins 2 chiffres
       const testAge = regexAge.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -136,94 +136,97 @@ export default function AddUser() {
 
   const navigate = useNavigate();
 
-// ...
+  // ...
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  // Vérification de la saisie des inputs :
-  const isValid =
-    formData.firstName &&
-    formData.lastName &&
-    formData.age &&
-    formData.pseudo &&
-    formData.email &&
-    formData.password &&
-    formData.securityQuestion &&
-    formData.securityAnswer &&
-    Object.values(errors).every((error) => error === "");
+    // Vérification de la saisie des inputs :
+    const isValid =
+      formData.firstName &&
+      formData.lastName &&
+      formData.age &&
+      formData.pseudo &&
+      formData.email &&
+      formData.password &&
+      formData.securityQuestion &&
+      formData.securityAnswer &&
+      Object.values(errors).every((error) => error === "");
 
-  if (!isValid) {
-    setSuccess("");
-    return;
-  }
-
-  setServerErrors(""); 
-
-  // Création d'un objet contenant les données du formulaire à envoyer au serveur :
-  const requestData = {
-    firstName: formData.firstName,
-    lastName: formData.lastName,
-    age: formData.age,
-    pseudo: formData.pseudo,
-    email: formData.email,
-    password: formData.password,
-    securityQuestion: formData.securityQuestion,
-    securityAnswer: formData.securityAnswer,
-    isAdmin: formData.isAdmin,
-    isBan: formData.isBan,
-  };
-
-  // Envoi de la requête au serveur :
-  const token = localStorage.getItem("token");
-  console.log("Token obtenu :", token);
-
-  try {
-    // Envoi de la requête POST au serveur
-    const response = await fetch("http://localhost:4000/api/admin/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      credentials: "include",
-      body: JSON.stringify(requestData),
-    });
-
-    if (response.ok) {
-      // La requête a réussi (statut 200 OK)
-      const responseData = await response.json();
-      console.log("Réponse du serveur :", responseData);
-      setSuccess("Votre compte a bien été créé");
-
-      // On vide le formulaire :
-      setFormData({
-        firstName: "",
-        lastName: "",
-        age: "",
-        pseudo: "",
-        email: "",
-        password: "",
-        securityQuestion: "",
-        securityAnswer: "",
-        isAdmin: false,
-        isBan: false,
-      });
-
-      navigate("/dashboard");
-    } else {
-      // La requête a échoué
-      const responseData = await response.json();
-      console.log("Réponse du serveur :", responseData);
-      setServerErrors(responseData.message);
+    if (!isValid) {
+      setSuccess("");
+      return;
     }
 
-  } catch (error) {
-    console.error(error);
-  }
-};
+    setServerErrors("");
 
-// ...
+    // Création d'un objet contenant les données du formulaire à envoyer au serveur :
+    const requestData = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      age: formData.age,
+      pseudo: formData.pseudo,
+      email: formData.email,
+      password: formData.password,
+      securityQuestion: formData.securityQuestion,
+      securityAnswer: formData.securityAnswer,
+      isAdmin: formData.isAdmin,
+      isBan: formData.isBan,
+    };
+
+    // Envoi de la requête au serveur :
+    const token = localStorage.getItem("token");
+    console.log("Token obtenu :", token);
+
+    try {
+      // Envoi de la requête POST au serveur
+      const response = await fetch("http://localhost:4000/api/admin/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: "include",
+        body: JSON.stringify(requestData),
+      });
+
+      if (response.ok) {
+        // La requête a réussi (statut 200 OK)
+        const responseData = await response.json();
+        console.log("Réponse du serveur :", responseData);
+        setSuccess(responseData.message);
+
+        setTimeout(() => {
+          setSuccess("");
+        }, 3000);
+
+        // On vide le formulaire :
+        setFormData({
+          firstName: "",
+          lastName: "",
+          age: "",
+          pseudo: "",
+          email: "",
+          password: "",
+          securityQuestion: "",
+          securityAnswer: "",
+          isAdmin: false,
+          isBan: false,
+        });
+
+        navigate("/dashboard");
+      } else {
+        // La requête a échoué
+        const responseData = await response.json();
+        console.log("Réponse du serveur :", responseData);
+        setServerErrors(responseData.message);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // ...
 
   return (
     <form onSubmit={handleSubmit} className="formRegister">
@@ -359,8 +362,13 @@ const handleSubmit = async (e) => {
 
         <button type="submit">L'inscrire</button>
         <span className="success">{success}</span>
-        <div className="server-error">{serverErrors && <p>{serverErrors}</p>}</div>
+        <div className="server-error">
+          {serverErrors && <p>{serverErrors}</p>}
+        </div>
       </div>
+      <Link to={"/dashboard"}>Retour au dashboard</Link>
     </form>
+    
+
   );
 }

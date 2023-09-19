@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./SignUpForm.scss";
 import { useNavigate } from "react-router-dom";
 
@@ -66,7 +66,7 @@ export default function SignUpForm() {
 
     //03. Vérification de l'âge :
     if (name === "age") {
-      const regexAge = /^[0-9]{2,}$/; // Au moins 2 chiffres
+      const regexAge = /^[0-9]{2,3}$/; // Au moins 2 chiffres
       const testAge = regexAge.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,

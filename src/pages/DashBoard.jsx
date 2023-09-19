@@ -5,8 +5,6 @@ export default function DashBoard() {
     <>
     <h1>DashBoard</h1>
 
-    <h2>Liste des utilisateurs :</h2>
-
     <DashBoardPage/>
 
     </>
