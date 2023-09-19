@@ -27,7 +27,7 @@ export default function ListOfExercises() {
           return;
         }
 
-        const response = await fetch("http://localhost:400/api/exercises", {
+        const response = await fetch("http://localhost:3000/api/exercises", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
