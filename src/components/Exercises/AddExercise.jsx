@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {EXERCISES_API}from '../API/apiAdminExercises';
 
 export default function AddExercise() {
   const [formData, setFormData] = useState({
@@ -139,7 +140,7 @@ export default function AddExercise() {
 
     try {
       // Envoi de la requête POST au serveur
-      const response = await fetch("http://localhost:3000/api/exercises", {
+      const response = await fetch(`${EXERCISES_API}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -205,6 +206,13 @@ export default function AddExercise() {
           {errors.description && (
             <p className="form-error">{errors.description}</p>
           )}
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="imgPreview">Aperçu de l'image</label>
+          <figure id="imgPreview" className="imgPreview">
+            <img src={formData.image} alt={formData.name} width={"200px"} />
+          </figure>
         </div>
 
         <div className="form-group">

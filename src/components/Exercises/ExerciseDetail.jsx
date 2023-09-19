@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import {EXERCISES_API}from '../API/apiAdminExercises';
 import Spinner from '../../assets/icons/spinner.svg';
 
 export default function ExerciseDetail() {
@@ -21,7 +22,7 @@ export default function ExerciseDetail() {
           return;
         }
 
-        const response = await fetch(`http://localhost:3000/api/exercises/${id}`, {
+        const response = await fetch(`${EXERCISES_API}/${id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

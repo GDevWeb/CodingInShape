@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import {EXERCISES_API}from '../API/apiAdminExercises';
+
 
 export default function UpdateExercise() {
   const { id } = useParams();
@@ -115,7 +117,7 @@ export default function UpdateExercise() {
         }
 
         const response = await fetch(
-          `http://localhost:3000/api/exercises/${id}`,
+          `${EXERCISES_API}/${id}`,
           {
             method: "GET",
             headers: {
@@ -179,9 +181,9 @@ export default function UpdateExercise() {
     console.log("Token obtenu :", token);
 
     try {
-      // Envoi de la requête POST au serveur
+      // Envoi de la requête PUT au serveur
       const response = await fetch(
-        `http://localhost:3000/api/exercises/${id}`,
+        `${EXERCISES_API}/${id}`,
         {
           method: "PUT",
           headers: {
@@ -321,6 +323,7 @@ export default function UpdateExercise() {
       </form>
       <Link to={"/dashboard"}>Retour au dashboard</Link>
       <Link to={"/exercise-management"}>Retour à gestion des exercices</Link>
+      <Link to={"/exercises-list"}>Retour à la liste des exercices</Link>
     </>
   );
 }
