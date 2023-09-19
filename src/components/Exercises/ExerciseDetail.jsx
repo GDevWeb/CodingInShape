@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Spinner from '../assets/icons/spinner.svg';
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {EXERCISES_API}from '../API/apiAdminExercises';
+import Spinner from '../../assets/icons/spinner.svg';
 
 export default function ExerciseDetail() {
   const { id } = useParams();
-  console.log(id)
+  
   const [exercise, setExercise] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,7 +22,7 @@ export default function ExerciseDetail() {
           return;
         }
 
-        const response = await fetch(`http://localhost:3000/api/exercises/${id}`, {
+        const response = await fetch(`${EXERCISES_API}/${id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -78,6 +79,7 @@ export default function ExerciseDetail() {
           )}
         </>
       )}
+      <Link to={'/exercises-list'}>Retour à la liste des exercices</Link>
     </div>
   );
 }
