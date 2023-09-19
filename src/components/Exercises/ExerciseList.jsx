@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Spinner from "../../assets/icons/spinner.svg";
-import ExerciseDetail from "../../pages/ExerciseDetail";
 
 export default function ExerciseList() {
   const [exercises, setExercises] = useState([]);
@@ -128,7 +127,7 @@ export default function ExerciseList() {
             <p>Description : {exercise.description}</p>
             <p>Type : {exercise.type}</p>
             <p>Muscle ciblé : {exercise.muscle}</p>
-            <Link to={`/exercise/${exercise._id}/${exercise.name}`}>Voir détail l'exercice</Link>
+            <Link to={`/exercise-detail/${exercise._id}`}>Voir détail l'exercice</Link>
             <img
               src={exercise.image}
               alt={`Image de ${exercise.name}`}
