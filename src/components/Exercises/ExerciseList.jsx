@@ -128,6 +128,7 @@ export default function ExerciseList() {
             <p>Type : {exercise.type}</p>
             <p>Muscle ciblé : {exercise.muscle}</p>
             <Link to={`/exercise-detail/${exercise._id}`}>Voir détail l'exercice</Link>
+            <Link to={`/update-exercise/${exercise._id}`}>Modifier l'exercice</Link>
             <img
               src={exercise.image}
               alt={`Image de ${exercise.name}`}

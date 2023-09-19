@@ -4,7 +4,7 @@ import Spinner from '../../assets/icons/spinner.svg';
 
 export default function ExerciseDetail() {
   const { id } = useParams();
-  console.log(id)
+  
   const [exercise, setExercise] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 

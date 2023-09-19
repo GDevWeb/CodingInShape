@@ -1,7 +1,9 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-export default function AddExercise() {
+export default function UpdateExercise() {
+  const { id } = useParams();
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -13,6 +15,8 @@ export default function AddExercise() {
 
   // Pour gérer le message de succès si tous les inputs sont valides :
   const [success, setSuccess] = useState("");
+  //   Pour gérer les messages d'erreur server :
+  const [serverErrors, setServerErrors] = useState("");
 
   // Pour gérer les messages d'erreurs dans le formulaire selon l'input :
   const [errors, setErrors] = useState({
@@ -100,11 +104,48 @@ export default function AddExercise() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          navigate("/login");
+          return;
+        }
+
+        const response = await fetch(
+          `http://localhost:3000/api/exercises/${id}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            credentials: "include",
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          setFormData(data);
+        } else {
+          console.error(
+            "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",
+            response.status
+          );
+          setServerErrors("Impossible d'obtenir les données de l'utilisateur");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération des données:", error);
+        setServerErrors("Erreur lors de la récupération des données");
+      }
+    };
+
+    fetchUserData();
+  }, [id, navigate]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // console.log("formData:", formData);
-    // console.log("errors:", errors);
 
     // Vérification de la saisie des inputs :
     const isValid =
@@ -121,7 +162,7 @@ export default function AddExercise() {
       return;
     }
 
-    setSuccess("Exercice ajouté avec succès");
+    setSuccess("Exercice modifié avec succès");
 
     // Création d'un objet contenant les données du formulaire à envoyer au serveur :
     const requestData = {
@@ -139,20 +180,24 @@ export default function AddExercise() {
 
     try {
       // Envoi de la requête POST au serveur
-      const response = await fetch("http://localhost:3000/api/exercises", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        credentials: "include",
-        body: JSON.stringify(requestData),
-      });
+      const response = await fetch(
+        `http://localhost:3000/api/exercises/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          credentials: "include",
+          body: JSON.stringify(requestData),
+        }
+      );
 
       if (response.ok) {
         // La requête a réussi (statut 200 OK)
         const responseData = await response.json();
         console.log("Réponse du serveur :", responseData);
+        console.log(`${id}`);
 
         // On vide le formulaire :
         setFormData({
@@ -178,7 +223,7 @@ export default function AddExercise() {
 
   return (
     <>
-      <h2>Ajouter un exercice</h2>
+      <h2>Modifier l'exercice {useParams.name}</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Nom</label>
@@ -205,6 +250,13 @@ export default function AddExercise() {
           {errors.description && (
             <p className="form-error">{errors.description}</p>
           )}
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="imgPreview">Aperçu de l'image</label>
+          <figure id="imgPreview" className="imgPreview">
+            <img src={formData.image} alt={formData.name} width={"200px"} />
+          </figure>
         </div>
 
         <div className="form-group">
@@ -264,7 +316,7 @@ export default function AddExercise() {
           <span className="error">{errors.muscle}</span>
         </div>
 
-        <button type="submit">Ajouter</button>
+        <button type="submit">Modifier</button>
         {success && <p className="form-success">{success}</p>}
       </form>
       <Link to={"/dashboard"}>Retour au dashboard</Link>

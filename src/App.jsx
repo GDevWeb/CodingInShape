@@ -7,11 +7,13 @@ import DashBoard from "./pages/DashBoard";
 import UserManagement from "./components/DashBoard/UserManagement";
 import AddUser from "./components/DashBoard/AddUser";
 import UpdateUser from "./components/DashBoard/UpdateUser";
+import Exercise from "./pages/Exercise";
+import Exercises from "./pages/Exercises";
+import ExerciseManagement from "./components/DashBoard/ExerciseManagementPage";
 import ExerciseList from "./components/Exercises/ExerciseList";
 import ExerciseDetail from "./pages/Exercise";
-import ExerciseManagement from "./components/DashBoard/ExerciseManagementPage";
 import AddExercise from "./components/Exercises/AddExercise";
-import Exercises from "./pages/Exercises";
+import UpdateExercise from "./components/Exercises/UpdateExercise";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
@@ -20,7 +22,6 @@ import MyAccount from "./pages/MyAccount";
 import ForgottenPassWord from "./pages/ForgottenPassWord";
 import Contact from "./pages/Contact";
 import "./App.scss";
-import Exercise from "./pages/Exercise";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             <Route path="/exercises-list" element={<ExerciseList/>}/>
             <Route path="/exercise-detail/:id" element={<ExerciseDetail/>}/>
             <Route path="/add-exercise" element={<AddExercise/>}/>
+            <Route path="/update-exercise/:id" element={<UpdateExercise/>}/>
             <Route path="/exercises" element={<Exercises />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
