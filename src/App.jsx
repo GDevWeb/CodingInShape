@@ -36,7 +36,7 @@ function App() {
             <Route path="/update-user/:userId" element={<UpdateUser />} />
             <Route path="/exercise-management" element={<ExerciseManagement/>}/>
             <Route path="/exercises-list" element={<ExerciseList/>}/>
-            <Route path="/exercise/:exerciseId" element={<ExerciseDetail/>}/>
+            <Route path="/exercise-detail/:id" element={<ExerciseDetail/>}/>
             <Route path="/add-exercise" element={<AddExercise/>}/>
             <Route path="/exercises" element={<Exercises />} />
             <Route path="/login" element={<Login />} />
