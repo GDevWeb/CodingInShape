@@ -12,6 +12,9 @@ export default function DashboardPage() {
 
   const navigate = useNavigate();
 
+  // const token = localStorage.getItem("token");
+  // console.log("token obtenu DahBoardPage", token)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -57,6 +60,7 @@ export default function DashboardPage() {
       link="/dashboard"
       //  à venir
     />
+
         </>
       )}
     </>

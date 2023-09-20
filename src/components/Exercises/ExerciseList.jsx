@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import {EXERCISES_API}from '../API/apiAdminExercises';
 import Spinner from "../../assets/icons/spinner.svg";
-import ExerciseDetail from "../../pages/ExerciseDetail";
 
 export default function ExerciseList() {
+
   const [exercises, setExercises] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filterOptions, setFilterOptions] = useState({
@@ -27,7 +28,7 @@ export default function ExerciseList() {
           return;
         }
 
-        const response = await fetch("http://localhost:3000/api/exercises", {
+        const response = await fetch(`${EXERCISES_API}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -128,7 +129,9 @@ export default function ExerciseList() {
             <p>Description : {exercise.description}</p>
             <p>Type : {exercise.type}</p>
             <p>Muscle ciblé : {exercise.muscle}</p>
-            <Link to={`/exercise/${exercise._id}/${exercise.name}`}>Voir détail l'exercice</Link>
+            <Link to={`/exercise-detail/${exercise._id}`}>Voir détail l'exercice</Link>
+            <Link to={`/update-exercise/${exercise._id}`}>Modifier l'exercice</Link>
+            <Link to={`/delete-exercise/${exercise._id}`}>Supprimer l'exercice</Link>
             <img
               src={exercise.image}
               alt={`Image de ${exercise.name}`}

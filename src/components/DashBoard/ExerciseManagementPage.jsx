@@ -3,6 +3,7 @@ import Card from '../Card/Card';
 
 export default function ExerciseManagement() {
 
+
   return (
     <>
       <h1>Exercise Management</h1>
@@ -16,7 +17,7 @@ export default function ExerciseManagement() {
 
     <Card 
 
-      title={"Ajoute un exercice"}
+      title={"Ajouter un exercice"}
       content={"Accéder au formulaire d'ajout d'exercice"}
       link={"/add-exercise"}
     
