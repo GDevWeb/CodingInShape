@@ -1,7 +1,7 @@
 import logo from '../../assets/logos/logo.png';
 import { Link} from 'react-router-dom';
 import LogoutButton from '../LogOutButton/LogoutButton';
-import LoginForm from '../LoginForm/LoginForm';
+import LoginButton from '../LoginButton/LoginButton';
 
 export default function Header() {
 
@@ -17,8 +17,9 @@ export default function Header() {
 </Link>
 </div>
 
-{/* <LoginForm/> */}
 <LogoutButton/>
+
+<LoginButton/>
 
     </header>
   )

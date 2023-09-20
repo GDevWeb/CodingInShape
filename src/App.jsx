@@ -24,9 +24,14 @@ import ForgottenPassWord from "./pages/ForgottenPassWord";
 import Contact from "./pages/Contact";
 import "./App.scss";
 
+// RTK :
+import store from "./redux/store";
+import { Provider } from "react-redux";
+
 function App() {
   return (
     <BrowserRouter>
+    <Provider store={store}>
       <div className="wrapper">
         <NavBar />
         <Header />
@@ -56,6 +61,7 @@ function App() {
         </main>
         <Footer />
       </div>
+    </Provider>
     </BrowserRouter>
   );
 }

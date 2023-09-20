@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import LogoutButton from '../LogOutButton/LogoutButton';
 import UpdateEmailForm from './UpdateEmailForm';
 import UpdatePasswordForm from './UpdatePasswordForm';
@@ -8,12 +7,14 @@ import UserHistory from './UserHistory';
 import UserProfile from './UserProfile';
 import UserSettings from './UserSettings';
 import Spinner from "../../assets/icons/spinner.svg";
-
+import { useDispatch, useSelector } from 'react-redux';
+import { loginSuccess } from '../../redux/Slices/authSlice';
 
 export default function MyAccountPage() {
-  const [userData, setUserData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const userData = useSelector((state) => state.auth.userData);
+  const isLoading = useSelector((state) => state.auth.isLoading);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // toggle :
   const [showUserProfile, setShowUserProfile] = useState(false);
@@ -26,10 +27,8 @@ export default function MyAccountPage() {
     const fetchUserData = async () => {
       try {
         // Récupérer le token depuis les cookies
-        // const token = Cookies.get("token");
         const token = localStorage.getItem("token");
         console.log('Token obtenu :', token);
-
 
         if (!token) {
           navigate("/login");
@@ -47,6 +46,7 @@ export default function MyAccountPage() {
 
         if (response.ok) {
           const data = await response.json();
+          dispatch(loginSuccess(data.token));
           setUserData(data.userData);
           setIsLoading(false);
         } else {
@@ -61,7 +61,7 @@ export default function MyAccountPage() {
     };
 
     fetchUserData();
-  }, [navigate]);
+  }, [dispatch, navigate]);
 
   return (
     <>
@@ -137,5 +137,3 @@ export default function MyAccountPage() {
     </>
   );
 }
-
-// Bon courage pour la suite ! 🚀
