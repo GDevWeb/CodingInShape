@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import LogoutButton from "../LogOutButton/LogoutButton";
+import LogoutButton from "../LogButton/LogButton";
 import UpdateProfile from "./UpdateProfile";
 import UserHistory from "./UserHistory";
 import UserProfile from "./UserProfile";

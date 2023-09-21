@@ -1,4 +1,3 @@
-// authSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const authSlice = createSlice({
@@ -7,13 +6,20 @@ const authSlice = createSlice({
     isAuthenticated: false,
     token: null,
     errorMessage: '',
-    isAdmin: false, // Ajout de la clé isAdmin ici
+    isAdmin: false,
   },
   reducers: {
+    login: (state) => {
+      state.isAuthenticated = false;
+      state.token = null;
+      state.isAdmin = false;
+      state.errorMessage = '';
+      console.log(`login from AuthSlice`);
+    },
     loginSuccess: (state, action) => {
       state.isAuthenticated = true;
       state.token = action.payload.token;
-      state.isAdmin = action.payload.isAdmin; // Met à jour la valeur d'isAdmin
+      state.isAdmin = action.payload.isAdmin;
       state.errorMessage = '';
       console.log(`loginSuccess from AuthSlice`);
     },
@@ -27,9 +33,8 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.token = null;
       state.errorMessage = '';
-      console.log(`logOut from AuthSlice`);
+      console.log(`logout from AuthSlice`);
     },
-    // Ajout d'une action pour mettre à jour isAdmin
     updateAdminStatus: (state, action) => {
       state.isAdmin = action.payload;
       console.log('New isAdmin value in reducer:', action.payload);
@@ -37,5 +42,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginSuccess, loginFailure, logout, updateAdminStatus } = authSlice.actions;
+export const { login, loginSuccess, loginFailure, logout, updateAdminStatus } = authSlice.actions;
 export default authSlice.reducer;
