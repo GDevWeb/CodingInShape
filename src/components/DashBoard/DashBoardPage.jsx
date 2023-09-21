@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../assets/icons/spinner.svg";
 import Card from "../Card/Card";
-import { updateAdminStatus } from "../../../redux/actions/authActions";
+import { updateAdminStatus } from "../../../redux/slices/AuthSlice";
 
 export default function DashboardPage() {
   const [usersData, setUsersData] = useState(null);

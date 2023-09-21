@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login, logout } from "../../../redux/actions/authActions";
+import { login, logout } from "../../../redux/slices/AuthSlice";
 
 export default function LogButton() {
   const dispatch = useDispatch();
