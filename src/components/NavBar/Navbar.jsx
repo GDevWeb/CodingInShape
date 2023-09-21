@@ -17,9 +17,9 @@ function Navbar() {
   };
   return (
     <nav className="nav">
-      <a href="#" className="nav__brand">
+      <Link to="/" className="nav__brand">
         Coding In Shape
-      </a>
+      </Link>
       <ul className={active}>
         <li className="nav__item">
         <Link to="/" className="nav__link">

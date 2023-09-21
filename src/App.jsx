@@ -24,12 +24,14 @@ import ForgottenPassWord from "./pages/ForgottenPassWord";
 import Contact from "./pages/Contact";
 import "./App.scss";
 
+
 function App() {
   return (
     <BrowserRouter>
       <div className="wrapper">
         <NavBar />
-        <Header />
+        {/* <Header /> */}
+        
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -53,6 +55,7 @@ function App() {
 
             <Route path="*" element={<NotFound />} />
           </Routes>
+          
         </main>
         <Footer />
       </div>
