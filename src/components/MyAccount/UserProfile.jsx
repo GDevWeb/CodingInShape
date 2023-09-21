@@ -1,24 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { USER_PROFIL } from '../API/apiUser';
 import Spinner from '../../assets/icons/spinner.svg'
+import { useNavigate } from 'react-router-dom';
 
 export default function UserProfile() {
   const [user, setUser] = useState(null);
 
+  // Redux :
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const token = useSelector((state) => state.auth.token);
+
+  const navigate = useNavigate();
+
+
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        // Récupérer le token depuis les cookies
-        // const token = Cookies.get("token");
-        const token = localStorage.getItem("token");
-        console.log('Token obtenu :', token);
-                
-        if (!token) {
-          console.log("Vous n'êtes pas authentifié.");
+        if (!isAuthenticated) {
+          navigate("/login");
           return;
         }
 
-        const response = await fetch(`http://localhost:4000/api/auth/myProfile/`, {
+        const response = await fetch(`${USER_PROFIL}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -31,7 +35,6 @@ export default function UserProfile() {
           const data = await response.json();
           console.log(data);
           setUser(data.userData);
-          document.cookie = `token=${data.token}; path=/account`;
         } else {
           console.log('Impossible de récupérer le profil utilisateur.');
         }
@@ -41,7 +44,7 @@ export default function UserProfile() {
     };
 
     fetchUserProfile(); 
-  }, []); 
+  }, [isAuthenticated, navigate, token]); 
 
   return (
     <div className="user-profile">

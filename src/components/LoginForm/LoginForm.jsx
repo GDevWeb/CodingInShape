@@ -1,6 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { useDispatch } from 'react-redux';
+import { loginSuccess, loginFailure } from '../../../redux/slices/AuthSlice'; 
 import "./LoginForm.scss";
 
 export default function LoginForm() {
@@ -9,14 +10,14 @@ export default function LoginForm() {
     password: "",
   });
 
-  // Pour gérer le message de succès si tous les inputs sont valides :
-  const [success, setSuccess] = useState("Connexion réussie");
-
   // Pour gérer les messages d'erreurs dans le formulaire selon l'input :
   const [errors, setErrors] = useState({
     email: "",
     password: "",
   });
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +27,7 @@ export default function LoginForm() {
     });
 
     // Vérifications des inputs :
-    // Vérification de l'email :
+    //01. Vérification de l'email :
     if (name === "email") {
       const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const testEmail = regexEmail.test(value);
@@ -36,7 +37,7 @@ export default function LoginForm() {
       }));
     }
 
-    // Vérification du mot de passe :
+    //02. Vérification du mot de passe :
     if (name === "password") {
       const regexPassword = /^.{8,}$/; // Au moins 8 caractères
       const testPassword = regexPassword.test(value);
@@ -49,8 +50,6 @@ export default function LoginForm() {
     }
   };
 
-  const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -61,10 +60,8 @@ export default function LoginForm() {
       Object.values(errors).every((error) => error === "");
 
     if (!isValid) {
-      setSuccess("");
       return;
     }
-    setSuccess("Vous êtes connecté(e) !");
 
     // Création d'un objet contenant les données du formulaire à envoyer au serveur :
     const requestData = {
@@ -83,27 +80,18 @@ export default function LoginForm() {
         credentials: "include",
       });
       const data = await response.json();
-      console.log(data);
-      // Si la requête s'est bien passée 200:
-      if (response.ok) {
-        // On stocke le token dans le localStorage :
-        // Cookie :
-        // Cookies.set("token", data.token, { path: '/', expires: 1 });
-        // document.cookie = `token=${data.token}; path=/account`;
-        // Au lieu de Cookies.set("token", data.token, { path: '/', expires: 1 });
 
-localStorage.setItem("token", data.token);
-        console.log(Cookies.set("token"))
+      if (response.ok) {
+        dispatch(loginSuccess(data.token)); 
         setFormData({ 
           email: "",
           password: "",
         });
 
-        // On redirige l'utilisateur vers la page d'accueil :
+        // On redirige l'utilisateur vers la page mon compte :
         navigate("/myaccount");
       } else {
-        // Sinon, on affiche un message d'erreur :
-        alert(data.error);
+        dispatch(loginFailure(data.error)); 
       }
     } catch (error) {
       console.log(error);
@@ -156,7 +144,6 @@ localStorage.setItem("token", data.token);
             {" "}
             Créer un compte
           </Link>
-
         </p>
       </div>
     </form>

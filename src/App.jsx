@@ -23,10 +23,15 @@ import MyAccount from "./pages/MyAccount";
 import ForgottenPassWord from "./pages/ForgottenPassWord";
 import Contact from "./pages/Contact";
 import "./App.scss";
+import { Provider } from "react-redux";
+import store from "../redux/store/store";
+
+
 
 function App() {
   return (
     <BrowserRouter>
+    <Provider store={store}>
       <div className="wrapper">
         <NavBar />
         <Header />
@@ -56,6 +61,7 @@ function App() {
         </main>
         <Footer />
       </div>
+    </Provider>
     </BrowserRouter>
   );
 }
