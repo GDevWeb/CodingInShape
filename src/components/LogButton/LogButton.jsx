@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login, logout } from "../../../redux/slices/AuthSlice";
+import { login, logout, startSignUp} from "../../../redux/slices/authSlice";
 
 export default function LogButton() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isSignUp = useSelector((state) => state.auth.isSignUp);
 
   // Feature btn isAdmin :
   // const isAdmin = useSelector((state) => state.auth.isAdmin);
@@ -19,9 +20,24 @@ export default function LogButton() {
     navigate("/login");
   };
 
-  if (isAuthenticated) {
-    return <button onClick={handleLogout}>Déconnexion</button>;
-  } else {
-    return <button onClick={handleLogin}>Connexion</button>;
-  }
+  const handleSignUp = () => {
+    // Dispatchez l'action pour commencer l'inscription
+    dispatch(startSignUp());
+    // Naviguez vers la page d'inscription
+    navigate("/signup");
+  };
+
+  const buttonText = isAuthenticated
+    ? "Déconnexion"
+    : isSignUp
+    ? "Inscription"
+    : "Connexion";
+
+  const handleClick = isAuthenticated
+    ? handleLogout
+    : isSignUp
+    ? handleSignUp
+    : handleLogin;
+
+  return <button onClick={handleClick}>{buttonText}</button>;
 }
