@@ -2,6 +2,7 @@ const initialState = {
     isAuthenticated: false,
     token: null,
     errorMessage: '',
+    isAdmin: '',
   };
   
   const authReducer = (state = initialState, action) => {
@@ -12,6 +13,7 @@ const initialState = {
           isAuthenticated: false,
           token: action.payload,
           errorMessage: '',
+          isAdmin: '',
         };
       case 'LOGIN_FAILURE':
         return {
@@ -29,6 +31,7 @@ const initialState = {
         };
 
       case `UPDATE_ADMIN_STATUS`: 
+      console.log('New isAdmin value in reducer:', action.payload);
       return {
         ...state,
         isAdmin : action.payload,

@@ -1,31 +1,31 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 import LogoutButton from "../LogOutButton/LogoutButton";
-import UpdateEmailForm from "./UpdateEmailForm";
-import UpdatePasswordForm from "./UpdatePasswordForm";
+import UpdateProfile from "./UpdateProfile";
 import UserHistory from "./UserHistory";
 import UserProfile from "./UserProfile";
 import UserSettings from "./UserSettings";
 import { USER_PROFIL } from "../API/apiUser";
 import Spinner from "../../assets/icons/spinner.svg";
 
-import { useSelector } from "react-redux/es/hooks/useSelector";
-
 export default function MyAccountPage() {
   // État local :
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdminLoaded, setAdminLoaded] = useState(false);
+
   // Redux :
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const token = useSelector((state) => state.auth.token);
 
-  // Redirection : 
+  // Redirection :
   const navigate = useNavigate();
 
   // toggle :
   const [showUserProfile, setShowUserProfile] = useState(false);
-  const [showUpdateEmailForm, setShowUpdateEmailForm] = useState(false);
-  const [showUpdatePasswordForm, setShowUpdatePasswordForm] = useState(false);
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [showUserSettings, setShowUserSettings] = useState(false);
   const [showUserHistory, setShowUserHistory] = useState(false);
 
@@ -37,22 +37,24 @@ export default function MyAccountPage() {
           return;
         }
 
-        const response = await fetch(
-          `${USER_PROFIL}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            credentials: "include",
-          }
-        );
+        const response = await fetch(`${USER_PROFIL}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          credentials: "include",
+        });
 
         if (response.ok) {
           const data = await response.json();
           setUserData(data.userData);
           setIsLoading(false);
+          setAdminLoaded(true);
+
+          // Mise à jour de l'état local isAdmin
+          setIsAdmin(data.userData.isAdmin);
+          console.log(data.userData.isAdmin);
         } else {
           console.error(
             "Impossible de récupérer les données de l'utilisateur."
@@ -70,7 +72,7 @@ export default function MyAccountPage() {
     };
 
     fetchUserData();
-  }, [navigate, isAuthenticated]);
+  }, [navigate, isAuthenticated, token]);
 
   return (
     <>
@@ -87,33 +89,16 @@ export default function MyAccountPage() {
           </div>
         )}
 
-        {/* Mise à jour du mail */}
-        <h2>Modifier mon email</h2>
-        <button onClick={() => setShowUpdateEmailForm(!showUpdateEmailForm)}>
-          {showUpdateEmailForm
-            ? "Cacher le formulaire de mise à jour de l'email"
-            : "Afficher le formulaire de mise à jour de l'email"}
+        {/* Mise à jour du profil */}
+        <h2>Modifier mes informations</h2>
+        <button onClick={() => setShowUpdateForm(!showUpdateForm)}>
+          {showUpdateForm
+            ? "Cacher le formulaire de mise à jour du profil"
+            : "Afficher le formulaire de mise à jour du profil"}
         </button>
         {userData && (
           <div className="update-email-section">
-            {showUpdateEmailForm && <UpdateEmailForm userData={userData} />}
-          </div>
-        )}
-
-        {/* Mise à jour du mot de passe */}
-        {userData && (
-          <div className="update-password-section">
-            <h2>Modifier mon mot de passe</h2>
-            <button
-              onClick={() => setShowUpdatePasswordForm(!showUpdatePasswordForm)}
-            >
-              {showUpdatePasswordForm
-                ? "Cacher le formulaire de mise à jour du mot de passe"
-                : "Afficher le formulaire de mise à jour du mot de passe"}
-            </button>
-            {showUpdatePasswordForm && (
-              <UpdatePasswordForm userData={userData} />
-            )}
+            {showUpdateForm && <UpdateProfile userData={userData} />}
           </div>
         )}
 
@@ -152,6 +137,13 @@ export default function MyAccountPage() {
             </button>
             {showUserHistory && <UserHistory userData={userData} />}
           </div>
+        )}
+
+        {/* Si utilisateur = admin button ves dashboard : */}
+        {isAdminLoaded && isAdmin && (
+          <button onClick={() => navigate("/dashboard")}>
+            Espace administrateur
+          </button>
         )}
 
         {/* Bouton de déconnexion */}

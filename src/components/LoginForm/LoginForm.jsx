@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { loginSuccess, loginFailure } from '../../../redux/slices/AuthSlice'; 
+import { USER_LOGIN } from "../API/apiUser";
 import "./LoginForm.scss";
 
 export default function LoginForm() {
@@ -71,7 +72,7 @@ export default function LoginForm() {
 
     try {
       // Envoi de la requête POST au serveur :
-      const response = await fetch("http://localhost:4000/api/auth/login", {
+      const response = await fetch(`${USER_LOGIN}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,6 +83,7 @@ export default function LoginForm() {
       const data = await response.json();
 
       if (response.ok) {
+        localStorage.setItem('token', data.token)
         dispatch(loginSuccess(data.token)); 
         setFormData({ 
           email: "",

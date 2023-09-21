@@ -40,10 +40,20 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (!isAuthenticated) {
+        if (!isAdmin) {
+          console.log('isAdmin is false or user is not authenticated');
           navigate("/login"); 
           return;
         }
+
+        // Log de la valeur d'isAdmin
+      console.log('isAdmin:', isAdmin);
+
+       // Log de la valeur d'isAdmin avant l'appel à updateAdminStatus
+    console.log('Current isAdmin value before dispatch:', isAdmin);
+
+    // Appel à updateAdminStatus
+    dispatch(updateAdminStatus(true));
 
         // Appel au backend pour obtenir le statut isAdmin
         const response = await fetch('/api/auth/user', {
@@ -56,12 +66,12 @@ export default function DashboardPage() {
         if (response.ok) {
           const data = await response.json();
           const isAdmin = data.isAdmin;
-          dispatch(updateAdminStatus(isAdmin)); // Misez à jour le statut isAdmin dans le store Redux
+          dispatch(updateAdminStatus(isAdmin)); // Mise à jour le statut isAdmin dans le store Redux
         } else {
           throw new Error('Échec de la récupération du statut isAdmin.');
         }
 
-        // Continuez avec le chargement des données des utilisateurs
+        // Continue avec le chargement des données des utilisateurs
         const usersData = await fetchUsersData();
         setUsersData(usersData);
         setIsLoading(false);
@@ -72,7 +82,7 @@ export default function DashboardPage() {
     };
 
     fetchData();
-  }, [ navigate, isAuthenticated, dispatch, token]);
+  }, [ isAuthenticated, isAdmin, navigate, token, dispatch ]);
 
   return (
     <>
