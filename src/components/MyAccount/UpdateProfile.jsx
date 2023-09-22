@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { USER_PROFIL } from "../API/apiUser";
+import { USER_PROFIL, USERS_API } from "../API/apiUser";
 
 
 export default function UpdateProfile() {

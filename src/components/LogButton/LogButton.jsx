@@ -21,9 +21,7 @@ export default function LogButton() {
   };
 
   const handleSignUp = () => {
-    // Dispatchez l'action pour commencer l'inscription
     dispatch(startSignUp());
-    // Naviguez vers la page d'inscription
     navigate("/signup");
   };
 

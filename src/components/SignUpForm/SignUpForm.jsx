@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
+    sexe: "",
     firstName: "",
     lastName: "",
     age: "",
+    avatar: "",
     pseudo: "",
     email: "",
     password: "",
@@ -21,9 +23,11 @@ export default function SignUpForm() {
 
   // Pour gérer les messages d'erreurs dans le formulaire selon l'input :
   const [errors, setErrors] = useState({
+    sexe: "",
     firstName: "",
     lastName: "",
     age: "",
+    avatar: "",
     pseudo: "",
     email: "",
     password: "",
@@ -40,7 +44,20 @@ export default function SignUpForm() {
 
     // Vérifications des inputs :
 
-    //01. Vérification du prénom :
+    // 01.Vérification du sexe :
+    if (name === "sexe"){
+      const regexSex = /''/g;
+      const testRegexSex = regexSex.test(value);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        sexe: testRegexSex
+        ? ""
+        :
+        "Le champ sexe ne peut être vide"
+      }))
+    }
+
+    //02. Vérification du prénom :
     if (name === "firstName") {
       const regexFirstName = /^.{3,}$/; // Au moins 3 caractères
       const testFirstName = regexFirstName.test(value);
@@ -52,7 +69,7 @@ export default function SignUpForm() {
       }));
     }
 
-    //02. Vérification du nom :
+    //03. Vérification du nom :
     if (name === "lastName") {
       const regexLastName = /^.{3,}$/; // Au moins 3 caractères
       const testLastName = regexLastName.test(value);
@@ -64,7 +81,7 @@ export default function SignUpForm() {
       }));
     }
 
-    //03. Vérification de l'âge :
+    //04. Vérification de l'âge :
     if (name === "age") {
       const regexAge = /^[0-9]{2,3}$/; // Au moins 2 chiffres
       const testAge = regexAge.test(value);
@@ -74,7 +91,17 @@ export default function SignUpForm() {
       }));
     }
 
-    //04. Vérification du pseudo :
+    // 05.Vérification de l'avatar :
+    if (name === "avatar") {
+      const regexImgAvatar = /\.(jpeg|jpg|gif|png|bmp|svg)$/i;
+      const testImgAvatar = regexImgAvatar.test(value);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        avatar: testImgAvatar ? "" : "L'URL de votre image n'est pas valide",
+      }));
+    }
+
+    //06. Vérification du pseudo :
     if (name === "pseudo") {
       const regexPseudo = /^.{3,}$/; // Au moins 3 caractères
       const testPseudo = regexPseudo.test(value);
@@ -86,7 +113,7 @@ export default function SignUpForm() {
       }));
     }
 
-    //05. Vérification de l'email :
+    //07. Vérification de l'email :
     if (name === "email") {
       const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const testEmail = regexEmail.test(value);
@@ -96,7 +123,7 @@ export default function SignUpForm() {
       }));
     }
 
-    //06. Vérification du mot de passe :
+    //08. Vérification du mot de passe :
     if (name === "password") {
       const regexPassword =
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,12}$/;
@@ -109,7 +136,7 @@ export default function SignUpForm() {
       }));
     }
 
-    //07. Vérification de la question secrète :
+    //09. Vérification de la question secrète :
     if (name === "securityQuestion") {
       const regexSecurityQuestion = /^.{3,}$/; // Au moins 3 caractères
       const testSecurityQuestion = regexSecurityQuestion.test(value);
@@ -121,7 +148,7 @@ export default function SignUpForm() {
       }));
     }
 
-    // 08. Vérification de la réponse à la question secrète :
+    // 10. Vérification de la réponse à la question secrète :
     if (name === "securityAnswer") {
       const regexSecurityAnswer = /^.{3,}$/; // Au moins 3 caractères
       const testSecurityAnswer = regexSecurityAnswer.test(value);
@@ -141,9 +168,11 @@ export default function SignUpForm() {
 
     // Vérification de la saisie des inputs :
     const isValid =
+    formData.sexe &&
       formData.firstName &&
       formData.lastName &&
       formData.age &&
+      formData.avatar &&
       formData.pseudo &&
       formData.email &&
       formData.password &&
@@ -160,9 +189,11 @@ export default function SignUpForm() {
 
     // Création d'un objet contenant les données du formulaire à envoyer au serveur :
     const requestData = {
+      sexe: formData.sexe,
       firstName: formData.firstName,
       lastName: formData.lastName,
       age: formData.age,
+      avatar: formData.avatar,
       pseudo: formData.pseudo,
       email: formData.email,
       password: formData.password,
@@ -192,6 +223,7 @@ export default function SignUpForm() {
           firstName: "",
           lastName: "",
           age: "",
+          avatar: "",
           pseudo: "",
           email: "",
           password: "",
@@ -217,6 +249,29 @@ export default function SignUpForm() {
     <form onSubmit={handleSubmit} className="formRegister">
       <div className="formRegister__container">
         <h2>Créer un compte :</h2>
+
+        <div className="form-group">
+          <label>Sexe :</label>
+          <input
+            type="radio"
+            id="homme"
+            name="sexe"
+            value="homme"
+            checked={formData.sexe === "homme"} 
+            onChange={handleChange}
+          />
+          <label htmlFor="homme">Homme</label>
+          <input
+            type="radio"
+            id="femme"
+            name="sexe"
+            value="femme"
+            checked={formData.sexe === "femme"} 
+            onChange={handleChange}
+          />
+          <label htmlFor="femme">Femme</label>
+          <span>{errors.sexe}</span>
+        </div>
 
         <div className="form-group-one">
           <div className="form-group">
@@ -247,17 +302,33 @@ export default function SignUpForm() {
             <span className="error">{errors.firstName}</span>
           </div>
 
-      <div className="form-group">
+          <div className="form-group">
             <label htmlFor="age">Âge :</label>
-          <input
-            type="number"
-            name="age"
-            id="age"
-            value={formData.age}
-            onChange={handleChange}
+            <input
+              type="number"
+              name="age"
+              id="age"
+              value={formData.age}
+              onChange={handleChange}
+              placeholder="votre âge"
             />
-          <span className="error">{errors.age}</span>
-            </div>
+            <span className="error">{errors.age}</span>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
+            <img src={formData.avatar} alt="avatar de l'utilisateur" />
+            <label htmlFor="avatar">Image de profil</label>
+            <input
+              type="text"
+              value={formData.avatar}
+              onChange={handleChange}
+              name="avatar"
+              id="avatar"
+              placeholder="url de votre image de profil"
+            />
+            <span className="error">{errors.avatar}</span>
+          </div>
 
           <div className="form-group">
             <label htmlFor="pseudo">Pseudo :</label>
@@ -274,7 +345,7 @@ export default function SignUpForm() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">Votre e-mail :</label>
+            <label htmlFor="email">Votre mot de passe :</label>
             <input
               value={formData.email}
               onChange={handleChange}
@@ -340,7 +411,7 @@ export default function SignUpForm() {
               placeholder="Votre réponse"
               required
             />
-            <span className="error">{errors.email}</span>
+            <span className="error">{errors.securityAnswer}</span>
           </div>
         </div>
 
