@@ -93,7 +93,7 @@ export default function SignUpForm() {
 
     // 05.Vérification de l'avatar :
     if (name === "avatar") {
-      const regexImgAvatar = /\.(jpeg|jpg|gif|png|bmp|svg)$/i;
+      const regexImgAvatar = /\.(jpeg|jpg|gif|png|bmp|svg|webp)$/i;
       const testImgAvatar = regexImgAvatar.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
