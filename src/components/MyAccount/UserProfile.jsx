@@ -58,11 +58,13 @@ export default function UserProfile() {
       <h2>Mon profil</h2>
       {user ? (
         <div>
-          <p>Prénom : {user.firstName}</p>
           <p>Nom : {user.lastName}</p>
+          <p>Prénom : {user.firstName}</p>
+          <p>Sexe : {user.sex}</p>
           <p>Age : {user.age}</p>
           <p>Pseudo : {user.pseudo}</p>
           <p>Email : {user.email}</p>
+          <img src={user.avatar} alt={user.lastName} />
           <p>Admin : {isAdmin ? "Oui" : "Non"}</p>
 
         </div>

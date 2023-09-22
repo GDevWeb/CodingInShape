@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
-    sexe: "",
+    sex: "",
     firstName: "",
     lastName: "",
     age: "",
@@ -23,7 +23,7 @@ export default function SignUpForm() {
 
   // Pour gérer les messages d'erreurs dans le formulaire selon l'input :
   const [errors, setErrors] = useState({
-    sexe: "",
+    sex: "",
     firstName: "",
     lastName: "",
     age: "",
@@ -43,19 +43,21 @@ export default function SignUpForm() {
     });
 
     // Vérifications des inputs :
-
-    // 01.Vérification du sexe :
-    if (name === "sexe"){
-      const regexSex = /''/g;
-      const testRegexSex = regexSex.test(value);
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        sexe: testRegexSex
-        ? ""
-        :
-        "Le champ sexe ne peut être vide"
-      }))
-    }
+if (name === "sexe") {
+  if (!value) {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      sexe: "Le champ sexe ne peut être vide",
+    }));
+  } else {
+    const regexSex = /^(homme|femme)$/; 
+    const testRegexSex = regexSex.test(value);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      sexe: testRegexSex ? "" : "Le champ sexe n'est pas valide",
+    }));
+  }
+}
 
     //02. Vérification du prénom :
     if (name === "firstName") {
@@ -168,7 +170,7 @@ export default function SignUpForm() {
 
     // Vérification de la saisie des inputs :
     const isValid =
-    formData.sexe &&
+      formData.sex &&
       formData.firstName &&
       formData.lastName &&
       formData.age &&
@@ -189,7 +191,7 @@ export default function SignUpForm() {
 
     // Création d'un objet contenant les données du formulaire à envoyer au serveur :
     const requestData = {
-      sexe: formData.sexe,
+      sex: formData.sex,
       firstName: formData.firstName,
       lastName: formData.lastName,
       age: formData.age,
@@ -220,6 +222,7 @@ export default function SignUpForm() {
 
         // On vide le formulaire :
         setFormData({
+          sex: "",
           firstName: "",
           lastName: "",
           age: "",
@@ -251,26 +254,26 @@ export default function SignUpForm() {
         <h2>Créer un compte :</h2>
 
         <div className="form-group">
-          <label>Sexe :</label>
+          <label>sex :</label>
           <input
             type="radio"
             id="homme"
-            name="sexe"
+            name="sex"
             value="homme"
-            checked={formData.sexe === "homme"} 
+            checked={formData.sex === "homme"}
             onChange={handleChange}
           />
           <label htmlFor="homme">Homme</label>
           <input
             type="radio"
             id="femme"
-            name="sexe"
+            name="sex"
             value="femme"
-            checked={formData.sexe === "femme"} 
+            checked={formData.sex === "femme"}
             onChange={handleChange}
           />
           <label htmlFor="femme">Femme</label>
-          <span>{errors.sexe}</span>
+          <span className="error">{errors.sex}</span>
         </div>
 
         <div className="form-group-one">
@@ -345,7 +348,7 @@ export default function SignUpForm() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">Votre mot de passe :</label>
+            <label htmlFor="email">Votre mail :</label>
             <input
               value={formData.email}
               onChange={handleChange}
