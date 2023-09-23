@@ -12,6 +12,7 @@ import Exercises from "./pages/Exercises";
 import ExerciseManagement from "./components/DashBoard/ExerciseManagementPage";
 import ExerciseList from "./components/Exercises/ExerciseList";
 import ExerciseDetail from "./pages/Exercise";
+import GetRandomRoutine from "../src/components/Exercises/GetRandomRoutine"
 import AddExercise from "./components/Exercises/AddExercise";
 import UpdateExercise from "./components/Exercises/UpdateExercise";
 import DeleteExercise from "./components/Exercises/DeleteExercise";
@@ -48,6 +49,7 @@ function App() {
             <Route path="/exercise" element={<Exercise/>}/>
             <Route path="/exercises-list" element={<ExerciseList/>}/>
             <Route path="/exercise-detail/:id" element={<ExerciseDetail/>}/>
+            <Route path="/get-random-routine" element={<GetRandomRoutine/>}/>
             <Route path="/add-exercise" element={<AddExercise/>}/>
             <Route path="/update-exercise/:id" element={<UpdateExercise/>}/>
             <Route path="/delete-exercise/:id" element={<DeleteExercise/>}/>
