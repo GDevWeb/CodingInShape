@@ -25,6 +25,8 @@ import Contact from "./pages/Contact";
 import "./App.scss";
 import { Provider } from "react-redux";
 import store from "../redux/store/store";
+import UpdateProfile from "./components/MyAccount/UpdateProfile";
+import UserSettings from "./components/MyAccount/UserSettings";
 
 
 
@@ -53,6 +55,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/myaccount" element={<MyAccount />} />
+            <Route path="/update-profile/:id" element={<UpdateProfile/>}/>
+            <Route path="/user-settings/:id" element={<UserSettings/>}/>
             <Route path="/forgotten" element={<ForgottenPassWord />} />
             <Route path="/contact" element={<Contact />} />
 

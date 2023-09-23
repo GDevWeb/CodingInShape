@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import LogoutButton from "../LogButton/LogButton";
-import UpdateProfile from "./UpdateProfile";
-import UserHistory from "./UserHistory";
 import UserProfile from "./UserProfile";
-import UserSettings from "./UserSettings";
 import { USER_PROFIL } from "../API/apiUser";
+import Card from "../Card/Card";
 import Spinner from "../../assets/icons/spinner.svg";
 
 export default function MyAccountPage() {
@@ -20,14 +17,13 @@ export default function MyAccountPage() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const token = useSelector((state) => state.auth.token);
 
+  const [userId, setUserId] = useState();
+
   // Redirection :
   const navigate = useNavigate();
 
   // toggle :
-  const [showUserProfile, setShowUserProfile] = useState(false);
-  const [showUpdateForm, setShowUpdateForm] = useState(false);
-  const [showUserSettings, setShowUserSettings] = useState(false);
-  const [showUserHistory, setShowUserHistory] = useState(false);
+  const [showUserProfile, setShowUserProfile] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -48,6 +44,7 @@ export default function MyAccountPage() {
 
         if (response.ok) {
           const data = await response.json();
+          setUserId(data.userData.id);
           setUserData(data.userData);
           setIsLoading(false);
           setAdminLoaded(true);
@@ -81,7 +78,7 @@ export default function MyAccountPage() {
         {/* Affichage des données de l'utilisateur connecté */}
         {userData && (
           <div className="user-profile-section">
-            <h1>Bienvenue sur votre espace personnel {userData.firstName}</h1>
+            <h1>Bienvenue sur votre espace personnel {userData.pseudo}</h1>
             <button onClick={() => setShowUserProfile(!showUserProfile)}>
               {showUserProfile ? "Cacher mon profil" : "Afficher mon profil"}
             </button>
@@ -90,64 +87,53 @@ export default function MyAccountPage() {
         )}
 
         {/* Mise à jour du profil */}
-        <h2>Modifier mes informations</h2>
-        <button onClick={() => setShowUpdateForm(!showUpdateForm)}>
-          {showUpdateForm
-            ? "Cacher le formulaire de mise à jour du profil"
-            : "Afficher le formulaire de mise à jour du profil"}
-        </button>
-        {userData && (
-          <div className="update-email-section">
-            {showUpdateForm && <UpdateProfile userData={userData} />}
-          </div>
-        )}
+        <Card
+          title={"Modifier mes informations"}
+          content={
+            "Modifier mes informations , mail, mot de passe, questions / réponse secrète, image de profil"
+          }
+          link={`/update-profile/${userId}`}
+          textLink={"Modifier mes informations"}
+          // userData={userData}
+        />
 
         {/* Affichage des exercices */}
-        {userData && (
-          <div className="user-exercises-section">
-            <h2>Mes exercices</h2>
-            {/* button link  */}
-            <Link to="/exercises" className="linkTo">
-              Voir la liste des exercices
-            </Link>
-          </div>
-        )}
+        <Card
+          title={"Exercices"}
+          content={"Accéder à la liste des différents exercices disponibles"}
+          link={`/exercises`}
+          textLink={"Accéder au contenu exercices"}
+          // userData={userData}
+        />
 
         {/* Section paramètres de l'utilisateur */}
-        {userData && (
-          <div className="user-settings-section">
-            <h2>Paramètres</h2>
-            <button onClick={() => setShowUserSettings(!showUserSettings)}>
-              {showUserSettings
-                ? "Cacher les paramètres"
-                : "Afficher les paramètres"}
-            </button>
-            {showUserSettings && <UserSettings userData={userData} />}
-          </div>
-        )}
+        <Card
+          title={"Mes paramètres"}
+          content={"Accéder à la gestion de vos paramètres"}
+          link={`/update-settings/${userId}`}
+          textLink={"Accéder à mes paramètres"}
+          // userData={userData}
+        />
 
         {/* Section historique de l'utilisateur */}
-        {userData && (
-          <div className="user-history-section">
-            <h2>Historique</h2>
-            <button onClick={() => setShowUserHistory(!showUserHistory)}>
-              {showUserHistory
-                ? "Cacher l'historique"
-                : "Afficher l'historique"}
-            </button>
-            {showUserHistory && <UserHistory userData={userData} />}
-          </div>
-        )}
+        <Card
+          title={"Mon historique"}
+          content={"Accéder à votre historique d'exercices"}
+          link={`/user-history/${userId}`}
+          textLink={"Accéder à mon historique"}
+          // userData={userData}
+        />
 
-        {/* Si utilisateur = admin button ves dashboard : */}
+        {/* Si admin lien vers dashboard : */}
         {isAdminLoaded && isAdmin && (
-          <button onClick={() => navigate("/dashboard")}>
-            Espace administrateur
-          </button>
+          <Card
+            title={"Accéder au dashboard"}
+            content={`Bienvenue administrateur ${userData.pseudo} accéder au accéder au dashboard`}
+            link={`/dashboard`}
+            textLink={"Accéder au dashboard"}
+            // userData={userData}
+          />
         )}
-
-        {/* Bouton de déconnexion */}
-        <LogoutButton />
       </div>
     </>
   );

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { USER_PROFIL } from "../API/apiUser";
 import Spinner from "../../assets/icons/spinner.svg";
-import { useNavigate } from "react-router-dom";
+import CircleUser from '../../assets/icons/CircleUser.svg'
 
 export default function UserProfile() {
   // État local :
@@ -61,11 +62,11 @@ export default function UserProfile() {
           <p>Nom : {user.lastName}</p>
           <p>Prénom : {user.firstName}</p>
           <p>Sexe : {user.sex}</p>
-          <p>Age : {user.age}</p>
+          <p>Age : {user.age} ans</p>
+          <img src={ user.avatar || CircleUser} alt={user.lastName} width={"150px"} className="avatar"/>
           <p>Pseudo : {user.pseudo}</p>
           <p>Email : {user.email}</p>
-          <img src={user.avatar} alt={user.lastName} />
-          <p>Admin : {isAdmin ? "Oui" : "Non"}</p>
+          {/* <p>Admin : {isAdmin ? "Oui" : "Non"}</p> */}
 
         </div>
       ) : (

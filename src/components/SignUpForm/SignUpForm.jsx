@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./SignUpForm.scss";
 import { useNavigate } from "react-router-dom";
+import { USER_SIGNUP } from "../API/apiUser";
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -43,21 +44,21 @@ export default function SignUpForm() {
     });
 
     // Vérifications des inputs :
-if (name === "sexe") {
-  if (!value) {
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      sexe: "Le champ sexe ne peut être vide",
-    }));
-  } else {
-    const regexSex = /^(homme|femme)$/; 
-    const testRegexSex = regexSex.test(value);
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      sexe: testRegexSex ? "" : "Le champ sexe n'est pas valide",
-    }));
-  }
-}
+    if (name === "sexe") {
+      if (!value) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          sexe: "Le champ sexe ne peut être vide",
+        }));
+      } else {
+        const regexSex = /^(homme|femme)$/;
+        const testRegexSex = regexSex.test(value);
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          sexe: testRegexSex ? "" : "Le champ sexe n'est pas valide",
+        }));
+      }
+    }
 
     //02. Vérification du prénom :
     if (name === "firstName") {
@@ -207,7 +208,7 @@ if (name === "sexe") {
 
     try {
       // Envoi de la requête POST au serveur
-      const response = await fetch("http://localhost:4000/api/auth/signup", {
+      const response = await fetch(`${USER_SIGNUP}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -262,6 +263,7 @@ if (name === "sexe") {
             value="homme"
             checked={formData.sex === "homme"}
             onChange={handleChange}
+            readOnly
           />
           <label htmlFor="homme">Homme</label>
           <input
@@ -271,6 +273,7 @@ if (name === "sexe") {
             value="femme"
             checked={formData.sex === "femme"}
             onChange={handleChange}
+            readOnly
           />
           <label htmlFor="femme">Femme</label>
           <span className="error">{errors.sex}</span>

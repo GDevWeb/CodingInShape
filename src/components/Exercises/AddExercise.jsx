@@ -70,7 +70,7 @@ export default function AddExercise() {
 
     //04. Vérification du champ video :
     if (name === "video") {
-      const regexVideoURL = /\.(mp4|avi|mov|mkv|wmv|flv|webm)$/i;
+      const regexVideoURL = /\.(mp4|avi|mov|mkv|wmv|flv|webp)$/i;
       const testVideoUrl = regexVideoURL.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
