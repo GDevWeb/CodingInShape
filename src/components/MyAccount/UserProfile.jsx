@@ -66,7 +66,7 @@ export default function UserProfile() {
           <img src={ user.avatar || CircleUser} alt={user.lastName} width={"150px"} className="avatar"/>
           <p>Pseudo : {user.pseudo}</p>
           <p>Email : {user.email}</p>
-          {/* <p>Admin : {isAdmin ? "Oui" : "Non"}</p> */}
+          <p>Admin : {isAdmin ? "Oui" : "Non"}</p>
 
         </div>
       ) : (

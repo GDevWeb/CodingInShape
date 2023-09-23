@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate} from "react-router-dom";
 import { USERS_API } from "../API/apiAdmin";
 import { USER_PROFIL } from "../API/apiUser";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import CircleUser from "../../assets/icons/CircleUser.svg";
+import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 
 export default function UpdateProfile() {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdminLoaded, setIsAdminLoaded] = useState(false);
 
-  // test en dur :
+
   const { userId } = useParams();
 
   // Redirection :
@@ -207,6 +209,7 @@ export default function UpdateProfile() {
 
           // Mise à jour de l'état local isAdmin
           setIsAdmin(data.userData.isAdmin);
+          setIsAdminLoaded(true)
           console.log(data.userData.isAdmin);
           console.log(`Connexion depuis UpdateProfile ok`);
         } else {
@@ -487,14 +490,7 @@ export default function UpdateProfile() {
         <span className="success-message">{successMessage}</span>
         <div className="server-error">{serverErrors}</div>
 
-        <div className="nav-links">
-          <div className="nav-link">
-            {isAdmin && <Link to="/dashboard">Retour au dashboard</Link>}
-          </div>
-          <div className="nav-link">
-            <Link to="/myaccount">Retour à mon compte</Link>
-          </div>
-        </div>
+        <ConditionalNavLinks isAdminLoaded={isAdminLoaded} isAdmin={isAdmin} />
       </form>
     </>
   );
