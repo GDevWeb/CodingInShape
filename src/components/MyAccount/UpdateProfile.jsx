@@ -139,17 +139,17 @@ export default function UpdateProfile() {
     }
 
     //08. Vérification du mot de passe :
-    if (name === "password") {
-      const regexPassword =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,12}$/;
-      const testPassword = regexPassword.test(value);
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        password: testPassword
-          ? ""
-          : "Le mot de passe doit contenir entre 8 et 12 caractères, au moins une majuscule, un chiffre et un caractère spécial",
-      }));
-    }
+    // if (name === "password") {
+    //   const regexPassword =
+    //     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,12}$/;
+    //   const testPassword = regexPassword.test(value);
+    //   setErrors((prevErrors) => ({
+    //     ...prevErrors,
+    //     password: testPassword
+    //       ? ""
+    //       : "Le mot de passe doit contenir entre 8 et 12 caractères, au moins une majuscule, un chiffre et un caractère spécial",
+    //   }));
+    // }
 
     //09. Vérification de la question secrète :
     if (name === "securityQuestion") {

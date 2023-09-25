@@ -47,8 +47,7 @@ body {
 .wrapper {
     justify-content: center;
     align-items: center;
-    max-width: 140rem;
-    height: 100vh;
+    max-width: 100%;
     margin: 0 auto;
     padding: 0.5rem 2rem 0 2rem;
 }
@@ -127,7 +126,7 @@ header {
     width: 100%;
     height: 15vh;
     margin-top: 5vh;
-    background-color: $primary-color;
+ 
     border-radius: 0.5rem;
 
     .logo {
@@ -155,7 +154,7 @@ main {
     width: 100%;
     margin: 5vh 0;
     padding: 2rem;
-    background-color: $shade-primary-color;
+
     border-radius: 0.5rem;
 }
 
@@ -182,13 +181,19 @@ main {
 
 // Pied de page
 footer {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 10vh;
-    background-color: $primary-color;
+    background-color: rgba(245, 245, 220, 0.298);
     border-radius: 0.5rem;
+    border-top: 2px solid white;
+   min-width: 748px;
 }
 
-// welcoem page
+// welcome page

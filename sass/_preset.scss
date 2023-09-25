@@ -7,3 +7,21 @@ $color-orange: #ffa500;
 $color-info: #17a2b8;
 $color-primary: #007bff;
 $color-secondary: #6c757d;
+
+
+*{
+
+    
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 62.5%;
+}
+
+body{
+   font-size: 1.6rem; 
+   background: url(/src/assets/fondCalme.jpg);
+   background-size: auto;
+   background-repeat: no-repeat;
+}

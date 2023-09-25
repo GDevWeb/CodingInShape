@@ -7,11 +7,11 @@
   height: 8vh;
   background: rgba(58, 119, 176, 0.523);
   padding: 0.5rem 2rem;
-  border: 2px solid rgba(54, 222, 8, 0.519);
-  box-shadow: 10px 10px 10px rgb(4, 198, 7);
+  border: 2px solid rgba(211, 218, 209, 0.519);
+  box-shadow: 10px 10px 10px rgba(138, 159, 191, 0.73);
   .nav__link{
     &:hover{
-      color: rgb(7, 224, 54);
+      color: rgb(29, 205, 224);
       text-transform: uppercase;
     }
   }
