@@ -2,13 +2,20 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { EXERCISES_API } from "../API/apiAdminExercises";
+import { USER_PROFIL } from "../API/apiUser";
 import Spinner from "../../assets/icons/spinner.svg";
 import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 
 export default function ExerciseList() {
-  const [isAdmin, setIsAdmin] = useState(false);
+
+  // État local :
+  const [userData, setUserData] = ([]);
+  const [serverErrors, setServerErrors] = useState(false);
+  const [userId, setUserId] = useState();
+  const [isAdmin, setIsAdmin] = useState(false); 
   const [isAdminLoaded, setIsAdminLoaded] = useState(false);
 
+  
 
   // Redirection :
   const navigate = useNavigate();
@@ -28,8 +35,50 @@ export default function ExerciseList() {
   const [exercisePerPage] = useState(4);
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        if (!isAuthenticated) {
+          navigate("/login");
+          return;
+        }
+        const response = await fetch(`${USER_PROFIL}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          credentials: "include",
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          const userId = (data.userData.id);
+
+          // Mise à jour de l'état local isAdmin
+          setIsAdmin(data.userData.isAdmin);
+          setIsAdminLoaded(true)
+          console.log(data.userData.isAdmin);
+          console.log(`Connexion depuis ExerciseList ok`);
+        } else {
+          console.error(
+            "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",
+            response.status
+          );
+          setServerErrors("Impossible d'obtenir les données de l'utilisateur");
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération des données:", error);
+        setServerErrors("Erreur lors de la récupération des données");
+      }
+    };
+
+    fetchUserData();
+  }, [isAuthenticated, token, userId, navigate, setServerErrors, userId]);
+
+
+  useEffect(() => {
     const fetchExercises = async () => {
       try {
+
         if (!isAuthenticated) {
           navigate("/login");
           return;
@@ -46,16 +95,9 @@ export default function ExerciseList() {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(token)
           console.log("Données des exercices récupérées :", data);
           setExercises(data);
           setIsLoading(false);
-
-          // Mise à jour de l'état local isAdmin
-          setIsAdmin(data.userData.isAdmin);
-          console.log(data.userData.isAdmin);
-          setIsAdminLoaded(true);
-          console.log(`Connexion depuis ExerciseList ok`);
         } else {
           console.error(
             "Impossible de récupérer les données des exercices. Statut HTTP :",

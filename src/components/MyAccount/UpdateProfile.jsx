@@ -7,11 +7,12 @@ import CircleUser from "../../assets/icons/CircleUser.svg";
 import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 
 export default function UpdateProfile() {
+
+  // État local :
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAdminLoaded, setIsAdminLoaded] = useState(false);
+  const [userId, setUserId] = useState();
 
-
-  const { userId } = useParams();
 
   // Redirection :
   const navigate = useNavigate();
@@ -195,6 +196,7 @@ export default function UpdateProfile() {
         if (response.ok) {
           const data = await response.json();
           setUserData({
+            userId : data.userData.id,
             sex: data.userData.sex,
             age: data.userData.age,
             firstName: data.userData.firstName,
@@ -212,6 +214,8 @@ export default function UpdateProfile() {
           setIsAdminLoaded(true)
           console.log(data.userData.isAdmin);
           console.log(`Connexion depuis UpdateProfile ok`);
+          setUserId(data.userData.id);
+          console.log(userId)
         } else {
           console.error(
             "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",
@@ -272,9 +276,8 @@ export default function UpdateProfile() {
         return;
       }
 
-      //## 🚀dans une nouvelle page via useParams transmettre l'id 🚀
       const response = await fetch(
-        `http://localhost:4000/api/admin/users/${userId}`,
+        `http://localhost:4000/api/admin/users/${userId}`, //pb transmission id
         {
           method: "PUT",
           headers: {
@@ -290,7 +293,7 @@ export default function UpdateProfile() {
         setSuccessMessage("Utilisateur mis à jour avec succès");
         setTimeout(() => {
           setSuccessMessage("");
-          navigate("/");
+          navigate("/myaccount");
         }, 3000);
       } else {
         console.error(
