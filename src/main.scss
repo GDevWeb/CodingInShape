@@ -52,126 +52,17 @@ body {
     padding: 0.5rem 2rem 0 2rem;
 }
 
-// Barre de navigation
-// .navbar {
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     right: 0;
-//     width: 100%;
-//     padding: 1rem;
-//     background-color: $secondary-color;
-//     display: flex;
-//     justify-content: center;
-//     z-index: 999;
-// }
-
-// .navbar ul {
-//     position: absolute;
-//     top: 100%;
-//     width: 100%;
-//     display: none;
-//     flex-direction: column;
-//     align-items: center;
-//     padding-bottom: 0.5rem;
-// }
-
-// .navbar.show-menu ul {
-//     display: flex;
-//     position: relative;
-// }
-
-// .navbar li {
-//     margin: 0.5rem 0;
-// }
-
-// .navbar a {
-//     display: inline-block;
-//     padding: 0.5rem 1rem;
-//     color: $quaternary-color;
-//     font-size: 1.6rem;
-//     text-decoration: none;
-// }
-
-// .navbar button {
-//     margin-left: auto;
-//     display: block;
-//     background: none;
-//     border: none;
-//     color: white;
-//     cursor: pointer;
-// }
-
-// .navbar button img {
-//     width: 1.5rem;
-// }
-
-/* Media Query pour les petits écrans */
-@media (max-width: 640px) {
-    .navbar ul {
-        flex-direction: row;
-        position: relative;
-        background-color: transparent;
-        top: 0;
-    }
-
-    .navbar ul li {
-        margin: 0 0.5rem;
-    }
-}
-
-// En-tête
-header {
-    display: flex;
-    width: 100%;
-    height: 15vh;
-    margin-top: 5vh;
- 
-    border-radius: 0.5rem;
-
-    .logo {
-        display: flex;
-        width: 100%;
-
-        .logo-link {
-            display: flex;
-            align-items: center;
-        }
-
-        .title {
-            display: flex;
-            align-items: center;
-            height: 100%;
-            text-transform: uppercase;
-            font-weight: 800;
-        }
-    }
-}
-
 // Conteneur principal du contenu
 main {
-    height: 100vh;
+    margin-top: 5rem;
+    height: auto;
     width: 100%;
-    margin: 5vh 0;
     padding: 2rem;
-
     border-radius: 0.5rem;
 }
 
 
-.welcome{
-    width: 80%;
-    height: 90%;
-    margin: 2.5vh auto;
-    border-radius: 0.5rem;
 
-    .title{
-        text-align: center;
-        font-weight: 800;
-        margin-bottom: 2rem;
-    }
-
-}
 
 .server-error{
     font-size: 2rem;
@@ -181,8 +72,8 @@ main {
 
 // Pied de page
 footer {
-    position: absolute;
-    bottom: -100%;
+    position: relative;
+    bottom: 0;
     left: 0;
     right: 0;
     display: flex;
@@ -193,7 +84,6 @@ footer {
     background-color: rgba(245, 245, 220, 0.298);
     border-radius: 0.5rem;
     border-top: 2px solid white;
-   min-width: 748px;
 }
 
 // welcome page
