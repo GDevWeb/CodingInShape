@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate} from "react-router-dom";
-import { USERS_API } from "../API/apiAdmin";
+import { useNavigate} from "react-router-dom";
 import { USER_PROFIL } from "../API/apiUser";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import CircleUser from "../../assets/icons/CircleUser.svg";
@@ -215,7 +214,6 @@ export default function UpdateProfile() {
           console.log(data.userData.isAdmin);
           console.log(`Connexion depuis UpdateProfile ok`);
           setUserId(data.userData.id);
-          console.log(userId)
         } else {
           console.error(
             "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",
