@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../assets/icons/spinner.svg";
+import Introduction from "../Introduction/Introduction";
 
 export default function GetRandomRoutine() {
   const [exercises, setExercises] = useState([]);
@@ -41,10 +42,7 @@ export default function GetRandomRoutine() {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(
-            "Données de la routine des exercices récupérées :",
-            data
-          );
+          console.log("Données de la routine des exercices récupérées :", data);
           setExercises(data);
           setIsLoading(false);
           setIsPlaying(true);
@@ -122,6 +120,8 @@ export default function GetRandomRoutine() {
         </>
       ) : (
         <div>
+          <h2>Introduction :</h2>
+          <Introduction />
           <h2>Diaporama d'exercices</h2>
           <div>
             <button onClick={handlePrevious}>Précédent</button>
@@ -133,11 +133,13 @@ export default function GetRandomRoutine() {
           </div>
           <div>
             {showCongratulations ? (
-              <p>Félicitations, vous avez terminé les 5 exercices de la routine !</p>
+              <p>
+                Félicitations, vous avez terminé les 5 exercices de la routine !
+              </p>
             ) : (
               <>
-<h3>{exercises[currentIndex].muscle}</h3>
-<p>Description : {exercises[currentIndex].description}</p>
+                <h3>{exercises[currentIndex].muscle}</h3>
+                <p>Description : {exercises[currentIndex].description}</p>
 
                 <img
                   src={exercises[currentIndex].image}
@@ -153,4 +155,6 @@ export default function GetRandomRoutine() {
     </div>
   );
 }
-// #V2 ajouter le nbr de routines accomplies par l'utilisateur dans la bdd : 
+
+// Modifier l'autoPlay `:rocket:`
+// #V2 ajouter le nbr de routines accomplies par l'utilisateur dans la bdd :

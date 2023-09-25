@@ -1,0 +1,22 @@
+.cardContainer{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: 25%;
+    flex-basis: 25%;
+    margin: 1rem;
+    padding: 0.5rem;
+    background-color: orange;
+    border: 0.1rem solid ;
+    border-radius: 0.5rem;
+    color: antiquewhite;
+
+    .card-header{
+        text-align: center;
+    }
+
+    .card-content{
+        font-size: 1.6rem;
+        color: antiquewhite;
+    }
+}

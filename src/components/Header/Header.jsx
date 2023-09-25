@@ -4,6 +4,7 @@ import LogoutButton from '../LogOutButton/LogoutButton';
 import LoginForm from '../LoginForm/LoginForm';
 import './header.scss'
 
+// import LogButton from '../LogButton/LogButton';
 export default function Header() {
 
   
@@ -18,8 +19,7 @@ export default function Header() {
 </Link>
 </div>
 
-{/* <LoginForm/> */}
-<LogoutButton/>
+<LogButton/>
 
     </header>
   )

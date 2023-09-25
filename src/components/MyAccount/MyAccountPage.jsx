@@ -1,142 +1,141 @@
-import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
-import LogoutButton from '../LogOutButton/LogoutButton';
-import UpdateEmailForm from './UpdateEmailForm';
-import UpdatePasswordForm from './UpdatePasswordForm';
-import UserHistory from './UserHistory';
-import UserProfile from './UserProfile';
-import UserSettings from './UserSettings';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import UserProfile from "./UserProfile";
+import { USER_PROFIL } from "../API/apiUser";
+import Card from "../Card/Card";
 import Spinner from "../../assets/icons/spinner.svg";
 import './MyAccountPage.scss'
 
-
 export default function MyAccountPage() {
+  // État local :
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdminLoaded, setAdminLoaded] = useState(false);
+
+  // Redux :
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const token = useSelector((state) => state.auth.token);
+
+  const [userId, setUserId] = useState();
+
+  // Redirection :
   const navigate = useNavigate();
 
   // toggle :
-  const [showUserProfile, setShowUserProfile] = useState(false);
-  const [showUpdateEmailForm, setShowUpdateEmailForm] = useState(false);
-  const [showUpdatePasswordForm, setShowUpdatePasswordForm] = useState(false);
-  const [showUserSettings, setShowUserSettings] = useState(false);
-  const [showUserHistory, setShowUserHistory] = useState(false);
+  const [showUserProfile, setShowUserProfile] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // Récupérer le token depuis les cookies
-        // const token = Cookies.get("token");
-        const token = localStorage.getItem("token");
-        console.log('Token obtenu :', token);
-
-
-        if (!token) {
+        if (!isAuthenticated) {
           navigate("/login");
           return;
         }
 
-        const response = await fetch("http://localhost:4000/api/auth/MyProfile", {
+        const response = await fetch(`${USER_PROFIL}`, {
           method: "GET",
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           credentials: "include",
         });
 
         if (response.ok) {
           const data = await response.json();
+          setUserId(data.userData.id);
           setUserData(data.userData);
           setIsLoading(false);
+          setAdminLoaded(true);
+
+          // Mise à jour de l'état local isAdmin
+          setIsAdmin(data.userData.isAdmin);
+          console.log(data.userData.isAdmin);
         } else {
-          console.error('Impossible de récupérer les données de l\'utilisateur.');
+          console.error(
+            "Impossible de récupérer les données de l'utilisateur."
+          );
           setIsLoading(false);
           navigate("/login");
         }
       } catch (error) {
-        console.error('Erreur lors de la récupération des données de l\'utilisateur :', error);
+        console.error(
+          "Erreur lors de la récupération des données de l'utilisateur :",
+          error
+        );
         setIsLoading(false);
       }
     };
 
     fetchUserData();
-  }, [navigate]);
+  }, [navigate, isAuthenticated, token]);
 
   return (
     <>
-    <div className="my-account-page">
-      {isLoading && <img src={Spinner} alt="Chargement en cours..." />}
-      {/* Affichage des données de l'utilisateur connecté */}
-    {userData && (
-      <div className="user-profile-section">
-        <h1>Bienvenue sur votre espace personnel {userData.firstName}</h1>
-      <button onClick={() => setShowUserProfile(!showUserProfile)}>
-        {showUserProfile ? "Cacher mon profil" : "Afficher mon profil"}
-      </button>
-{showUserProfile && <UserProfile userData={userData} />}
-      </div> )}
-      
+      <div className="my-account-page">
+        {isLoading && <img src={Spinner} alt="Chargement en cours..." />}
+        {/* Affichage des données de l'utilisateur connecté */}
+        {userData && (
+          <div className="user-profile-section">
+            <h1>Bienvenue sur votre espace personnel {userData.pseudo}</h1>
+            <button onClick={() => setShowUserProfile(!showUserProfile)}>
+              {showUserProfile ? "Cacher mon profil" : "Afficher mon profil"}
+            </button>
+            {showUserProfile && <UserProfile userData={userData} />}
+          </div>
+        )}
 
-      {/* Mise à jour du mail */}
-      <h2>Modifier mon email</h2>
-      <button onClick={() => setShowUpdateEmailForm(!showUpdateEmailForm)}>
-        {showUpdateEmailForm ? "Cacher le formulaire de mise à jour de l'email" : "Afficher le formulaire de mise à jour de l'email"}
-      </button>
-      {userData && (
-        <div className="update-email-section">
-          {showUpdateEmailForm && <UpdateEmailForm userData={userData} /> }
-        </div>
-      )}
+        {/* Mise à jour du profil */}
+        <Card
+          title={"Modifier mes informations"}
+          content={
+            "Modifier mes informations , mail, mot de passe, questions / réponse secrète, image de profil"
+          }
+          link={`/update-profile/${userId}`}
+          textLink={"Modifier mes informations"}
+          // userData={userData}
+        />
 
-      {/* Mise à jour du mot de passe */}
-      {userData && (
-        <div className="update-password-section">
-          <h2>Modifier mon mot de passe</h2>
-          <button onClick={()=> setShowUpdatePasswordForm(!showUpdatePasswordForm)}>
-          {showUpdatePasswordForm ? "Cacher le formulaire de mise à jour du mot de passe" : "Afficher le formulaire de mise à jour du mot de passe"}
-          </button>
-          {showUpdatePasswordForm && <UpdatePasswordForm userData={userData} />}
-        </div>
-      )}
+        {/* Affichage des exercices */}
+        <Card
+          title={"Exercices"}
+          content={"Accéder à la liste des différents exercices disponibles"}
+          link={`/exercises`}
+          textLink={"Accéder au contenu exercices"}
+          // userData={userData}
+        />
 
-      {/* Affichage des exercices */}
-      {userData && (
-        <div className="user-exercises-section">
-          <h2>Mes exercices</h2>
-          {/* button link  */}
-          <Link to="/exercises" className='linkTo'>Voir la liste des exercices</Link> 
-        </div>
-      )}
+        {/* Section paramètres de l'utilisateur */}
+        <Card
+          title={"Mes paramètres"}
+          content={"Accéder à la gestion de vos paramètres"}
+          link={`/update-settings/${userId}`}
+          textLink={"Accéder à mes paramètres"}
+          // userData={userData}
+        />
 
-      {/* Section paramètres de l'utilisateur */}
-      {userData && (
-        <div className="user-settings-section">
-          <h2>Paramètres</h2>
-          <button onClick={()=> setShowUserSettings(!showUserSettings)}>
-          {showUserSettings ? "Cacher les paramètres" : "Afficher les paramètres"}
-          </button>
-          {showUserSettings && <UserSettings userData={userData} /> }
-        </div>
-      )}
+        {/* Section historique de l'utilisateur */}
+        <Card
+          title={"Mon historique"}
+          content={"Accéder à votre historique d'exercices"}
+          link={`/user-history/${userId}`}
+          textLink={"Accéder à mon historique"}
+          // userData={userData}
+        />
 
-      {/* Section historique de l'utilisateur */}
-      {userData && (
-        <div className="user-history-section">
-          <h2>Historique</h2>
-      <button onClick={()=> setShowUserHistory(!showUserHistory)}>
-      {showUserHistory ? "Cacher l'historique" : "Afficher l'historique"}
-      </button>
-      {showUserHistory && <UserHistory userData={userData} /> }
-        </div>
-      )}
-
-      {/* Bouton de déconnexion */}
-      <LogoutButton />
-    </div>
+        {/* Si admin lien vers dashboard : */}
+        {isAdminLoaded && isAdmin && (
+          <Card
+            title={"Accéder au dashboard"}
+            content={`Bienvenue administrateur ${userData.pseudo} accéder au accéder au dashboard`}
+            link={`/dashboard`}
+            textLink={"Accéder au dashboard"}
+            // userData={userData}
+          />
+        )}
+      </div>
     </>
   );
 }
-
-// Bon courage pour la suite ! 🚀
