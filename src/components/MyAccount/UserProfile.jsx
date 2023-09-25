@@ -1,63 +1,78 @@
-import React, { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
-import Spinner from '../../assets/icons/spinner.svg'
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { USER_PROFIL } from "../API/apiUser";
+import Spinner from "../../assets/icons/spinner.svg";
+import CircleUser from '../../assets/icons/CircleUser.svg'
 
 export default function UserProfile() {
+  // État local :
   const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false); 
+
+  // Redux :
+  const token = useSelector((state) => state.auth.token);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  // Redirection :
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        // Récupérer le token depuis les cookies
-        // const token = Cookies.get("token");
-        const token = localStorage.getItem("token");
-        console.log('Token obtenu :', token);
-                
-        if (!token) {
-          console.log("Vous n'êtes pas authentifié.");
+        if (!isAuthenticated) {
+          navigate("/login");
           return;
         }
 
-        const response = await fetch(`http://localhost:4000/api/auth/myProfile/`, {
-          method: 'GET',
+        const response = await fetch(`${USER_PROFIL}`, {
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-          credentials: 'include',
+          credentials: "include",
         });
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           setUser(data.userData);
-          document.cookie = `token=${data.token}; path=/account`;
+
+          // Mise à jour de l'état local isAdmin
+          setIsAdmin(data.userData.isAdmin);
         } else {
-          console.log('Impossible de récupérer le profil utilisateur.');
+          console.log("Impossible de récupérer le profil utilisateur.");
         }
       } catch (error) {
-        console.error('Erreur lors de la récupération du profil utilisateur :', error);
+        console.error(
+          "Erreur lors de la récupération du profil utilisateur :",
+          error
+        );
       }
     };
 
-    fetchUserProfile(); 
-  }, []); 
+    fetchUserProfile();
+  }, [isAuthenticated, navigate, token]);
 
   return (
     <div className="user-profile">
       <h2>Mon profil</h2>
       {user ? (
         <div>
-          <p>Prénom : {user.firstName}</p>
           <p>Nom : {user.lastName}</p>
-          <p>Age : {user.age}</p>
+          <p>Prénom : {user.firstName}</p>
+          <p>Sexe : {user.sex}</p>
+          <p>Age : {user.age} ans</p>
+          <img src={ user.avatar || CircleUser} alt={user.lastName} width={"150px"} className="avatar"/>
           <p>Pseudo : {user.pseudo}</p>
           <p>Email : {user.email}</p>
+          <p>Admin : {isAdmin ? "Oui" : "Non"}</p>
+
         </div>
       ) : (
         <>
-        <p>Chargement du profil en cours...</p>
-        <img src={Spinner} alt=""/>
+          <p>Chargement du profil en cours...</p>
+          <img src={Spinner} alt="" />
         </>
       )}
     </div>

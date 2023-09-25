@@ -1,10 +1,13 @@
-import React from 'react';
 import ExercisePage from '../components/Exercises/ExercisesPage';
+import Introduction from '../components/Introduction/Introduction';
 
 export default function Exercises() {
   return (
     <>
-    <h1>Page d'exercices :</h1>
+    <h1>Section exercices :</h1>
+
+    <Introduction/>
+
     <ExercisePage/>
     </>
   )

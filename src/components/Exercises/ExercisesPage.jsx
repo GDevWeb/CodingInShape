@@ -1,44 +1,50 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useNavigate } from "react-router-dom";
-import GetRandomRoutine from "./GetRandomRoutine";
-import ListOfExercises from "./ExerciseList";
+import { USER_PROFIL } from "../API/apiUser";
+import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
+import Card from "../Card/Card";
 
 export default function ExercisesPage() {
+  // État local :
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [showListOfExercises, setShowListOfExercises] = useState(false);
-  const [showGetRandomRoutine, setShowGetRandomRoutine] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdminLoaded, setAdminLoaded] = useState(false);
+
+
+  // Navigation :
   const navigate = useNavigate();
 
-  useEffect(() => {
+  // Redux :
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const token = useSelector((state) => state.auth.token);
 
+  useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // Récupérer le token depuis les cookies
-        // const token = Cookies.get("token");
-        const token = localStorage.getItem("token");
-        console.log("Token obtenu :", token);
-
-        if (!token) {
+        if (!isAuthenticated) {
           navigate("/login");
           return;
         }
 
-        const response = await fetch(
-          "http://localhost:4000/api/auth/MyProfile",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            credentials: "include",
-          }
-        );
+        const response = await fetch(`${USER_PROFIL}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          credentials: "include",
+        });
 
         if (response.ok) {
           const data = await response.json();
           setUserData(data.userData);
+
+          // Mise à jour de l'état local isAdmin
+          setIsAdmin(data.userData.isAdmin);
+          setAdminLoaded(true);
+
           setIsLoading(false);
         } else {
           console.error(
@@ -57,22 +63,34 @@ export default function ExercisesPage() {
     };
 
     fetchUserData();
-  }, [navigate]);
+  }, [isAuthenticated, token, navigate]);
 
   return (
     <>
-      <h2>Liste des Exercises</h2>
-      <button onClick={() => setShowListOfExercises(!showListOfExercises)}>
-        {showListOfExercises ? "Cacher la liste des exercices" : "Afficher la liste des exercices"}
-      </button>
-      {showListOfExercises && <ListOfExercises />}
+    
+      {userData && (
+        <>
+          <Card
+            title={"Liste des exercices"}
+            content={"Retrouvez la liste des exercices"}
+            link={"/exercises-list"}
+            textLink={"Voir la liste des exercices"}
+          />
 
+          <Card
+            title={"Routine aléatoire"}
+            content={`🚀 Vous ne savez pas par où commencer ? Laissez-vous guider par notre app !
+            💪 Elle vous proposera 1 exercice par zone musculaire : 🧘‍♂️ cou, 💪 épaules, 🏋️‍♂️ dos, 🕺 hanches et 🏃‍♂️ jambes.
+            ⏱️ Chaque exercice dure 20 secondes, soit moins de 2 minutes pour votre bien-être. C'est rapide, efficace et vous permettra de vous sentir revitalisé en un rien de temps !
+            Rejoignez-nous sur Coding in Shape et découvrez comment prendre soin de votre corps, de votre esprit et de votre code. En quelques minutes par jour, vous pouvez renforcer votre corps tout en restant au top de votre jeu de développeur. 💻✨
+            `}
+            link={"/get-random-routine"}
+            textLink={"Démarrer la routine"}
+          />
+        </>
+      )}
 
-      <h2>GetRandomRoutine</h2>
-      <button onClick={()=> setShowGetRandomRoutine(!showGetRandomRoutine)}>
-    {showGetRandomRoutine ? "Cacher la routine d'exercices" : "Afficher la routine d'exercices"}
-      </button>
-      {showGetRandomRoutine && <GetRandomRoutine/>} 
+      <ConditionalNavLinks isAdminLoaded={isAdminLoaded} isAdmin={isAdmin} />
     </>
   );
 }
