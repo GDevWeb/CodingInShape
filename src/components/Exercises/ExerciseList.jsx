@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { EXERCISES_API } from '../API/apiAdminExercises';
 import Spinner from "../../assets/icons/spinner.svg";
+import { setUserData } from "../../../redux/slices/authSlice";
 
 export default function ExerciseList() {
   // État local :
@@ -12,7 +13,7 @@ export default function ExerciseList() {
   // Redux :
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const isAdmin = useSelector((state) => state.auth.isAdmin);
-  const setUserData = useSelector((state) => state.auth.setUserData)
+  const dispatch = useDispatch();
 
   // states filter :
   const [filterOptions, setFilterOptions] = useState({
@@ -46,7 +47,7 @@ export default function ExerciseList() {
 
         if (response.ok) {
           const data = await response.json();
-          setUserData(data)
+          dispatch(setUserData(data)); 
           setExercises(data);
           setIsLoading(false);
         } else {
@@ -66,7 +67,7 @@ export default function ExerciseList() {
     };
 
     fetchExercises();
-  }, [navigate, isAuthenticated]);
+  }, [navigate, isAuthenticated, dispatch]);
 
   // Filtres :
   const filterExercises = (exercises, filterOptions) => {
@@ -180,3 +181,6 @@ export default function ExerciseList() {
     </div>
   );
 }
+
+
+// stylise moi :) 
