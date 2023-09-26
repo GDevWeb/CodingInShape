@@ -7,7 +7,7 @@ const authSlice = createSlice({
     isAuthenticated: false,
     token: null,
     errorMessage: "",
-    isAdmin: false,
+    isAdmin: true,
     userData : null,
   },
   reducers: {
@@ -27,6 +27,7 @@ const authSlice = createSlice({
     loginSuccess: (state, action) => {
       state.isAuthenticated = true;
       state.token = action.payload.token;
+      console.log(action.payload.token)
       state.isAdmin = action.payload.isAdmin;
       state.errorMessage = "";
       console.log(`loginSuccess from AuthSlice`);
@@ -49,6 +50,7 @@ const authSlice = createSlice({
     },
     setUserData : (state, action) => {
       state.userData = action.payload; //Recup la data de user
+      console.log("SetUSerData value :", action.payload)
     }
   },
 });

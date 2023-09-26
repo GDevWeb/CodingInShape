@@ -1,31 +1,20 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux/es/hooks/useSelector";
-import { EXERCISES_API } from "../API/apiAdminExercises";
-import { USER_PROFIL } from "../API/apiUser";
+import { EXERCISES_API } from '../API/apiAdminExercises';
 import Spinner from "../../assets/icons/spinner.svg";
-import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 
 export default function ExerciseList() {
-
   // État local :
-  const [userData, setUserData] = ([]);
-  const [serverErrors, setServerErrors] = useState(false);
-  const [userId, setUserId] = useState();
-  const [isAdmin, setIsAdmin] = useState(false); 
-  const [isAdminLoaded, setIsAdminLoaded] = useState(false);
-
-  
-
-  // Redirection :
-  const navigate = useNavigate();
+  const [exercises, setExercises] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Redux :
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const token = useSelector((state) => state.auth.token);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
+  const setUserData = useSelector((state) => state.auth.setUserData)
 
-  const [exercises, setExercises] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // states filter :
   const [filterOptions, setFilterOptions] = useState({
     type: "",
     muscle: "",
@@ -34,52 +23,12 @@ export default function ExerciseList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [exercisePerPage] = useState(4);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        if (!isAuthenticated) {
-          navigate("/login");
-          return;
-        }
-        const response = await fetch(`${USER_PROFIL}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          credentials: "include",
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data)
-          setUserId(data.userData.id);
-          console.log(userId)
-
-          // Mise à jour de l'état local isAdmin
-          setIsAdmin(data.userData.isAdmin);
-          setIsAdminLoaded(true)
-          console.log(data.userData.isAdmin);
-          console.log(`Connexion depuis ExerciseList ok`);
-        } else {
-          console.error(
-            "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",
-            response.status
-          );
-          setServerErrors("Impossible d'obtenir les données de l'utilisateur");
-        }
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-        setServerErrors("Erreur lors de la récupération des données");
-      }
-    };
-
-    fetchUserData();
-  }, [isAuthenticated, token, userId, navigate, setServerErrors, userId]);
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchExercises = async () => {
       try {
+        const token = localStorage.getItem("token");
 
         if (!isAuthenticated) {
           navigate("/login");
@@ -97,7 +46,7 @@ export default function ExerciseList() {
 
         if (response.ok) {
           const data = await response.json();
-          console.log("Données des exercices récupérées :", data);
+          setUserData(data)
           setExercises(data);
           setIsLoading(false);
         } else {
@@ -117,7 +66,7 @@ export default function ExerciseList() {
     };
 
     fetchExercises();
-  }, [isAuthenticated, token, navigate]);
+  }, [navigate, isAuthenticated]);
 
   // Filtres :
   const filterExercises = (exercises, filterOptions) => {
@@ -135,7 +84,7 @@ export default function ExerciseList() {
       );
     }
 
-    // PAgination :
+    // Pagination :
     const indexOfLastExercise = currentPage * exercisePerPage;
     const indexOfFirstExercise = indexOfLastExercise - exercisePerPage;
     filteredExercises = filteredExercises.slice(
@@ -187,15 +136,13 @@ export default function ExerciseList() {
             <p>Description : {exercise.description}</p>
             <p>Type : {exercise.type}</p>
             <p>Muscle ciblé : {exercise.muscle}</p>
-            <Link to={`/exercise-detail/${exercise._id}`}>
-              Voir détail l'exercice
-            </Link>
-            <Link to={`/update-exercise/${exercise._id}`}>
-              Modifier l'exercice
-            </Link>
-            <Link to={`/delete-exercise/${exercise._id}`}>
-              Supprimer l'exercice
-            </Link>
+            <Link to={`/exercise-detail/${exercise._id}`}>Voir détail de l'exercice</Link>
+            {isAdmin && (
+              <>
+                <Link to={`/update-exercise/${exercise._id}`}>Modifier l'exercice</Link>
+                <Link to={`/delete-exercise/${exercise._id}`}>Supprimer l'exercice</Link>
+              </>
+            )}
             <img
               src={exercise.image}
               alt={`Image de ${exercise.name}`}
@@ -222,13 +169,12 @@ export default function ExerciseList() {
         page {currentPage} sur {Math.ceil(exercises.length / exercisePerPage)}
       </p>
 
-      <ConditionalNavLinks isAdminLoaded={isAdminLoaded} isAdmin={isAdmin} />
-
-      <div className="nav-links">
-        <div className="nav-link">
-          <Link to={"/exercise-management"}>
-            Retour à gestion des exercices
-          </Link>
+      <div className="navigate-links">
+        <div className="navigate-link">
+          <Link to={"/exercise-management"}>Retour à la gestion des exercices</Link>
+        </div>
+        <div className="navigate-link">
+          <Link to={"/dashboard"}>Retour au dashboard</Link>
         </div>
       </div>
     </div>
