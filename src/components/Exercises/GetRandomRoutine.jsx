@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { GET_RANDOM_ROUTINE } from "../API/apiUserExercises";
 import Spinner from "../../assets/icons/spinner.svg";
 import Introduction from "../Introduction/Introduction";
+import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 
 export default function GetRandomRoutine() {
   const [exercises, setExercises] = useState([]);
@@ -29,7 +31,7 @@ export default function GetRandomRoutine() {
         }
 
         const response = await fetch(
-          "http://localhost:3000/api/exercises/random",
+          `${GET_RANDOM_ROUTINE}`,
           {
             method: "GET",
             headers: {
@@ -80,7 +82,7 @@ export default function GetRandomRoutine() {
 
   useEffect(() => {
     startTimer();
-  }, [currentIndex, isPlaying]);
+  }, [currentIndex, isPlaying,]);
 
   useEffect(() => {
     if (isPlaying && timeLeft === 0) {
@@ -152,6 +154,8 @@ export default function GetRandomRoutine() {
           </div>
         </div>
       )}
+      <ConditionalNavLinks/>
+      <Link to={"/exercises"}>Retour à mon espace exercices</Link>
     </div>
   );
 }

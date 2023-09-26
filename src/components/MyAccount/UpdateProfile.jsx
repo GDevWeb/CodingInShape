@@ -10,7 +10,7 @@ export default function UpdateProfile() {
   // État local :
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAdminLoaded, setIsAdminLoaded] = useState(false);
-  const [userId, setUserId] = useState();
+  const userId = useSelector((state) => state.auth.userData?.id);
 
 
   // Redirection :
@@ -213,7 +213,6 @@ export default function UpdateProfile() {
           setIsAdminLoaded(true)
           console.log(data.userData.isAdmin);
           console.log(`Connexion depuis UpdateProfile ok`);
-          setUserId(data.userData.id);
         } else {
           console.error(
             "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",

@@ -51,7 +51,9 @@ export default function ExerciseList() {
 
         if (response.ok) {
           const data = await response.json();
-          const userId = (data.userData.id);
+          console.log(data)
+          setUserId(data.userData.id);
+          console.log(userId)
 
           // Mise à jour de l'état local isAdmin
           setIsAdmin(data.userData.isAdmin);

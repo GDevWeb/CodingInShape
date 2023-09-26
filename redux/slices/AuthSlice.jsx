@@ -8,6 +8,7 @@ const authSlice = createSlice({
     token: null,
     errorMessage: "",
     isAdmin: false,
+    userData : null,
   },
   reducers: {
     startSignUp: (state) => {
@@ -46,9 +47,12 @@ const authSlice = createSlice({
       state.isAdmin = action.payload;
       console.log("New isAdmin value in reducer:", action.payload);
     },
+    setUserData : (state, action) => {
+      state.userData = action.payload; //Recup la data de user
+    }
   },
 });
 
-export const { startSignUp, finishSignUp, login, loginSuccess, loginFailure, logout, updateAdminStatus } =
+export const { startSignUp, finishSignUp, login, loginSuccess, loginFailure, logout, updateAdminStatus, setUserData } =
   authSlice.actions;
 export default authSlice.reducer;

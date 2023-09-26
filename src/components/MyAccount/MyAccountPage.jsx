@@ -16,8 +16,8 @@ export default function MyAccountPage() {
   // Redux :
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const token = useSelector((state) => state.auth.token);
+  const userId = useSelector((state) => state.auth.userData?.id); // chainage optionnel apportant une ptite touche de sécurité
 
-  const [userId, setUserId] = useState();
 
   // Redirection :
   const navigate = useNavigate();
@@ -44,7 +44,6 @@ export default function MyAccountPage() {
 
         if (response.ok) {
           const data = await response.json();
-          setUserId(data.userData.id);
           setUserData(data.userData);
           setIsLoading(false);
           setAdminLoaded(true);

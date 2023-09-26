@@ -8,7 +8,7 @@ import Card from "../Card/Card";
 export default function ExercisesPage() {
   // État local :
   const [userData, setUserData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAdminLoaded, setAdminLoaded] = useState(false);
 
@@ -19,6 +19,7 @@ export default function ExercisesPage() {
   // Redux :
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const token = useSelector((state) => state.auth.token);
+  const userId = useSelector((state) => state.auth.userData?.id); // chainage optionnel apportant une ptite touche de sécurité
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -67,18 +68,21 @@ export default function ExercisesPage() {
 
   return (
     <>
+
     
+
+      
       {userData && (
         <>
-          <Card
-            title={"Liste des exercices"}
-            content={"Retrouvez la liste des exercices"}
-            link={"/exercises-list"}
-            textLink={"Voir la liste des exercices"}
+        <Card
+        title={"Liste des exercices"}
+        content={"Retrouvez la liste des exercices"}
+        link={"/exercises-list"}
+        textLink={"Voir la liste des exercices"}
           />
 
           <Card
-            title={"Routine aléatoire"}
+          title={"Routine aléatoire"}
             content={`🚀 Vous ne savez pas par où commencer ? Laissez-vous guider par notre app !
             💪 Elle vous proposera 1 exercice par zone musculaire : 🧘‍♂️ cou, 💪 épaules, 🏋️‍♂️ dos, 🕺 hanches et 🏃‍♂️ jambes.
             ⏱️ Chaque exercice dure 20 secondes, soit moins de 2 minutes pour votre bien-être. C'est rapide, efficace et vous permettra de vous sentir revitalisé en un rien de temps !
@@ -87,8 +91,8 @@ export default function ExercisesPage() {
             link={"/get-random-routine"}
             textLink={"Démarrer la routine"}
           />
-        </>
-      )}
+          </>
+          )}
 
       <ConditionalNavLinks isAdminLoaded={isAdminLoaded} isAdmin={isAdmin} />
     </>
