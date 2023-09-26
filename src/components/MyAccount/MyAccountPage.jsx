@@ -17,7 +17,7 @@ export default function MyAccountPage() {
   const token = useSelector((state) => state.auth.token);
   const userId = useSelector((state) => state.auth.userData?.id);
   const isAdmin = useSelector((state) => state.auth.isAdmin);
-  const dispatch = useDispatch(); // Utilisez useDispatch pour dispatcher des actions
+  const dispatch = useDispatch(); 
 
   // Redirection :
   const navigate = useNavigate();
@@ -74,7 +74,7 @@ export default function MyAccountPage() {
         {/* Affichage des données de l'utilisateur connecté */}
         {userData && (
           <div className="user-profile-section">
-            <h1>Bienvenue sur votre espace personnel {userData.pseudo}</h1>
+            <h1>Bienvenue sur votre espace personnel {userData?.pseudo}</h1>
             <button onClick={() => setShowUserProfile(!showUserProfile)}>
               {showUserProfile ? "Cacher mon profil" : "Afficher mon profil"}
             </button>
@@ -120,7 +120,7 @@ export default function MyAccountPage() {
         {isAdmin && (
           <Card
             title={"Accéder au dashboard"}
-            content={`Bienvenue administrateur ${userData.pseudo} accéder au accéder au dashboard`}
+            content={`Bienvenue administrateur ${userData?.pseudo} accéder au accéder au dashboard`}
             link={`/dashboard`}
             textLink={"Accéder au dashboard"}
           />
