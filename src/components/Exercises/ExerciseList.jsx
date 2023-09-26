@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { EXERCISES_API } from '../API/apiAdminExercises';
 import Spinner from "../../assets/icons/spinner.svg";
 import { setUserData } from "../../../redux/slices/authSlice";
+import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 
 export default function ExerciseList() {
   // État local :
@@ -22,7 +23,7 @@ export default function ExerciseList() {
   });
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [exercisePerPage] = useState(4);
+  const [exercisePerPage] = useState(2);
 
   const navigate = useNavigate();
 
@@ -170,13 +171,16 @@ export default function ExerciseList() {
         page {currentPage} sur {Math.ceil(exercises.length / exercisePerPage)}
       </p>
 
+      <ConditionalNavLinks
+      isAdmin={isAdmin}
+      />
+
       <div className="navigate-links">
+        {isAdmin &&
         <div className="navigate-link">
           <Link to={"/exercise-management"}>Retour à la gestion des exercices</Link>
         </div>
-        <div className="navigate-link">
-          <Link to={"/dashboard"}>Retour au dashboard</Link>
-        </div>
+        }
       </div>
     </div>
   );
