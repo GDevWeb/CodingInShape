@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate} from "react-router-dom";
-import { USERS_API } from "../API/apiAdmin";
+import { useNavigate} from "react-router-dom";
 import { USER_PROFIL } from "../API/apiUser";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import CircleUser from "../../assets/icons/CircleUser.svg";
 import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 
 export default function UpdateProfile() {
+
+  // État local :
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAdminLoaded, setIsAdminLoaded] = useState(false);
+  const userId = useSelector((state) => state.auth.userData?.id);
 
-
-  const { userId } = useParams();
 
   // Redirection :
   const navigate = useNavigate();
@@ -195,6 +195,7 @@ export default function UpdateProfile() {
         if (response.ok) {
           const data = await response.json();
           setUserData({
+            userId : data.userData.id,
             sex: data.userData.sex,
             age: data.userData.age,
             firstName: data.userData.firstName,
@@ -272,9 +273,8 @@ export default function UpdateProfile() {
         return;
       }
 
-      //## 🚀dans une nouvelle page via useParams transmettre l'id 🚀
       const response = await fetch(
-        `http://localhost:4000/api/admin/users/${userId}`,
+        `http://localhost:4000/api/admin/users/${userId}`, //pb transmission id
         {
           method: "PUT",
           headers: {
@@ -290,7 +290,7 @@ export default function UpdateProfile() {
         setSuccessMessage("Utilisateur mis à jour avec succès");
         setTimeout(() => {
           setSuccessMessage("");
-          navigate("/");
+          navigate("/myaccount");
         }, 3000);
       } else {
         console.error(

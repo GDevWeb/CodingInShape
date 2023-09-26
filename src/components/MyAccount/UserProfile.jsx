@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
 import { USER_PROFIL } from "../API/apiUser";
 import Spinner from "../../assets/icons/spinner.svg";
 import CircleUser from '../../assets/icons/CircleUser.svg'
@@ -66,6 +67,7 @@ export default function UserProfile() {
           <img src={ user.avatar || CircleUser} alt={user.lastName} width={"150px"} className="avatar"/>
           <p>Pseudo : {user.pseudo}</p>
           <p>Email : {user.email}</p>
+          <p>Date de création du compte : {format(new Date(user.createdAt),  'dd/MM/yyyy')}</p>
           <p>Admin : {isAdmin ? "Oui" : "Non"}</p>
 
         </div>

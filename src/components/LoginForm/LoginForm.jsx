@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { loginSuccess, loginFailure } from '../../../redux/slices/AuthSlice'; 
-import { USER_LOGIN } from "../API/apiUser";
+import { loginSuccess, loginFailure, setUserData, updateAdminStatus } from '../../../redux/slices/AuthSlice'; 
+import { USER_LOGIN, USER_PROFIL } from "../API/apiUser";
 import "./LoginForm.scss";
 
 export default function LoginForm() {
@@ -83,8 +83,27 @@ export default function LoginForm() {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('token', data.token)
-        dispatch(loginSuccess(data.token)); 
+        localStorage.setItem('token', data.token);
+        console.log(data)
+        console.log(data.userData)
+
+        // Dispatchez l'action loginSuccess pour stocker le token dans Redux
+        dispatch(loginSuccess(data));
+        
+        // Fetch séparé pour récupérer les données utilisateur
+        const userDataResponse = await fetch(`${USER_PROFIL}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${data.token}`,
+          },
+        });
+        const userData = await userDataResponse.json();
+        
+        // Dispatch l'action setUserData pour stocker les données utilisateur dans Redux
+        dispatch(setUserData(userData));
+        dispatch(updateAdminStatus(userData.isAdmin));
+
         setFormData({ 
           email: "",
           password: "",

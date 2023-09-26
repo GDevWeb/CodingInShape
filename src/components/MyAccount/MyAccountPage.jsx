@@ -1,28 +1,28 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useSelector, useDispatch } from "react-redux"; // Importez useDispatch
 import UserProfile from "./UserProfile";
 import { USER_PROFIL } from "../API/apiUser";
 import Card from "../Card/Card";
 import Spinner from "../../assets/icons/spinner.svg";
+import { updateAdminStatus } from "../../../redux/slices/authSlice"; // Importez ces actions
 
 export default function MyAccountPage() {
   // État local :
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isAdminLoaded, setAdminLoaded] = useState(false);
 
   // Redux :
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const token = useSelector((state) => state.auth.token);
-
-  const [userId, setUserId] = useState();
+  const userId = useSelector((state) => state.auth.userData?.id);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
+  const dispatch = useDispatch(); 
 
   // Redirection :
   const navigate = useNavigate();
 
-  // toggle :
+  // Toggle :
   const [showUserProfile, setShowUserProfile] = useState(true);
 
   useEffect(() => {
@@ -44,18 +44,14 @@ export default function MyAccountPage() {
 
         if (response.ok) {
           const data = await response.json();
-          setUserId(data.userData.id);
           setUserData(data.userData);
           setIsLoading(false);
-          setAdminLoaded(true);
 
-          // Mise à jour de l'état local isAdmin
-          setIsAdmin(data.userData.isAdmin);
-          console.log(data.userData.isAdmin);
+          // Mise à jour de l'état Redux isAdmin
+          dispatch(updateAdminStatus(data.userData.isAdmin));
+
         } else {
-          console.error(
-            "Impossible de récupérer les données de l'utilisateur."
-          );
+          console.error("Impossible de récupérer les données de l'utilisateur.");
           setIsLoading(false);
           navigate("/login");
         }
@@ -69,7 +65,7 @@ export default function MyAccountPage() {
     };
 
     fetchUserData();
-  }, [navigate, isAuthenticated, token]);
+  }, [navigate, isAuthenticated, token, dispatch]);
 
   return (
     <>
@@ -78,7 +74,7 @@ export default function MyAccountPage() {
         {/* Affichage des données de l'utilisateur connecté */}
         {userData && (
           <div className="user-profile-section">
-            <h1>Bienvenue sur votre espace personnel {userData.pseudo}</h1>
+            <h1>Bienvenue sur votre espace personnel {userData?.pseudo}</h1>
             <button onClick={() => setShowUserProfile(!showUserProfile)}>
               {showUserProfile ? "Cacher mon profil" : "Afficher mon profil"}
             </button>
@@ -94,7 +90,6 @@ export default function MyAccountPage() {
           }
           link={`/update-profile/${userId}`}
           textLink={"Modifier mes informations"}
-          // userData={userData}
         />
 
         {/* Affichage des exercices */}
@@ -103,7 +98,6 @@ export default function MyAccountPage() {
           content={"Accéder à la liste des différents exercices disponibles"}
           link={`/exercises`}
           textLink={"Accéder au contenu exercices"}
-          // userData={userData}
         />
 
         {/* Section paramètres de l'utilisateur */}
@@ -112,7 +106,6 @@ export default function MyAccountPage() {
           content={"Accéder à la gestion de vos paramètres"}
           link={`/update-settings/${userId}`}
           textLink={"Accéder à mes paramètres"}
-          // userData={userData}
         />
 
         {/* Section historique de l'utilisateur */}
@@ -121,17 +114,15 @@ export default function MyAccountPage() {
           content={"Accéder à votre historique d'exercices"}
           link={`/user-history/${userId}`}
           textLink={"Accéder à mon historique"}
-          // userData={userData}
         />
 
-        {/* Si admin lien vers dashboard : */}
-        {isAdminLoaded && isAdmin && (
+        {/* Si admin, lien vers dashboard : */}
+        {isAdmin && (
           <Card
             title={"Accéder au dashboard"}
-            content={`Bienvenue administrateur ${userData.pseudo} accéder au accéder au dashboard`}
+            content={`Bienvenue administrateur ${userData?.pseudo} accéder au accéder au dashboard`}
             link={`/dashboard`}
             textLink={"Accéder au dashboard"}
-            // userData={userData}
           />
         )}
       </div>

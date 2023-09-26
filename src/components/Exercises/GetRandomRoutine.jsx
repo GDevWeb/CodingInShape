@@ -1,18 +1,24 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux/es/hooks/useSelector";
+import { Link, useNavigate } from "react-router-dom";
+import { GET_RANDOM_ROUTINE } from "../API/apiUserExercises";
 import Spinner from "../../assets/icons/spinner.svg";
 import Introduction from "../Introduction/Introduction";
+import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 
 export default function GetRandomRoutine() {
   const [exercises, setExercises] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Redux :
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   // Slider :
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false); // Démarrer en mode "Pause"
   const [timeLeft, setTimeLeft] = useState(20);
-  const [completedSlides, setCompletedSlides] = useState(0); // Compteur de sliders terminés
-  const [showCongratulations, setShowCongratulations] = useState(false); // État pour afficher les félicitations
+  const [completedSlides, setCompletedSlides] = useState(0);
+  const [showCongratulations, setShowCongratulations] = useState(false);
 
   const navigate = useNavigate();
   const intervalIdRef = useRef(null);
@@ -23,13 +29,13 @@ export default function GetRandomRoutine() {
         const token = localStorage.getItem("token");
         console.log("Token obtenu :", token);
 
-        if (!token) {
+        if ( !isAuthenticated) {
           navigate("/login");
           return;
         }
 
         const response = await fetch(
-          "http://localhost:3000/api/exercises/random",
+          `${GET_RANDOM_ROUTINE}`,
           {
             method: "GET",
             headers: {
@@ -45,7 +51,6 @@ export default function GetRandomRoutine() {
           console.log("Données de la routine des exercices récupérées :", data);
           setExercises(data);
           setIsLoading(false);
-          setIsPlaying(true);
         } else {
           console.error(
             "Impossible de récupérer les données des exercices. Statut HTTP :",
@@ -89,8 +94,6 @@ export default function GetRandomRoutine() {
     }
   }, [timeLeft, isPlaying]);
 
-  // Slider :
-  // Exercice suivant :
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % exercises.length);
     setTimeLeft(20);
@@ -103,7 +106,6 @@ export default function GetRandomRoutine() {
     }
   };
 
-  // Exercice précédent :
   const handlePrevious = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === 0 ? exercises.length - 1 : prevIndex - 1
@@ -152,9 +154,8 @@ export default function GetRandomRoutine() {
           </div>
         </div>
       )}
+      <ConditionalNavLinks />
+      <Link to={"/exercises"}>Retour à mon espace exercices</Link>
     </div>
   );
 }
-
-// Modifier l'autoPlay `:rocket:`
-// #V2 ajouter le nbr de routines accomplies par l'utilisateur dans la bdd :

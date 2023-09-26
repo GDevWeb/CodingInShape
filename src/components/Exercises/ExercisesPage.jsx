@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { USER_PROFIL } from "../API/apiUser";
 import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
@@ -8,10 +8,9 @@ import Card from "../Card/Card";
 export default function ExercisesPage() {
   // État local :
   const [userData, setUserData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAdminLoaded, setAdminLoaded] = useState(false);
-
 
   // Navigation :
   const navigate = useNavigate();
@@ -47,17 +46,12 @@ export default function ExercisesPage() {
 
           setIsLoading(false);
         } else {
-          console.error(
-            "Impossible de récupérer les données de l'utilisateur."
-          );
+          console.error("Impossible de récupérer les données de l'utilisateur.");
           setIsLoading(false);
           navigate("/login");
         }
       } catch (error) {
-        console.error(
-          "Erreur lors de la récupération des données de l'utilisateur :",
-          error
-        );
+        console.error("Erreur lors de la récupération des données de l'utilisateur :", error);
         setIsLoading(false);
       }
     };
@@ -67,13 +61,12 @@ export default function ExercisesPage() {
 
   return (
     <>
-    
       {userData && (
         <>
           <Card
             title={"Liste des exercices"}
             content={"Retrouvez la liste des exercices"}
-            link={"/exercises-list"}
+            link={`/exercises-list/`}
             textLink={"Voir la liste des exercices"}
           />
 

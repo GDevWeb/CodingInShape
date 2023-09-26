@@ -323,7 +323,7 @@ export default function SignUpForm() {
 
           <div className="form-group">
             <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
-            <img src={formData.avatar} alt="avatar de l'utilisateur" />
+            <img src={formData.avatar} alt="avatar de l'utilisateur" width={"100px"} height={"auto"}/>
             <label htmlFor="avatar">Image de profil</label>
             <input
               type="text"
