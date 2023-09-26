@@ -4,3 +4,5 @@ export const updateRoutineStats = async () => {
         
     }
 }
+
+// pour la feature v2 statistiques routines terminées
