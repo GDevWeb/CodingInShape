@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { loginSuccess, loginFailure, setUserData, updateAdminStatus } from '../../../redux/slices/AuthSlice'; 
-import { USER_LOGIN, USER_PROFIL } from "../API/apiUser";
+import { useDispatch } from "react-redux";
+import {
+  loginSuccess,
+  loginFailure,
+  setUserData,
+  updateAdminStatus,
+} from "../../../redux/slices/AuthSlice";
+import Cookies from "js-cookie";
+import { USER_LOGIN, USER_PROFILE } from "../API/apiUser";
 import "./LoginForm.scss";
 
 export default function LoginForm() {
@@ -11,7 +17,6 @@ export default function LoginForm() {
     password: "",
   });
 
-  // Pour gérer les messages d'erreurs dans le formulaire selon l'input :
   const [errors, setErrors] = useState({
     email: "",
     password: "",
@@ -28,7 +33,7 @@ export default function LoginForm() {
     });
 
     // Vérifications des inputs :
-    //01. Vérification de l'email :
+    // Vérification de l'email :
     if (name === "email") {
       const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const testEmail = regexEmail.test(value);
@@ -38,7 +43,7 @@ export default function LoginForm() {
       }));
     }
 
-    //02. Vérification du mot de passe :
+    // Vérification du mot de passe :
     if (name === "password") {
       const regexPassword = /^.{8,}$/; // Au moins 8 caractères
       const testPassword = regexPassword.test(value);
@@ -71,7 +76,6 @@ export default function LoginForm() {
     };
 
     try {
-      // Envoi de la requête POST au serveur :
       const response = await fetch(`${USER_LOGIN}`, {
         method: "POST",
         headers: {
@@ -83,15 +87,13 @@ export default function LoginForm() {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('token', data.token);
-        console.log(data)
-        console.log(data.userData)
+        // Stocke le token dans un cookie sécurisé et strict
+        Cookies.set("token", data.token, { secure: true, sameSite: "strict" });
 
-        // Dispatchez l'action loginSuccess pour stocker le token dans Redux
+        // Dispatch l'action loginSuccess pour stocker le token dans Redux
         dispatch(loginSuccess(data));
-        
-        // Fetch séparé pour récupérer les données utilisateur
-        const userDataResponse = await fetch(`${USER_PROFIL}`, {
+
+        const userDataResponse = await fetch(`${USER_PROFILE}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -99,20 +101,20 @@ export default function LoginForm() {
           },
         });
         const userData = await userDataResponse.json();
-        
+
         // Dispatch l'action setUserData pour stocker les données utilisateur dans Redux
         dispatch(setUserData(userData));
         dispatch(updateAdminStatus(userData.isAdmin));
 
-        setFormData({ 
+        setFormData({
           email: "",
           password: "",
         });
 
-        // On redirige l'utilisateur vers la page mon compte :
+        // Redirige l'utilisateur vers la page mon compte :
         navigate("/myaccount");
       } else {
-        dispatch(loginFailure(data.error)); 
+        dispatch(loginFailure(data.error));
       }
     } catch (error) {
       console.log(error);
@@ -152,7 +154,7 @@ export default function LoginForm() {
           <span className="error">{errors.password}</span>
         </div>
         <p className="recupPassword">
-          <Link  to="/forgotten" className="forgottenPasswordLink">
+          <Link to="/forgotten" className="forgottenPasswordLink">
             mot de passe oublié ?
           </Link>
         </p>

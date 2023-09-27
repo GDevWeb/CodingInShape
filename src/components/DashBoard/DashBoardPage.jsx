@@ -15,7 +15,6 @@ export default function DashboardPage() {
     const fetchData = async () => {
       try {
         if (!isAdmin) {
-          // Redirige l'utilisateur vers la page de connexion si non authentifié ou non administrateur
           navigate("/login");
           return;
         }

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 const authSlice = createSlice({
   name: "auth",
@@ -27,6 +28,7 @@ const authSlice = createSlice({
     loginSuccess: (state, action) => {
       state.isAuthenticated = true;
       state.token = action.payload.token;
+      Cookies.set('token', action.payload.token, {secure : true, sameSite : 'strict'});
       console.log(action.payload.token)
       state.isAdmin = action.payload.isAdmin;
       state.errorMessage = "";
