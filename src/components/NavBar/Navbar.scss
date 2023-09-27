@@ -11,7 +11,7 @@
   box-shadow: 10px 10px 10px rgba(138, 159, 191, 0.73);
   .nav__link{
     &:hover{
-      color: rgb(29, 205, 224);
+      color: rgb(20, 19, 19);
       text-transform: uppercase;
     }
   }
@@ -27,7 +27,7 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  gap: 3rem;
+  gap: 1rem;
 }
 .nav__toggler {
   display: none;
@@ -53,12 +53,15 @@
     top: 0;
     right: 0;
     height: 100%;
-    width: 45vw;
-    background: rgba(171, 147, 8, 0.9);
+    width: 25vw;
+    background: rgba(255, 255, 255, 0.638);
     flex-direction: column;
     transform: translateX(100%);
     transition: 0.3s ease-in-out;
     border-radius: 20% 0 0 20%;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    border-left: 2px solid white;
   }
 }
 /* Active Class */
@@ -76,4 +79,16 @@
 }
 .toggle .line3 {
   transform: rotate(45deg) translate(-4px, -5px);
+}
+
+@media screen {
+  
+}
+
+@media screen and (min-width: 741px) {
+  .nav {
+    width: 100%;
+
+    margin: auto;
+  }
 }

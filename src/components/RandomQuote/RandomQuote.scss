@@ -1,49 +1,98 @@
-.container{
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: auto;
+    margin: 0 auto;
     background: #9089d871;
-    width: 800px;
+    width: 80%;
     border-radius: 15px;
     border: 2px solid rgb(244, 244, 244);
-    margin-bottom: 10rem;
+
+    h2 {
+        font-size: 2.5rem;
+        font: 900;
+    }
+
+    .quote {
+        padding: 6rem 11rem;
+        color: rgb(0, 0, 0);
+        text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.708);
+        font-size: 3rem;
+        text-align: center;
+    }
+
+    .space {
+        width: 80%;
+        // .line {
+        //     width: 50vh;
+        //     height: 1.5px;
+        //     background: white;
+        // }
+
+        .bottom {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+
+            .author {
+                color: rgb(0, 0, 0);
+                text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.708);
+                font-size: 24px;
+                font-weight: 500;
+            }
+
+            .icons {
+                display: flex;
+                gap: 4rem;
+
+                img {
+                    cursor: pointer;
+                    height: 30px;
+                }
+            }
+        }
+    }
 }
 
-.quote{
-    padding: 60px 110px;
-    color: rgb(0, 0, 0);
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.708);
-    font-size: 32px;
-    text-align: center;
-}
 
-.line{
-    width: 680px;
-    height: 1.5px;
-    background: white;
-}
 
-.bottom{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin: 30px 0;
-}
 
-.author{
-    color: rgb(0, 0, 0);
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.708);
-    font-size: 24px;
-    font-weight: 500;
-}
 
-.icons{
-    display: flex;
-    gap: 40px;
-    img{
-        cursor: pointer;
-        height: 30px;
-}
+
+
+
+
+
+
+@media screen and (max-width: 940px) {
+    .container {
+        display: flex;
+        .quote {
+            font-size: 20px;
+            padding: 4rem 1rem;
+            width: 80%;
+        }
+
+        .space {
+            width: 80%;
+
+            .line {}
+
+            .bottom {
+                justify-content: space-between;
+
+
+                .author {}
+
+                .icons {
+
+
+
+                    img {}
+                }
+            }
+        }
+    }
 }

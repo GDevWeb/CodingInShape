@@ -7,7 +7,6 @@
 *, ::before, ::after {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 // Styles des liens
@@ -16,59 +15,61 @@ li {
 }
 
 a {
-    color: $secondary-color;
+   
     text-decoration: none;
     font-size: 1.6rem;
     font-weight: 700;
 }
 
-.linkTo{
-    color: $color-primary;
-    text-decoration: none;
-    font-size: 1.6rem;
-    font-weight: 700;
-}
+// .linkTo{
+//     color: $color-primary;
+//     text-decoration: none;
+//     font-size: 1.6rem;
+//     font-weight: 700;
+// }
 
-// Styles globaux
-html {
-    font-size: $base-font-size;
-}
+// // Styles globaux
+// html {
+//     font-size: $base-font-size;
+// }
 
-body {
-    height: 100%;
-    font-size: 1.6rem;
-    color: $secondary-color;
-    border-color: $tertiary-color;
-    background-image: linear-gradient(270deg,#0a0815 0,rgba(10,8,21,0) 4%,rgba(10,8,21,0) 96%,#0a0815)
+// body {
+//     height: 100%;
+//     font-size: 1.6rem;
+//     color: $secondary-color;
+//     border-color: $tertiary-color;
+//     background-image: linear-gradient(270deg,#0a0815 0,rgba(10,8,21,0) 4%,rgba(10,8,21,0) 96%,#0a0815)
 
-}
+// }
 
-// Conteneur principal
-.wrapper {
-    justify-content: center;
-    align-items: center;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0.5rem 2rem 0 2rem;
-}
+// // Conteneur principal
+// .wrapper {
+//     justify-content: center;
+//     align-items: center;
+//     max-width: 100%;
+//     margin: 0 auto;
+//     padding: 0.5rem 2rem 0 2rem;
+// }
 
-// Conteneur principal du contenu
-main {
-    margin-top: 5rem;
-    height: auto;
-    width: 100%;
-    padding: 2rem;
-    border-radius: 0.5rem;
-}
+// // Conteneur principal du contenu
+// main {
+
+//     text-align: center;
+//     margin-top: 5rem;
+//     margin: auto;
+//     width: 100%;
+//     padding: 2rem;
+//     border-radius: 0.5rem;
+// }
 
 
 
 
-.server-error{
-    font-size: 2rem;
-    color: $color-danger;
-    font-weight: bolder;
-}
+// .server-error{
+//     font-size: 2rem;
+//     color: $color-danger;
+//     font-weight: bolder;
+// }
 
 // Pied de page
 footer {
@@ -86,4 +87,4 @@ footer {
     border-top: 2px solid white;
 }
 
-// welcome page
+// // welcome page

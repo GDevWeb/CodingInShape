@@ -20,8 +20,9 @@
   }
 
   .buttons {
+    height:   auto;
     background: rgb(255, 255, 255, 0.3);
-    padding:4rem 6rem;
+    padding:4rem 6rems;
     border-left: 2px solid rgb(255, 255, 255, 0.3);
     border-top: 2px solid rgb(255, 255, 255, 0.3);
     margin: 100px auto;
@@ -45,9 +46,11 @@
     opacity: 0.7;
 
     &:hover {
-      background-color: lighten($color-success, 10%);
+      color: aliceblue;
+      overflow: hidden;
+      background-color: black;
       text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.324);
-      border: 1px solid black;
+      border: 1px outset black;
       overflow: auto;
     }
   }

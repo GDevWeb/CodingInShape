@@ -1,90 +1,107 @@
 @import '../../../sass/index.scss';
 
 
-form.formRegister {
+// form.formRegister {
 
-    .formRegister__container {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        margin-top: 5rem;
-        padding: 1rem 2rem;
-        border: 1px solid $tertiary-color;
-        border-radius: 0.5rem;
+//     .formRegister__container {
+//         display: flex;
+//         flex-direction: column;
+//         flex-wrap: wrap;
+//         justify-content: center;
+//         align-items: center;
+//         margin-top: 5rem;
+//         padding: 1rem 2rem;
+//         border-radius: 0.5rem;
 
-        .formRegister__title {
-            margin-bottom: 2rem;
-            font-size: 2rem;
-            font-weight: 700;
-        }
+//         .formRegister__title {
+//             margin-bottom: 2rem;
+//             font-size: 2rem;
+//             font-weight: 700;
+//         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            width: 60%;
-            margin-bottom: 2rem;
+//         .form-group {
+//             display: flex;
+//             flex-direction: column;
+//             width: 60%;
+//             margin-bottom: 2rem;
 
-            label {
-                margin-bottom: 0.5rem;
-                font-size: 1.6rem;
-                font-weight: 700;
-            }
+//             label {
+//                 margin-bottom: 0.5rem;
+//                 font-size: 1.6rem;
+//                 font-weight: 700;
+//             }
 
-            input, select, option{
-                display: flex;
-                flex-direction: column;
-                margin-bottom: 2rem;
-                padding: 0.5rem 1rem;
-                border: none;
-                width: 100%;
-                height: 3rem;
-                padding: 0 0.5rem;
-                font-size: 1.6rem;
-                text-align: center;
-                border-radius: 0.5rem;
-            }
-        }
-    }
+//             input, select, option{
+//                 display: flex;
+//                 flex-direction: column;
+//                 margin-bottom: 2rem;
+//                 padding: 0.5rem 1rem;
+//                 border: none;
+//                 width: 100%;
+//                 height: 3rem;
+//                 padding: 0 0.5rem;
+//                 font-size: 1.6rem;
+//                 text-align: center;
+//                 border-radius: 0.5rem;
+//             }
+//         }
+//     }
 
-    button {
-        width: 30%;
-        height: 3rem;
-        font-size: 1.6rem;
-        font-weight: 700;
-        border: none;
-        border-radius: 0.5rem;
-        background-color: $color-success;
-        color: $quaternary-color;
+//     button {
+//         width: 30%;
+//         height: 3rem;
+//         font-size: 1.6rem;
+//         font-weight: 700;
+//         border: none;
+//         border-radius: 0.5rem;
+//         background-color: $color-success;
+//         color: $quaternary-color;
 
-        &:hover {
-            background-color: lighten($color-success, 10%);
-        }
-    }
-}
+//         &:hover {
+//             background-color: lighten($color-success, 10%);
+//         }
+//     }
+// }
 
-.form-group-one {
+// .form-group-one {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     width: 45%;
+// }
+
+// .form-group-two {
+//     @extend .form-group-one;
+// }
+
+// .error {
+//     color: $color-danger;
+//     font-weight: bold;
+//     text-align: center;
+// }
+
+// .success {
+//     margin-top: 0.5rem;
+//     color: $color-success;
+//     font-weight: bold;
+//     text-align: center;
+// }
+
+
+
+.form-group-one{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 45%;
+    flex-wrap: wrap;
+    flex-basis: 45%;
+    .form-group{
+        padding: 0 2rem;
+        width: 50%;
+        margin: auto;
+        flex-wrap: wrap;
+        justify-content: space-between;
+label, input{
+    width: 100%;
 }
-
-.form-group-two {
-    @extend .form-group-one;
-}
-
-.error {
-    color: $color-danger;
-    font-weight: bold;
-    text-align: center;
-}
-
-.success {
-    margin-top: 0.5rem;
-    color: $color-success;
-    font-weight: bold;
-    text-align: center;
+    }
 }
