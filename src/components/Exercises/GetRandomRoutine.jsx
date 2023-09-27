@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { GET_RANDOM_ROUTINE } from "../API/apiUserExercises";
 import Spinner from "../../assets/icons/spinner.svg";
@@ -12,6 +13,8 @@ export default function GetRandomRoutine() {
 
   // Redux :
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const token = useSelector((state) => state.auth.token);
+  const dispatch = useDispatch(); 
 
   // Slider :
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,14 +23,14 @@ export default function GetRandomRoutine() {
   const [completedSlides, setCompletedSlides] = useState(0);
   const [showCongratulations, setShowCongratulations] = useState(false);
 
+  // Redirection :
   const navigate = useNavigate();
+
   const intervalIdRef = useRef(null);
 
   useEffect(() => {
     const fetchExercises = async () => {
       try {
-        const token = localStorage.getItem("token");
-        console.log("Token obtenu :", token);
 
         if ( !isAuthenticated) {
           navigate("/login");

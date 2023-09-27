@@ -13,6 +13,7 @@ export default function ExerciseList() {
 
   // Redux :
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const token = useSelector((state) => state.auth.token)
   const isAdmin = useSelector((state) => state.auth.isAdmin);
   const dispatch = useDispatch();
 
@@ -30,8 +31,6 @@ export default function ExerciseList() {
   useEffect(() => {
     const fetchExercises = async () => {
       try {
-        const token = localStorage.getItem("token");
-
         if (!isAuthenticated) {
           navigate("/login");
           return;
