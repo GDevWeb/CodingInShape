@@ -251,36 +251,27 @@ export default function SignUpForm() {
 
   return (
     <form onSubmit={handleSubmit} className="formRegister">
+      <h2>Créer un compte :</h2>
       <div className="formRegister__container">
-        <h2>Créer un compte :</h2>
 
-        <div className="form-group">
-          <label>sex :</label>
-          <input
-            type="radio"
-            id="homme"
-            name="sex"
-            value="homme"
-            checked={formData.sex === "homme"}
-            onChange={handleChange}
-            readOnly
-          />
-          <label htmlFor="homme">Homme</label>
-          <input
-            type="radio"
-            id="femme"
-            name="sex"
-            value="femme"
-            checked={formData.sex === "femme"}
-            onChange={handleChange}
-            readOnly
-          />
-          <label htmlFor="femme">Femme</label>
-          <span className="error">{errors.sex}</span>
-        </div>
+      <div className="form-group avatar">
+        <label htmlFor="avatar">Image de profil</label>
+            <input
+              type="text"
+              value={formData.avatar}
+              onChange={handleChange}
+              name="avatar"
+              id="avatar"
+              placeholder="url de votre image de profil"
+            />
+            <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
+            <img src={formData.avatar} /*alt="avatar de l'utilisateur"*/ />
+            
+            <span className="error">{errors.avatar}</span>
+          </div>
 
         <div className="form-group-one">
-          <div className="form-group">
+          <div className="form-group lname">
             <label htmlFor="lastName">Nom :</label>
             <input
               value={formData.lastName}
@@ -294,7 +285,7 @@ export default function SignUpForm() {
             <span className="error">{errors.lastName}</span>
           </div>
 
-          <div className="form-group">
+          <div className="form-group fname">
             <label htmlFor="firstName">Prénom :</label>
             <input
               value={formData.firstName}
@@ -308,7 +299,7 @@ export default function SignUpForm() {
             <span className="error">{errors.firstName}</span>
           </div>
 
-          <div className="form-group">
+          <div className="form-group age">
             <label htmlFor="age">Âge :</label>
             <input
               type="number"
@@ -321,22 +312,9 @@ export default function SignUpForm() {
             <span className="error">{errors.age}</span>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
-            <img src={formData.avatar} alt="avatar de l'utilisateur" />
-            <label htmlFor="avatar">Image de profil</label>
-            <input
-              type="text"
-              value={formData.avatar}
-              onChange={handleChange}
-              name="avatar"
-              id="avatar"
-              placeholder="url de votre image de profil"
-            />
-            <span className="error">{errors.avatar}</span>
-          </div>
+          
 
-          <div className="form-group">
+          <div className="form-group pseudo">
             <label htmlFor="pseudo">Pseudo :</label>
             <input
               value={formData.pseudo}
@@ -350,7 +328,7 @@ export default function SignUpForm() {
             <span className="error">{errors.pseudo}</span>
           </div>
 
-          <div className="form-group">
+          <div className="form-group email">
             <label htmlFor="email">Votre mail :</label>
             <input
               value={formData.email}
@@ -364,7 +342,7 @@ export default function SignUpForm() {
             <span className="error">{errors.email}</span>
           </div>
 
-          <div className="form-group">
+          <div className="form-group password">
             <label htmlFor="password">Mot de passe :</label>
             <input
               value={formData.password}
@@ -378,7 +356,7 @@ export default function SignUpForm() {
             <span className="error">{errors.password}</span>
           </div>
 
-          <div className="form-group">
+          <div className="form-group securityQuestion">
             <label htmlFor="securityQuestion">Question de sécurité</label>
             <select
               value={formData.securityQuestion}
@@ -404,7 +382,7 @@ export default function SignUpForm() {
             <span className="error">{errors.securityQuestion}</span>
           </div>
 
-          <div className="form-group">
+          <div className="form-group securityAnswers">
             <label htmlFor="securityAnswer">
               Réponse à la question secrète :
             </label>
@@ -420,10 +398,37 @@ export default function SignUpForm() {
             <span className="error">{errors.securityAnswer}</span>
           </div>
         </div>
-
-        <button type="submit">S'inscrire</button>
-        <span className="success">{success}</span>
       </div>
+      
+
+      <div className="form-group gender">
+          <label>sex :</label>
+          <input
+            type="radio"
+            id="homme"
+            name="sex"
+            value="homme"
+            checked={formData.sex === "homme"}
+            onChange={handleChange}
+            readOnly
+          />
+          <label htmlFor="homme">Homme</label>
+          <input
+            type="radio"
+            id="femme"
+            name="sex"
+            value="femme"
+            checked={formData.sex === "femme"}
+            onChange={handleChange}
+            readOnly
+          />
+          <label htmlFor="femme">Femme</label>
+          <span className="error">{errors.sex}</span>
+        </div>
+
+      <button type="submit">S'inscrire</button>
+      <span className="success">{success}</span>
+
     </form>
   );
 }

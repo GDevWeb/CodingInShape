@@ -11,8 +11,8 @@ export default function UpdateProfile() {
   // État local :
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAdminLoaded, setIsAdminLoaded] = useState(false);
-  const [userId, setUserId] = useState();
-
+  // const [userId, setUserId] = useState();
+  const userId = useSelector((state) => state.auth.userData?.id);
 
   // Redirection :
   const navigate = useNavigate();
