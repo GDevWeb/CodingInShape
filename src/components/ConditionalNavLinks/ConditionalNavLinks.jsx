@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
-export default function ConditionalNavLinks({ isAdminLoaded, isAdmin }) {
+export default function ConditionalNavLinks({ isAdmin }) {
   return (
     <>
-      {isAdminLoaded && isAdmin && (
+      {isAdmin && (
         <Link to="/dashboard" className="linkTo">
           Retour au dashboard
         </Link>
