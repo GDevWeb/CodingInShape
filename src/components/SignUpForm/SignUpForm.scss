@@ -1,6 +1,107 @@
 @import '../../../sass/index.scss';
 
 
+.formRegister__container {
+  // background: blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar {
+  text-align: center;
+  width: 200px;
+  margin: 0 auto;
+  padding: 2rem 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+
+  input {
+    padding: 0.3rem 1rem;
+    border: 4px solid black;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px black;
+    margin-bottom: 20px;
+  }
+
+  img {
+    width: 100px;
+    height: 100px;
+    border: 4px solid rgb(0, 0, 0);
+    border-radius: 50%;
+  }
+}
+
+
+.formRegister__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+
+  .form-group-one {
+    // background-color: aliceblue;
+    display: flex;
+    // flex-direction: column;
+    padding: 10px;
+    border-top: 2px solid rgba(125, 125, 125, 0.5);
+    border-left: 2px solid rgba(125, 125, 125, 0.5);
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.71);
+    flex-wrap: wrap;
+    flex-basis: 33%;
+    justify-content: flex-start;
+    gap: 10px;
+
+    input,
+    select {
+      width: 12rem;
+      text-align: center;
+      margin: 1rem 2rem;
+      border: 1px solid black;
+      border-radius: 5px;
+      box-shadow: 2px 2px 2px black;
+    }
+  }
+
+
+
+}
+
+.gender{
+  // background-color: rgb(17, 210, 152);
+  width:500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+form{
+  h2{
+    text-align: center;
+    padding: 1rem 0;
+  }
+  hr{
+    width: 90%;
+    margin: 20px auto;
+    align-items: center;
+  }
+  display: flex;
+  flex-direction: column;
+button{
+  width: 200px;
+margin: auto;
+  background-color: bisque;
+  border: 2px solid white;
+  border-radius: 10px;
+  text-shadow: 2px 2px 2px black;
+  font-size: 2rem;
+  padding: 0.5rem 2rem;
+}
+}
 // form.formRegister {
 
 //     .formRegister__container {
@@ -113,4 +214,3 @@
 //     font-size: 1.5rem;
 //     padding: 0.5rem 2rem;
 // }
-

@@ -251,25 +251,25 @@ export default function SignUpForm() {
 
   return (
     <form onSubmit={handleSubmit} className="formRegister">
-      <h2>Créer un compte :</h2>
-      <div className="formRegister__container">
+      <h2>Inscription :</h2>
+      <hr />
 
       <div className="form-group avatar">
         <label htmlFor="avatar">Image de profil</label>
-            <input
-              type="text"
-              value={formData.avatar}
-              onChange={handleChange}
-              name="avatar"
-              id="avatar"
-              placeholder="url de votre image de profil"
-            />
-            <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
-            <img src={formData.avatar} /*alt="avatar de l'utilisateur"*/ />
-            
-            <span className="error">{errors.avatar}</span>
-          </div>
+        <input
+          type="text"
+          value={formData.avatar}
+          onChange={handleChange}
+          name="avatar"
+          id="avatar"
+          placeholder="url de votre image de profil"
+        />
+        <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
+        <img src={formData.avatar} /*alt="avatar de l'utilisateur"*/ />
 
+        <span className="error">{errors.avatar}</span>
+      </div>
+      <div className="formRegister__container">
         <div className="form-group-one">
           <div className="form-group lname">
             <label htmlFor="lastName">Nom :</label>
@@ -312,7 +312,7 @@ export default function SignUpForm() {
             <span className="error">{errors.age}</span>
           </div>
 
-          
+
 
           <div className="form-group pseudo">
             <label htmlFor="pseudo">Pseudo :</label>
@@ -353,7 +353,7 @@ export default function SignUpForm() {
               placeholder="Votre mot de passe"
               required
             />
-            <span className="error">{errors.password}</span>
+            {/* <span className="error">{errors.password}</span> */}
           </div>
 
           <div className="form-group securityQuestion">
@@ -397,34 +397,35 @@ export default function SignUpForm() {
             />
             <span className="error">{errors.securityAnswer}</span>
           </div>
+          <div className="form-group gender">
+        <label>sex :</label>
+        <label htmlFor="homme">Homme</label>
+        <input
+          type="radio"
+          id="homme"
+          name="sex"
+          value="homme"
+          checked={formData.sex === "homme"}
+          onChange={handleChange}
+          readOnly
+        />
+        <label htmlFor="femme">Femme</label>
+        <input
+          type="radio"
+          id="femme"
+          name="sex"
+          value="femme"
+          checked={formData.sex === "femme"}
+          onChange={handleChange}
+          readOnly
+        />
+        <span className="error">{errors.sex}</span>
+      </div>
         </div>
       </div>
-      
 
-      <div className="form-group gender">
-          <label>sex :</label>
-          <input
-            type="radio"
-            id="homme"
-            name="sex"
-            value="homme"
-            checked={formData.sex === "homme"}
-            onChange={handleChange}
-            readOnly
-          />
-          <label htmlFor="homme">Homme</label>
-          <input
-            type="radio"
-            id="femme"
-            name="sex"
-            value="femme"
-            checked={formData.sex === "femme"}
-            onChange={handleChange}
-            readOnly
-          />
-          <label htmlFor="femme">Femme</label>
-          <span className="error">{errors.sex}</span>
-        </div>
+
+
 
       <button type="submit">S'inscrire</button>
       <span className="success">{success}</span>
