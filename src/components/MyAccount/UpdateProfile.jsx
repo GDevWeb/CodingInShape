@@ -8,9 +8,12 @@ import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 export default function UpdateProfile() {
 
   // État local :
+
+  // État local :
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAdminLoaded, setIsAdminLoaded] = useState(false);
-  const userId = useSelector((state) => state.auth.userData?.id);
+  // const userId = useSelector((state) => state.auth.userData?.id);
+  const [userId, setUserId] = useState();
 
 
   // Redirection :
@@ -213,6 +216,8 @@ export default function UpdateProfile() {
           setIsAdminLoaded(true)
           console.log(data.userData.isAdmin);
           console.log(`Connexion depuis UpdateProfile ok`);
+          setUserId(data.userData.id);
+          console.log(userId)
         } else {
           console.error(
             "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",

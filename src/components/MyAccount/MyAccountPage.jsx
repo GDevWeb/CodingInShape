@@ -6,6 +6,7 @@ import { USER_PROFIL } from "../API/apiUser";
 import Card from "../Card/Card";
 import Spinner from "../../assets/icons/spinner.svg";
 import { updateAdminStatus } from "../../../redux/slices/authSlice"; // Importez ces actions
+import './MyAccountPage.scss'
 
 export default function MyAccountPage() {
   // État local :

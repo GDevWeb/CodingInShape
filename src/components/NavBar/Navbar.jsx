@@ -1,57 +1,59 @@
 import { useState } from "react";
-import hamburger from "../../assets/icons/hamburger.svg";
-import close from "../../assets/icons/close.svg";
+import "./navbar.scss";
 import { Link } from "react-router-dom";
 
-export default function Navbar() {
-  const [showMenu, setShowMenu] = useState(false);
+function Navbar() {
+  const [active, setActive] = useState("nav__menu");
+  const [icon, setIcon] = useState("nav__toggler");
+  const navToggle = () => {
+    if (active === "nav__menu") {
+      setActive("nav__menu nav__active");
+    } else setActive("nav__menu");
 
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
+    // Icon Toggler
+    if (icon === "nav__toggler") {
+      setIcon("nav__toggler toggle");
+    } else setIcon("nav__toggler");
   };
-
   return (
-    <nav className={`navbar ${showMenu ? "show-menu" : ""}`}>
-      <ul>
-
-        <li>
-        <Link to="/" className="logo-link">
-          Accueil 
-        </Link>
+    <nav className="nav">
+      <Link to="/" className="nav__brand">
+        Coding In Shape
+      </Link>
+      <ul className={active}>
+        <li className="nav__item">
+        <Link to="/" className="nav__link">
+            Accueil
+            </Link>
         </li>
-
-        <li>
-        <Link to="/signup" className="logo-link">
-          Inscription
-          </Link>
+        <li className="nav__item">
+        <Link to="/signup" className="nav__link">
+            Inscription
+            </Link>
         </li>
-
-        <li>
-        <Link to="/myaccount" className="logo-link">
+        <li className="nav__item">
+          <Link to="/myaccount" className="nav__link">
           Mon compte
           </Link>
         </li>
-
-        <li>
-        <Link to="/exercises" className="logo-link">
-          Mes exercices
-          </Link>
+        <li className="nav__item">
+          <a href="#" className="nav__link">
+            Mes exercices
+          </a>
         </li>
-
-
-        <li>
-        <Link to="/contact" className="logo-link">
+        <li className="nav__item">
+          <Link to="/contact" className="nav__link">
           Contact
           </Link>
         </li>
       </ul>
-      <button onClick={toggleMenu}>
-        <img
-          className="w-6"
-          src={showMenu ? close : hamburger}
-          alt={showMenu ? "Cacher le menu" : "Montrer le menu"}
-        />
-      </button>
+      <div onClick={navToggle} className={icon}>
+        <div className="line1"></div>
+        <div className="line2"></div>
+        <div className="line3"></div>
+      </div>
     </nav>
   );
 }
+
+export default Navbar;

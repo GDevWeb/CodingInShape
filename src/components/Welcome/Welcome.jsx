@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import './Welcome.scss';
+import RandomQuote from "../RandomQuote/RandomQuote";
 
 export default function Welcome() {
   return (
@@ -17,6 +18,7 @@ export default function Welcome() {
     <Link className='createAccountLink' to="/signup" > Créer un compte</Link>
     <Link className='FormConnexion' to="/login" > Se connecter</Link>
     </div>
+    <RandomQuote />
   </div>  
   )
 }
