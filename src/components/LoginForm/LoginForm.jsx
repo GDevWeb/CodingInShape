@@ -6,9 +6,9 @@ import {
   loginFailure,
   setUserData,
   updateAdminStatus,
-} from "../../../redux/slices/AuthSlice";
+} from "../../../redux/slices/authSlice";
 import Cookies from "js-cookie";
-import { USER_LOGIN, USER_PROFILE } from "../API/apiUser";
+import { USER_LOGIN, USER_PROFIL } from "../API/apiUser";
 import "./LoginForm.scss";
 
 export default function LoginForm() {
@@ -93,7 +93,7 @@ export default function LoginForm() {
         // Dispatch l'action loginSuccess pour stocker le token dans Redux
         dispatch(loginSuccess(data));
 
-        const userDataResponse = await fetch(`${USER_PROFILE}`, {
+        const userDataResponse = await fetch(`${USER_PROFIL}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

@@ -51,7 +51,7 @@ const authSlice = createSlice({
       console.log("New isAdmin value in reducer:", action.payload);
     },
     setUserData : (state, action) => {
-      state.userData = action.payload; //Recup la data de user
+      state.userData = action.payload; 
       console.log("SetUSerData value :", action.payload)
     }
   },

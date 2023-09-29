@@ -288,6 +288,7 @@ export default function UpdateUser() {
             id="password"
             value={userData.password}
             onChange={handleChange}
+            readOnly
           />
           <span className="error">{formErrors.password}</span>
         </div>
