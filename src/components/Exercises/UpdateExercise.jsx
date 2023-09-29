@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
+import { useSelector} from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {EXERCISES_API}from '../API/apiAdminExercises';
-
+import { EXERCISES_API } from "../API/apiAdminExercises";
 
 export default function UpdateExercise() {
   const { id } = useParams();
@@ -17,8 +17,13 @@ export default function UpdateExercise() {
 
   // Pour gérer le message de succès si tous les inputs sont valides :
   const [success, setSuccess] = useState("");
+  
   //   Pour gérer les messages d'erreur server :
   const [serverErrors, setServerErrors] = useState("");
+
+  // Redux :
+  const token = useSelector((state) => state.auth.token);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
 
   // Pour gérer les messages d'erreurs dans le formulaire selon l'input :
   const [errors, setErrors] = useState({
@@ -109,23 +114,18 @@ export default function UpdateExercise() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const token = localStorage.getItem("token");
-
-        if (!token) {
+        if (!isAdmin) {
           navigate("/login");
           return;
         }
 
-        const response = await fetch(
-          `${EXERCISES_API}/${id}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            credentials: "include",
-          }
-        );
+        const response = await fetch(`${EXERCISES_API}/${id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          credentials: "include",
+        });
 
         if (response.ok) {
           const data = await response.json();
@@ -144,7 +144,7 @@ export default function UpdateExercise() {
     };
 
     fetchUserData();
-  }, [id, navigate]);
+  }, [isAdmin, token,id, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -177,30 +177,25 @@ export default function UpdateExercise() {
     };
 
     // Envoi de la requête au serveur :
-    const token = localStorage.getItem("token");
     console.log("Token obtenu :", token);
 
     try {
       // Envoi de la requête PUT au serveur
-      const response = await fetch(
-        `${EXERCISES_API}/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          credentials: "include",
-          body: JSON.stringify(requestData),
-        }
-      );
+      const response = await fetch(`${EXERCISES_API}/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        credentials: "include",
+        body: JSON.stringify(requestData),
+      });
 
       if (response.ok) {
         // La requête a réussi (statut 200 OK)
         const responseData = await response.json();
         console.log("Réponse du serveur :", responseData);
-        console.log(`${id}`);
-
+        setServerErrors(responseData);
         // On vide le formulaire :
         setFormData({
           name: "",
@@ -211,8 +206,9 @@ export default function UpdateExercise() {
           muscle: "",
         });
 
+        // On redirige l'utilisateur vers la liste des exercices :
         setTimeout(() => {
-          navigate("/exercise-management");
+          navigate("/exercises-list");
         }, 3000);
       } else {
         console.error("Échec de la requête :", response.statusText);
@@ -240,21 +236,6 @@ export default function UpdateExercise() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            cols={50}
-            rows={25}
-          />
-          {errors.description && (
-            <p className="form-error">{errors.description}</p>
-          )}
-        </div>
-
-        <div className="form-group">
           <label htmlFor="imgPreview">Aperçu de l'image</label>
           <figure id="imgPreview" className="imgPreview">
             <img src={formData.image} alt={formData.name} width={"200px"} />
@@ -271,6 +252,20 @@ export default function UpdateExercise() {
             onChange={handleChange}
           />
           {errors.image && <p className="form-error">{errors.image}</p>}
+        </div>
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            cols={50}
+            rows={25}
+          />
+          {errors.description && (
+            <p className="form-error">{errors.description}</p>
+          )}
         </div>
 
         <div className="form-group">
@@ -320,6 +315,7 @@ export default function UpdateExercise() {
 
         <button type="submit">Modifier</button>
         {success && <p className="form-success">{success}</p>}
+        {/* <p>{serverErrors}</p> */}
       </form>
       <Link to={"/dashboard"}>Retour au dashboard</Link>
       <Link to={"/exercise-management"}>Retour à gestion des exercices</Link>
@@ -327,5 +323,3 @@ export default function UpdateExercise() {
     </>
   );
 }
-
-// merge devGeëtan into devPullMe - CRUD dashboard/exercises => ok 

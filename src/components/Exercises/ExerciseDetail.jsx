@@ -7,6 +7,8 @@ import { setExerciseData } from "../../../redux/slices/exerciseSlice";
 
 export default function ExerciseDetail() {
   const { id } = useParams();
+
+  // Redux :
   const exercise = useSelector((state) => state.exercise.data); 
   const isLoading = useSelector((state) => state.exercise.isLoading); 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -40,7 +42,7 @@ export default function ExerciseDetail() {
           const data = await response.json();
           console.log("Données de l'exercice récupérées :", data);
 
-          // Redux pour mettre à jour l'état de l'exercice
+          // Utilisez l'action Redux pour mettre à jour l'état de l'exercice
           dispatch(setExerciseData(data));
         } else {
           console.error(
