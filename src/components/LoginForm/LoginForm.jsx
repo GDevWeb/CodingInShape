@@ -137,8 +137,9 @@ export default function LoginForm() {
             mot de passe oublié ?
           </Link>
         </p>
-
+<div className="button">
         <button type="submit">Se connecter</button>
+        </div>
 
         <p className="invitCreateAccount">
           Pas encore de compte ?
