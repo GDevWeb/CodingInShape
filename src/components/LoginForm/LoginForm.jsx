@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { loginSuccess, loginFailure } from '../../../redux/slices/AuthSlice'; 
+import { loginSuccess, loginFailure } from '../../../redux/slices/AuthSlice';
 import { USER_LOGIN } from "../API/apiUser";
 import "./LoginForm.scss";
 
@@ -84,8 +84,8 @@ export default function LoginForm() {
 
       if (response.ok) {
         localStorage.setItem('token', data.token)
-        dispatch(loginSuccess(data.token)); 
-        setFormData({ 
+        dispatch(loginSuccess(data.token));
+        setFormData({
           email: "",
           password: "",
         });
@@ -93,7 +93,7 @@ export default function LoginForm() {
         // On redirige l'utilisateur vers la page mon compte :
         navigate("/myaccount");
       } else {
-        dispatch(loginFailure(data.error)); 
+        dispatch(loginFailure(data.error));
       }
     } catch (error) {
       console.log(error);
@@ -101,7 +101,7 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="LoginForm">
+    <form onSubmit={handleSubmit} className="loginForm">
       <div className="LoginForm__container">
         <h2>Se connecter :</h2>
 
@@ -132,13 +132,15 @@ export default function LoginForm() {
           />
           <span className="error">{errors.password}</span>
         </div>
+        
         <p className="recupPassword">
-          <Link  to="/forgotten" className="forgottenPasswordLink">
+          <Link to="/forgotten" className="forgottenPasswordLink">
             mot de passe oublié ?
           </Link>
         </p>
-<div className="button">
-        <button type="submit">Se connecter</button>
+        
+        <div className="button">
+          <button type="submit">Se connecter</button>
         </div>
 
         <p className="invitCreateAccount">
