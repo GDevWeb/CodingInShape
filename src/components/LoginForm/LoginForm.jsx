@@ -98,6 +98,8 @@ export default function LoginForm() {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${data.token}`,
+            "Custom-Header" : "/",
+
           },
         });
         const userData = await userDataResponse.json();
