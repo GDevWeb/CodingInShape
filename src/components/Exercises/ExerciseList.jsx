@@ -184,9 +184,3 @@ export default function ExerciseList() {
     </div>
   );
 }
-
-
-// stylise moi :) 
-
-
-// stylise moi :)

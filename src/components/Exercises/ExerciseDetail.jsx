@@ -1,21 +1,26 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {EXERCISES_API}from '../API/apiAdminExercises';
-import Spinner from '../../assets/icons/spinner.svg';
+import { EXERCISES_API } from "../API/apiAdminExercises";
+import Spinner from "../../assets/icons/spinner.svg";
+import { setExerciseData } from "../../../redux/slices/exerciseSlice"; 
 
 export default function ExerciseDetail() {
   const { id } = useParams();
-  
-  const [exercise, setExercise] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
+  const exercise = useSelector((state) => state.exercise.data); 
+  const isLoading = useSelector((state) => state.exercise.isLoading); 
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const token = useSelector((state) => state.auth.token);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchExercise = async () => {
       try {
-        const token = localStorage.getItem("token");
-        console.log("Token obtenu :", token);
+        if (!isAuthenticated) {
+          navigate("/login");
+          return;
+        }
 
         if (!token) {
           navigate("/login");
@@ -34,26 +39,25 @@ export default function ExerciseDetail() {
         if (response.ok) {
           const data = await response.json();
           console.log("Données de l'exercice récupérées :", data);
-          setExercise(data);
-          setIsLoading(false);
+
+          // Redux pour mettre à jour l'état de l'exercice
+          dispatch(setExerciseData(data));
         } else {
           console.error(
             "Impossible de récupérer les données de l'exercice. Statut HTTP :",
             response.status
           );
-          setIsLoading(false);
         }
       } catch (error) {
         console.error(
           "Erreur lors de la récupération des données de l'exercice :",
           error
         );
-        setIsLoading(false);
       }
     };
 
     fetchExercise();
-  }, [id, navigate]);
+  }, [id, navigate, isAuthenticated, token, dispatch]);
 
   return (
     <div>
@@ -79,7 +83,7 @@ export default function ExerciseDetail() {
           )}
         </>
       )}
-      <Link to={'/exercises-list'}>Retour à la liste des exercices</Link>
+      <Link to={"/exercises-list"}>Retour à la liste des exercices</Link>
     </div>
   );
 }
