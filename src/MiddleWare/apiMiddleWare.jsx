@@ -1,4 +1,3 @@
-import axios from 'axios'; 
 import { loginSuccess } from '../redux/Slices/authSlice';
 import store from '../redux/store';
 
