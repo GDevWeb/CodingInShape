@@ -1,77 +1,45 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux"; // Importez useDispatch
+import { useSelector, useDispatch } from "react-redux";
 import UserProfile from "./UserProfile";
-import { USER_PROFIL } from "../API/apiUser";
 import Card from "../Card/Card";
 import Spinner from "../../assets/icons/spinner.svg";
-import { updateAdminStatus } from "../../../redux/slices/authSlice"; // Importez ces actions
 
 export default function MyAccountPage() {
-  // État local :
-  const [userData, setUserData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [showUserProfile, setShowUserProfile] = useState(true);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Redux :
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const token = useSelector((state) => state.auth.token);
-  const userId = useSelector((state) => state.auth.userData?.id);
+  const userData = useSelector((state) => state.auth.userData);
+  const isLoading = !userData;
   const isAdmin = useSelector((state) => state.auth.isAdmin);
-  const dispatch = useDispatch(); 
+  const userId = useSelector((state) => state.auth.userData?.id);
 
-  // Redirection :
-  const navigate = useNavigate();
-
-  // Toggle :
-  const [showUserProfile, setShowUserProfile] = useState(true);
-
+  // Refacto de la fonction fetchData() : 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchData = async () => {
       try {
         if (!isAuthenticated) {
           navigate("/login");
           return;
         }
 
-        const response = await fetch(`${USER_PROFIL}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          credentials: "include",
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setUserData(data.userData);
-          setIsLoading(false);
-
-          // Mise à jour de l'état Redux isAdmin
-          dispatch(updateAdminStatus(data.userData.isAdmin));
-
-        } else {
-          console.error("Impossible de récupérer les données de l'utilisateur.");
-          setIsLoading(false);
-          navigate("/login");
-        }
+        dispatch(isAdmin((isAdmin) => isAdmin));
+    
       } catch (error) {
-        console.error(
-          "Erreur lors de la récupération des données de l'utilisateur :",
-          error
-        );
-        setIsLoading(false);
+        console.error(error);
       }
     };
 
-    fetchUserData();
-  }, [navigate, isAuthenticated, token, dispatch]);
+    fetchData();
+  }, [isAuthenticated, isAdmin, navigate, dispatch]);
 
   return (
     <>
       <div className="my-account-page">
         {isLoading && <img src={Spinner} alt="Chargement en cours..." />}
-        {/* Affichage des données de l'utilisateur connecté */}
         {userData && (
           <div className="user-profile-section">
             <h1>Bienvenue sur votre espace personnel {userData?.pseudo}</h1>

@@ -7,7 +7,7 @@ export default function DashboardPage() {
   // Redux :
   const isAdmin = useSelector((state) => state.auth.isAdmin);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const userData = useSelector((state) => state.auth.userData); // Accédez aux données utilisateur depuis votre slice AuthSlice
+  const userData = useSelector((state) => state.auth.userData); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
