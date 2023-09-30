@@ -110,3 +110,5 @@ export default function DeleteExercise() {
     </>
   );
 }
+
+// updates with redux auth :
