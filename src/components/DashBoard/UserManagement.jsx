@@ -17,28 +17,27 @@ import {
   ADMIN_USER_API,
 } from "../API/apiAdmin";
 
-
 export default function UserManagement() {
   // État local pour stocker les données des utilisateurs, l'utilisateur à supprimer,
   // la visibilité de la confirmation, le chargement, les messages de succès
   // et les erreurs du serveur.
-    const [usersData, setUsersData] = useState([]);
-    const [filterText, setFilterText] = useState("");
-    const [userToDelete, setUserToDelete] = useState(null);
-    const [confirmationVisible, setConfirmationVisible] = useState(true);
-    const [isLoading, setIsLoading] = useState(true);
+  const [usersData, setUsersData] = useState([]);
+  const [filterText, setFilterText] = useState("");
+  const [userToDelete, setUserToDelete] = useState(null);
+  const [confirmationVisible, setConfirmationVisible] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Filtres :
-  const { filteredUsers } = useUserFilter(usersData, filterText);  // pagination :
-// pagination :
-const {
-  currentPage,
-  displayedData,
-  pageNumbers,
-  lastPage,
-  setPage,
-  itemsPerpage,
-} = usePagination(filteredUsers, 8);
+  const { filteredUsers } = useUserFilter(usersData, filterText); // pagination :
+  // pagination :
+  const {
+    currentPage,
+    displayedData,
+    pageNumbers,
+    lastPage,
+    setPage,
+    itemsPerpage,
+  } = usePagination(filteredUsers, 8);
   const [successMessage, setSuccessMessage] = useState("");
   const [serverErrors, setServerErrors] = useState("");
 
@@ -312,10 +311,11 @@ const {
         value={filterText}
         onChange={(e) => {
           setFilterText(e.target.value);
-        } }
+        }}
         name="filtre"
         id="filtre"
-      />      <table>
+      />{" "}
+      <table>
         <thead>
           <tr>
             <th>Prénom</th>
@@ -333,24 +333,31 @@ const {
           {displayedData &&
             displayedData.map((user) => (
               <UserRow
-              key={user._id}
-              user={user}
-              handleAdminChange={handleAdminChange}
-              handleBanChange={handleBanChange}
-              handleUnbanChange={handleUnbanChange}
-              handleDeleteUser={handleDeleteUser}
-            />
+                key={user._id}
+                user={user}
+                handleAdminChange={handleAdminChange}
+                handleBanChange={handleBanChange}
+                handleUnbanChange={handleUnbanChange}
+                handleDeleteUser={handleDeleteUser}
+              />
             ))}
         </tbody>
       </table>
-
       {/* Buttons de pagination : */}
       <div>
-        <button onClick={() => setPage(currentPage - 1)} disabled={currentPage === 1}>
+        <button
+          onClick={() => setPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
           Previous
         </button>
-        <span>page {currentPage} sur {lastPage}</span>
-        <button onClick={() => setPage(currentPage + 1)} disabled={currentPage === lastPage}>
+        <span>
+          page {currentPage} sur {lastPage}
+        </span>
+        <button
+          onClick={() => setPage(currentPage + 1)}
+          disabled={currentPage === lastPage}
+        >
           Next
         </button>
       </div>
@@ -361,7 +368,6 @@ const {
       <div className="server-error">
         {serverErrors && <p>{serverErrors}</p>}
       </div>
-
       <Link to={"/dashboard"}>Retour au dashboard</Link>
     </>
   );

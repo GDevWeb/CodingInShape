@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setUserData, updateAdminStatus } from "../../../redux/slices/AuthSlice"; // Assurez-vous d'importer correctement vos actions Redux
+import { setUserData, updateAdminStatus } from "../../../redux/slices/AuthSlice"; 
 import { USER_PROFIL } from "../API/apiUser";
 
 const useFetchUserData = () => {

@@ -17,10 +17,8 @@ export default function AddUser() {
     isBan: false,
   });
 
-  // To manage the success message if all inputs are valid:
   const [success, setSuccess] = useState("");
 
-  // To manage error messages in the form for each input:
   const [errors, setErrors] = useState({
     sex: "",
     firstName: "",

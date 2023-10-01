@@ -274,7 +274,7 @@ export default function UpdateProfile() {
       }
 
       const response = await fetch(
-        `http://localhost:4000/api/admin/users/${userId}`, //pb transmission id
+        `http://localhost:4000/api/admin/users/${userId}`, //Revoir la route
         {
           method: "PUT",
           headers: {
