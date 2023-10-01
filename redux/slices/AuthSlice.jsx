@@ -8,8 +8,8 @@ const authSlice = createSlice({
     isAuthenticated: false,
     token: null,
     errorMessage: "",
-    isAdmin: true,
-    userData : null,
+    isAdmin: false,
+    userData: [],
   },
   reducers: {
     startSignUp: (state) => {
@@ -28,10 +28,15 @@ const authSlice = createSlice({
     loginSuccess: (state, action) => {
       state.isAuthenticated = true;
       state.token = action.payload.token;
-      Cookies.set('token', action.payload.token, {secure : true, sameSite : 'strict'});
-      console.log(action.payload.token)
+      Cookies.set("token", action.payload.token, {
+        secure: true,
+        sameSite: "strict",
+      });
+      console.log("token from AuthSlice:", action.payload.token);
       state.isAdmin = action.payload.isAdmin;
       state.errorMessage = "";
+      state.data = action.payload.userData; // Mettez à jour data avec les données utilisateur
+      console.log("userData from AuthSlice:", action.payload.userData);
       console.log(`loginSuccess from AuthSlice`);
     },
     loginFailure: (state, action) => {
@@ -50,13 +55,21 @@ const authSlice = createSlice({
       state.isAdmin = action.payload;
       console.log("New isAdmin value in reducer:", action.payload);
     },
-    setUserData : (state, action) => {
-      state.userData = action.payload; 
-      console.log("SetUSerData value :", action.payload)
-    }
+    setUserData: (state, action) => {
+      state.userData = action.payload;
+      console.log("SetUSerData value :", action.payload);
+    },
   },
 });
 
-export const { startSignUp, finishSignUp, login, loginSuccess, loginFailure, logout, updateAdminStatus, setUserData } =
-  authSlice.actions;
+export const {
+  startSignUp,
+  finishSignUp,
+  login,
+  loginSuccess,
+  loginFailure,
+  logout,
+  updateAdminStatus,
+  setUserData,
+} = authSlice.actions;
 export default authSlice.reducer;

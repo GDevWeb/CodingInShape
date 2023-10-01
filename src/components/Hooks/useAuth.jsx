@@ -1,29 +1,28 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { isAdmin } from "../redux/slices/authSlice";
+import { loginSuccess } from "../../../redux/slices/authSlice";
 
 const useAuth = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const isAdminUser = useSelector((state) => state.auth.isAdmin);
-  const dispatch = useDispatch();
+  const isAdmin = useSelector((state) => state.auth.isAdmin); 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const checkAuth = async () => {
       if (!isAuthenticated) {
         navigate("/login");
       } else {
-
-        // Mise à jour du statut admin :
-        dispatch(isAdmin((isAdmin) => isAdmin));
-      }
+        // Dispatch l'action loginSuccess pour indiquer que l'utilisateur est connecté
+        dispatch(loginSuccess());      }
     };
 
     checkAuth();
-  }, [isAuthenticated, navigate, dispatch]);
-
-  return { isAuthenticated, isAdminUser };
+  }, [isAuthenticated, navigate, dispatch]); 
+  
+  return { isAuthenticated, isAdmin };
 };
 
 export default useAuth;

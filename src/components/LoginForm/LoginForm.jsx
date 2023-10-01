@@ -82,7 +82,6 @@ export default function LoginForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
-        credentials: "include",
       });
       const data = await response.json();
 
@@ -104,9 +103,14 @@ export default function LoginForm() {
         });
         const userData = await userDataResponse.json();
 
+        const adminStatus = userData.isAdmin;
+        console.log("adminStatus from LoginForm:", adminStatus);
+
         // Dispatch l'action setUserData pour stocker les données utilisateur dans Redux
         dispatch(setUserData(userData));
         dispatch(updateAdminStatus(userData.isAdmin));
+        console.log("userData from LoginForm:", userData);
+        console.log("isAdmin from LoginForm:", userData.isAdmin);
 
         setFormData({
           email: "",

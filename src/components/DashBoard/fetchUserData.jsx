@@ -1,4 +1,4 @@
-export const fetchUsersDatakk = async () => { //non utilisé
+export const fetchUsersData = async () => { //non utilisé
     try {
       const token = localStorage.getItem("token");
   
