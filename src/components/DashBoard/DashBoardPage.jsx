@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { updateAdminStatus } from "../../../redux/slices/authSlice";
+import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 import Card from "../Card/Card";
 
 export default function DashboardPage() {
@@ -14,7 +16,7 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (!isAdmin) {
+        if (!isAuthenticated) {
           navigate("/login");
           return;
         }
@@ -60,7 +62,15 @@ export default function DashboardPage() {
           />
         </>
       )}
+
+      {isAdmin && (
+
+        <ConditionalNavLinks 
+        
+
+
+        />
+      )}
     </>
   );
 }
-// Olivier tu as du style mais tout ce que je n'aime pas ... Jenna Lee

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { loginSuccess } from "../../../redux/slices/authSlice";
 import UserProfile from "./UserProfile";
 import Card from "../Card/Card";
-import Spinner from "../../assets/icons/spinner.svg";
+import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 import { USER_PROFIL } from "../API/apiUser";
+import Spinner from "../../assets/icons/spinner.svg";
 
 export default function MyAccountPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,9 +16,11 @@ export default function MyAccountPage() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const userData = useSelector((state) => state.auth.userData);
   const token = useSelector((state) => state.auth.token);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
   const dispatch = useDispatch();
+
+  // Navigation :
   const navigate = useNavigate();
-  const [isAdmin, setIsAdmin] = useState(false); // État local pour stocker isAdmin
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -37,9 +41,15 @@ export default function MyAccountPage() {
 
         if (response.ok) {
           const data = await response.json();
-          setIsAdmin(data.userData.isAdmin); // Mise à jour de l'état local isAdmin
+          setIsLoading(false);
+          dispatch(loginSuccess(data));
         } else {
+          setIsLoading(false);
           console.log("Impossible de récupérer le profil utilisateur.");
+
+          setTimeout(() => {
+            navigate("/notfound");
+          }, 3000);
         }
       } catch (error) {
         console.error(
@@ -50,7 +60,7 @@ export default function MyAccountPage() {
     };
 
     fetchUserProfile();
-  }, [isAuthenticated, navigate, token]);
+  }, [isAuthenticated, navigate, token, dispatch]);
 
   return (
     <>
@@ -58,10 +68,7 @@ export default function MyAccountPage() {
         {isLoading && <img src={Spinner} alt="Chargement en cours..." />}
         {userData && (
           <div className="user-profile-section">
-            <h1>
-              Bienvenue sur votre espace{" "}
-              {isAdmin ? "personnel" : "administrateur"} {userData?.pseudo}
-            </h1>
+            <h1>Bienvenue sur votre espace {userData?.pseudo}</h1>
             <button onClick={() => setShowUserProfile(!showUserProfile)}>
               {showUserProfile ? "Cacher mon profil" : "Afficher mon profil"}
             </button>
@@ -112,6 +119,8 @@ export default function MyAccountPage() {
             textLink={"Accéder au dashboard"}
           />
         )}
+
+        {isAdmin && <ConditionalNavLinks isAdmin={isAdmin} />}
       </div>
     </>
   );

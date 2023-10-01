@@ -1,15 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
+import { USER_LOGIN, USER_PROFIL } from "../../src/components/API/apiUser"; // Importez vos constantes d'API ici
 
 const authSlice = createSlice({
   name: "auth",
   initialState: {
     isSignUp: false,
     isAuthenticated: false,
-    token: null,
+    token: Cookies.get("token") || null, 
     errorMessage: "",
-    isAdmin: false,
-    userData: [],
+    userId: null,
+    isAdmin: false, 
+    userData: null,
   },
   reducers: {
     startSignUp: (state) => {
@@ -23,53 +25,51 @@ const authSlice = createSlice({
       state.token = null;
       state.isAdmin = false;
       state.errorMessage = "";
-      console.log(`login from AuthSlice`);
     },
     loginSuccess: (state, action) => {
       state.isAuthenticated = true;
       state.token = action.payload.token;
-      Cookies.set("token", action.payload.token, {
-        secure: true,
-        sameSite: "strict",
-      });
-      console.log("token from AuthSlice:", action.payload.token);
-      state.isAdmin = action.payload.isAdmin;
-      state.errorMessage = "";
-      state.data = action.payload.userData; // Mettez à jour data avec les données utilisateur
-      console.log("userData from AuthSlice:", action.payload.userData);
-      console.log(`loginSuccess from AuthSlice`);
+      Cookies.set("token", action.payload.token, { secure: true, sameSite: "strict" });
+
+      // Utilisez le même token pour la deuxième requête
+      fetch(USER_PROFIL, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${action.payload.token}`, // Utilisez le token ici
+        },
+      })
+        .then((response) => response.json())
+        .then((userData) => {
+          state.userData = userData;
+          state.userId = userData._id;
+          state.isAdmin = userData.isAdmin;
+          state.errorMessage = "";
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la récupération des données de l'utilisateur :", error);
+          // Gérez les erreurs ici
+        });
     },
     loginFailure: (state, action) => {
       state.isAuthenticated = false;
       state.token = null;
       state.errorMessage = action.payload;
-      console.log(`loginFailure from AuthSlice`);
     },
     logout: (state) => {
       state.isAuthenticated = false;
       state.token = null;
       state.errorMessage = "";
-      console.log(`logout from AuthSlice`);
     },
     updateAdminStatus: (state, action) => {
       state.isAdmin = action.payload;
-      console.log("New isAdmin value in reducer:", action.payload);
     },
     setUserData: (state, action) => {
       state.userData = action.payload;
-      console.log("SetUSerData value :", action.payload);
     },
   },
 });
 
-export const {
-  startSignUp,
-  finishSignUp,
-  login,
-  loginSuccess,
-  loginFailure,
-  logout,
-  updateAdminStatus,
-  setUserData,
-} = authSlice.actions;
+export const { startSignUp, finishSignUp, login, loginSuccess, loginFailure, logout, updateAdminStatus, setUserData } =
+  authSlice.actions;
 export default authSlice.reducer;

@@ -1,13 +1,8 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-  loginSuccess,
-  loginFailure,
-  setUserData,
-  updateAdminStatus,
-} from "../../../redux/slices/authSlice";
+import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import { loginSuccess, loginFailure, setUserData, updateAdminStatus } from "../../../redux/slices/authSlice";
 import { USER_LOGIN, USER_PROFIL } from "../API/apiUser";
 import "./LoginForm.scss";
 
@@ -82,6 +77,7 @@ export default function LoginForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(requestData),
+        credentials: "include",
       });
       const data = await response.json();
 
@@ -96,21 +92,16 @@ export default function LoginForm() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${data.token}`,
-            "Custom-Header" : "/",
+            // Authorization: `Bearer ${data.token}`,
+            // "Custom-Header" : "/",
 
           },
         });
         const userData = await userDataResponse.json();
 
-        const adminStatus = userData.isAdmin;
-        console.log("adminStatus from LoginForm:", adminStatus);
-
         // Dispatch l'action setUserData pour stocker les données utilisateur dans Redux
         dispatch(setUserData(userData));
         dispatch(updateAdminStatus(userData.isAdmin));
-        console.log("userData from LoginForm:", userData);
-        console.log("isAdmin from LoginForm:", userData.isAdmin);
 
         setFormData({
           email: "",
