@@ -51,7 +51,7 @@ export default function SignUpForm() {
           sexe: "Le champ sexe ne peut être vide",
         }));
       } else {
-        const regexSex = /^(homme|femme)$/;
+        const regexSex = /^(homme|femme|autre)$/;
         const testRegexSex = regexSex.test(value);
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -251,76 +251,84 @@ export default function SignUpForm() {
 
   return (
     <form onSubmit={handleSubmit} className="formRegister">
-      <div className="formRegister__container">
-        <h2>Créer un compte :</h2>
+      <h2>Inscription :</h2>
+      <hr />
 
-        <div className="form-group">
-          <label>sex :</label>
-          <input
-            type="radio"
-            id="homme"
-            name="sex"
-            value="homme"
-            checked={formData.sex === "homme"}
-            onChange={handleChange}
-            readOnly
-          />
-          <label htmlFor="homme">Homme</label>
-          <input
-            type="radio"
-            id="femme"
-            name="sex"
-            value="femme"
-            checked={formData.sex === "femme"}
-            onChange={handleChange}
-            readOnly
-          />
-          <label htmlFor="femme">Femme</label>
-          <span className="error">{errors.sex}</span>
-        </div>
+      <div className="form-group avatar">
+        <label htmlFor="avatar">Image de profil</label>
+        <input
+          type="text"
+          value={formData.avatar}
+          onChange={handleChange}
+          name="avatar"
+          id="avatar"
+          placeholder="url de votre image de profil"
+        />
+        <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
+        <img src={formData.avatar} /*alt="avatar de l'utilisateur"*/ />
+        {/* <span className="error">{errors.avatar}</span> */}
+      </div>
 
-        <div className="form-group-one">
-          <div className="form-group">
-            <label htmlFor="lastName">Nom :</label>
-            <input
-              value={formData.lastName}
-              onChange={handleChange}
-              type="text"
-              name="lastName"
-              id="lastName"
-              placeholder="Votre nom"
-              required
-            />
-            <span className="error">{errors.lastName}</span>
-          </div>
+      <div className="formContainer">
+        <div className="formRegister__container">
+          <div className="form-group-one">
 
-          <div className="form-group">
-            <label htmlFor="firstName">Prénom :</label>
-            <input
-              value={formData.firstName}
-              onChange={handleChange}
-              type="text"
-              name="firstName"
-              id="firstName"
-              placeholder="Votre prénom"
-              required
-            />
-            <span className="error">{errors.firstName}</span>
-          </div>
+            <div className="form-group lname">
+              <label htmlFor="lastName">Nom :</label>
+              <input
+                value={formData.lastName}
+                onChange={handleChange}
+                type="text"
+                name="lastName"
+                id="lastName"
+                placeholder="Votre nom"
+                required
+              />
+              {/* <span className="error">{errors.lastName}</span> */}
+            </div>
 
-          <div className="form-group">
-            <label htmlFor="age">Âge :</label>
-            <input
-              type="number"
-              name="age"
-              id="age"
-              value={formData.age}
-              onChange={handleChange}
-              placeholder="votre âge"
-            />
-            <span className="error">{errors.age}</span>
-          </div>
+            <div className="form-group fname">
+              <label htmlFor="firstName">Prénom :</label>
+              <input
+                value={formData.firstName}
+                onChange={handleChange}
+                type="text"
+                name="firstName"
+                id="firstName"
+                placeholder="Votre prénom"
+                required
+              />
+              {/* <span className="error">{errors.firstName}</span> */}
+            </div>
 
+            <div className="form-group age">
+              <label htmlFor="age">Âge :</label>
+              <input
+                type="number"
+                name="age"
+                id="age"
+                value={formData.age}
+                onChange={handleChange}
+                placeholder="votre âge"
+              />
+              {/* <span className="error">{errors.age}</span> */}
+            </div>
+
+
+
+            <div className="form-group pseudo">
+              <label htmlFor="pseudo">Pseudo :</label>
+              <input
+                value={formData.pseudo}
+                onChange={handleChange}
+                type="text"
+                name="pseudo"
+                id="pseudo"
+                placeholder="Votre pseudo"
+                required
+              />
+              <span className="error">{errors.pseudo}</span>
+            </div>
           <div className="form-group">
             <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
             <img src={formData.avatar} alt="avatar de l'utilisateur" width={"100px"} height={"auto"}/>
@@ -350,80 +358,137 @@ export default function SignUpForm() {
             <span className="error">{errors.pseudo}</span>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="email">Votre mail :</label>
-            <input
-              value={formData.email}
-              onChange={handleChange}
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Votre mot de passe"
-              required
-            />
-            <span className="error">{errors.email}</span>
+            <div className="form-group email">
+              <label htmlFor="email">Votre mail :</label>
+              <input
+                value={formData.email}
+                onChange={handleChange}
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Votre mot de passe"
+                required
+              />
+              <span className="error">{errors.email}</span>
+            </div>
+
+            <div className="form-group password">
+              <label htmlFor="password">Mot de passe :</label>
+              <input
+                value={formData.password}
+                onChange={handleChange}
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Votre mot de passe"
+                required
+              />
+              {/* <span className="error">{errors.password}</span> */}
+            </div>
+
+            <div className="form-group securityQuestion">
+              <label htmlFor="securityQuestion">Question de sécurité</label>
+              <select
+                value={formData.securityQuestion}
+                onChange={handleChange}
+                name="securityQuestion"
+                id="securityQuestion"
+              >
+                <option value="0">Question secrète</option>
+                <option value="nomAnimal">
+                  {" "}
+                  Quel est le nom de votre premier animal de compagnie ?
+                </option>
+                <option value="nomMere">
+                  Quel est le nom de jeune fille de votre mère ?
+                </option>
+                <option value="villeNatale">
+                  Quel est le nom de votre ville natale ?
+                </option>
+                <option value="seriePreferee">
+                  Quelle est votre série préférée ?
+                </option>
+              </select>
+              {/* <span className="error">{errors.securityQuestion}</span> */}
+            </div>
+
+            <div className="form-group securityAnswers">
+              <label htmlFor="securityAnswer">
+                Réponse à la question secrète :
+              </label>
+              <input
+                value={formData.securityAnswer}
+                onChange={handleChange}
+                type="text"
+                name="securityAnswer"
+                id="securityAnswer"
+                placeholder="Votre réponse"
+                required
+              />
+              {/* <span className="error">{errors.securityAnswer}</span> */}
+            </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="password">Mot de passe :</label>
-            <input
-              value={formData.password}
-              onChange={handleChange}
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Votre mot de passe"
-              required
-            />
-            <span className="error">{errors.password}</span>
+          <div className="form-group gender">
+            <div className="genderTitle">
+              <nav>Genre</nav>
+            </div>
+            <div className="genderCategory">
+
+              <div className="homme">
+
+                <input
+                  type="radio"
+                  id="homme"
+                  name="sex"
+                  value="homme"
+                  checked={formData.sex === "homme"}
+                  onChange={handleChange}
+                  readOnly
+                />
+                <label htmlFor="homme">Homme</label>
+              </div>
+
+              <div className="femme">
+
+                <input
+                  type="radio"
+                  id="femme"
+                  name="sex"
+                  value="femme"
+                  checked={formData.sex === "femme"}
+                  onChange={handleChange}
+                  readOnly
+                />
+                <label htmlFor="femme">Femme</label>
+              </div>
+
+              <div className="autre">
+
+                <input
+                  type="radio"
+                  id="autre"
+                  name="sex"
+                  value="autre"
+                  checked={formData.sex === "autre"}
+                  onChange={handleChange}
+                  readOnly
+                />
+                <label htmlFor="autre">Autre</label>
+              </div>
+
+              {/* <span className="error">{errors.sex}</span> */}
+            </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="securityQuestion">Question de sécurité</label>
-            <select
-              value={formData.securityQuestion}
-              onChange={handleChange}
-              name="securityQuestion"
-              id="securityQuestion"
-            >
-              <option value="0">Choisissez votre question secrète</option>
-              <option value="nomAnimal">
-                {" "}
-                Quel est le nom de votre premier animal de compagnie ?
-              </option>
-              <option value="nomMere">
-                Quel est le nom de jeune fille de votre mère ?
-              </option>
-              <option value="villeNatale">
-                Quel est le nom de votre ville natale ?
-              </option>
-              <option value="seriePreferee">
-                Quelle est votre série préférée ?
-              </option>
-            </select>
-            <span className="error">{errors.securityQuestion}</span>
+          <div className="button">
+            <button type="submit">S'inscrire</button>
           </div>
-
-          <div className="form-group">
-            <label htmlFor="securityAnswer">
-              Réponse à la question secrète :
-            </label>
-            <input
-              value={formData.securityAnswer}
-              onChange={handleChange}
-              type="text"
-              name="securityAnswer"
-              id="securityAnswer"
-              placeholder="Votre réponse"
-              required
-            />
-            <span className="error">{errors.securityAnswer}</span>
-          </div>
+          {/* <span className="success">{success}</span> */}
         </div>
 
-        <button type="submit">S'inscrire</button>
-        <span className="success">{success}</span>
       </div>
+
     </form>
   );
 }

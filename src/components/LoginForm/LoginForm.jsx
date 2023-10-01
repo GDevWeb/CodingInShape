@@ -124,7 +124,7 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="LoginForm">
+    <form onSubmit={handleSubmit} className="loginForm">
       <div className="LoginForm__container">
         <h2>Se connecter :</h2>
 
@@ -155,13 +155,17 @@ export default function LoginForm() {
           />
           <span className="error">{errors.password}</span>
         </div>
+        
         <p className="recupPassword">
+          <Link to="/forgotten" className="forgottenPasswordLink">
           <Link to="/forgotten" className="forgottenPasswordLink">
             mot de passe oublié ?
           </Link>
         </p>
-
-        <button type="submit">Se connecter</button>
+        
+        <div className="button">
+          <button type="submit">Se connecter</button>
+        </div>
 
         <p className="invitCreateAccount">
           Pas encore de compte ?

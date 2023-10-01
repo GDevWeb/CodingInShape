@@ -15,6 +15,8 @@ export default function UpdateProfile() {
   // const userId = useSelector((state) => state.auth.userData?.id);
   const [userId, setUserId] = useState();
 
+  // const [userId, setUserId] = useState();
+  const userId = useSelector((state) => state.auth.userData?.id);
 
   // Redirection :
   const navigate = useNavigate();
