@@ -1,8 +1,14 @@
 import { useState, useEffect } from "react";
+import {useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { EXERCISES_API } from '../API/apiAdminExercises';
 
 export default function DeleteExercise() {
+
+  const token = useSelector((state) => state.auth.token);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
+
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -20,9 +26,8 @@ export default function DeleteExercise() {
 
   const fetchData = async () => {
     try {
-      const token = localStorage.getItem("token");
 
-      if (!token) {
+      if (!isAdmin) {
         navigate("/login");
         return;
       }
@@ -56,7 +61,6 @@ export default function DeleteExercise() {
   }, [id, navigate]);
 
   const handleDelete = async () => {
-    const token = localStorage.getItem("token");
 
     try {
       const response = await fetch(`${EXERCISES_API}/${id}`, {
@@ -106,3 +110,5 @@ export default function DeleteExercise() {
     </>
   );
 }
+
+// updates with redux auth :

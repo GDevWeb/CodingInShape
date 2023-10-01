@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {EXERCISES_API}from '../API/apiAdminExercises';
 
@@ -11,6 +12,11 @@ export default function AddExercise() {
     type: "",
     muscle: "",
   });
+
+    // Redux :
+    const token = useSelector((state) => state.auth.token);
+    const isAdmin = useSelector((state) => state.auth.isAdmin);
+  
 
   // Pour gérer le message de succès si tous les inputs sont valides :
   const [success, setSuccess] = useState("");
@@ -135,7 +141,6 @@ export default function AddExercise() {
     };
 
     // Envoi de la requête au serveur :
-    const token = localStorage.getItem("token");
     console.log("Token obtenu :", token);
 
     try {

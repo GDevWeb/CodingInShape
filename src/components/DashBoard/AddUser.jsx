@@ -1,11 +1,13 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function AddUser() {
   const [formData, setFormData] = useState({
+    sex: "",
     firstName: "",
     lastName: "",
     age: "",
+    avatar: "",
     pseudo: "",
     email: "",
     password: "",
@@ -15,14 +17,16 @@ export default function AddUser() {
     isBan: false,
   });
 
-  // Pour gérer le message de succès si tous les inputs sont valides :
+  // To manage the success message if all inputs are valid:
   const [success, setSuccess] = useState("");
 
-  // Pour gérer les messages d'erreurs dans le formulaire selon l'input :
+  // To manage error messages in the form for each input:
   const [errors, setErrors] = useState({
+    sex: "",
     firstName: "",
     lastName: "",
     age: "",
+    avatar: "",
     pseudo: "",
     email: "",
     password: "",
@@ -40,7 +44,23 @@ export default function AddUser() {
     });
 
     // Vérifications des inputs :
-    //01. Vérification du prénom :
+    if (name === "sexe") {
+      if (!value) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          sexe: "Le champ sexe ne peut être vide",
+        }));
+      } else {
+        const regexSex = /^(homme|femme)$/;
+        const testRegexSex = regexSex.test(value);
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          sexe: testRegexSex ? "" : "Le champ sexe n'est pas valide",
+        }));
+      }
+    }
+
+    //02. Vérification du prénom :
     if (name === "firstName") {
       const regexFirstName = /^.{3,}$/; // Au moins 3 caractères
       const testFirstName = regexFirstName.test(value);
@@ -52,7 +72,7 @@ export default function AddUser() {
       }));
     }
 
-    //02. Vérification du nom :
+    //03. Vérification du nom :
     if (name === "lastName") {
       const regexLastName = /^.{3,}$/; // Au moins 3 caractères
       const testLastName = regexLastName.test(value);
@@ -64,7 +84,7 @@ export default function AddUser() {
       }));
     }
 
-    //03. Vérification de l'âge :
+    //04. Vérification de l'âge :
     if (name === "age") {
       const regexAge = /^[0-9]{2,3}$/; // Au moins 2 chiffres
       const testAge = regexAge.test(value);
@@ -74,7 +94,17 @@ export default function AddUser() {
       }));
     }
 
-    //04. Vérification du pseudo :
+    // 05.Vérification de l'avatar :
+    if (name === "avatar") {
+      const regexImgAvatar = /\.(jpeg|jpg|gif|png|bmp|svg|webp)$/i;
+      const testImgAvatar = regexImgAvatar.test(value);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        avatar: testImgAvatar ? "" : "L'URL de votre image n'est pas valide",
+      }));
+    }
+
+    //06. Vérification du pseudo :
     if (name === "pseudo") {
       const regexPseudo = /^.{3,}$/; // Au moins 3 caractères
       const testPseudo = regexPseudo.test(value);
@@ -86,7 +116,7 @@ export default function AddUser() {
       }));
     }
 
-    //05. Vérification de l'email :
+    //07. Vérification de l'email :
     if (name === "email") {
       const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const testEmail = regexEmail.test(value);
@@ -96,7 +126,7 @@ export default function AddUser() {
       }));
     }
 
-    //06. Vérification du mot de passe :
+    //08. Vérification du mot de passe :
     if (name === "password") {
       const regexPassword =
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,12}$/;
@@ -109,7 +139,7 @@ export default function AddUser() {
       }));
     }
 
-    //07. Vérification de la question secrète :
+    //09. Vérification de la question secrète :
     if (name === "securityQuestion") {
       const regexSecurityQuestion = /^.{3,}$/; // Au moins 3 caractères
       const testSecurityQuestion = regexSecurityQuestion.test(value);
@@ -121,7 +151,7 @@ export default function AddUser() {
       }));
     }
 
-    // 08. Vérification de la réponse à la question secrète :
+    // 10. Vérification de la réponse à la question secrète :
     if (name === "securityAnswer") {
       const regexSecurityAnswer = /^.{3,}$/; // Au moins 3 caractères
       const testSecurityAnswer = regexSecurityAnswer.test(value);
@@ -136,16 +166,16 @@ export default function AddUser() {
 
   const navigate = useNavigate();
 
-  // ...
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Vérification de la saisie des inputs :
+    // Check if all form inputs are valid:
     const isValid =
+      formData.sex &&
       formData.firstName &&
       formData.lastName &&
       formData.age &&
+      formData.avatar &&
       formData.pseudo &&
       formData.email &&
       formData.password &&
@@ -160,11 +190,13 @@ export default function AddUser() {
 
     setServerErrors("");
 
-    // Création d'un objet contenant les données du formulaire à envoyer au serveur :
+    // Create an object containing the form data to send to the server:
     const requestData = {
+      sex: formData.sex,
       firstName: formData.firstName,
       lastName: formData.lastName,
       age: formData.age,
+      avatar: formData.avatar,
       pseudo: formData.pseudo,
       email: formData.email,
       password: formData.password,
@@ -174,12 +206,12 @@ export default function AddUser() {
       isBan: formData.isBan,
     };
 
-    // Envoi de la requête au serveur :
+    // Send the POST request to the server:
     const token = localStorage.getItem("token");
-    console.log("Token obtenu :", token);
+    console.log("Token obtained:", token);
 
     try {
-      // Envoi de la requête POST au serveur
+      // Send the POST request to the server
       const response = await fetch("http://localhost:4000/api/admin/users", {
         method: "POST",
         headers: {
@@ -191,20 +223,22 @@ export default function AddUser() {
       });
 
       if (response.ok) {
-        // La requête a réussi (statut 200 OK)
+        // Request succeeded (status 200 OK)
         const responseData = await response.json();
-        console.log("Réponse du serveur :", responseData);
+        console.log("Server response:", responseData);
         setSuccess(responseData.message);
 
         setTimeout(() => {
           setSuccess("");
         }, 3000);
 
-        // On vide le formulaire :
+        // Clear the form:
         setFormData({
+          sex: "",
           firstName: "",
           lastName: "",
           age: "",
+          avatar: "",
           pseudo: "",
           email: "",
           password: "",
@@ -216,9 +250,9 @@ export default function AddUser() {
 
         navigate("/dashboard");
       } else {
-        // La requête a échoué
+        // Request failed
         const responseData = await response.json();
-        console.log("Réponse du serveur :", responseData);
+        console.log("Server response:", responseData);
         setServerErrors(responseData.message);
       }
     } catch (error) {
@@ -226,12 +260,35 @@ export default function AddUser() {
     }
   };
 
-  // ...
-
   return (
     <form onSubmit={handleSubmit} className="formRegister">
       <div className="formRegister__container">
-        <h2>Créer un compte utilisateur:</h2>
+        <h2>Créer un compte :</h2>
+
+        <div className="form-group">
+          <label>sex :</label>
+          <input
+            type="radio"
+            id="homme"
+            name="sex"
+            value="homme"
+            checked={formData.sex === "homme"}
+            onChange={handleChange}
+            readOnly
+          />
+          <label htmlFor="homme">Homme</label>
+          <input
+            type="radio"
+            id="femme"
+            name="sex"
+            value="femme"
+            checked={formData.sex === "femme"}
+            onChange={handleChange}
+            readOnly
+          />
+          <label htmlFor="femme">Femme</label>
+          <span className="error">{errors.sex}</span>
+        </div>
 
         <div className="form-group-one">
           <div className="form-group">
@@ -242,7 +299,7 @@ export default function AddUser() {
               type="text"
               name="lastName"
               id="lastName"
-              placeholder="Son nom"
+              placeholder="Votre nom"
               required
             />
             <span className="error">{errors.lastName}</span>
@@ -256,7 +313,7 @@ export default function AddUser() {
               type="text"
               name="firstName"
               id="firstName"
-              placeholder="Son prénom"
+              placeholder="Votre prénom"
               required
             />
             <span className="error">{errors.firstName}</span>
@@ -268,11 +325,26 @@ export default function AddUser() {
               type="number"
               name="age"
               id="age"
-              placeholder="Son âge"
               value={formData.age}
               onChange={handleChange}
+              placeholder="votre âge"
             />
             <span className="error">{errors.age}</span>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
+            <img src={formData.avatar} alt="avatar de l'utilisateur" width={"100px"} height={"auto"}/>
+            <label htmlFor="avatar">Image de profil</label>
+            <input
+              type="text"
+              value={formData.avatar}
+              onChange={handleChange}
+              name="avatar"
+              id="avatar"
+              placeholder="url de votre image de profil"
+            />
+            <span className="error">{errors.avatar}</span>
           </div>
 
           <div className="form-group">
@@ -290,14 +362,14 @@ export default function AddUser() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">Votre e-mail :</label>
+            <label htmlFor="email">Votre mail :</label>
             <input
               value={formData.email}
               onChange={handleChange}
               type="email"
               name="email"
               id="email"
-              placeholder="Son e-mail"
+              placeholder="Votre mot de passe"
               required
             />
             <span className="error">{errors.email}</span>
@@ -311,7 +383,7 @@ export default function AddUser() {
               type="password"
               name="password"
               id="password"
-              placeholder="Son mot de passe"
+              placeholder="Votre mot de passe"
               required
             />
             <span className="error">{errors.password}</span>
@@ -357,18 +429,13 @@ export default function AddUser() {
               required
             />
             <span className="error">{errors.securityAnswer}</span>
+            {/* <span className="error"{serverErrors}></span> */}
           </div>
         </div>
 
-        <button type="submit">L'inscrire</button>
+        <button type="submit">S'inscrire</button>
         <span className="success">{success}</span>
-        <div className="server-error">
-          {serverErrors && <p>{serverErrors}</p>}
-        </div>
       </div>
-      <Link to={"/dashboard"}>Retour au dashboard</Link>
     </form>
-    
-
   );
 }
