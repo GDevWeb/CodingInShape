@@ -1,9 +1,14 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import {
+  loginSuccess,
+  loginFailure,
+  setUserData,
+  updateAdminStatus,
+} from "../../../redux/slices/authSlice";
 import Cookies from "js-cookie";
-import { loginSuccess, loginFailure, setUserData, updateAdminStatus } from "../../../redux/slices/authSlice";
-import { USER_LOGIN, USER_PROFIL } from "../API/apiUser";
+import { USER_LOGIN} from "../API/apiUser";
 import "./LoginForm.scss";
 
 export default function LoginForm() {
@@ -88,20 +93,10 @@ export default function LoginForm() {
         // Dispatch l'action loginSuccess pour stocker le token dans Redux
         dispatch(loginSuccess(data));
 
-        const userDataResponse = await fetch(`${USER_PROFIL}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            // Authorization: `Bearer ${data.token}`,
-            // "Custom-Header" : "/",
-
-          },
-        });
-        const userData = await userDataResponse.json();
-
+        // Récupère les données utilisateur :
         // Dispatch l'action setUserData pour stocker les données utilisateur dans Redux
-        dispatch(setUserData(userData));
-        dispatch(updateAdminStatus(userData.isAdmin));
+        dispatch(setUserData(data));
+        dispatch(updateAdminStatus(data.isAdmin));
 
         setFormData({
           email: "",
