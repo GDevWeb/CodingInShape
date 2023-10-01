@@ -250,11 +250,12 @@ export default function SignUpForm() {
   };
 
   return (
+    <>
+    <h2>Inscription :</h2>
+    <hr />
     <form onSubmit={handleSubmit} className="formRegister">
-      <h2>Inscription :</h2>
-      <hr />
-
-      <div className="form-group avatar">
+      
+      <div className="form-group-avatar">
         <label htmlFor="avatar">Image de profil</label>
         <input
           type="text"
@@ -313,36 +314,6 @@ export default function SignUpForm() {
               />
               {/* <span className="error">{errors.age}</span> */}
             </div>
-
-
-
-            <div className="form-group pseudo">
-              <label htmlFor="pseudo">Pseudo :</label>
-              <input
-                value={formData.pseudo}
-                onChange={handleChange}
-                type="text"
-                name="pseudo"
-                id="pseudo"
-                placeholder="Votre pseudo"
-                required
-              />
-              <span className="error">{errors.pseudo}</span>
-            </div>
-          <div className="form-group">
-            <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
-            <img src={formData.avatar} alt="avatar de l'utilisateur" width={"100px"} height={"auto"}/>
-            <label htmlFor="avatar">Image de profil</label>
-            <input
-              type="text"
-              value={formData.avatar}
-              onChange={handleChange}
-              name="avatar"
-              id="avatar"
-              placeholder="url de votre image de profil"
-            />
-            <span className="error">{errors.avatar}</span>
-          </div>
 
           <div className="form-group">
             <label htmlFor="pseudo">Pseudo :</label>
@@ -490,5 +461,6 @@ export default function SignUpForm() {
       </div>
 
     </form>
+    </>
   );
 }

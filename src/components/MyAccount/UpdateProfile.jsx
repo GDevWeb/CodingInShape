@@ -13,7 +13,7 @@ export default function UpdateProfile() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAdminLoaded, setIsAdminLoaded] = useState(false);
   // const userId = useSelector((state) => state.auth.userData?.id);
-  const [userId, setUserId] = useState();
+  // const [userId, setUserId] = useState();
 
   // const [userId, setUserId] = useState();
   const userId = useSelector((state) => state.auth.userData?.id);

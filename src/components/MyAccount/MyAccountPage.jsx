@@ -18,7 +18,7 @@ export default function MyAccountPage() {
   const token = useSelector((state) => state.auth.token);
   const userId = useSelector((state) => state.auth.userData?.id);
   const isAdmin = useSelector((state) => state.auth.isAdmin);
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   // Redirection :
   const navigate = useNavigate();
@@ -70,62 +70,80 @@ export default function MyAccountPage() {
 
   return (
     <>
-      <div className="my-account-page">
-        {isLoading && <img src={Spinner} alt="Chargement en cours..." />}
-        {/* Affichage des données de l'utilisateur connecté */}
-        {userData && (
-          <div className="user-profile-section">
-            <h1>Bienvenue sur votre espace personnel {userData?.pseudo}</h1>
-            <button onClick={() => setShowUserProfile(!showUserProfile)}>
-              {showUserProfile ? "Cacher mon profil" : "Afficher mon profil"}
-            </button>
-            {showUserProfile && <UserProfile userData={userData} />}
-          </div>
-        )}
+      <div className="myAccountContainer">
 
+        <div className="my-account-page">
+
+          {isLoading && <img src={Spinner} alt="Chargement en cours..." />}
+
+          {/* Affichage des données de l'utilisateur connecté */}
+
+          {userData && (
+            <div className="user-profile-section">
+
+              <h1>Bienvenue sur votre espace personnel <em>{userData?.pseudo}</em></h1>
+
+              <button onClick={() => setShowUserProfile(!showUserProfile)}>
+                {showUserProfile ? "Cacher mon profil" : "Afficher mon profil"}
+              </button>
+
+              {showUserProfile && <UserProfile userData={userData} />}
+
+            </div>
+          )}
+
+        </div>
         {/* Mise à jour du profil */}
-        <Card
-          title={"Modifier mes informations"}
-          content={
-            "Modifier mes informations , mail, mot de passe, questions / réponse secrète, image de profil"
-          }
-          link={`/update-profile/${userId}`}
-          textLink={"Modifier mes informations"}
-        />
-
-        {/* Affichage des exercices */}
-        <Card
-          title={"Exercices"}
-          content={"Accéder à la liste des différents exercices disponibles"}
-          link={`/exercises`}
-          textLink={"Accéder au contenu exercices"}
-        />
-
-        {/* Section paramètres de l'utilisateur */}
-        <Card
-          title={"Mes paramètres"}
-          content={"Accéder à la gestion de vos paramètres"}
-          link={`/update-settings/${userId}`}
-          textLink={"Accéder à mes paramètres"}
-        />
-
-        {/* Section historique de l'utilisateur */}
-        <Card
-          title={"Mon historique"}
-          content={"Accéder à votre historique d'exercices"}
-          link={`/user-history/${userId}`}
-          textLink={"Accéder à mon historique"}
-        />
-
-        {/* Si admin, lien vers dashboard : */}
-        {isAdmin && (
+        <div className="cardsContainer">
           <Card
-            title={"Accéder au dashboard"}
-            content={`Bienvenue administrateur ${userData?.pseudo} accéder au accéder au dashboard`}
-            link={`/dashboard`}
-            textLink={"Accéder au dashboard"}
+            title={"Modifier mes informations"}
+            content={
+              "Modifier mes informations , mail, mot de passe, questions / réponse secrète, image de profil"
+            }
+            link={`/update-profile/${userId}`}
+            textLink={"Modifier mes informations"}
           />
-        )}
+
+          {/* Affichage des exercices */}
+
+          <Card
+            title={"Exercices"}
+            content={"Accéder à la liste des différents exercices disponibles"}
+            link={`/exercises`}
+            textLink={"Accéder au contenu exercices"}
+          />
+
+          {/* Section paramètres de l'utilisateur */}
+
+          <Card
+            title={"Mes paramètres"}
+            content={"Accéder à la gestion de vos paramètres"}
+            link={`/update-settings/${userId}`}
+            textLink={"Accéder à mes paramètres"}
+          />
+
+          {/* Section historique de l'utilisateur */}
+
+          <Card
+            title={"Mon historique"}
+            content={"Accéder à votre historique d'exercices"}
+            link={`/user-history/${userId}`}
+            textLink={"Accéder à mon historique"}
+          />
+
+          {/* Si admin, lien vers dashboard : */}
+
+          {isAdmin && (
+            <Card
+              title={"Accéder au dashboard"}
+              content={`Bienvenue administrateur ${userData?.pseudo} accéder au accéder au dashboard`}
+              link={`/dashboard`}
+              textLink={"Accéder au dashboard"}
+            />
+          )}
+
+        </div>
+
       </div>
     </>
   );

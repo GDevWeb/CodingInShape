@@ -158,7 +158,6 @@ export default function LoginForm() {
         
         <p className="recupPassword">
           <Link to="/forgotten" className="forgottenPasswordLink">
-          <Link to="/forgotten" className="forgottenPasswordLink">
             mot de passe oublié ?
           </Link>
         </p>
