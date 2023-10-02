@@ -1,23 +1,22 @@
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux"; // Importez useDispatch
 import UserProfile from "./UserProfile";
 import { USER_PROFIL } from "../API/apiUser";
 import Card from "../Card/Card";
 import Spinner from "../../assets/icons/spinner.svg";
-import { updateAdminStatus } from "../../../redux/slices/authSlice"; // Importez ces actions
+import { updateAdminStatus, setUserData } from "../../../redux/slices/authSlice";
 
 export default function MyAccountPage() {
   // État local :
-  const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Redux :
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const token = useSelector((state) => state.auth.token);
-  const userId = useSelector((state) => state.auth.userData?.id);
+  const userData = useSelector((state) => state.auth.userData);
   const isAdmin = useSelector((state) => state.auth.isAdmin);
-  const dispatch = useDispatch(); 
+  const userId = useSelector((state) => state.auth.userData.id);
+  const dispatch = useDispatch();
 
   // Redirection :
   const navigate = useNavigate();
@@ -37,19 +36,22 @@ export default function MyAccountPage() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${userData.token}`,
           },
           credentials: "include",
         });
 
         if (response.ok) {
           const data = await response.json();
-          setUserData(data.userData);
           setIsLoading(false);
+
+          // Mise à jour de l'état Redux userData avec les nouvelles données
+          dispatch(setUserData(data.userData));
+
+          console.log("userId", userId)
 
           // Mise à jour de l'état Redux isAdmin
           dispatch(updateAdminStatus(data.userData.isAdmin));
-
         } else {
           console.error("Impossible de récupérer les données de l'utilisateur.");
           setIsLoading(false);
@@ -65,7 +67,7 @@ export default function MyAccountPage() {
     };
 
     fetchUserData();
-  }, [navigate, isAuthenticated, token, dispatch]);
+  }, [navigate, isAuthenticated, userData.token, dispatch]);
 
   return (
     <>
@@ -74,7 +76,10 @@ export default function MyAccountPage() {
         {/* Affichage des données de l'utilisateur connecté */}
         {userData && (
           <div className="user-profile-section">
-            <h1>Bienvenue sur votre espace personnel {isAdmin ? "administrateur" : "utilisateur"} {userData?.pseudo}</h1>
+            <h1>
+              Bienvenue sur votre espace personnel{" "}
+              {isAdmin ? "administrateur" : "utilisateur"} {userData.pseudo}
+            </h1>
             <button onClick={() => setShowUserProfile(!showUserProfile)}>
               {showUserProfile ? "Cacher mon profil" : "Afficher mon profil"}
             </button>

@@ -12,7 +12,7 @@ const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false, // Désactive la vérification de la sérialisation pour redux-thunk
+      serializableCheck: false, 
     }).concat(thunkMiddleware),
 });
 

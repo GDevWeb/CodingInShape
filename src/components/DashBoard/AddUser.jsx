@@ -1,7 +1,12 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate} from "react-router-dom";
 
 export default function AddUser() {
+
+  // État local :
+  const [success, setSuccess] = useState("");
+
+
   const [formData, setFormData] = useState({
     sex: "",
     firstName: "",
@@ -17,7 +22,6 @@ export default function AddUser() {
     isBan: false,
   });
 
-  const [success, setSuccess] = useState("");
 
   const [errors, setErrors] = useState({
     sex: "",
@@ -427,7 +431,7 @@ export default function AddUser() {
               required
             />
             <span className="error">{errors.securityAnswer}</span>
-            {/* <span className="error"{serverErrors}></span> */}
+            <span className="error">{serverErrors}</span>
           </div>
         </div>
 
