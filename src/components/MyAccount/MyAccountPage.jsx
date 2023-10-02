@@ -5,16 +5,18 @@ import UserProfile from "./UserProfile";
 import { USER_PROFIL } from "../API/apiUser";
 import Card from "../Card/Card";
 import Spinner from "../../assets/icons/spinner.svg";
-import { updateAdminStatus, setUserData } from "../../../redux/slices/authSlice";
+import {
+  updateAdminStatus,
+  setUserData,
+} from "../../../redux/slices/authSlice";
 
 export default function MyAccountPage() {
-
   // Redux :
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const isLoading = useSelector((state) => state.auth.isLoading);
   const userData = useSelector((state) => state.auth.userData);
   const isAdmin = useSelector((state) => state.auth.isAdmin);
-  const userId = useSelector((state) => state.auth.userData.id);
+  const userId = useSelector((state) => state.auth.userData?.id);
   const dispatch = useDispatch();
 
   // Redirection :
@@ -42,7 +44,6 @@ export default function MyAccountPage() {
 
         if (response.ok) {
           const data = await response.json();
-          
 
           // Mise à jour de l'état Redux userData avec les nouvelles données
           dispatch(setUserData(data.userData));
@@ -50,8 +51,10 @@ export default function MyAccountPage() {
           // Mise à jour de l'état Redux isAdmin
           dispatch(updateAdminStatus(data.userData.isAdmin));
         } else {
-          console.error("Impossible de récupérer les données de l'utilisateur.");
-          
+          console.error(
+            "Impossible de récupérer les données de l'utilisateur."
+          );
+
           navigate("/login");
         }
       } catch (error) {
@@ -59,7 +62,6 @@ export default function MyAccountPage() {
           "Erreur lors de la récupération des données de l'utilisateur :",
           error
         );
-        
       }
     };
 
