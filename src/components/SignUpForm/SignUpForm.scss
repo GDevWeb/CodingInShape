@@ -1,62 +1,87 @@
 @import '../../../sass/index.scss';
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap');
-
-.formRegister{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  .form-group-avatar{
- margin-top: 50px;
+.signUpContainer{
+  h2{
+    text-align: center;
+    margin: 15px 0;
+    font-size: 5rem;
+    color: white;
+    letter-spacing: 5px;
+  }
+}
+.formRegister {
+  background-color: #ffffff5c;
+  margin: 10px 50px;
+  border-top: 2px solid white;
+  border-left: 2px solid white;
+  box-shadow: 2px 2px 2px black;
+  border-radius: 15px;
+  .form-group-avatar {
+  
+    margin: 25px 20rem;
     display: flex;
     flex-direction: column;
-    background-color: #31438d87;
-    border: 1px solid black;
+    min-width: 300px;
+   
     border-radius: 15px;
     padding: 20px;
     text-align: center;
+   
   }
-   label{
+  @media screen and (max-width: 900px) {
+    .form-group-avatar{
+      margin: 25px auto;
+    }
+  }
+  label {
     height: 35px;
     border-radius: 5px;
     padding: 5px 0 5px 0;
-   font-size: 2rem;
-   font-weight: 700;
+    font-size: 2rem;
+    font-weight: 700;
   }
-  input{
+
+  input {
+    text-align: center;
     height: 40px;
     border-radius: 5px;
     border: none;
   }
-  img{
+
+  img {
     margin: auto;
-    width: 100px;
+    width: 200px;
+    &:hover{
+      transform: scale(1.5);
+      transition: all 1s ease-in-out;
+      
+    }
   }
+
   .formContainer {
     font-family: 'poppins', sans-serif;
     display: flex;
-    height: 100vh;
+    height: 80vh;
     justify-content: center;
     align-items: center;
     padding: 10px;
-  
+
     .formRegister__container {
-  
+
       max-width: 900px;
       width: 100%;
-      background-color: #ffffff8e;
-      padding: 25px 30px;
-      border-radius: 5px;
-  
+      
+      padding: 25px 20px;
+
       .form-group-one {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-  
+
         .form-group {
           width: calc(100% / 2 - 20px);
           margin: 20px 0 12px 0;
-  
+
           input,
           select {
             height: 45px;
@@ -71,101 +96,110 @@
             border-bottom-width: 3px;
             /* Firefox */
             -moz-appearance: textfield;
-  
+
             /* Chrome */
             &::-webkit-inner-spin-button {
               -webkit-appearance: none;
               margin: 0;
             }
-  
+
             /* Opéra*/
             &::-o-inner-spin-button {
               -o-appearance: none;
               margin: 0;
             }
-  
-            &:focus,
-            &:valid {
-              border-color: rgb(24, 0, 242);
-            }
           }
-  
+
           label {
+
             font-weight: 500;
             font-size: 2rem;
           }
         }
       }
-  
+
       .genderTitle {
         font-size: 20px;
-        font-weight: 500;
+        font-weight: 700;
+        text-align: center;
+        letter-spacing: 2px;
       }
-  
+
       .genderCategory {
         font-size: 2rem;
         font-weight: 400;
         display: flex;
+
         width: 80%;
         justify-content: space-between;
-        margin: 14px 0;
-  
+        margin: 14px auto;
+
         input {
           width: 20px;
           height: 20px;
           margin-right: 10px;
         }
       }
-  
+
       .button {
         height: 45px;
         margin: 30px 0;
-  
+
         button {
           height: 100%;
           width: 100%;
           outline: none;
-          color: #fff;
+          color: #020202;
           border: none;
+          border-radius: 10px;
           font-size: 1.8rem;
           font-weight: 500;
           text-transform: uppercase;
           letter-spacing: 3px;
           background: linear-gradient(135deg, #0ec5c2, #2447d4);
-  
+
           &:hover {
-            transition: all 1s ease;
+            transform: scale(1.05);
+            transition: all 1s ease-in-out;
             background: linear-gradient(-135deg, #0ec5c2, #2447d4);
-            border: 1px solid black;
+            letter-spacing: 5px;
+            color: white;
           }
         }
       }
     }
+
     @media screen and (max-width: 700px) {
-      .formRegister{
+      .formRegister {
         background-color: #2447d4;
         display: block;
       }
-      
-      
+  
+
       .formRegister__container {
-    
+
         max-width: 100%;
-    
+
         .form-group-one {
           display: flex;
           flex-wrap: wrap;
           justify-content: space-between;
-    
+
           .form-group {
             width: 100%;
             margin: 20px 0 12px 0;
           }
         }
       }
-    
+
     }
-  }
+
+  }    
+  @media screen and (max-width: 700px) {
+      .formContainer{
+        height: 120vh;
+      }
+    }
 }
 
 

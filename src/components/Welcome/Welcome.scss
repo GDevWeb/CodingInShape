@@ -8,6 +8,7 @@
   margin: 0 auto;
   padding: 0 20rem;
   margin-bottom: 20px;
+  height: 80vh;
   h1,
   h2 {
     margin-top: 1rem;
@@ -21,30 +22,32 @@
   }
 
   .buttons {
-
-    background: rgb(255, 255, 255, 0.3);
-    padding: 4rem 6rem;
-    border-left: 2px solid rgb(255, 255, 255, 0.3);
-    border-top: 2px solid rgb(255, 255, 255, 0.3);
-    margin: 100px auto;
-    box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
-    text-align: center;
+    height: 15rem;
+    display: flex;
+    background-color: rgba(16, 141, 213, 0.431);
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px auto;
     border-radius: 15px;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 2px black;
+    
   }
-
+  @media screen and (max-width: 768px) {
+    .buttons{
+     width: 100%;
+      margin: 0;
+    }
+  }
   //style des Link
   .createAccountLink,
   .FormConnexion {
-    display: flex;
-    justify-content: center;
-    width: 15rem;
-    background-color: rgba(255, 255, 255, 0.637);
-    color: black;
-    padding: 10px;
-    margin: 20px 100px;
-    border-radius: 5px;
-    text-decoration: none;
-    opacity: 0.7;
+    padding: 2rem;
+    margin: 2rem 10rem;
+   border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.366);
+    border-radius: 15px;
 
     &:hover {
       color: aliceblue;
@@ -52,23 +55,19 @@
       background-color: black;
       text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.324);
       border: 1px outset black;
-      overflow: auto;
+     
     }
   }
-
   @media screen and (max-width: 768px) {
-
     .createAccountLink,
-    .FormConnexion {
-      display: flex;
-      justify-content: center;
-      margin: 10px 0; // Ajustement de la marge pour une meilleure disposition
-      width: 100%; // Pleine largeur pour les écrans mobiles
-    }
-    .buttons {
-Link{
-  width: 100%;
-}
-    }
+  .FormConnexion {
+    width: 100%;
+    margin: 0 10px;
+  }
+  }
+} 
+@media screen and (max-width: 768px) {
+  .welcomePage{
+    padding: 1rem;
   }
 }

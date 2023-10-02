@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./SignUpForm.scss";
 import { useNavigate } from "react-router-dom";
 import { USER_SIGNUP } from "../API/apiUser";
+import "./SignUpForm.scss";
 
 export default function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -250,9 +250,8 @@ export default function SignUpForm() {
   };
 
   return (
-    <>
+    <div className="signUpContainer">
     <h2>Inscription :</h2>
-    <hr />
     <form onSubmit={handleSubmit} className="formRegister">
       
       <div className="form-group-avatar">
@@ -461,6 +460,6 @@ export default function SignUpForm() {
       </div>
 
     </form>
-    </>
+    </div>
   );
 }
