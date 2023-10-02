@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-
+import './UpdateUser.scss';
 import { USERS_API } from "../API/apiAdmin";
 
 export default function UpdateUser() {
@@ -241,6 +241,7 @@ export default function UpdateUser() {
 
   return (
     <>
+    <div className="updateContainer">
       <h3>Modification des données utilisateur</h3>
 
       <form onSubmit={handleSubmit}>
@@ -343,7 +344,7 @@ export default function UpdateUser() {
       </div>
 
       <Link to={"/dashboard"}>Retour au dashboard</Link>
-
+      </div>
     </>
   );
 }
