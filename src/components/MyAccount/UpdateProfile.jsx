@@ -1,21 +1,17 @@
 import { useState, useEffect } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { USER_PROFIL } from "../API/apiUser";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import CircleUser from "../../assets/icons/CircleUser.svg";
 import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
+import './UpdateProfile.scss'
 
 export default function UpdateProfile() {
 
-  // État local :
 
   // État local :
   const [isAdmin, setIsAdmin] = useState(false);
   const [isAdminLoaded, setIsAdminLoaded] = useState(false);
-  // const userId = useSelector((state) => state.auth.userData?.id);
-  // const [userId, setUserId] = useState();
-
-  // const [userId, setUserId] = useState();
   const userId = useSelector((state) => state.auth.userData?.id);
 
   // Redirection :
@@ -68,7 +64,7 @@ export default function UpdateProfile() {
           sex: "Le champ sex ne peut être vide",
         }));
       } else {
-        const regexSex = /^(homme|femme)$/;
+        const regexSex = /^(homme|femme|autre)$/;
         const testRegexSex = regexSex.test(value);
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -200,7 +196,7 @@ export default function UpdateProfile() {
         if (response.ok) {
           const data = await response.json();
           setUserData({
-            userId : data.userData.id,
+            userId: data.userData.id,
             sex: data.userData.sex,
             age: data.userData.age,
             firstName: data.userData.firstName,
@@ -316,189 +312,225 @@ export default function UpdateProfile() {
 
   return (
     <>
-      <h3>Modification des données utilisateur</h3>
+      <div className="titleUpdate">
+        <h2>Modification des données utilisateur</h2>
 
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Sexe :</label>
-          <input
-            type="radio"
-            id="homme"
-            name="sex"
-            value="homme"
-            checked={userData.sex === "homme"}
-            onChange={handleChange}
-            readOnly
-          />
-          <label htmlFor="homme">Homme</label>
-          <input
-            type="radio"
-            id="femme"
-            name="sex"
-            value="femme"
-            checked={userData.sex === "femme"}
-            onChange={handleChange}
-            readOnly
-          />
-          <label htmlFor="femme">Femme</label>
-          <span className="error">{errors.sex}</span>
+        <div className="updateContainer">
+
+          <form onSubmit={handleSubmit} >
+
+            <div className="form-group-avatar-update">
+              <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
+              <img
+                src={userData.avatar || CircleUser}
+                alt="Avatar de l'utilisateur"
+                width={"100px"}
+              />
+              <label htmlFor="avatar">Image de profil</label>
+              <input
+                type="text"
+                value={userData.avatar || ""}
+                onChange={handleChange}
+                name="avatar"
+                id="avatar"
+                placeholder="URL de votre image de profil"
+              />
+              <span className="error">{errors.avatar}</span>
+            </div>
+
+            <div className="form-group-one-update">
+
+              <div className="form-group">
+
+                <label htmlFor="lastName">Nom :</label>
+                <input
+                  value={userData.lastName}
+                  onChange={handleChange}
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  placeholder="Votre nom"
+                  required
+                  readOnly
+                />
+                <span className="error">{errors.lastName}</span>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="firstName">Prénom :</label>
+                <input
+                  value={userData.firstName}
+                  onChange={handleChange}
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  placeholder="Votre prénom"
+                  required
+                  readOnly
+                />
+                <span className="error">{errors.firstName}</span>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="age">Âge :</label>
+                <input
+                  type="number"
+                  name="age"
+                  id="age"
+                  value={userData.age}
+                  onChange={handleChange}
+                  placeholder="Votre âge"
+                  readOnly
+                />
+                <span className="error">{errors.age}</span>
+              </div>
+
+
+
+              <div className="form-group">
+                <label htmlFor="pseudo">Pseudo :</label>
+                <input
+                  value={userData.pseudo}
+                  onChange={handleChange}
+                  type="text"
+                  name="pseudo"
+                  id="pseudo"
+                  placeholder="Votre pseudo"
+                  required
+                  readOnly
+                />
+                <span className="error">{errors.pseudo}</span>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="email">Votre mail :</label>
+                <input
+                  value={userData.email}
+                  onChange={handleChange}
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Votre email"
+                  required
+                />
+                <span className="error">{errors.email}</span>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="password">Mot de passe :</label>
+                <input
+                  value={userData.password}
+                  onChange={handleChange}
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="Votre mot de passe"
+                  required
+                />
+                <span className="error">{errors.password}</span>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="securityQuestion">Question de sécurité</label>
+                <select
+                  value={userData.securityQuestion}
+                  onChange={handleChange}
+                  name="securityQuestion"
+                  id="securityQuestion"
+                >
+                  <option value="0">Choisissez votre question secrète</option>
+                  <option value="nomAnimal">
+                    Quel est le nom de votre premier animal de compagnie ?
+                  </option>
+                  <option value="nomMere">
+                    Quel est le nom de jeune fille de votre mère ?
+                  </option>
+                  <option value="villeNatale">
+                    Quel est le nom de votre ville natale ?
+                  </option>
+                  <option value="seriePreferee">
+                    Quelle est votre série préférée ?
+                  </option>
+                </select>
+                <span className="error">{errors.securityQuestion}</span>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="securityAnswer">
+                  Réponse à la question secrète :
+                </label>
+                <input
+                  value={userData.securityAnswer}
+                  onChange={handleChange}
+                  type="text"
+                  name="securityAnswer"
+                  id="securityAnswer"
+                  placeholder="Votre réponse"
+                  required
+                />
+                <span className="error">{errors.securityAnswer}</span>
+
+              </div>
+
+              <div className="form-group-gender">
+                <nav>Sexe :</nav>
+                <div className="gender-title">
+
+
+                  <div className="homme">
+                    <input
+                      type="radio"
+                      id="homme"
+                      name="sex"
+                      value="homme"
+                      checked={userData.sex === "homme"}
+                      onChange={handleChange}
+                      readOnly
+                    />
+                    <label htmlFor="homme">Homme</label>
+                  </div>
+
+                  <div className="femme">
+                    <input
+                      type="radio"
+                      id="femme"
+                      name="sex"
+                      value="femme"
+                      checked={userData.sex === "femme"}
+                      onChange={handleChange}
+                      readOnly
+                    />
+                    <label htmlFor="femme">Femme</label>
+                  </div>
+
+                  <div className="autre">
+                    <input
+                      type="radio"
+                      id="autre"
+                      name="sex"
+                      value="autre"
+                      checked={userData.sex === "autre"}
+                      onChange={handleChange}
+                      readOnly
+                    />
+                    <label htmlFor="autre">Autre</label>
+                  </div>
+                  <span className="error">{errors.sex}</span>
+                </div>
+              </div>
+            </div>
+
+
+            <div className="buttonContainer">
+              <button type="submit">Mettre à jour</button>
+              {/* <span className="success-message">{successMessage}</span>
+            <div className="server-error">{serverErrors}</div> */}
+            </div>
+            <ConditionalNavLinks isAdminLoaded={isAdminLoaded} isAdmin={isAdmin} />
+          </form>
+
         </div>
-
-        <div className="form-group-one">
-          <div className="form-group">
-            <label htmlFor="lastName">Nom :</label>
-            <input
-              value={userData.lastName}
-              onChange={handleChange}
-              type="text"
-              name="lastName"
-              id="lastName"
-              placeholder="Votre nom"
-              required
-              readOnly
-            />
-            <span className="error">{errors.lastName}</span>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="firstName">Prénom :</label>
-            <input
-              value={userData.firstName}
-              onChange={handleChange}
-              type="text"
-              name="firstName"
-              id="firstName"
-              placeholder="Votre prénom"
-              required
-              readOnly
-            />
-            <span className="error">{errors.firstName}</span>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="age">Âge :</label>
-            <input
-              type="number"
-              name="age"
-              id="age"
-              value={userData.age}
-              onChange={handleChange}
-              placeholder="Votre âge"
-              readOnly
-            />
-            <span className="error">{errors.age}</span>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
-            <img
-              src={userData.avatar || CircleUser}
-              alt="Avatar de l'utilisateur"
-              width={"100px"}
-            />
-            <label htmlFor="avatar">Image de profil</label>
-            <input
-              type="text"
-              value={userData.avatar || ""}
-              onChange={handleChange}
-              name="avatar"
-              id="avatar"
-              placeholder="URL de votre image de profil"
-            />
-            <span className="error">{errors.avatar}</span>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="pseudo">Pseudo :</label>
-            <input
-              value={userData.pseudo}
-              onChange={handleChange}
-              type="text"
-              name="pseudo"
-              id="pseudo"
-              placeholder="Votre pseudo"
-              required
-              readOnly
-            />
-            <span className="error">{errors.pseudo}</span>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email">Votre mail :</label>
-            <input
-              value={userData.email}
-              onChange={handleChange}
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Votre email"
-              required
-            />
-            <span className="error">{errors.email}</span>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">Mot de passe :</label>
-            <input
-              value={userData.password}
-              onChange={handleChange}
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Votre mot de passe"
-              required
-            />
-            <span className="error">{errors.password}</span>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="securityQuestion">Question de sécurité</label>
-            <select
-              value={userData.securityQuestion}
-              onChange={handleChange}
-              name="securityQuestion"
-              id="securityQuestion"
-            >
-              <option value="0">Choisissez votre question secrète</option>
-              <option value="nomAnimal">
-                Quel est le nom de votre premier animal de compagnie ?
-              </option>
-              <option value="nomMere">
-                Quel est le nom de jeune fille de votre mère ?
-              </option>
-              <option value="villeNatale">
-                Quel est le nom de votre ville natale ?
-              </option>
-              <option value="seriePreferee">
-                Quelle est votre série préférée ?
-              </option>
-            </select>
-            <span className="error">{errors.securityQuestion}</span>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="securityAnswer">
-              Réponse à la question secrète :
-            </label>
-            <input
-              value={userData.securityAnswer}
-              onChange={handleChange}
-              type="text"
-              name="securityAnswer"
-              id="securityAnswer"
-              placeholder="Votre réponse"
-              required
-            />
-            <span className="error">{errors.securityAnswer}</span>
-          </div>
-        </div>
-
-        <button type="submit">Mettre à jour</button>
-        <span className="success-message">{successMessage}</span>
-        <div className="server-error">{serverErrors}</div>
-
-        <ConditionalNavLinks isAdminLoaded={isAdminLoaded} isAdmin={isAdmin} />
-      </form>
+      </div>
     </>
   );
 }

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import './UpdateUser.scss';
 import { USERS_API } from "../API/apiAdmin";
 
 export default function UpdateUser() {
