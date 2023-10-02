@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { updateUserId } from "../../../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import { USER_PROFIL } from "../API/apiUser";
 import { useSelector } from "react-redux/es/hooks/useSelector";
@@ -8,17 +6,13 @@ import CircleUser from "../../assets/icons/CircleUser.svg";
 import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 
 export default function UpdateProfile() {
-  const dispatch = useDispatch();
 
-  // État local :
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isAdminLoaded, setIsAdminLoaded] = useState(false);
 
   // Redux :
   const token = useSelector((state) => state.auth.token);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
   const userId = useSelector((state) => state.auth.userData?.id);
-  dispatch(updateUserId(userId));
   console.log(userId);
 
   // Redirection :
@@ -212,11 +206,6 @@ export default function UpdateProfile() {
             securityAnswer: data.userData.securityAnswer,
           });
 
-          // Mise à jour de l'état local isAdmin
-          setIsAdmin(data.userData.isAdmin);
-          setIsAdminLoaded(true);
-          console.log(data.userData.isAdmin);
-          console.log(`Connexion depuis UpdateProfile ok`);
         } else {
           console.error(
             "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",
@@ -286,7 +275,7 @@ export default function UpdateProfile() {
       }
 
       const response = await fetch(
-        `http://localhost:4000/api/admin/users/6511bd93ed62860a13b52233`, //Revoir la route
+        `http://localhost:4000/api/admin/users/${userId}`, 
         {
           method: "PUT",
           headers: {
@@ -509,7 +498,7 @@ export default function UpdateProfile() {
         <button type="submit">Mettre à jour</button>
         <div className="server-error">{serverErrors}</div>
 
-        <ConditionalNavLinks isAdminLoaded={isAdminLoaded} isAdmin={isAdmin} />
+        <ConditionalNavLinks isAdmin={isAdmin} />
       </form>
     </>
   );
