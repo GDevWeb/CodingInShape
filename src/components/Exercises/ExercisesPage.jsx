@@ -1,7 +1,6 @@
-import {useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { USER_PROFIL } from "../API/apiUser";
 import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 import Card from "../Card/Card";
 
@@ -11,43 +10,15 @@ export default function ExercisesPage() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const userData = useSelector((state) => state.auth.userData);
   const isAdmin = useSelector((state) => state.auth.isAdmin);
-  
+
   // Navigation :
   const navigate = useNavigate();
 
-
-  // Récupération des données de l'utilisateur :
+  // Contrôle de l'état authentifié :
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        if (!isAuthenticated) {
-          navigate("/login");
-          return;
-        }
-
-        const response = await fetch(`${USER_PROFIL}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          credentials: "include",
-        });
-
-        if (!response.ok) {
-          console.error("Impossible de récupérer les données de l'utilisateur.");
-          navigate("/login");
-
-        } else {
-          console.error("Impossible de récupérer les données de l'utilisateur.");
-          navigate("/login");
-        }
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données de l'utilisateur :", error);
-      }
-    };
-
-    fetchUserData();
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
   }, [isAuthenticated, token, navigate]);
 
   return (

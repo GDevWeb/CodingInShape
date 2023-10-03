@@ -8,7 +8,7 @@ const store = configureStore({
   reducer: {
     auth: authReducer, 
     users: userReducer, 
-    exercise: exerciseReducer,
+    exercise: exerciseReducer, //Put la liste des exercices
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

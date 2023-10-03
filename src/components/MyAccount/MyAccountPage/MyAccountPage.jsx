@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import UserProfile from "./UserProfile";
-import { USER_PROFIL } from "../API/apiUser";
-import Card from "../Card/Card";
-import Spinner from "../../assets/icons/spinner.svg";
+import UserProfile from "../UserProfile/UserProfile";
+import { USER_PROFIL } from "../../API/apiUser";
+import Card from "../../Card/Card";
+import Spinner from "../../../assets/icons/spinner.svg";
 import {
   updateAdminStatus,
   setUserData,
-} from "../../../redux/slices/authSlice";
+} from "../../../../redux/slices/authSlice";
+import ConditionalNavLinks from "../../ConditionalNavLinks/ConditionalNavLinks";
+// Style :
+// import "./MyAccountPage.scss";
 
 export default function MyAccountPage() {
   // Redux :
+  const token = useSelector((state) => state.auth.token)
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const isLoading = useSelector((state) => state.auth.isLoading);
   const userData = useSelector((state) => state.auth.userData);
@@ -37,7 +41,7 @@ export default function MyAccountPage() {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${userData.token}`,
+            Authorization: `Bearer ${token}`,
           },
           credentials: "include",
         });
@@ -70,7 +74,7 @@ export default function MyAccountPage() {
 
   return (
     <>
-      <div className="my-account-page">
+      <div className="myAccountPage_container">
         {isLoading && <img src={Spinner} alt="Chargement en cours..." />}
         {/* Affichage des données de l'utilisateur connecté */}
         {userData && (
@@ -129,6 +133,9 @@ export default function MyAccountPage() {
             textLink={"Accéder au dashboard"}
           />
         )}
+        <ConditionalNavLinks 
+        isAdmin={isAdmin}
+        />
       </div>
     </>
   );

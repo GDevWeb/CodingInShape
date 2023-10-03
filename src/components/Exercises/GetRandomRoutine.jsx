@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { GET_RANDOM_ROUTINE } from "../API/apiUserExercises";
 import Spinner from "../../assets/icons/spinner.svg";
@@ -14,11 +13,10 @@ export default function GetRandomRoutine() {
   // Redux :
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const token = useSelector((state) => state.auth.token);
-  const dispatch = useDispatch(); 
 
   // Slider :
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false); // Démarrer en mode "Pause"
+  const [isPlaying, setIsPlaying] = useState(false); // Démarre en mode "Pause"
   const [timeLeft, setTimeLeft] = useState(20);
   const [completedSlides, setCompletedSlides] = useState(0);
   const [showCongratulations, setShowCongratulations] = useState(false);
@@ -101,7 +99,7 @@ export default function GetRandomRoutine() {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % exercises.length);
     setTimeLeft(20);
 
-    if (completedSlides === 4) {
+    if (completedSlides === 4) { //Ajouter +1 stat routine terminée pour la V+
       setShowCongratulations(true);
       setIsPlaying(false);
     } else if (completedSlides < 4) {
