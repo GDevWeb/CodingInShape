@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updateAdminStatus } from "../../../redux/slices/authSlice";
 import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 import Card from "../Card/Card";
 
@@ -9,7 +8,7 @@ export default function DashboardPage() {
   // Redux :
   const isAdmin = useSelector((state) => state.auth.isAdmin);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const userData = useSelector((state) => state.auth.userData); 
+  const userData = useSelector((state) => state.auth.userData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,8 +19,6 @@ export default function DashboardPage() {
           navigate("/login");
           return;
         }
-
-        // userData est déjà dispo dans le Redux Store depuis l'action loginSuccess dans LoginForm, je me fais chier pour rien
       } catch (error) {
         console.error(error);
       }
@@ -34,6 +31,7 @@ export default function DashboardPage() {
     <>
       {userData && (
         <>
+          <h1>Bienvenue dans l'espace admin, administrateur {userData.pseudo}</h1>
           <Card
             title={"Liste des utilisateurs"}
             content={"Retrouver la liste des utilisateurs"}
@@ -63,14 +61,9 @@ export default function DashboardPage() {
         </>
       )}
 
-      {isAdmin && (
-
-        <ConditionalNavLinks 
-        
-
-
-        />
-      )}
+      <ConditionalNavLinks 
+      isAdmin={isAdmin}
+      />
     </>
   );
 }

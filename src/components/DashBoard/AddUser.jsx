@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { useNavigate} from "react-router-dom";
+import { USERS_API } from "../API/apiAdmin";
+import { useSelector } from "react-redux";
 
 export default function AddUser() {
+
+  // Redux:
+  const token = useSelector((state) => state.auth.token)
 
   // État local :
   const [success, setSuccess] = useState("");
@@ -209,12 +214,11 @@ export default function AddUser() {
     };
 
     // Send the POST request to the server:
-    const token = localStorage.getItem("token");
-    console.log("Token obtained:", token);
+    console.log("Token from redux in AddUser:", token);
 
     try {
       // Send the POST request to the server
-      const response = await fetch("http://localhost:4000/api/admin/users", {
+      const response = await fetch(`${USERS_API}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -371,7 +375,7 @@ export default function AddUser() {
               type="email"
               name="email"
               id="email"
-              placeholder="Votre mot de passe"
+              placeholder="Votre mail"
               required
             />
             <span className="error">{errors.email}</span>

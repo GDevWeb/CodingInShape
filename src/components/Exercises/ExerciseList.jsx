@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { EXERCISES_API } from '../API/apiAdminExercises';
+import { EXERCISES_API } from "../API/apiAdminExercises";
 import Spinner from "../../assets/icons/spinner.svg";
 import { setUserData } from "../../../redux/slices/authSlice";
 import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
@@ -13,7 +13,7 @@ export default function ExerciseList() {
 
   // Redux :
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const token = useSelector((state) => state.auth.token)
+  const token = useSelector((state) => state.auth.token);
   const isAdmin = useSelector((state) => state.auth.isAdmin);
   const dispatch = useDispatch();
 
@@ -47,7 +47,7 @@ export default function ExerciseList() {
 
         if (response.ok) {
           const data = await response.json();
-          dispatch(setUserData(data)); 
+          dispatch(setUserData(data));
           setExercises(data);
           setIsLoading(false);
         } else {
@@ -67,7 +67,7 @@ export default function ExerciseList() {
     };
 
     fetchExercises();
-  }, [navigate, isAuthenticated, dispatch]);
+  }, [token, isAuthenticated, dispatch, navigate]);
 
   // Filtres :
   const filterExercises = (exercises, filterOptions) => {
@@ -137,11 +137,17 @@ export default function ExerciseList() {
             <p>Description : {exercise.description}</p>
             <p>Type : {exercise.type}</p>
             <p>Muscle ciblé : {exercise.muscle}</p>
-            <Link to={`/exercise-detail/${exercise._id}`}>Voir détail de l'exercice</Link>
+            <Link to={`/exercise-detail/${exercise._id}`}>
+              Voir détail de l'exercice
+            </Link>
             {isAdmin && (
               <>
-                <Link to={`/update-exercise/${exercise._id}`}>Modifier l'exercice</Link>
-                <Link to={`/delete-exercise/${exercise._id}`}>Supprimer l'exercice</Link>
+                <Link to={`/update-exercise/${exercise._id}`}>
+                  Modifier l'exercice
+                </Link>
+                <Link to={`/delete-exercise/${exercise._id}`}>
+                  Supprimer l'exercice
+                </Link>
               </>
             )}
             <img
@@ -170,16 +176,16 @@ export default function ExerciseList() {
         page {currentPage} sur {Math.ceil(exercises.length / exercisePerPage)}
       </p>
 
-      <ConditionalNavLinks
-      isAdmin={isAdmin}
-      />
+      <ConditionalNavLinks isAdmin={isAdmin} />
 
       <div className="navigate-links">
-        {isAdmin &&
-        <div className="navigate-link">
-          <Link to={"/exercise-management"}>Retour à la gestion des exercices</Link>
-        </div>
-        }
+        {isAdmin && (
+          <div className="navigate-link">
+            <Link to={"/exercise-management"}>
+              Retour à la gestion des exercices
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

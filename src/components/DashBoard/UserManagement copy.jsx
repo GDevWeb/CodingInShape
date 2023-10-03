@@ -16,7 +16,6 @@ import {
   UNBAN_USER_API,
   ADMIN_USER_API,
 } from "../API/apiAdmin";
-import { useSelector } from "react-redux";
 
 export default function UserManagement() {
   // État local pour stocker les données des utilisateurs, l'utilisateur à supprimer,
@@ -28,15 +27,8 @@ export default function UserManagement() {
   const [confirmationVisible, setConfirmationVisible] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Redux :
-  const token = useSelector((state) => state.auth.token);
-  const isAuthenticated = useSelector ((state) => state.auth.isAuthenticated);
-  const isAdmin = useSelector ((state) => state.auth.isAdmin);
-  // const usersData = useSelector ((state) => state.auth.isAuhtenticated); //users
-  //const isLoading = useSelector ((state) => state.auth.isLoading)
-
   // Filtres :
-  const { filteredUsers } = useUserFilter(usersData, filterText); 
+  const { filteredUsers } = useUserFilter(usersData, filterText); // pagination :
   // pagination :
   const {
     currentPage,
@@ -56,7 +48,10 @@ export default function UserManagement() {
   useEffect(() => {
     const fetchUsersData = async () => {
       try {
-        if (!isAuthenticated && !isAdmin) {
+        // Obtenir le jeton d'authentification depuis le stockage local
+        const token = localStorage.getItem("token");
+
+        if (!token) {
           // Rediriger vers la page de connexion si le jeton n'est pas présent
           navigate("/login");
           return;
@@ -103,12 +98,14 @@ export default function UserManagement() {
     };
     // Appeler la fonction pour récupérer les données des utilisateurs
     fetchUsersData();
-  }, [token, isAdmin, navigate]);
+  }, [navigate]);
 
   // Méthode pour mettre à jour le statut administrateur
   const handleAdminChange = async (userId) => {
     try {
-      if (!isAuthenticated && !isAdmin) {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
         // Rediriger vers la page de connexion si le jeton n'est pas présent
         navigate("/login");
         return;
@@ -144,6 +141,7 @@ export default function UserManagement() {
         setServerErrors("Impossible de mettre à jour le statut administrateur");
       }
     } catch (error) {
+      // Gérer les erreurs de requête
       console.error(
         "Erreur lors de la mise à jour du statut administrateur :",
         error
@@ -155,7 +153,9 @@ export default function UserManagement() {
   // Méthode pour bannir un utilisateur
   const handleBanChange = async (userId) => {
     try {
-      if (!isAuthenticated && !isAdmin) {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
         // Rediriger vers la page de connexion si le jeton n'est pas présent
         navigate("/login");
         return;
@@ -201,7 +201,9 @@ export default function UserManagement() {
   // Méthode pour réhabiliter un utilisateur :
   const handleUnbanChange = async (userId) => {
     try {
-      if (!isAuthenticated && !isAdmin) {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
         // Rediriger vers la page de connexion si le jeton n'est pas présent
         navigate("/login");
         return;
@@ -246,7 +248,9 @@ export default function UserManagement() {
   // Méthode pour supprimer un utilisateur
   const handleDeleteUser = async (userId) => {
     try {
-      if (!isAuthenticated && !isAdmin) {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
         // Rediriger vers la page de connexion si le jeton n'est pas présent
         navigate("/login");
         return;
@@ -254,7 +258,7 @@ export default function UserManagement() {
 
       // Méthode pour supprimer un utilisateur :
       const response = await fetch(
-        `${USERS_API}/${userId}`,
+        `http://localhost:4000/api/admin/users/${userId}`,
         {
           method: "DELETE",
           headers: {
@@ -286,18 +290,11 @@ export default function UserManagement() {
           response.status
         );
         setServerErrors("Impossible de supprimer l'utilisateur");
-        setTimeout(() => {
-          setServerErrors("")
-        }, 3000);
       }
     } catch (error) {
       // Gérer les erreurs de requête
       console.error("Erreur lors de la suppression de l'utilisateur :", error);
       setServerErrors("Impossible de supprimer l'utilisateur");
-      setTimeout(() => {
-        setServerErrors("")
-      }, 3000);
-
     }
   };
 
