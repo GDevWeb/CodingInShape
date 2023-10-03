@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { USER_PROFIL } from "../API/apiUser";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import CircleUser from "../../assets/icons/CircleUser.svg";
@@ -7,18 +7,17 @@ import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 
 export default function UpdateProfile() {
 
-  // État local :
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isAdminLoaded, setIsAdminLoaded] = useState(false);
-  const userId = useSelector((state) => state.auth.userData?.id);
 
+  // Redux :
+  const token = useSelector((state) => state.auth.token);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
+  const userId = useSelector((state) => state.auth.userData?.id);
+  console.log(userId);
 
   // Redirection :
   const navigate = useNavigate();
 
-  // Redux :
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const token = useSelector((state) => state.auth.token);
 
   const [userData, setUserData] = useState({
     sex: "",
@@ -33,7 +32,6 @@ export default function UpdateProfile() {
     securityAnswer: "",
   });
 
-  const [successMessage, setSuccessMessage] = useState("");
   const [serverErrors, setServerErrors] = useState("");
   const [errors, setErrors] = useState({
     sex: "",
@@ -195,7 +193,7 @@ export default function UpdateProfile() {
         if (response.ok) {
           const data = await response.json();
           setUserData({
-            userId : data.userData.id,
+            userId: data.userData.id,
             sex: data.userData.sex,
             age: data.userData.age,
             firstName: data.userData.firstName,
@@ -208,21 +206,24 @@ export default function UpdateProfile() {
             securityAnswer: data.userData.securityAnswer,
           });
 
-          // Mise à jour de l'état local isAdmin
-          setIsAdmin(data.userData.isAdmin);
-          setIsAdminLoaded(true)
-          console.log(data.userData.isAdmin);
-          console.log(`Connexion depuis UpdateProfile ok`);
         } else {
           console.error(
             "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",
             response.status
           );
           setServerErrors("Impossible d'obtenir les données de l'utilisateur");
+
+          setTimeout(() => {
+            setServerErrors("");
+          }, 3000);
         }
       } catch (error) {
         console.error("Erreur lors de la récupération des données:", error);
         setServerErrors("Erreur lors de la récupération des données");
+
+        setTimeout(() => {
+          setServerErrors("");
+        }, 3000);
       }
     };
 
@@ -246,11 +247,11 @@ export default function UpdateProfile() {
       Object.values(errors).every((error) => error === "");
 
     if (!isValid) {
-      setSuccessMessage("");
+      setServerErrors("");
       return;
     }
 
-    setSuccessMessage("Compte utilisateur mis à jour avec succès");
+    setServerErrors("Compte utilisateur mis à jour avec succès");
 
     const updatedUserData = {
       sex: userData.sex,
@@ -274,7 +275,7 @@ export default function UpdateProfile() {
       }
 
       const response = await fetch(
-        `http://localhost:4000/api/admin/users/${userId}`, //pb transmission id
+        `http://localhost:4000/api/admin/users/${userId}`, 
         {
           method: "PUT",
           headers: {
@@ -287,9 +288,9 @@ export default function UpdateProfile() {
       );
 
       if (response.ok) {
-        setSuccessMessage("Utilisateur mis à jour avec succès");
+        setServerErrors("Utilisateur mis à jour avec succès");
         setTimeout(() => {
-          setSuccessMessage("");
+          setServerErrors("");
           navigate("/myaccount");
         }, 3000);
       } else {
@@ -300,10 +301,18 @@ export default function UpdateProfile() {
         setServerErrors(
           "Impossible de mettre à jour les informations de l'utilisateur"
         );
+
+        setTimeout(() => {
+          setServerErrors("");
+        }, 3000);
       }
     } catch (error) {
       console.error("Erreur lors de la mise à jour des données:", error);
       setServerErrors("Erreur lors de la mise à jour des données");
+
+      setTimeout(() => {
+        setServerErrors("");
+      }, 3000);
     }
   };
 
@@ -487,10 +496,9 @@ export default function UpdateProfile() {
         </div>
 
         <button type="submit">Mettre à jour</button>
-        <span className="success-message">{successMessage}</span>
         <div className="server-error">{serverErrors}</div>
 
-        <ConditionalNavLinks isAdminLoaded={isAdminLoaded} isAdmin={isAdmin} />
+        <ConditionalNavLinks isAdmin={isAdmin} />
       </form>
     </>
   );

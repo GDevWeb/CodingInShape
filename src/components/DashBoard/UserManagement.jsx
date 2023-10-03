@@ -16,29 +16,36 @@ import {
   UNBAN_USER_API,
   ADMIN_USER_API,
 } from "../API/apiAdmin";
-
+import { useSelector } from "react-redux";
 
 export default function UserManagement() {
   // État local pour stocker les données des utilisateurs, l'utilisateur à supprimer,
   // la visibilité de la confirmation, le chargement, les messages de succès
   // et les erreurs du serveur.
-    const [usersData, setUsersData] = useState([]);
-    const [filterText, setFilterText] = useState("");
-    const [userToDelete, setUserToDelete] = useState(null);
-    const [confirmationVisible, setConfirmationVisible] = useState(true);
-    const [isLoading, setIsLoading] = useState(true);
+  const [usersData, setUsersData] = useState([]);
+  const [filterText, setFilterText] = useState("");
+  const [userToDelete, setUserToDelete] = useState(null);
+  const [confirmationVisible, setConfirmationVisible] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Redux :
+  const token = useSelector((state) => state.auth.token);
+  const isAuthenticated = useSelector ((state) => state.auth.isAuthenticated);
+  const isAdmin = useSelector ((state) => state.auth.isAdmin);
+  // const usersData = useSelector ((state) => state.auth.isAuhtenticated); //users
+  //const isLoading = useSelector ((state) => state.auth.isLoading)
 
   // Filtres :
-  const { filteredUsers } = useUserFilter(usersData, filterText);  // pagination :
-// pagination :
-const {
-  currentPage,
-  displayedData,
-  pageNumbers,
-  lastPage,
-  setPage,
-  itemsPerpage,
-} = usePagination(filteredUsers, 8);
+  const { filteredUsers } = useUserFilter(usersData, filterText); 
+  // pagination :
+  const {
+    currentPage,
+    displayedData,
+    pageNumbers,
+    lastPage,
+    setPage,
+    itemsPerpage,
+  } = usePagination(filteredUsers, 8);
   const [successMessage, setSuccessMessage] = useState("");
   const [serverErrors, setServerErrors] = useState("");
 
@@ -49,10 +56,7 @@ const {
   useEffect(() => {
     const fetchUsersData = async () => {
       try {
-        // Obtenir le jeton d'authentification depuis le stockage local
-        const token = localStorage.getItem("token");
-
-        if (!token) {
+        if (!isAuthenticated && !isAdmin) {
           // Rediriger vers la page de connexion si le jeton n'est pas présent
           navigate("/login");
           return;
@@ -99,14 +103,12 @@ const {
     };
     // Appeler la fonction pour récupérer les données des utilisateurs
     fetchUsersData();
-  }, [navigate]);
+  }, [token, isAdmin, navigate]);
 
   // Méthode pour mettre à jour le statut administrateur
   const handleAdminChange = async (userId) => {
     try {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
+      if (!isAuthenticated && !isAdmin) {
         // Rediriger vers la page de connexion si le jeton n'est pas présent
         navigate("/login");
         return;
@@ -140,23 +142,26 @@ const {
           response.status
         );
         setServerErrors("Impossible de mettre à jour le statut administrateur");
+        setTimeout(() => {
+          setServerErrors("");
+        }, 3000);
       }
     } catch (error) {
-      // Gérer les erreurs de requête
       console.error(
         "Erreur lors de la mise à jour du statut administrateur :",
         error
       );
       setServerErrors("Impossible de mettre à jour le statut administrateur");
+      setTimeout(() => {
+        setServerErrors("");
+      }, 3000);
     }
   };
 
   // Méthode pour bannir un utilisateur
   const handleBanChange = async (userId) => {
     try {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
+      if (!isAuthenticated && !isAdmin) {
         // Rediriger vers la page de connexion si le jeton n'est pas présent
         navigate("/login");
         return;
@@ -202,9 +207,7 @@ const {
   // Méthode pour réhabiliter un utilisateur :
   const handleUnbanChange = async (userId) => {
     try {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
+      if (!isAuthenticated && !isAdmin) {
         // Rediriger vers la page de connexion si le jeton n'est pas présent
         navigate("/login");
         return;
@@ -249,9 +252,7 @@ const {
   // Méthode pour supprimer un utilisateur
   const handleDeleteUser = async (userId) => {
     try {
-      const token = localStorage.getItem("token");
-
-      if (!token) {
+      if (!isAuthenticated && !isAdmin) {
         // Rediriger vers la page de connexion si le jeton n'est pas présent
         navigate("/login");
         return;
@@ -259,7 +260,7 @@ const {
 
       // Méthode pour supprimer un utilisateur :
       const response = await fetch(
-        `http://localhost:4000/api/admin/users/${userId}`,
+        `${USERS_API}/${userId}`,
         {
           method: "DELETE",
           headers: {
@@ -291,11 +292,18 @@ const {
           response.status
         );
         setServerErrors("Impossible de supprimer l'utilisateur");
+        setTimeout(() => {
+          setServerErrors("")
+        }, 3000);
       }
     } catch (error) {
       // Gérer les erreurs de requête
       console.error("Erreur lors de la suppression de l'utilisateur :", error);
       setServerErrors("Impossible de supprimer l'utilisateur");
+      setTimeout(() => {
+        setServerErrors("")
+      }, 3000);
+
     }
   };
 
@@ -312,10 +320,11 @@ const {
         value={filterText}
         onChange={(e) => {
           setFilterText(e.target.value);
-        } }
+        }}
         name="filtre"
         id="filtre"
-      />      <table>
+      />{" "}
+      <table>
         <thead>
           <tr>
             <th>Prénom</th>
@@ -333,24 +342,31 @@ const {
           {displayedData &&
             displayedData.map((user) => (
               <UserRow
-              key={user._id}
-              user={user}
-              handleAdminChange={handleAdminChange}
-              handleBanChange={handleBanChange}
-              handleUnbanChange={handleUnbanChange}
-              handleDeleteUser={handleDeleteUser}
-            />
+                key={user._id}
+                user={user}
+                handleAdminChange={handleAdminChange}
+                handleBanChange={handleBanChange}
+                handleUnbanChange={handleUnbanChange}
+                handleDeleteUser={handleDeleteUser}
+              />
             ))}
         </tbody>
       </table>
-
       {/* Buttons de pagination : */}
       <div>
-        <button onClick={() => setPage(currentPage - 1)} disabled={currentPage === 1}>
+        <button
+          onClick={() => setPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
           Previous
         </button>
-        <span>page {currentPage} sur {lastPage}</span>
-        <button onClick={() => setPage(currentPage + 1)} disabled={currentPage === lastPage}>
+        <span>
+          page {currentPage} sur {lastPage}
+        </span>
+        <button
+          onClick={() => setPage(currentPage + 1)}
+          disabled={currentPage === lastPage}
+        >
           Next
         </button>
       </div>
@@ -361,7 +377,6 @@ const {
       <div className="server-error">
         {serverErrors && <p>{serverErrors}</p>}
       </div>
-
       <Link to={"/dashboard"}>Retour au dashboard</Link>
     </>
   );

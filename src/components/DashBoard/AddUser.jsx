@@ -1,7 +1,18 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { callApi } from "../../../redux/slices/apiUsersSlice";
+import { USERS_API } from "../API/apiAdmin";
+import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 
 export default function AddUser() {
+  // Redux :
+  const token = useSelector((state) => state.auth.token);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // État local :
   const [formData, setFormData] = useState({
     sex: "",
     firstName: "",
@@ -17,10 +28,6 @@ export default function AddUser() {
     isBan: false,
   });
 
-  // To manage the success message if all inputs are valid:
-  const [success, setSuccess] = useState("");
-
-  // To manage error messages in the form for each input:
   const [errors, setErrors] = useState({
     sex: "",
     firstName: "",
@@ -35,6 +42,8 @@ export default function AddUser() {
   });
 
   const [serverErrors, setServerErrors] = useState("");
+
+  const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -164,12 +173,10 @@ export default function AddUser() {
     }
   };
 
-  const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if all form inputs are valid:
+    // Vérifier si tous les champs du formulaire sont valides
     const isValid =
       formData.sex &&
       formData.firstName &&
@@ -190,8 +197,8 @@ export default function AddUser() {
 
     setServerErrors("");
 
-    // Create an object containing the form data to send to the server:
-    const requestData = {
+    // Créer un objet contenant les données du formulaire à envoyer au serveur
+    const userData = {
       sex: formData.sex,
       firstName: formData.firstName,
       lastName: formData.lastName,
@@ -206,57 +213,24 @@ export default function AddUser() {
       isBan: formData.isBan,
     };
 
-    // Send the POST request to the server:
-    const token = localStorage.getItem("token");
-    console.log("Token obtained:", token);
-
     try {
-      // Send the POST request to the server
-      const response = await fetch("http://localhost:4000/api/admin/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        credentials: "include",
-        body: JSON.stringify(requestData),
-      });
+      await dispatch(
+        callApi({
+          method: "POST",
+          url: USERS_API,
+          token: token,
+          data: userData,
+        })
+      );
 
-      if (response.ok) {
-        // Request succeeded (status 200 OK)
-        const responseData = await response.json();
-        console.log("Server response:", responseData);
-        setSuccess(responseData.message);
+      setSuccess("Utilisateur créé avec succès !");
 
-        setTimeout(() => {
-          setSuccess("");
-        }, 3000);
-
-        // Clear the form:
-        setFormData({
-          sex: "",
-          firstName: "",
-          lastName: "",
-          age: "",
-          avatar: "",
-          pseudo: "",
-          email: "",
-          password: "",
-          securityQuestion: "",
-          securityAnswer: "",
-          isAdmin: false,
-          isBan: false,
-        });
-
+      setTimeout(() => {
+        setSuccess("");
         navigate("/dashboard");
-      } else {
-        // Request failed
-        const responseData = await response.json();
-        console.log("Server response:", responseData);
-        setServerErrors(responseData.message);
-      }
+      }, 3000);
     } catch (error) {
-      console.error(error);
+      setServerErrors(error);
     }
   };
 
@@ -334,7 +308,12 @@ export default function AddUser() {
 
           <div className="form-group">
             <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
-            <img src={formData.avatar} alt="avatar de l'utilisateur" width={"100px"} height={"auto"}/>
+            <img
+              src={formData.avatar}
+              alt="avatar de l'utilisateur"
+              width={"100px"}
+              height={"auto"}
+            />
             <label htmlFor="avatar">Image de profil</label>
             <input
               type="text"
@@ -369,7 +348,7 @@ export default function AddUser() {
               type="email"
               name="email"
               id="email"
-              placeholder="Votre mot de passe"
+              placeholder="Votre mail"
               required
             />
             <span className="error">{errors.email}</span>
@@ -429,13 +408,14 @@ export default function AddUser() {
               required
             />
             <span className="error">{errors.securityAnswer}</span>
-            {/* <span className="error"{serverErrors}></span> */}
+            <span className="error">{serverErrors}</span>
           </div>
         </div>
 
         <button type="submit">S'inscrire</button>
         <span className="success">{success}</span>
       </div>
+      <ConditionalNavLinks isAdmin={isAdmin} />
     </form>
   );
 }

@@ -110,9 +110,6 @@ export default function AddExercise() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // console.log("formData:", formData);
-    // console.log("errors:", errors);
-
     // Vérification de la saisie des inputs :
     const isValid =
       formData.name &&
