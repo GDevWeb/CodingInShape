@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { useNavigate} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { callApi } from "../../../redux/slices/apiUsersSlice";
 import { USERS_API } from "../API/apiAdmin";
-import { useSelector } from "react-redux";
+import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 
 export default function AddUser() {
-
-  // Redux:
-  const token = useSelector((state) => state.auth.token)
+  // Redux :
+  const token = useSelector((state) => state.auth.token);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // État local :
-  const [success, setSuccess] = useState("");
-
-
   const [formData, setFormData] = useState({
     sex: "",
     firstName: "",
@@ -27,7 +28,6 @@ export default function AddUser() {
     isBan: false,
   });
 
-
   const [errors, setErrors] = useState({
     sex: "",
     firstName: "",
@@ -42,6 +42,8 @@ export default function AddUser() {
   });
 
   const [serverErrors, setServerErrors] = useState("");
+
+  const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -171,12 +173,10 @@ export default function AddUser() {
     }
   };
 
-  const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Check if all form inputs are valid:
+    // Vérifier si tous les champs du formulaire sont valides
     const isValid =
       formData.sex &&
       formData.firstName &&
@@ -197,8 +197,8 @@ export default function AddUser() {
 
     setServerErrors("");
 
-    // Create an object containing the form data to send to the server:
-    const requestData = {
+    // Créer un objet contenant les données du formulaire à envoyer au serveur
+    const userData = {
       sex: formData.sex,
       firstName: formData.firstName,
       lastName: formData.lastName,
@@ -213,56 +213,24 @@ export default function AddUser() {
       isBan: formData.isBan,
     };
 
-    // Send the POST request to the server:
-    console.log("Token from redux in AddUser:", token);
-
     try {
-      // Send the POST request to the server
-      const response = await fetch(`${USERS_API}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        credentials: "include",
-        body: JSON.stringify(requestData),
-      });
+      await dispatch(
+        callApi({
+          method: "POST",
+          url: USERS_API,
+          token: token,
+          data: userData,
+        })
+      );
 
-      if (response.ok) {
-        // Request succeeded (status 200 OK)
-        const responseData = await response.json();
-        console.log("Server response:", responseData);
-        setSuccess(responseData.message);
+      setSuccess("Utilisateur créé avec succès !");
 
-        setTimeout(() => {
-          setSuccess("");
-        }, 3000);
-
-        // Clear the form:
-        setFormData({
-          sex: "",
-          firstName: "",
-          lastName: "",
-          age: "",
-          avatar: "",
-          pseudo: "",
-          email: "",
-          password: "",
-          securityQuestion: "",
-          securityAnswer: "",
-          isAdmin: false,
-          isBan: false,
-        });
-
+      setTimeout(() => {
+        setSuccess("");
         navigate("/dashboard");
-      } else {
-        // Request failed
-        const responseData = await response.json();
-        console.log("Server response:", responseData);
-        setServerErrors(responseData.message);
-      }
+      }, 3000);
     } catch (error) {
-      console.error(error);
+      setServerErrors(error);
     }
   };
 
@@ -340,7 +308,12 @@ export default function AddUser() {
 
           <div className="form-group">
             <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
-            <img src={formData.avatar} alt="avatar de l'utilisateur" width={"100px"} height={"auto"}/>
+            <img
+              src={formData.avatar}
+              alt="avatar de l'utilisateur"
+              width={"100px"}
+              height={"auto"}
+            />
             <label htmlFor="avatar">Image de profil</label>
             <input
               type="text"
@@ -442,6 +415,7 @@ export default function AddUser() {
         <button type="submit">S'inscrire</button>
         <span className="success">{success}</span>
       </div>
+      <ConditionalNavLinks isAdmin={isAdmin} />
     </form>
   );
 }
