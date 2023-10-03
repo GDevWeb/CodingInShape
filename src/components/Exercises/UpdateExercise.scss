@@ -1,0 +1,42 @@
+.updateExerciseContainer{
+    text-align: center;
+    height: 90vh;
+    h2{
+        margin: 20px auto;
+    }
+    .form-group{
+        
+        display: flex;
+        flex-direction: column;
+        width: 60vw;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        img{
+            border-radius: 10px;
+        }
+        input, select, option{
+            height: 40px;
+            width: 250px;
+            text-align: center;
+            border: none;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+        textarea{
+            height: 100px;
+            border-radius: 10px;
+        }
+    }
+ button{
+    height: 40px;
+    width: 150px;
+    border-radius: 10px;
+    margin: 1rem 0;
+    letter-spacing: 2px;
+ }
+ link{
+    background-color: aqua;
+ }
+}
+

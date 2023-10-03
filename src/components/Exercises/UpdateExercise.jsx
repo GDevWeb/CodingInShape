@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector} from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { EXERCISES_API } from "../API/apiAdminExercises";
+import './UpdateExercise.scss'
 
 export default function UpdateExercise() {
   const { id } = useParams();
@@ -220,7 +221,7 @@ export default function UpdateExercise() {
   };
 
   return (
-    <>
+    <div className="updateExerciseContainer">
       <h2>Modifier l'exercice {useParams.name}</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -320,6 +321,6 @@ export default function UpdateExercise() {
       <Link to={"/dashboard"}>Retour au dashboard</Link>
       <Link to={"/exercise-management"}>Retour à gestion des exercices</Link>
       <Link to={"/exercises-list"}>Retour à la liste des exercices</Link>
-    </>
+    </div>
   );
 }
