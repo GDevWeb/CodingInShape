@@ -6,9 +6,17 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    height: 80%;
+    height: 100%;
 
     .my-account-page {
+        img{
+            border-radius: 15px;
+            width: 200px;
+            &:hover{
+                transform: scale(1.8);
+                transition: all 1s ease-in-out;
+            }
+        }
 h1{
     em{
         color: black;
@@ -49,9 +57,14 @@ h1{
     margin-top: 50px;
     display: flex;
     flex-wrap: wrap;
-    height: 70vh;
+    height: 50vh;
     justify-content: center;
-    width: 80%;
+    width: 100%;
     margin-bottom: 100px;
 
+}
+@media screen and (max-width: 900px) {
+    .cardsContainer {
+        height: 90vh;
+    }
 }

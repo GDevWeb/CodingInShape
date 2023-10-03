@@ -5,6 +5,7 @@ import useUserFilter from "../Hooks/useUserFilter";
 import usePagination from "../Hooks/usePagination";
 import UserRow from "./UserRow";
 import "../../../src/main.scss";
+import './UserManagement.scss'
 
 // Import des composants locaux :
 import Spinner from "../../assets/icons/spinner.svg";
@@ -22,23 +23,23 @@ export default function UserManagement() {
   // État local pour stocker les données des utilisateurs, l'utilisateur à supprimer,
   // la visibilité de la confirmation, le chargement, les messages de succès
   // et les erreurs du serveur.
-    const [usersData, setUsersData] = useState([]);
-    const [filterText, setFilterText] = useState("");
-    const [userToDelete, setUserToDelete] = useState(null);
-    const [confirmationVisible, setConfirmationVisible] = useState(true);
-    const [isLoading, setIsLoading] = useState(true);
+  const [usersData, setUsersData] = useState([]);
+  const [filterText, setFilterText] = useState("");
+  const [userToDelete, setUserToDelete] = useState(null);
+  const [confirmationVisible, setConfirmationVisible] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Filtres :
   const { filteredUsers } = useUserFilter(usersData, filterText);  // pagination :
-// pagination :
-const {
-  currentPage,
-  displayedData,
-  pageNumbers,
-  lastPage,
-  setPage,
-  itemsPerpage,
-} = usePagination(filteredUsers, 8);
+  // pagination :
+  const {
+    currentPage,
+    displayedData,
+    pageNumbers,
+    lastPage,
+    setPage,
+    itemsPerpage,
+  } = usePagination(filteredUsers, 8);
   const [successMessage, setSuccessMessage] = useState("");
   const [serverErrors, setServerErrors] = useState("");
 
@@ -300,7 +301,7 @@ const {
   };
 
   return (
-    <>
+    <div className="UserManagementContainer">
       {isLoading && <img src={Spinner} alt="Chargement en cours" />}
       {/* Affichage du titre et des statistiques */}
       <h2>Liste des utilisateurs</h2>
@@ -312,7 +313,7 @@ const {
         value={filterText}
         onChange={(e) => {
           setFilterText(e.target.value);
-        } }
+        }}
         name="filtre"
         id="filtre"
       />      <table>
@@ -333,27 +334,34 @@ const {
           {displayedData &&
             displayedData.map((user) => (
               <UserRow
-              key={user._id}
-              user={user}
-              handleAdminChange={handleAdminChange}
-              handleBanChange={handleBanChange}
-              handleUnbanChange={handleUnbanChange}
-              handleDeleteUser={handleDeleteUser}
-            />
+                key={user._id}
+                user={user}
+                handleAdminChange={handleAdminChange}
+                handleBanChange={handleBanChange}
+                handleUnbanChange={handleUnbanChange}
+                handleDeleteUser={handleDeleteUser}
+              />
             ))}
         </tbody>
       </table>
 
       {/* Buttons de pagination : */}
-      <div>
-        <button onClick={() => setPage(currentPage - 1)} disabled={currentPage === 1}>
-          Previous
-        </button>
-        <span>page {currentPage} sur {lastPage}</span>
-        <button onClick={() => setPage(currentPage + 1)} disabled={currentPage === lastPage}>
-          Next
-        </button>
+
+      <div className="ButtonContainer">
+
+        <div className="buttonList">
+
+          <button onClick={() => setPage(currentPage - 1)} disabled={currentPage === 1}>
+            Previous
+          </button>
+          <span>page {currentPage} sur {lastPage}</span>
+          <button onClick={() => setPage(currentPage + 1)} disabled={currentPage === lastPage} className="ButtonPage">
+            Next
+          </button>
+        </div>
+
       </div>
+
       {/* Affichage des messages de succès et d'erreurs */}
       <div className="success-message">
         {successMessage && <p>{successMessage}</p>}
@@ -362,7 +370,9 @@ const {
         {serverErrors && <p>{serverErrors}</p>}
       </div>
 
-      <Link to={"/dashboard"}>Retour au dashboard</Link>
-    </>
+      <div className="linkContainer">
+        <Link to={"/dashboard"} className="Return">Retour au dashboard</Link>
+      </div>
+    </div>
   );
 }

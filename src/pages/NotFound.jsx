@@ -1,6 +1,10 @@
+import bodyBuilder from '../assets/BodyBuilder1.jpg'
+import '../../sass/pages.scss'
 
 export default function NotFound() {
   return (
-    <div>Page 404</div>
+    <div className='notFound'>
+      <img src={bodyBuilder} alt="" />
+    </div>
   )
 }

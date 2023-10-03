@@ -1,4 +1,5 @@
-import  "react";
+import "react";
+import './StatsTab.scss'
 
 export default function StatsTab(props) {
   const { usersData } = props;
@@ -9,23 +10,25 @@ export default function StatsTab(props) {
   const bannedCount = usersData.filter((user) => user.isBan).length;
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Total utilisateurs</th>
-          <th>Nombre d'utilisateurs</th>
-          <th>Nombre d'administrateurs</th>
-          <th>Nombre d'utilisateurs bannis</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{totalUsers}</td>
-          <td>{simpleUserCount}</td>
-          <td>{adminCount}</td>
-          <td>{bannedCount}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div className="statsContainer">
+      <table>
+        <thead>
+          <tr>
+            <th>Total utilisateurs</th>
+            <th>Nombre d'utilisateurs</th>
+            <th>Nombre d'administrateurs</th>
+            <th>Nombre d'utilisateurs bannis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{totalUsers}</td>
+            <td>{simpleUserCount}</td>
+            <td>{adminCount}</td>
+            <td>{bannedCount}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 }

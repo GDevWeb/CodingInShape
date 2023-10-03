@@ -169,7 +169,6 @@ export default function LoginForm() {
         <p className="invitCreateAccount">
           Pas encore de compte ?
           <Link className="createAccountLink" to="/signup">
-            {" "}
             Créer un compte
           </Link>
         </p>

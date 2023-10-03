@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Card from "../Card/Card";
+import './DashBoardPage.scss'
 
 export default function DashboardPage() {
   // Redux :
@@ -29,9 +30,9 @@ export default function DashboardPage() {
   }, [isAuthenticated, isAdmin, navigate, dispatch]);
 
   return (
-    <>
+    <div className="dashBoardContainer">
       {userData && (
-        <>
+        <div className="dashBoardCardContainer">
           <Card
             title={"Liste des utilisateurs"}
             content={"Retrouver la liste des utilisateurs"}
@@ -58,9 +59,11 @@ export default function DashboardPage() {
             link="/dashboard"
             //  à venir
           />
-        </>
+        </div>
       )}
-    </>
+    </div>
   );
 }
 // Olivier tu as du style mais tout ce que je n'aime pas ... Jenna Lee
+
+// et ben jena lee je te remercie beaucoup ;o) ... Olivier
