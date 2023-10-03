@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { EXERCISES_API } from "../API/apiAdminExercises";
 import Spinner from "../../assets/icons/spinner.svg";
 import { setExerciseData } from "../../../redux/slices/exerciseSlice"; 
+import './ExerciseDetail.scss';
 
 export default function ExerciseDetail() {
   const { id } = useParams();
@@ -62,7 +63,7 @@ export default function ExerciseDetail() {
   }, [id, navigate, isAuthenticated, token, dispatch]);
 
   return (
-    <div>
+    <div className="exerciseDetailContainer">
       <h2>Exercise Detail</h2>
       {isLoading ? (
         <img src={Spinner} alt="Chargement en cours..." />

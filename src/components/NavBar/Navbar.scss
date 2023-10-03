@@ -65,6 +65,7 @@
     border-top: 2px solid white;
     border-bottom: 2px solid white;
     border-left: 2px solid white;
+
   }
 }
 /* Active Class */
@@ -76,12 +77,14 @@
 
 .toggle .line1 {
   transform: rotate(-45deg) translate(-4px, 5px);
+  background: black;
 }
 .toggle .line2 {
   opacity: 0;
 }
 .toggle .line3 {
   transform: rotate(45deg) translate(-4px, -5px);
+  background: black;
 }
 
 
