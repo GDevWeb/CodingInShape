@@ -142,6 +142,9 @@ export default function UserManagement() {
           response.status
         );
         setServerErrors("Impossible de mettre à jour le statut administrateur");
+        setTimeout(() => {
+          setServerErrors("");
+        }, 3000);
       }
     } catch (error) {
       console.error(
@@ -149,6 +152,9 @@ export default function UserManagement() {
         error
       );
       setServerErrors("Impossible de mettre à jour le statut administrateur");
+      setTimeout(() => {
+        setServerErrors("");
+      }, 3000);
     }
   };
 

@@ -31,7 +31,9 @@ export default function DashboardPage() {
     <>
       {userData && (
         <>
-          <h1>Bienvenue dans l'espace admin, administrateur {userData.pseudo}</h1>
+          <h1>
+            Bienvenue dans l'espace admin, administrateur {userData.pseudo}
+          </h1>
           <Card
             title={"Liste des utilisateurs"}
             content={"Retrouver la liste des utilisateurs"}
@@ -61,9 +63,7 @@ export default function DashboardPage() {
         </>
       )}
 
-      <ConditionalNavLinks 
-      isAdmin={isAdmin}
-      />
+      <ConditionalNavLinks isAdmin={isAdmin} />
     </>
   );
 }
