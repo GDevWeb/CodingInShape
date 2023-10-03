@@ -70,7 +70,7 @@ export default function ExerciseDetail() {
       ) : (
         <>
           {exercise ? (
-            <>
+            <div className="exerciseDetail">
               <h2>{exercise.name}</h2>
               <p>Description : {exercise.description}</p>
               <p>Type : {exercise.type}</p>
@@ -80,7 +80,7 @@ export default function ExerciseDetail() {
                 alt={`Image de ${exercise.name}`}
                 width={"200px"}
               />
-            </>
+            </div>
           ) : (
             <p>Exercice non trouvé</p>
           )}

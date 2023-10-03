@@ -5,7 +5,7 @@ import { EXERCISES_API } from '../API/apiAdminExercises';
 import Spinner from "../../assets/icons/spinner.svg";
 import { setUserData } from "../../../redux/slices/authSlice";
 import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
-import './ExerciceList.scss'
+import './ExerciseList.scss'
 
 export default function ExerciseList() {
   // État local :
