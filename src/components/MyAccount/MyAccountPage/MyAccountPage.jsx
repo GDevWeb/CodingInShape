@@ -68,7 +68,7 @@ export default function MyAccountPage() {
     };
 
     fetchUserData();
-  }, [navigate, userData.token, userId, isAuthenticated, dispatch]);
+  }, [token, isAuthenticated, dispatch, navigate, userId]);
 
   return (
     <>
