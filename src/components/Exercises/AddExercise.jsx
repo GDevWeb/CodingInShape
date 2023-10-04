@@ -1,22 +1,20 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import {EXERCISES_API}from '../API/apiAdminExercises';
+import { EXERCISES_API } from "../API/apiAdminExercises";
 
 export default function AddExercise() {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     image: "",
-    video: "",
     type: "",
     muscle: "",
   });
 
-    // Redux :
-    const token = useSelector((state) => state.auth.token);
-    const isAdmin = useSelector((state) => state.auth.isAdmin);
-  
+  // Redux :
+  const token = useSelector((state) => state.auth.token);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
 
   // Pour gérer le message de succès si tous les inputs sont valides :
   const [success, setSuccess] = useState("");
@@ -26,7 +24,6 @@ export default function AddExercise() {
     name: "",
     description: "",
     image: "",
-    video: "",
     type: "",
     muscle: "",
   });
@@ -74,16 +71,6 @@ export default function AddExercise() {
       }));
     }
 
-    //04. Vérification du champ video :
-    if (name === "video") {
-      const regexVideoURL = /\.(mp4|avi|mov|mkv|wmv|flv|webp)$/i;
-      const testVideoUrl = regexVideoURL.test(value);
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        video: testVideoUrl ? "" : "L'url de la vidéo n'est pas valide",
-      }));
-    }
-
     //05. Vérification du champ type d'exercice :
     if (name === "type") {
       const regexType = /^.{3,}$/; // Au moins 3 caractères
@@ -115,7 +102,6 @@ export default function AddExercise() {
       formData.name &&
       formData.description &&
       formData.image &&
-      formData.video &&
       formData.type &&
       formData.muscle &&
       Object.values(errors).every((error) => error === "");
@@ -132,13 +118,9 @@ export default function AddExercise() {
       name: formData.name,
       description: formData.description,
       image: formData.image,
-      video: formData.video,
       type: formData.type,
       muscle: formData.muscle,
     };
-
-    // Envoi de la requête au serveur :
-    console.log("Token obtenu :", token);
 
     try {
       // Envoi de la requête POST au serveur
@@ -162,7 +144,6 @@ export default function AddExercise() {
           name: "",
           description: "",
           image: "",
-          video: "",
           type: "",
           muscle: "",
         });
@@ -227,18 +208,6 @@ export default function AddExercise() {
             onChange={handleChange}
           />
           {errors.image && <p className="form-error">{errors.image}</p>}
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="video">Video</label>
-          <input
-            type="text"
-            id="video"
-            name="video"
-            value={formData.video}
-            onChange={handleChange}
-          />
-          {errors.video && <p className="form-error">{errors.video}</p>}
         </div>
 
         <div className="form-group">
