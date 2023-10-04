@@ -190,3 +190,6 @@ export default function ExerciseList() {
     </div>
   );
 }
+/*📖 Composant admin - Exercises
+Lire la liste des exercises
+📖*/

@@ -34,12 +34,10 @@ export default function UserManagement() {
   const isAdmin = useSelector((state) => state.auth.isAdmin);
 
   const { filteredUsers } = useUserFilter(usersData, filterText);
-  const {
-    currentPage,
-    displayedData,
-    lastPage,
-    setPage,
-  } = usePagination(filteredUsers, 8);
+  const { currentPage, displayedData, lastPage, setPage } = usePagination(
+    filteredUsers,
+    8
+  );
 
   const [successMessage, setSuccessMessage] = useState("");
   const [serverErrors, setServerErrors] = useState("");
@@ -97,7 +95,7 @@ export default function UserManagement() {
     fetchUsersData();
   }, [isAuthenticated, token, isAdmin, navigate, dispatch]);
 
-  // Méthode pour mettre à jour le statut 
+  // Méthode pour mettre à jour le statut
   const handleAdminChange = async (userId) => {
     try {
       if (!isAuthenticated && !isAdmin) {
@@ -362,3 +360,10 @@ export default function UserManagement() {
     </>
   );
 }
+
+/*📖 Composant admin - User 
+Gestion de l'état de user via le dashboard :
+passer administrateur
+banni - débanni
+supprimer le compte
+📖*/

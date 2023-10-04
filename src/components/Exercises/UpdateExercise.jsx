@@ -323,3 +323,7 @@ export default function UpdateExercise() {
     </>
   );
 }
+
+/*📖 Composant admin et user - Exercises
+Update Exercise
+📖*/

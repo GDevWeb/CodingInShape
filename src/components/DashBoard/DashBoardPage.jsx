@@ -67,3 +67,5 @@ export default function DashboardPage() {
     </>
   );
 }
+
+/*📖 Composant accueillant des links vers le CRUD user et exercises 📖*/

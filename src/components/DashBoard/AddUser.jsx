@@ -419,3 +419,7 @@ export default function AddUser() {
     </form>
   );
 }
+
+/*📖Composant intégré dans DashBoard / Gestion des utilisateurs
+Ajouter un utilisateur
+📖*/

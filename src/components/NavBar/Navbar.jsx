@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import hamburger from "../../assets/icons/hamburger.svg";
 import close from "../../assets/icons/close.svg";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
+
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -13,35 +16,40 @@ export default function Navbar() {
   return (
     <nav className={`navbar ${showMenu ? "show-menu" : ""}`}>
       <ul>
-
         <li>
-        <Link to="/" className="logo-link">
-          Accueil 
-        </Link>
-        </li>
-
-        <li>
-        <Link to="/signup" className="logo-link">
-          Inscription
+          <Link to="/" className="logo-link">
+            Accueil
           </Link>
         </li>
 
         <li>
-        <Link to="/myaccount" className="logo-link">
-          Mon compte
+          <Link to="/signup" className="logo-link">
+            Inscription
           </Link>
         </li>
 
         <li>
-        <Link to="/exercises" className="logo-link">
-          Mes exercices
+          <Link to="/myaccount" className="logo-link">
+            Mon compte
           </Link>
         </li>
 
-
         <li>
-        <Link to="/contact" className="logo-link">
-          Contact
+          <Link to="/exercises" className="logo-link">
+            Mes exercices
+          </Link>
+        </li>
+
+        {isAdmin && (
+          <li>
+            <Link to="/dashboard" className="logo-link">
+              Dashboard
+            </Link>
+          </li>
+        )}
+        <li>
+          <Link to="/contact" className="logo-link">
+            Contact
           </Link>
         </li>
       </ul>
@@ -55,3 +63,5 @@ export default function Navbar() {
     </nav>
   );
 }
+
+/*📖Simple composant navBar contenant les links vers différentes pages📖*/

@@ -36,3 +36,5 @@ export const {
 } = userSlice;
 
 export default userSlice.reducer;
+
+/*📖 Slice récupérant la data  📖*/

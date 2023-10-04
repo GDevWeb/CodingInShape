@@ -20,3 +20,6 @@ export default function Welcome() {
   </div>  
   )
 }
+
+/*📖Simple composant stateless contenant un texte de bienvenue et des links invitants à créer un compte ou à se connecter📖*/
+
