@@ -69,30 +69,7 @@ export default function UserProfile() {
             <p>Admin : {isAdmin ? "Oui" : "Non"}</p>
           </div>
         )}
-      </div>
-
-        {userData && (
-          <>
-            <Card
-              title={"Liste des exercices"}
-              content={"Retrouvez la liste des exercices"}
-              link={`/exercises-list/`}
-              textLink={"Voir la liste des exercices"}
-            />
-  
-            <Card
-              title={"Routine aléatoire"}
-              content={`🚀 Vous ne savez pas par où commencer ? Laissez-vous guider par notre app !
-              💪 Elle vous proposera 1 exercice par zone musculaire : 🧘‍♂️ cou, 💪 épaules, 🏋️‍♂️ dos, 🕺 hanches et 🏃‍♂️ jambes.
-              ⏱️ Chaque exercice dure 20 secondes, soit moins de 2 minutes pour votre bien-être. C'est rapide, efficace et vous permettra de vous sentir revitalisé en un rien de temps !
-              Rejoignez-nous sur Coding in Shape et découvrez comment prendre soin de votre corps, de votre esprit et de votre code. En quelques minutes par jour, vous pouvez renforcer votre corps tout en restant au top de votre jeu de développeur. 💻✨
-              `}
-              link={"/get-random-routine"}
-              textLink={"Démarrer la routine"}
-            />
-          </>
-        )}
-  
+      </div>  
     </>
   );
 }

@@ -283,7 +283,7 @@ export default function UpdateUser() {
         <div className="form-group">
           <label htmlFor="lastName">Mot de passe</label>
           <input
-            type="text"
+            type="password"
             name="password"
             id="password"
             value={userData.password}
@@ -348,3 +348,4 @@ export default function UpdateUser() {
   );
 }
 
+/*📖 Composant admin - Update User📖*/

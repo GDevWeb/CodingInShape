@@ -36,8 +36,20 @@ const apiSlice = createSlice({
     error: null,
     data: null,
   },
-  reducers: {},
-  extraReducers: (builder) => {
+  reducers: {
+    apiStart(state) {
+      state.loading = true;
+      state.error = null;
+    },
+    apiSuccess(state, action) {
+      state.loading = false;
+      state.data = action.payload;
+    },
+    apiFailure(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+    },
+  },  extraReducers: (builder) => {
     builder
       .addCase(callApi.pending, (state) => { //en attente
         state.loading = true;
@@ -54,4 +66,5 @@ const apiSlice = createSlice({
   },
 });
 
+export const {apiStart, apiSuccess, apiFailure} = apiSlice.actions;
 export default apiSlice.reducer;

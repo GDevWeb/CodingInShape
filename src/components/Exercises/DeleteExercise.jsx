@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {useSelector, useDispatch } from "react-redux";
+import {useSelector} from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { EXERCISES_API } from '../API/apiAdminExercises';
 
@@ -110,3 +110,5 @@ export default function DeleteExercise() {
     </>
   );
 }
+
+// updates with redux auth :

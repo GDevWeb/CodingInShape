@@ -23,3 +23,5 @@ export default function Card({ title, content, link, textLink, userData }) {
     </div>
   );
 }
+
+/*📖Composant utilisé dans la plupart de mes composant lorsque j'ai besoin de card .... 📖*/

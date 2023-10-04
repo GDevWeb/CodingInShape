@@ -160,3 +160,7 @@ export default function GetRandomRoutine() {
     </div>
   );
 }
+
+/*📖 Composant admin et user - Exercises
+Routine aléatoire
+📖*/
