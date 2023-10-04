@@ -171,7 +171,7 @@ export default function SignUpForm() {
     // 11. Vérification de l'acceptation des Conditions Générales d'utilisation :
     if (name === "cgu") {
       const testCgu = e.target.checked;
-      setCguAcception(testCgu)
+      setCguAcception(testCgu);
       setErrors((prevErrors) => ({
         ...prevErrors,
         cgu: testCgu
@@ -444,7 +444,7 @@ export default function SignUpForm() {
 
           <div className="form-group">
             <label htmlFor="CGU">
-              Conditions Générales d'utilisation (C.G.U){" "}
+              Conditions Générales d'utilisation (C.G.U)
             </label>
 
             <input
@@ -463,8 +463,14 @@ export default function SignUpForm() {
       </form>
       <button onClick={() => setShowCgu(!showCgu)}>
         {showCgu ? "Cacher CGU" : "Afficher CGU"}
-        {showCgu && <CGU />}
-      </button>
+        </button>
+        
+        <div className="modal_cgu">
+        {showCgu && 
+          <CGU />}
+          </div>
     </div>
   );
 }
+
+/*📖Composant formulaire d'inscription contenant la CGU📖*/

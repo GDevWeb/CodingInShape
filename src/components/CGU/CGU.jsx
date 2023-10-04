@@ -99,3 +99,5 @@ export default function CGU() {
     </div>
   );
 }
+
+/*📖Simple composant stateless contenant la CGU📖*/
