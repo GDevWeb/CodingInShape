@@ -16,65 +16,56 @@ import {
   UNBAN_USER_API,
   ADMIN_USER_API,
 } from "../API/apiAdmin";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  apiStart,
+  apiSuccess,
+  apiFailure,
+} from "../../../redux/slices/apiUsersSlice";
+import { callApi } from "../API/callApi";
 
 export default function UserManagement() {
-  // État local pour stocker les données des utilisateurs, l'utilisateur à supprimer,
-  // la visibilité de la confirmation, le chargement, les messages de succès
-  // et les erreurs du serveur.
   const [usersData, setUsersData] = useState([]);
   const [filterText, setFilterText] = useState("");
-  const [userToDelete, setUserToDelete] = useState(null);
-  const [confirmationVisible, setConfirmationVisible] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Redux :
   const token = useSelector((state) => state.auth.token);
-  const isAuthenticated = useSelector ((state) => state.auth.isAuthenticated);
-  const isAdmin = useSelector ((state) => state.auth.isAdmin);
-  // const usersData = useSelector ((state) => state.auth.isAuhtenticated); //users
-  //const isLoading = useSelector ((state) => state.auth.isLoading)
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
 
-  // Filtres :
-  const { filteredUsers } = useUserFilter(usersData, filterText); 
-  // pagination :
+  const { filteredUsers } = useUserFilter(usersData, filterText);
   const {
     currentPage,
     displayedData,
-    pageNumbers,
     lastPage,
     setPage,
-    itemsPerpage,
   } = usePagination(filteredUsers, 8);
+
   const [successMessage, setSuccessMessage] = useState("");
   const [serverErrors, setServerErrors] = useState("");
 
-  // Hook pour obtenir la fonction de navigation de React Router
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // Hook useEffect pour récupérer les données des utilisateurs depuis l'API
   useEffect(() => {
     const fetchUsersData = async () => {
       try {
         if (!isAuthenticated && !isAdmin) {
-          // Rediriger vers la page de connexion si le jeton n'est pas présent
           navigate("/login");
           return;
         }
 
-        // Effectuer une requête GET pour récupérer les données des utilisateurs
-        const response = await fetch(USERS_API, {
+        dispatch(apiStart());
+
+        const { data, status } = await callApi({
           method: "GET",
+          url: USERS_API,
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          credentials: "include",
         });
 
-        if (response.ok) {
-          // Si la réponse est réussie, mettre à jour l'état local avec les données
-          const data = await response.json();
+        if (status === 200) {
           setUsersData(data);
           setIsLoading(false);
           setSuccessMessage("Données des utilisateurs récupérées avec succès");
@@ -82,15 +73,15 @@ export default function UserManagement() {
             setSuccessMessage("");
           }, 3000);
         } else {
-          // Gérer les erreurs de la réponse HTTP
           console.error(
             "Impossible de récupérer les données des utilisateurs. Statut HTTP :",
-            response.status
+            status
           );
           setIsLoading(false);
         }
+
+        dispatch(apiSuccess());
       } catch (error) {
-        // Gérer les erreurs de requête
         console.error(
           "Erreur lors de la récupération des données des utilisateurs :",
           error
@@ -99,33 +90,32 @@ export default function UserManagement() {
         setServerErrors(
           "Erreur lors de la récupération des données des utilisateurs"
         );
+        dispatch(apiFailure(error));
       }
     };
-    // Appeler la fonction pour récupérer les données des utilisateurs
-    fetchUsersData();
-  }, [token, isAdmin, navigate]);
 
-  // Méthode pour mettre à jour le statut administrateur
+    fetchUsersData();
+  }, [isAuthenticated, token, isAdmin, navigate, dispatch]);
+
+  // Méthode pour mettre à jour le statut 
   const handleAdminChange = async (userId) => {
     try {
       if (!isAuthenticated && !isAdmin) {
-        // Rediriger vers la page de connexion si le jeton n'est pas présent
         navigate("/login");
         return;
       }
 
-      // Méthode pour passer un utilisateur en administrateur ou retirer les droits admin :
-      const response = await fetch(ADMIN_USER_API(userId), {
+      dispatch(apiStart());
+
+      const { status } = await callApi({
         method: "PUT",
+        url: ADMIN_USER_API(userId),
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        credentials: "include",
       });
 
-      if (response.ok) {
-        // Si la réponse est réussie, mettre à jour l'état local et afficher un message de succès
+      if (status === 200) {
         console.log("Statut administrateur mis à jour avec succès");
         setSuccessMessage("Statut administrateur mis à jour avec succès");
         const updatedUsersData = usersData.map((user) =>
@@ -136,16 +126,17 @@ export default function UserManagement() {
           setSuccessMessage("");
         }, 3000);
       } else {
-        // Gérer les erreurs de la réponse HTTP
         console.error(
           "Impossible de mettre à jour le statut administrateur. Statut HTTP :",
-          response.status
+          status
         );
         setServerErrors("Impossible de mettre à jour le statut administrateur");
         setTimeout(() => {
           setServerErrors("");
         }, 3000);
       }
+
+      dispatch(apiSuccess());
     } catch (error) {
       console.error(
         "Erreur lors de la mise à jour du statut administrateur :",
@@ -155,6 +146,8 @@ export default function UserManagement() {
       setTimeout(() => {
         setServerErrors("");
       }, 3000);
+
+      dispatch(apiFailure(error));
     }
   };
 
@@ -162,23 +155,21 @@ export default function UserManagement() {
   const handleBanChange = async (userId) => {
     try {
       if (!isAuthenticated && !isAdmin) {
-        // Rediriger vers la page de connexion si le jeton n'est pas présent
         navigate("/login");
         return;
       }
 
-      // Méthode pour bannir un utilisateur :
-      const response = await fetch(BAN_USER_API(userId), {
+      dispatch(apiStart());
+
+      const { status } = await callApi({
         method: "PUT",
+        url: BAN_USER_API(userId),
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        credentials: "include",
       });
 
-      if (response.ok) {
-        // Si la réponse est réussie, mettre à jour l'état local et afficher un message de succès
+      if (status === 200) {
         console.log("Utilisateur banni avec succès");
         const updatedUsersData = usersData.map((user) =>
           user._id === userId ? { ...user, isBan: true } : user
@@ -190,17 +181,19 @@ export default function UserManagement() {
 
         setUsersData(updatedUsersData);
       } else {
-        // Gérer les erreurs de la réponse HTTP
         console.error(
           "Impossible de bannir l'utilisateur. Statut HTTP :",
-          response.status
+          status
         );
         setServerErrors("Impossible de bannir l'utilisateur");
       }
+
+      dispatch(apiSuccess());
     } catch (error) {
-      // Gérer les erreurs de requête
       console.error("Erreur lors du bannissement de l'utilisateur :", error);
       setServerErrors("Erreur lors du bannissement de l'utilisateur");
+
+      dispatch(apiFailure(error));
     }
   };
 
@@ -208,23 +201,21 @@ export default function UserManagement() {
   const handleUnbanChange = async (userId) => {
     try {
       if (!isAuthenticated && !isAdmin) {
-        // Rediriger vers la page de connexion si le jeton n'est pas présent
         navigate("/login");
         return;
       }
 
-      // Méthode pour réhabiliter un utilisateur :
-      const response = await fetch(UNBAN_USER_API(userId), {
+      dispatch(apiStart());
+
+      const { status } = await callApi({
         method: "PUT",
+        url: UNBAN_USER_API(userId),
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        credentials: "include",
       });
 
-      if (response.ok) {
-        // Si la réponse est réussie, mettre à jour l'état local et afficher un message de succès
+      if (status === 200) {
         console.log("Utilisateur débanni avec succès");
         const updatedUsersData = usersData.map((user) =>
           user._id === userId ? { ...user, isBan: false } : user
@@ -235,17 +226,19 @@ export default function UserManagement() {
           setSuccessMessage("");
         }, 3000);
       } else {
-        // Gérer les erreurs de la réponse HTTP
         console.error(
           "Impossible de débannir l'utilisateur. Statut HTTP :",
-          response.status
+          status
         );
         setServerErrors("Impossible de débannir l'utilisateur");
       }
+
+      dispatch(apiSuccess());
     } catch (error) {
-      // Gérer les erreurs de requête
       console.error("Erreur lors du débannissement de l'utilisateur :", error);
       setServerErrors("Impossible de débannir l'utilisateur");
+
+      dispatch(apiFailure(error));
     }
   };
 
@@ -253,26 +246,21 @@ export default function UserManagement() {
   const handleDeleteUser = async (userId) => {
     try {
       if (!isAuthenticated && !isAdmin) {
-        // Rediriger vers la page de connexion si le jeton n'est pas présent
         navigate("/login");
         return;
       }
 
-      // Méthode pour supprimer un utilisateur :
-      const response = await fetch(
-        `${USERS_API}/${userId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          credentials: "include",
-        }
-      );
+      dispatch(apiStart());
 
-      if (response.ok) {
-        // Si la réponse est réussie, mettre à jour l'état local et afficher un message de succès
+      const { status } = await callApi({
+        method: "DELETE",
+        url: `${USERS_API}/${userId}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (status === 200) {
         console.log("Utilisateur supprimé avec succès");
         const updatedUsersData = usersData.filter(
           (user) => user._id !== userId
@@ -283,27 +271,20 @@ export default function UserManagement() {
         }, 3000);
 
         setUsersData(updatedUsersData);
-        setUserToDelete(null);
-        setConfirmationVisible(false);
       } else {
-        // Gérer les erreurs de la réponse HTTP
         console.error(
           "Impossible de supprimer l'utilisateur. Statut HTTP :",
-          response.status
+          status
         );
         setServerErrors("Impossible de supprimer l'utilisateur");
-        setTimeout(() => {
-          setServerErrors("")
-        }, 3000);
       }
+
+      dispatch(apiSuccess());
     } catch (error) {
-      // Gérer les erreurs de requête
       console.error("Erreur lors de la suppression de l'utilisateur :", error);
       setServerErrors("Impossible de supprimer l'utilisateur");
-      setTimeout(() => {
-        setServerErrors("")
-      }, 3000);
 
+      dispatch(apiFailure(error));
     }
   };
 
@@ -381,5 +362,3 @@ export default function UserManagement() {
     </>
   );
 }
-
-// ## Date : le 04/10/2023 - 🚀 Merge decAuthReduxV1 - Refacto 📕 des fetch en cours 

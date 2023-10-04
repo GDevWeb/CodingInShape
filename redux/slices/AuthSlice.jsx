@@ -60,3 +60,7 @@ const authSlice = createSlice({
 export const { startSignUp, finishSignUp, login, loginSuccess, loginFailure, logout, updateAdminStatus, setUserData } =
   authSlice.actions;
 export default authSlice.reducer;
+
+/* 📝 Slice pour l'authentification de user 📝:
+📝Authentification de loginForm > récupération de la data de user dans MyAccountPage
+*/
