@@ -360,3 +360,10 @@ export default function UserManagement() {
     </>
   );
 }
+
+/*📖 Composant admin - User 
+Gestion de l'état de user via le dashboard :
+passer administrateur
+banni - débanni
+supprimer le compte
+📖*/

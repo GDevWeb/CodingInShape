@@ -53,3 +53,7 @@ export const updateExercise = (exerciseId, exerciseData) => async (dispatch, get
 
 export const { setExerciseData, setSuccessMessage, setServerErrors } = exerciseSlice.actions;
 export default exerciseSlice.reducer;
+
+/*📖 Composant admin et user - Exercises
+//en test 
+📖*/

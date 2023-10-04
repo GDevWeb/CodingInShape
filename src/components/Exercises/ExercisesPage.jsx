@@ -49,3 +49,8 @@ export default function ExercisesPage() {
     </>
   );
 }
+
+/*📖 Composant admin et user - Exercises
+Lien vers la liste des exercices
+Routine aléatoire
+📖*/

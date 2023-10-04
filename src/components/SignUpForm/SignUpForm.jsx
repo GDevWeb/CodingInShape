@@ -2,8 +2,16 @@ import { useState } from "react";
 import "./SignUpForm.scss";
 import { useNavigate } from "react-router-dom";
 import { USER_SIGNUP } from "../API/apiUser";
+import CGU from "../CGU/CGU";
 
 export default function SignUpForm() {
+  // State CGU :
+  const [cguAcceptation, setCguAcception] = useState(false);
+  const [showCgu, setShowCgu] = useState(false);
+
+  // Pour gérer le message de succès si tous les inputs sont valides :
+  const [success, setSuccess] = useState("");
+
   const [formData, setFormData] = useState({
     sex: "",
     firstName: "",
@@ -18,9 +26,6 @@ export default function SignUpForm() {
     isAdmin: false,
     isBan: false,
   });
-
-  // Pour gérer le message de succès si tous les inputs sont valides :
-  const [success, setSuccess] = useState("");
 
   // Pour gérer les messages d'erreurs dans le formulaire selon l'input :
   const [errors, setErrors] = useState({
@@ -162,6 +167,18 @@ export default function SignUpForm() {
           : "La réponse à la question secrète doit contenir au moins 3 caractères",
       }));
     }
+
+    // 11. Vérification de l'acceptation des Conditions Générales d'utilisation :
+    if (name === "cgu") {
+      const testCgu = e.target.checked;
+      setCguAcception(testCgu)
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        cgu: testCgu
+          ? ""
+          : "Vous devez accepter les Conditions Générales d'utilisation pour vous inscrire",
+      }));
+    }
   };
 
   const navigate = useNavigate();
@@ -250,8 +267,8 @@ export default function SignUpForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="formRegister">
-      <div className="formRegister__container">
+    <div className="formRegister__container">
+      <form onSubmit={handleSubmit} className="formRegister">
         <h2>Créer un compte :</h2>
 
         <div className="form-group">
@@ -323,7 +340,12 @@ export default function SignUpForm() {
 
           <div className="form-group">
             <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
-            <img src={formData.avatar} alt="avatar de l'utilisateur" width={"100px"} height={"auto"}/>
+            <img
+              src={formData.avatar}
+              alt="avatar de l'utilisateur"
+              width={"100px"}
+              height={"auto"}
+            />
             <label htmlFor="avatar">Image de profil</label>
             <input
               type="text"
@@ -419,11 +441,30 @@ export default function SignUpForm() {
             />
             <span className="error">{errors.securityAnswer}</span>
           </div>
+
+          <div className="form-group">
+            <label htmlFor="CGU">
+              Conditions Générales d'utilisation (C.G.U){" "}
+            </label>
+
+            <input
+              checked={cguAcceptation}
+              onChange={(e) => setCguAcception(e.target.checked)}
+              type="checkbox"
+              name="cgu"
+              id="cgu"
+            />
+            <span className="error">{errors.cgu}</span>
+          </div>
         </div>
 
         <button type="submit">S'inscrire</button>
         <span className="success">{success}</span>
-      </div>
-    </form>
+      </form>
+      <button onClick={() => setShowCgu(!showCgu)}>
+        {showCgu ? "Cacher CGU" : "Afficher CGU"}
+        {showCgu && <CGU />}
+      </button>
+    </div>
   );
 }

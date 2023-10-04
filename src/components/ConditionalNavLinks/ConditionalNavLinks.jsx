@@ -20,3 +20,8 @@ export default function ConditionalNavLinks({ isAdmin }) {
     </>
   );
 }
+
+/*📖Composant utilisé dans la plupart de mes composant pour la navigation - 
+Rendu conditionnel : ce dernier affiche le link dashBoard seulement si user isAdmin = true 
+par défaut retour à mon compte
+📖*/

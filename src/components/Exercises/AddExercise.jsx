@@ -251,3 +251,6 @@ export default function AddExercise() {
     </>
   );
 }
+/*📖 Composant admin - Exercises
+Ajouter un exercise
+📖*/

@@ -22,3 +22,5 @@ export default function ExerciseManagement() {
     </>
   );
 }
+
+/*📖 Page - Composant accueillant des links vers le CRUD (READ - Create) des exercises 📖*/
