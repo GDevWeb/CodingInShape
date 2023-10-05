@@ -1,5 +1,327 @@
+// import { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import { USER_PROFIL } from "../API/apiUser";
+// import { useSelector } from "react-redux/es/hooks/useSelector";
+// import CircleUser from "../../assets/icons/CircleUser.svg";
+// import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
+// import './UpdateProfile.scss'
+
+// export default function UpdateProfile() {
+
+//   // État local :
+//   const [isAdmin, setIsAdmin] = useState(false);
+//   const [isAdminLoaded, setIsAdminLoaded] = useState(false);
+//   const userId = useSelector((state) => state.auth.userData?.id);
+
+//   // Redirection :
+//   const navigate = useNavigate();
+
+
+//   const [userData, setUserData] = useState({
+//     sex: "",
+//     age: "",
+//     firstName: "",
+//     lastName: "",
+//     avatar: "",
+//     pseudo: "",
+//     email: "",
+//     password: "",
+//     securityQuestion: "",
+//     securityAnswer: "",
+//   });
+
+//   const [serverErrors, setServerErrors] = useState("");
+//   const [errors, setErrors] = useState({
+//     sex: "",
+//     age: "",
+//     firstName: "",
+//     lastName: "",
+//     avatar: "",
+//     pseudo: "",
+//     email: "",
+//     password: "",
+//     securityQuestion: "",
+//     securityAnswer: "",
+//   });
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setUserData({
+//       ...userData,
+//       [name]: value,
+//     });
+
+//     // Vérifications des inputs :
+//     if (name === "sex") {
+//       if (!value) {
+//         setErrors((prevErrors) => ({
+//           ...prevErrors,
+//           sex: "Le champ sex ne peut être vide",
+//         }));
+//       } else {
+//         const regexSex = /^(homme|femme|autre)$/;
+//         const testRegexSex = regexSex.test(value);
+//         setErrors((prevErrors) => ({
+//           ...prevErrors,
+//           sex: testRegexSex ? "" : "Le champ sex n'est pas valide",
+//         }));
+//       }
+//     }
+
+//     //02. Vérification du prénom :
+//     if (name === "firstName") {
+//       const regexFirstName = /^.{3,}$/; // Au moins 3 caractères
+//       const testFirstName = regexFirstName.test(value);
+//       setErrors((prevErrors) => ({
+//         ...prevErrors,
+//         firstName: testFirstName
+//           ? ""
+//           : "Le prénom doit contenir au moins 3 caractères",
+//       }));
+//     }
+
+//     //03. Vérification du nom :
+//     if (name === "lastName") {
+//       const regexLastName = /^.{3,}$/; // Au moins 3 caractères
+//       const testLastName = regexLastName.test(value);
+//       setErrors((prevErrors) => ({
+//         ...prevErrors,
+//         lastName: testLastName
+//           ? ""
+//           : "Le nom doit contenir au moins 3 caractères",
+//       }));
+//     }
+
+//     //04. Vérification de l'âge :
+//     if (name === "age") {
+//       const regexAge = /^[0-9]{2,3}$/; // Au moins 2 chiffres
+//       const testAge = regexAge.test(value);
+//       setErrors((prevErrors) => ({
+//         ...prevErrors,
+//         age: testAge ? "" : "L'âge doit contenir au moins 2 chiffres",
+//       }));
+//     }
+
+//     // 05.Vérification de l'avatar :
+//     if (name === "avatar") {
+//       const regexImgAvatar = /\.(jpeg|jpg|gif|png|bmp|svg|webp)$/i;
+//       const testImgAvatar = regexImgAvatar.test(value);
+//       setErrors((prevErrors) => ({
+//         ...prevErrors,
+//         avatar: testImgAvatar ? "" : "L'URL de votre image n'est pas valide",
+//       }));
+//     }
+
+//     //06. Vérification du pseudo :
+//     if (name === "pseudo") {
+//       const regexPseudo = /^.{3,}$/; // Au moins 3 caractères
+//       const testPseudo = regexPseudo.test(value);
+//       setErrors((prevErrors) => ({
+//         ...prevErrors,
+//         pseudo: testPseudo
+//           ? ""
+//           : "Le pseudo doit contenir au moins 3 caractères",
+//       }));
+//     }
+
+//     //07. Vérification de l'email :
+//     if (name === "email") {
+//       const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//       const testEmail = regexEmail.test(value);
+//       setErrors((prevErrors) => ({
+//         ...prevErrors,
+//         email: testEmail ? "" : "L'email n'est pas valide",
+//       }));
+//     }
+
+//     //08. Vérification du mot de passe :
+//     if (name === "password") {
+//       const regexPassword =
+//         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,12}$/;
+//       const testPassword = regexPassword.test(value);
+//       setErrors((prevErrors) => ({
+//         ...prevErrors,
+//         password: testPassword
+//           ? ""
+//           : "Le mot de passe doit contenir entre 8 et 12 caractères, au moins une majuscule, un chiffre et un caractère spécial",
+//       }));
+//     }
+
+//     //09. Vérification de la question secrète :
+//     if (name === "securityQuestion") {
+//       const regexSecurityQuestion = /^.{3,}$/; // Au moins 3 caractères
+//       const testSecurityQuestion = regexSecurityQuestion.test(value);
+//       setErrors((prevErrors) => ({
+//         ...prevErrors,
+//         securityQuestion: testSecurityQuestion
+//           ? ""
+//           : "La question secrète doit contenir au moins 3 caractères",
+//       }));
+//     }
+
+//     // 10. Vérification de la réponse à la question secrète :
+//     if (name === "securityAnswer") {
+//       const regexSecurityAnswer = /^.{3,}$/; // Au moins 3 caractères
+//       const testSecurityAnswer = regexSecurityAnswer.test(value);
+//       setErrors((prevErrors) => ({
+//         ...prevErrors,
+//         securityAnswer: testSecurityAnswer
+//           ? ""
+//           : "La réponse à la question secrète doit contenir au moins 3 caractères",
+//       }));
+//     }
+//   };
+
+//   useEffect(() => {
+//     const fetchUserData = async () => {
+//       try {
+//         if (!isAuthenticated) {
+//           navigate("/login");
+//           return;
+//         }
+
+//         const response = await fetch(`${USER_PROFIL}`, {
+//           method: "GET",
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//           },
+//           credentials: "include",
+//         });
+
+//         if (response.ok) {
+//           const data = await response.json();
+//           setUserData({
+//             userId: data.userData.id,
+//             sex: data.userData.sex,
+//             age: data.userData.age,
+//             firstName: data.userData.firstName,
+//             lastName: data.userData.lastName,
+//             avatar: data.userData.avatar,
+//             pseudo: data.userData.pseudo,
+//             email: data.userData.email,
+//             password: "",
+//             securityQuestion: data.userData.securityQuestion,
+//             securityAnswer: data.userData.securityAnswer,
+//           });
+
+//           // Mise à jour de l'état local isAdmin
+//           setIsAdmin(data.userData.isAdmin);
+//           setIsAdminLoaded(true)
+//           console.log(data.userData.isAdmin);
+//           console.log(`Connexion depuis UpdateProfile ok`);
+//           setUserId(data.userData.id);
+//           console.log(userId)
+//         } else {
+//           console.error(
+//             "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",
+//             response.status
+//           );
+//           setServerErrors("Impossible d'obtenir les données de l'utilisateur");
+
+//           setTimeout(() => {
+//             setServerErrors("");
+//           }, 3000);
+//         }
+//       } catch (error) {
+//         console.error("Erreur lors de la récupération des données:", error);
+//         setServerErrors("Erreur lors de la récupération des données");
+
+//         setTimeout(() => {
+//           setServerErrors("");
+//         }, 3000);
+//       }
+//     };
+
+//     fetchUserData();
+//   }, [isAuthenticated, token, userId, navigate]);
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     // Vérification de la saisie des inputs :
+//     const isValid =
+//       userData.sex &&
+//       userData.firstName &&
+//       userData.lastName &&
+//       userData.avatar &&
+//       userData.pseudo &&
+//       userData.email &&
+//       userData.password &&
+//       userData.securityQuestion &&
+//       userData.securityAnswer &&
+//       Object.values(errors).every((error) => error === "");
+
+//     if (!isValid) {
+//       setServerErrors("");
+//       return;
+//     }
+
+//     setServerErrors("Compte utilisateur mis à jour avec succès");
+
+//     const updatedUserData = {
+//       sex: userData.sex,
+//       firstName: userData.firstName,
+//       lastName: userData.lastName,
+//       age: userData.age,
+//       avatar: userData.avatar,
+//       pseudo: userData.pseudo,
+//       email: userData.email,
+//       password: userData.password,
+//       securityQuestion: userData.securityQuestion,
+//       securityAnswer: userData.securityAnswer,
+//       isAdmin: userData.isAdmin,
+//       isBan: userData.isBan,
+//     };
+
+//     try {
+//       if (!isAuthenticated) {
+//         navigate("/login");
+//         return;
+//       }
+
+//       const response = await fetch(
+//         `http://localhost:4000/api/admin/users/${userId}`,
+//         {
+//           method: "PUT",
+//           headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${token}`,
+//           },
+//           credentials: "include",
+//           body: JSON.stringify(updatedUserData),
+//         }
+//       );
+
+//       if (response.ok) {
+//         setServerErrors("Utilisateur mis à jour avec succès");
+//         setTimeout(() => {
+//           setServerErrors("");
+//           navigate("/myaccount");
+//         }, 3000);
+//       } else {
+//         console.error(
+//           "Impossible de mettre à jour les informations de l'utilisateur. HTTP Status:",
+//           response.status
+//         );
+//         setServerErrors(
+//           "Impossible de mettre à jour les informations de l'utilisateur"
+//         );
+
+//         setTimeout(() => {
+//           setServerErrors("");
+//         }, 3000);
+//       }
+//     } catch (error) {
+//       console.error("Erreur lors de la mise à jour des données:", error);
+//       setServerErrors("Erreur lors de la mise à jour des données");
+
+//       setTimeout(() => {
+//         setServerErrors("");
+//       }, 3000);
+//     }
+//   };
+
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { USER_PROFIL } from "../API/apiUser";
 import { useSelector } from "react-redux/es/hooks/useSelector";
@@ -9,9 +331,12 @@ import './UpdateProfile.scss'
 
 export default function UpdateProfile() {
 
-  // État local :
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isAdminLoaded, setIsAdminLoaded] = useState(false);
+  const [successMessage, setSuccessMessage] = useState()
+
+  // Redux :
+  const token = useSelector((state) => state.auth.token);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
   const userId = useSelector((state) => state.auth.userData?.id);
   console.log(userId);
 
@@ -194,7 +519,6 @@ export default function UpdateProfile() {
           const data = await response.json();
           setUserData({
             userId: data.userData.id,
-            userId: data.userData.id,
             sex: data.userData.sex,
             age: data.userData.age,
             firstName: data.userData.firstName,
@@ -207,13 +531,6 @@ export default function UpdateProfile() {
             securityAnswer: data.userData.securityAnswer,
           });
 
-          // Mise à jour de l'état local isAdmin
-          setIsAdmin(data.userData.isAdmin);
-          setIsAdminLoaded(true)
-          console.log(data.userData.isAdmin);
-          console.log(`Connexion depuis UpdateProfile ok`);
-          setUserId(data.userData.id);
-          console.log(userId)
         } else {
           console.error(
             "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",
@@ -283,7 +600,7 @@ export default function UpdateProfile() {
       }
 
       const response = await fetch(
-        `http://localhost:4000/api/admin/users/${userId}`,
+        `http://localhost:4000/api/admin/users/${userId}`, 
         {
           method: "PUT",
           headers: {

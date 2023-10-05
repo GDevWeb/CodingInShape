@@ -11,7 +11,6 @@ export default function UpdateExercise() {
     name: "",
     description: "",
     image: "",
-    video: "",
     type: "",
     muscle: "",
   });
@@ -31,7 +30,6 @@ export default function UpdateExercise() {
     name: "",
     description: "",
     image: "",
-    video: "",
     type: "",
     muscle: "",
   });
@@ -79,15 +77,6 @@ export default function UpdateExercise() {
       }));
     }
 
-    //04. Vérification du champ video :
-    if (name === "video") {
-      const regexVideoURL = /\.(mp4|avi|mov|mkv|wmv|flv|webm)$/i;
-      const testVideoUrl = regexVideoURL.test(value);
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        video: testVideoUrl ? "" : "L'url de la vidéo n'est pas valide",
-      }));
-    }
 
     //05. Vérification du champ type d'exercice :
     if (name === "type") {
@@ -155,7 +144,6 @@ export default function UpdateExercise() {
       formData.name &&
       formData.description &&
       formData.image &&
-      formData.video &&
       formData.type &&
       formData.muscle &&
       Object.values(errors).every((error) => error === "");
@@ -172,7 +160,6 @@ export default function UpdateExercise() {
       name: formData.name,
       description: formData.description,
       image: formData.image,
-      video: formData.video,
       type: formData.type,
       muscle: formData.muscle,
     };
@@ -202,7 +189,6 @@ export default function UpdateExercise() {
           name: "",
           description: "",
           image: "",
-          video: "",
           type: "",
           muscle: "",
         });
@@ -267,18 +253,6 @@ export default function UpdateExercise() {
           {errors.description && (
             <p className="form-error">{errors.description}</p>
           )}
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="video">Video</label>
-          <input
-            type="text"
-            id="video"
-            name="video"
-            value={formData.video}
-            onChange={handleChange}
-          />
-          {errors.video && <p className="form-error">{errors.video}</p>}
         </div>
 
         <div className="form-group">

@@ -236,7 +236,7 @@ export default function AddUser() {
 
   return (
     <div className="signUpContainer">
-      <h2>Inscription :</h2>
+      <h2>Ajouter un utilisateur  :</h2>
       <form onSubmit={handleSubmit} className="formRegister">
 
         <div className="form-group-avatar">
@@ -437,18 +437,14 @@ export default function AddUser() {
             </div>
 
             <div className="button">
-              <button type="submit">S'inscrire</button>
+              <button type="submit">Ajouter</button>
             </div>
             {/* <span className="success">{success}</span> */}
           </div>
-
         </div>
-
-        <button type="submit">S'inscrire</button>
-        <span className="success">{success}</span>
-      </div>
+      </form >
       <ConditionalNavLinks isAdmin={isAdmin} />
-    </form>
+    </div>
   );
 }
 

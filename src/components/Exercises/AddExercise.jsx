@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {EXERCISES_API}from '../API/apiAdminExercises';
 import './AddExercise.scss';
+import '../../../sass/_index.scss'
 
 export default function AddExercise() {
   const [formData, setFormData] = useState({
