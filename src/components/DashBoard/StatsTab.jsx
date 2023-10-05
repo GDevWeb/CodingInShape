@@ -32,3 +32,5 @@ export default function StatsTab(props) {
     </div>
   );
 }
+
+/*📖 Composant du dashBoard - Résumé de nombre de user - admin - bannis etc ... 📖*/

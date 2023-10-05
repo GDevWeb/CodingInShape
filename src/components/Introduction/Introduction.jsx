@@ -37,3 +37,5 @@ export default function Introduction() {
     </div>
   );
 }
+
+/*📖Simple composant stateless contenant avec un texte d'introduction📖*/

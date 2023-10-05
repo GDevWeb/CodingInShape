@@ -1,9 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { USER_SIGNUP } from "../API/apiUser";
+import CGU from "../CGU/CGU";
 import "./SignUpForm.scss";
 
 export default function SignUpForm() {
+  // State CGU :
+  const [cguAcceptation, setCguAcception] = useState(false);
+  const [showCgu, setShowCgu] = useState(false);
+
+  // Pour gérer le message de succès si tous les inputs sont valides :
+  const [success, setSuccess] = useState("");
+
   const [formData, setFormData] = useState({
     sex: "",
     firstName: "",
@@ -18,9 +26,6 @@ export default function SignUpForm() {
     isAdmin: false,
     isBan: false,
   });
-
-  // Pour gérer le message de succès si tous les inputs sont valides :
-  const [success, setSuccess] = useState("");
 
   // Pour gérer les messages d'erreurs dans le formulaire selon l'input :
   const [errors, setErrors] = useState({
@@ -160,6 +165,18 @@ export default function SignUpForm() {
         securityAnswer: testSecurityAnswer
           ? ""
           : "La réponse à la question secrète doit contenir au moins 3 caractères",
+      }));
+    }
+
+    // 11. Vérification de l'acceptation des Conditions Générales d'utilisation :
+    if (name === "cgu") {
+      const testCgu = e.target.checked;
+      setCguAcception(testCgu);
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        cgu: testCgu
+          ? ""
+          : "Vous devez accepter les Conditions Générales d'utilisation pour vous inscrire",
       }));
     }
   };
@@ -455,11 +472,36 @@ export default function SignUpForm() {
             <button type="submit">S'inscrire</button>
           </div>
           {/* <span className="success">{success}</span> */}
+
+          <div className="form-group">
+            <label htmlFor="CGU">
+              Conditions Générales d'utilisation (C.G.U)
+            </label>
+
+            <input
+              checked={cguAcceptation}
+              onChange={(e) => setCguAcception(e.target.checked)}
+              type="checkbox"
+              name="cgu"
+              id="cgu"
+            />
+            <span className="error">{errors.cgu}</span>
+          </div>
         </div>
 
-      </div>
-
-    </form>
+        <button type="submit">S'inscrire</button>
+        <span className="success">{success}</span>
+      </form>
+      <button onClick={() => setShowCgu(!showCgu)}>
+        {showCgu ? "Cacher CGU" : "Afficher CGU"}
+        </button>
+        
+        <div className="modal_cgu">
+        {showCgu && 
+          <CGU />}
+          </div>
     </div>
   );
 }
+
+/*📖Composant formulaire d'inscription contenant la CGU📖*/

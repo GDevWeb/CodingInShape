@@ -1,4 +1,3 @@
-// Dans usePagination.js
 import { useState } from "react";
 
 function usePagination(data, itemsPerPage) {

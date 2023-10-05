@@ -1,0 +1,14 @@
+.userProfile_container{
+    background-color: orange;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    .serProfile{
+        background-color: green;
+        width: 100%;
+    }
+
+}

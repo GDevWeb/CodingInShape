@@ -1,63 +1,25 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { USER_PROFIL } from "../API/apiUser";
 import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 import Card from "../Card/Card";
 import '../../../sass/pages.scss'
 
 export default function ExercisesPage() {
-  // État local :
-  const [userData, setUserData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isAdminLoaded, setAdminLoaded] = useState(false);
+  // Redux :
+  const token = useSelector((state) => state.auth.token);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const userData = useSelector((state) => state.auth.userData);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
 
   // Navigation :
   const navigate = useNavigate();
 
-  // Redux :
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const token = useSelector((state) => state.auth.token);
-
+  // Contrôle de l'état authentifié :
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        if (!isAuthenticated) {
-          navigate("/login");
-          return;
-        }
-
-        const response = await fetch(`${USER_PROFIL}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          credentials: "include",
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setUserData(data.userData);
-
-          // Mise à jour de l'état local isAdmin
-          setIsAdmin(data.userData.isAdmin);
-          setAdminLoaded(true);
-
-          setIsLoading(false);
-        } else {
-          console.error("Impossible de récupérer les données de l'utilisateur.");
-          setIsLoading(false);
-          navigate("/login");
-        }
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données de l'utilisateur :", error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchUserData();
+    if (!isAuthenticated) {
+      navigate("/login");
+    }
   }, [isAuthenticated, token, navigate]);
 
   return (
@@ -84,7 +46,12 @@ export default function ExercisesPage() {
         </div>
       )}
 
-      <ConditionalNavLinks isAdminLoaded={isAdminLoaded} isAdmin={isAdmin} />
+      <ConditionalNavLinks isAdmin={isAdmin} />
     </>
   );
 }
+
+/*📖 Composant admin et user - Exercises
+Lien vers la liste des exercices
+Routine aléatoire
+📖*/

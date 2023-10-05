@@ -19,3 +19,8 @@ export default function useUserFilter(userData, filterText) {
     filteredUsers,
   };
 }
+
+/* 📝 Slice pour l'authentification de user 📝:
+📝Filtres utilisé dans Admin > DashBoard> Liste des utilisateurs "UserList" 
+*/
+

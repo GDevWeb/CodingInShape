@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { EXERCISES_API } from '../API/apiAdminExercises';
+import { EXERCISES_API } from "../API/apiAdminExercises";
 import Spinner from "../../assets/icons/spinner.svg";
 import { setUserData } from "../../../redux/slices/authSlice";
 import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
@@ -14,7 +14,7 @@ export default function ExerciseList() {
 
   // Redux :
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const token = useSelector((state) => state.auth.token)
+  const token = useSelector((state) => state.auth.token);
   const isAdmin = useSelector((state) => state.auth.isAdmin);
   const dispatch = useDispatch();
 
@@ -68,7 +68,7 @@ export default function ExerciseList() {
     };
 
     fetchExercises();
-  }, [navigate, isAuthenticated, dispatch]);
+  }, [token, isAuthenticated, dispatch, navigate]);
 
   // Filtres :
   const filterExercises = (exercises, filterOptions) => {
@@ -156,8 +156,12 @@ export default function ExerciseList() {
             <Link to={`/exercise-detail/${exercise._id}`}>Voir détail de l'exercice</Link>
             {isAdmin && (
               <>
-                <Link to={`/update-exercise/${exercise._id}`}>Modifier l'exercice</Link>
-                <Link to={`/delete-exercise/${exercise._id}`}>Supprimer l'exercice</Link>
+                <Link to={`/update-exercise/${exercise._id}`}>
+                  Modifier l'exercice
+                </Link>
+                <Link to={`/delete-exercise/${exercise._id}`}>
+                  Supprimer l'exercice
+                </Link>
               </>
             )}
           </li>
@@ -200,3 +204,6 @@ export default function ExerciseList() {
     </div>
   );
 }
+/*📖 Composant admin - Exercises
+Lire la liste des exercises
+📖*/

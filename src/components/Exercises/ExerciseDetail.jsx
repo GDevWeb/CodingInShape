@@ -90,3 +90,7 @@ export default function ExerciseDetail() {
     </div>
   );
 }
+
+/*📖 Composant admin - Exercises
+Supprimer un exercise
+📖*/

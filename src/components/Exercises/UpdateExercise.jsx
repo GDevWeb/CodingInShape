@@ -324,3 +324,7 @@ export default function UpdateExercise() {
     </div>
   );
 }
+
+/*📖 Composant admin et user - Exercises
+Update Exercise
+📖*/

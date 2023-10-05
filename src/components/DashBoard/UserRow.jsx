@@ -75,4 +75,9 @@ UserRow.propTypes = {
   handleDeleteUser: PropTypes.func.isRequired,
 };
 
-//finir admin/updateUser
+/*📖 Composant admin - User 
+Row du dashBoard - contient les différents commandes de gestion de l'état de user :
+passer administrateur
+banni - débanni
+supprimer le compte
+📖*/

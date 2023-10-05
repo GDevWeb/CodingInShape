@@ -3,29 +3,26 @@ import Card from '../Card/Card';
 import './ExerciseManagementPage.scss'
 
 export default function ExerciseManagement() {
-
-
   return (
     <div className='ExerciseManagementPageContainer'>
       <h1>Exercise Management</h1>
 
-      <Card 
+      <Card
         title={"Liste des exercices"}
         content={"Accéder à la liste des exercices"}
         link={"/exercises-list"}
       />
 
-
-    <Card 
-
-      title={"Ajouter un exercice"}
-      content={"Accéder au formulaire d'ajout d'exercice"}
-      link={"/add-exercise"}
-    
-    />
+      <Card
+        title={"Ajouter un exercice"}
+        content={"Accéder au formulaire d'ajout d'exercice"}
+        link={"/add-exercise"}
+      />
 
       <Link to={"/dashboard"}>Retour au dashboard</Link>
 
     </div>
   );
 }
+
+/*📖 Page - Composant accueillant des links vers le CRUD (READ - Create) des exercises 📖*/

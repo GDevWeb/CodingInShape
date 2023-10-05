@@ -5,3 +5,5 @@ export const BAN_USER_API = (userId) => `${USERS_API}/ban/${userId}`;
 export const UNBAN_USER_API = (userId) => `${USERS_API}/unban/${userId}`;
 export const ADMIN_USER_API = (userId) => `${USERS_API}/admin/${userId}`;
 export const UNADMIN_USER_API = (userId) => `${USERS_API}/unadmin/${userId}`;
+
+/**📖Routes pour admin / users - Gestion de user 📖*/
