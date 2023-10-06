@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
-import Card from "../Card/Card";
+import {Link} from 'react-router-dom';
+import Card from '../Card/Card';
+import './ExerciseManagementPage.scss'
 
 export default function ExerciseManagement() {
   return (
-    <>
+    <div className='ExerciseManagementPageContainer'>
       <h1>Exercise Management</h1>
 
       <Card
@@ -19,7 +20,8 @@ export default function ExerciseManagement() {
       />
 
       <Link to={"/dashboard"}>Retour au dashboard</Link>
-    </>
+
+    </div>
   );
 }
 

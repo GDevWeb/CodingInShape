@@ -5,6 +5,7 @@ import useUserFilter from "../Hooks/useUserFilter";
 import usePagination from "../Hooks/usePagination";
 import UserRow from "./UserRow";
 import "../../../src/main.scss";
+import './UserManagement.scss'
 
 // Import des composants locaux :
 import Spinner from "../../assets/icons/spinner.svg";
@@ -287,7 +288,7 @@ export default function UserManagement() {
   };
 
   return (
-    <>
+    <div className="UserManagementContainer">
       {isLoading && <img src={Spinner} alt="Chargement en cours" />}
       {/* Affichage du titre et des statistiques */}
       <h2>Liste des utilisateurs</h2>
@@ -332,23 +333,22 @@ export default function UserManagement() {
         </tbody>
       </table>
       {/* Buttons de pagination : */}
-      <div>
-        <button
-          onClick={() => setPage(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span>
-          page {currentPage} sur {lastPage}
-        </span>
-        <button
-          onClick={() => setPage(currentPage + 1)}
-          disabled={currentPage === lastPage}
-        >
-          Next
-        </button>
+
+      <div className="ButtonContainer">
+
+        <div className="buttonList">
+
+          <button onClick={() => setPage(currentPage - 1)} disabled={currentPage === 1}>
+            Previous
+          </button>
+          <span>page {currentPage} sur {lastPage}</span>
+          <button onClick={() => setPage(currentPage + 1)} disabled={currentPage === lastPage} className="ButtonPage">
+            Next
+          </button>
+        </div>
+
       </div>
+
       {/* Affichage des messages de succès et d'erreurs */}
       <div className="success-message">
         {successMessage && <p>{successMessage}</p>}
@@ -356,8 +356,11 @@ export default function UserManagement() {
       <div className="server-error">
         {serverErrors && <p>{serverErrors}</p>}
       </div>
-      <Link to={"/dashboard"}>Retour au dashboard</Link>
-    </>
+
+      <div className="linkContainer">
+        <Link to={"/dashboard"} className="Return">Retour au dashboard</Link>
+      </div>
+    </div>
   );
 }
 

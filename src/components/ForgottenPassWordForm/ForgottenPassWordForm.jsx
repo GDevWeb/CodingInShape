@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./ForgottenPassWordForm.scss";
 
@@ -19,7 +19,7 @@ export default function ForgottenPassWordForm() {
     securityAnswer: "",
   });
 
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -114,7 +114,7 @@ export default function ForgottenPassWordForm() {
       } else {
         alert(data.error);
       }
-      
+
     } catch (error) {
       // console.log(error);
       setSuccess("Une erreur est survenue, veuillez réessayer");
@@ -122,9 +122,11 @@ export default function ForgottenPassWordForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="formRegister">
+    <form onSubmit={handleSubmit} className="formForgotten">
+
       <div className="formRegister__container">
         <h2>Récupération du mot de passe :</h2>
+
 
         <div className="form-group-one">
           <div className="form-group">
@@ -180,22 +182,24 @@ export default function ForgottenPassWordForm() {
           </div>
         </div>
 
-        <button type="submit">Réinitialiser mot de passe</button>
+        <div className="button">
+          <button type="submit">Réinitialiser mot de passe</button>
+        </div>
       </div>
 
-        
+
       {passwordReset ? (
         <div className="passwordResetSuccess">
           <p>Votre nouveau mot de passe est :
-          <span className="generatedPassword">{generatedPassword}</span> 
-           copier le et connectez vous avec !
+            <span className="generatedPassword">{generatedPassword}</span>
+            copier le et connectez vous avec !
           </p>
           <p className="passwordResetSuccess__message">{success}</p>
           <Link to="/login" className="linkTo">Se connecter</Link>
         </div>
-        
+
       ) : null}
-        
-        </form>
+
+    </form>
   );
 }

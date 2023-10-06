@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 import Card from "../Card/Card";
+import './DashBoardPage.scss'
 
 export default function DashboardPage() {
   // Redux :
@@ -28,7 +29,7 @@ export default function DashboardPage() {
   }, [isAuthenticated, isAdmin, navigate, dispatch]);
 
   return (
-    <>
+    <div className="dashBoardContainer">
       {userData && (
         <>
           <h1>
@@ -58,14 +59,17 @@ export default function DashboardPage() {
               "Accéder à la liste des messages provenant des utilisateurs"
             }
             link="/dashboard"
-            //  à venir
+          //  à venir
           />
         </>
+      
       )}
 
       <ConditionalNavLinks isAdmin={isAdmin} />
-    </>
+    </div >
   );
 }
 
 /*📖 Composant accueillant des links vers le CRUD user et exercises 📖*/
+
+// et ben jena lee je te remercie beaucoup ;o) ... Olivier

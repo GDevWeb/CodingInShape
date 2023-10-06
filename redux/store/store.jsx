@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from '../slices/authSlice'; 
+import authReducer from '../slices/AuthSlice'; 
 import userReducer from '../slices/userSlice';
 import exerciseReducer from '../slices/exerciseSlice';
 import thunkMiddleware from 'redux-thunk';

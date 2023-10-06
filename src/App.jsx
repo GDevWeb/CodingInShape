@@ -30,13 +30,15 @@ import UserSettings from "./components/MyAccount/UserSettings";
 
 
 
+
 function App() {
   return (
     <BrowserRouter>
     <Provider store={store}>
       <div className="wrapper">
         <NavBar />
-        <Header />
+        {/* <Header /> */}
+        
         <main>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -63,6 +65,7 @@ function App() {
 
             <Route path="*" element={<NotFound />} />
           </Routes>
+          
         </main>
         <Footer />
       </div>

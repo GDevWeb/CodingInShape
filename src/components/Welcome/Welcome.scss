@@ -5,44 +5,69 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 5rem;
-
-  h1, h2 {
+  margin: 0 auto;
+  padding: 0 20rem;
+  margin-bottom: 20px;
+  height: 80vh;
+  h1,
+  h2 {
     margin-top: 1rem;
+    cursor: default;
   }
 
   p {
     margin-top: 2rem;
     line-height: 3rem;
+    cursor: default;
   }
 
   .buttons {
-    margin-top: 8rem;
+    height: 15rem;
+    display: flex;
+    background-color: rgba(16, 141, 213, 0.431);
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px auto;
+    border-radius: 15px;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    box-shadow: 2px 2px 2px black;
+    
   }
-
+  @media screen and (max-width: 768px) {
+    .buttons{
+     width: 100%;
+      margin: 0;
+    }
+  }
   //style des Link
   .createAccountLink,
   .FormConnexion {
-    background-color: $color-success;
-    color: $quaternary-color;
-    padding: 10px;
-    margin: 0 100px;
-    border-radius: 5px;
-    text-decoration: none;
+    padding: 2rem;
+    margin: 2rem 10rem;
+   border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.366);
+    border-radius: 15px;
 
     &:hover {
-      background-color: lighten($color-success, 10%);
+      color: aliceblue;
+      overflow: hidden;
+      background-color: black;
+      text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.324);
+      border: 1px outset black;
+     
     }
   }
-
   @media screen and (max-width: 768px) {
-
     .createAccountLink,
-    .FormConnexion {
-      display: flex;
-      justify-content: center;
-      margin: 10px 0; // Ajustement de la marge pour une meilleure disposition
-      width: 100%; // Pleine largeur pour les écrans mobiles
-    }
+  .FormConnexion {
+    width: 100%;
+    margin: 0 10px;
+  }
+  }
+} 
+@media screen and (max-width: 768px) {
+  .welcomePage{
+    padding: 1rem;
   }
 }

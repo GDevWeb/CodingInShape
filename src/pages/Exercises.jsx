@@ -1,5 +1,6 @@
 import ExercisePage from '../components/Exercises/ExercisesPage';
 import Introduction from '../components/Introduction/Introduction';
+import '../../sass/pages.scss'
 
 export default function Exercises() {
   return (

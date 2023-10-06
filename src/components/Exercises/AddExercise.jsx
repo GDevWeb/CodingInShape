@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { EXERCISES_API } from "../API/apiAdminExercises";
+import {EXERCISES_API}from '../API/apiAdminExercises';
+import './AddExercise.scss';
+import '../../../sass/_index.scss'
 
 export default function AddExercise() {
   const [formData, setFormData] = useState({
@@ -160,7 +162,7 @@ export default function AddExercise() {
   };
 
   return (
-    <>
+    <div className="addExerciseContainer">
       <h2>Ajouter un exercice</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -177,14 +179,15 @@ export default function AddExercise() {
 
         <div className="form-group">
           <label htmlFor="description">Description</label>
+          <div className="textareaContainer">
           <textarea
             id="description"
             name="description"
             value={formData.description}
             onChange={handleChange}
-            cols={50}
-            rows={25}
+         
           />
+          </div>
           {errors.description && (
             <p className="form-error">{errors.description}</p>
           )}
@@ -247,7 +250,7 @@ export default function AddExercise() {
       </form>
       <Link to={"/dashboard"}>Retour au dashboard</Link>
       <Link to={"/exercise-management"}>Retour à gestion des exercices</Link>
-    </>
+    </div>
   );
 }
 /*📖 Composant admin - Exercises

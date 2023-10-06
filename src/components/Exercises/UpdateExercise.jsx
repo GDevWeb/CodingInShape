@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector} from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { EXERCISES_API } from "../API/apiAdminExercises";
+import './UpdateExercise.scss'
 
 export default function UpdateExercise() {
   const { id } = useParams();
@@ -10,7 +11,6 @@ export default function UpdateExercise() {
     name: "",
     description: "",
     image: "",
-    video: "",
     type: "",
     muscle: "",
   });
@@ -30,7 +30,6 @@ export default function UpdateExercise() {
     name: "",
     description: "",
     image: "",
-    video: "",
     type: "",
     muscle: "",
   });
@@ -78,15 +77,6 @@ export default function UpdateExercise() {
       }));
     }
 
-    //04. Vérification du champ video :
-    if (name === "video") {
-      const regexVideoURL = /\.(mp4|avi|mov|mkv|wmv|flv|webm)$/i;
-      const testVideoUrl = regexVideoURL.test(value);
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        video: testVideoUrl ? "" : "L'url de la vidéo n'est pas valide",
-      }));
-    }
 
     //05. Vérification du champ type d'exercice :
     if (name === "type") {
@@ -154,7 +144,6 @@ export default function UpdateExercise() {
       formData.name &&
       formData.description &&
       formData.image &&
-      formData.video &&
       formData.type &&
       formData.muscle &&
       Object.values(errors).every((error) => error === "");
@@ -171,7 +160,6 @@ export default function UpdateExercise() {
       name: formData.name,
       description: formData.description,
       image: formData.image,
-      video: formData.video,
       type: formData.type,
       muscle: formData.muscle,
     };
@@ -201,7 +189,6 @@ export default function UpdateExercise() {
           name: "",
           description: "",
           image: "",
-          video: "",
           type: "",
           muscle: "",
         });
@@ -220,7 +207,7 @@ export default function UpdateExercise() {
   };
 
   return (
-    <>
+    <div className="updateExerciseContainer">
       <h2>Modifier l'exercice {useParams.name}</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -269,18 +256,6 @@ export default function UpdateExercise() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="video">Video</label>
-          <input
-            type="text"
-            id="video"
-            name="video"
-            value={formData.video}
-            onChange={handleChange}
-          />
-          {errors.video && <p className="form-error">{errors.video}</p>}
-        </div>
-
-        <div className="form-group">
           <label htmlFor="type">Type d'exercice</label>
           <select
             value={formData.type}
@@ -320,7 +295,7 @@ export default function UpdateExercise() {
       <Link to={"/dashboard"}>Retour au dashboard</Link>
       <Link to={"/exercise-management"}>Retour à gestion des exercices</Link>
       <Link to={"/exercises-list"}>Retour à la liste des exercices</Link>
-    </>
+    </div>
   );
 }
 

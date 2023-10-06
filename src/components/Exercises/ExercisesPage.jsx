@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 import Card from "../Card/Card";
+import '../../../sass/pages.scss'
 
 export default function ExercisesPage() {
   // Redux :
@@ -24,7 +25,7 @@ export default function ExercisesPage() {
   return (
     <>
       {userData && (
-        <>
+        <div className="ContainerCardsExercices">
           <Card
             title={"Liste des exercices"}
             content={"Retrouvez la liste des exercices"}
@@ -42,7 +43,7 @@ export default function ExercisesPage() {
             link={"/get-random-routine"}
             textLink={"Démarrer la routine"}
           />
-        </>
+        </div>
       )}
 
       <ConditionalNavLinks isAdmin={isAdmin} />

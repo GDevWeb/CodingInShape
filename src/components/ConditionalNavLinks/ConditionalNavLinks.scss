@@ -1,0 +1,14 @@
+.containerLink{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+   .linkTo{
+    font-size: 2rem;
+    &:hover{
+        color: white;
+        text-shadow: 2px 2px 2px rgb(110, 109, 109);
+        transform: scale(1.5);
+        transition: all 0.5s ease;
+    }
+   }
+}

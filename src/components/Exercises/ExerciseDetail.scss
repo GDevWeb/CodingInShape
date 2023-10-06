@@ -1,0 +1,27 @@
+.exerciseDetailContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+   text-align: center;
+    margin: 5rem;
+    h2{
+        font-size: 3rem;
+        margin-bottom: 2rem;
+    }
+    .exerciseDetail{
+       
+        margin: 2rem;
+        p{
+            padding: 1rem 2rem;
+          font-size: 2rem;
+            
+        }
+        img{
+            margin-top: 2rem;
+            border-radius: 10px;
+            margin-bottom: 5rem;
+        }
+    }
+}

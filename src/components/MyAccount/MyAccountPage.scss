@@ -1,0 +1,70 @@
+@import '../../../sass/index.scss';
+
+.myAccountContainer {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 100%;
+
+    .my-account-page {
+        img{
+            border-radius: 15px;
+            width: 200px;
+            &:hover{
+                transform: scale(1.8);
+                transition: all 1s ease-in-out;
+            }
+        }
+h1{
+    em{
+        color: black;
+        text-transform: capitalize;
+        font-size: 4rem;    
+        margin-left: 5px;
+    }
+}
+        text-align: center;
+        color: rgb(255, 255, 255);
+
+        button {
+            background-color: rgba(127, 255, 212, 0.75);
+            width: 50%;
+            height: 40px;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 20px 0 20px 0;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            border: none;
+            border-left: 1px solid #000;
+            border-top: 2px solid rgb(252, 252, 252);
+            border-left: 2px solid rgb(255, 255, 255);
+            box-shadow: 2px 2px 2px rgb(8, 0, 0);
+            &:hover {
+                background: linear-gradient(135deg, rgba(6, 237, 237, 0.572),  rgba(13, 36, 206, 0.572));
+                border-top: 2px solid rgb(9, 8, 8);
+                border-left: 2px solid rgb(0, 0, 0);
+                box-shadow: 2px 2px 2px rgb(255, 255, 255);
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.cardsContainer {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    height: 50vh;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 100px;
+
+}
+@media screen and (max-width: 900px) {
+    .cardsContainer {
+        height: 90vh;
+    }
+}
