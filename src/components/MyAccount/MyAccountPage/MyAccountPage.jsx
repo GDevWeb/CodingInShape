@@ -131,6 +131,7 @@ export default function MyAccountPage() {
             textLink={"Accéder au dashboard"}
           />
         )}
+        
         <ConditionalNavLinks 
         isAdmin={isAdmin}
         />

@@ -14,7 +14,6 @@ export default function AddExercise() {
 
   // Redux :
   const token = useSelector((state) => state.auth.token);
-  const isAdmin = useSelector((state) => state.auth.isAdmin);
 
   // Pour gérer le message de succès si tous les inputs sont valides :
   const [success, setSuccess] = useState("");

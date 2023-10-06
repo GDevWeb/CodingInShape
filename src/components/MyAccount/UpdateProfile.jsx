@@ -7,13 +7,11 @@ import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 
 export default function UpdateProfile() {
 
-
   // Redux :
   const token = useSelector((state) => state.auth.token);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const isAdmin = useSelector((state) => state.auth.isAdmin);
   const userId = useSelector((state) => state.auth.userData?.id);
-  console.log(userId);
 
   // Redirection :
   const navigate = useNavigate();
