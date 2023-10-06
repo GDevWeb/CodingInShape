@@ -1,73 +1,82 @@
-@import '../../../sass/index.scss';
+// welcomePage.scss
+@import "../../../sass/variables.scss";
 
 .welcomePage {
-  text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin: 0 auto;
-  padding: 0 20rem;
-  margin-bottom: 20px;
+  justify-content: space-evenly;
+  align-items: center;
   height: 80vh;
-  h1,
-  h2 {
-    margin-top: 1rem;
-    cursor: default;
-  }
+  margin-bottom: 2rem;
 
-  p {
-    margin-top: 2rem;
-    line-height: 3rem;
-    cursor: default;
-  }
-
-  .buttons {
-    height: 15rem;
-    display: flex;
-    background-color: rgba(16, 141, 213, 0.431);
-    justify-content: space-around;
-    align-items: center;
-    margin: 10px auto;
-    border-radius: 15px;
-    border-top: 2px solid white;
-    border-left: 2px solid white;
-    box-shadow: 2px 2px 2px black;
-    
-  }
-  @media screen and (max-width: 768px) {
-    .buttons{
-     width: 100%;
-      margin: 0;
+  .welcomeTitle{
+    flex-basis: fill;
+    h1,
+    h2 {
+      text-align: center;
+      text-transform: uppercase;
+      margin-top: 1rem;
     }
   }
-  //style des Link
-  .createAccountLink,
+
+  .welcomeText {
+    flex-basis: 22%;
+    width: 80%;
+    padding: 1rem;
+    background-color: rgba(16, 141, 213, 0.431);
+    border-radius: 0.5rem;
+    box-shadow: outset 0.25rem 0.25rem 0.25rem $color-white-theme;
+
+    p {
+      text-align: left;
+      margin: 0.5rem auto;
+      line-height: 3rem;
+    }
+  }
+
   .FormConnexion {
     padding: 2rem;
     margin: 2rem 10rem;
-   border-radius: 10px;
+    border-radius: 1rem;
     background-color: rgba(255, 255, 255, 0.366);
-    border-radius: 15px;
+    border-radius: 1.5rem;
 
     &:hover {
       color: aliceblue;
       overflow: hidden;
       background-color: black;
-      text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.324);
-      border: 1px outset black;
-     
+      text-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.324);
+      border: 0.1rem outset black;
     }
   }
+
+  .buttons.links-log{
+    flex-basis: 10%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .FormConnexion{
+      padding: 1rem;
+      text-align: center;
+    }
+
+  }
+
   @media screen and (max-width: 768px) {
+    .buttons {
+      width: 100%;
+      margin: 0;
+    }
+
     .createAccountLink,
-  .FormConnexion {
-    width: 100%;
-    margin: 0 10px;
-  }
-  }
-} 
-@media screen and (max-width: 768px) {
-  .welcomePage{
+    .FormConnexion {
+      width: 100%;
+      margin: 0 1rem;
+    }
+
     padding: 1rem;
   }
 }

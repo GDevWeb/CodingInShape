@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { EXERCISES_API } from "../API/apiAdminExercises";
-import Spinner from "../../assets/icons/spinner.svg";
-import { setExerciseData } from "../../../redux/slices/exerciseSlice"; 
+import { EXERCISES_API } from "../../API/apiAdminExercises";
+import Spinner from "../../../assets/icons/spinner.svg";
+import { setExerciseData } from "../../../../redux/slices/exerciseSlice"; 
 import './ExerciseDetail.scss';
 
 export default function ExerciseDetail() {

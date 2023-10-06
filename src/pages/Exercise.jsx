@@ -1,4 +1,4 @@
-import ExerciseDetail from '../components/Exercises/ExerciseDetail'
+import ExerciseDetail from '../components/Exercises/ExerciseDetail/ExerciseDetail'
 
 export default function Exercise() {
   return (

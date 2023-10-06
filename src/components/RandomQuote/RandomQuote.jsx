@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
-import './RandomQuote.scss'
-import twitter from './twitter.png'
-import reload from './refresh_icon.png'
+import { useState } from 'react';
+import './RandomQuote.scss';
+import reload from './refresh_icon.png';
 
 
 const RandomQuote = () => {
@@ -60,7 +59,6 @@ const RandomQuote = () => {
                 <div className="bottom">
                     <div className="author">{quote.author}</div>
                     <div className="icons">
-                        {/* <img src={twitter} alt="" /> */}
                         <img src={reload} onClick={() => { random() }} alt="" />
                     </div>
                 </div>

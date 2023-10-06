@@ -37,7 +37,7 @@ function Navbar() {
           </Link>
         </li>
         <li className="nav__item">
-          <a href="#" className="nav__link">
+          <a href="/exercises" className="nav__link">
             Mes exercices
           </a>
         </li>

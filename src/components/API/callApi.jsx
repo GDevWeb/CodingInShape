@@ -14,8 +14,9 @@ export const callApi = async (args) => {
     if (!response.ok) {
       throw new Error(`Échec de la requête avec le status: ${response.status}`);
     }
-  
+    
     const data = await response.json();
+    console.log(token)
     return { data, status: response.status };
   };
   

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import "./ForgottenPassWordForm.scss";
+// import "./ForgottenPassWordForm.scss";
 
 export default function ForgottenPassWordForm() {
   const [formData, setFormData] = useState({

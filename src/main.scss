@@ -1,12 +1,17 @@
-// Import des fichiers SASS
-@import "../sass/variables";
-@import "../sass/mixins";
-@import "../sass/preset";
+@import "../sass/index";
 
 // Reset CSS
 *, ::before, ::after {
     margin: 0;
     padding: 0;
+}
+
+body {
+    font-size: 1.4rem;
+    background-image: url('/src/assets/background/background_calm.png');
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
 }
 
 // Styles des liens
@@ -15,66 +20,34 @@ li {
 }
 
 a {
-   
     text-decoration: none;
     font-size: 1.6rem;
     font-weight: 700;
 }
 
-// .linkTo{
-//     color: $color-primary;
-//     text-decoration: none;
-//     font-size: 1.6rem;
-//     font-weight: 700;
-// }
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 0 0.5rem;
+}
 
-// // Styles globaux
-// html {
-//     font-size: $base-font-size;
-// }
-
-// body {
-//     height: 100%;
-//     font-size: 1.6rem;
-//     color: $secondary-color;
-//     border-color: $tertiary-color;
-//     background-image: linear-gradient(270deg,#0a0815 0,rgba(10,8,21,0) 4%,rgba(10,8,21,0) 96%,#0a0815)
-
-// }
-
-// // Conteneur principal
-// .wrapper {
-//     justify-content: center;
-//     align-items: center;
-//     max-width: 100%;
-//     margin: 0 auto;
-//     padding: 0.5rem 2rem 0 2rem;
-// }
-
-// // Conteneur principal du contenu
-// main {
-
-//     text-align: center;
-//     margin-top: 5rem;
-//     margin: auto;
-//     width: 100%;
-//     padding: 2rem;
-//     border-radius: 0.5rem;
-// }
+main {
+    flex-grow: 1; 
+    padding: 2rem; 
+}
 
 
-
-
-// .server-error{
-//     font-size: 2rem;
-//     color: $color-danger;
-//     font-weight: bolder;
-// }
+.server-error {
+    font-size: 2rem;
+    color: $color-danger; 
+    font-weight: bolder;
+}
 
 // Pied de page
 footer {
-    position: absolute;
-    bottom: auto;
+    position: fixed;
+    bottom: 0;
     left: 0;
     display: flex;
     justify-content: center;
@@ -83,7 +56,5 @@ footer {
     height: 10vh;
     background-color: rgba(245, 245, 220, 0.298);
     border-radius: 0.5rem;
-    border-top: 2px solid white;
+    border-top: 2px solid $color-white-theme;
 }
-
-// // welcome page

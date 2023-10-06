@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { EXERCISES_API } from "../API/apiAdminExercises";
-import Spinner from "../../assets/icons/spinner.svg";
-import { setUserData } from "../../../redux/slices/authSlice";
-import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
+import { EXERCISES_API } from "../../API/apiAdminExercises";
+import Spinner from "../../../assets/icons/spinner.svg";
+import { setUserData } from "../../../../redux/slices/authSlice";
+import ConditionalNavLinks from "../../ConditionalNavLinks/ConditionalNavLinks";
 import './ExerciseList.scss'
 
 export default function ExerciseList() {

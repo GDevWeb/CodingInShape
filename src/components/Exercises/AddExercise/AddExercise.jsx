@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
-import { useSelector} from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { EXERCISES_API } from "../API/apiAdminExercises";
-import './UpdateExercise.scss'
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import {EXERCISES_API}from '../../API/apiAdminExercises';
+import './AddExercise.scss';
+import '../../../../sass/_index.scss'
 
-export default function UpdateExercise() {
-  const { id } = useParams();
-
+export default function AddExercise() {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -15,15 +14,11 @@ export default function UpdateExercise() {
     muscle: "",
   });
 
-  // Pour gérer le message de succès si tous les inputs sont valides :
-  const [success, setSuccess] = useState("");
-  
-  //   Pour gérer les messages d'erreur server :
-  const [serverErrors, setServerErrors] = useState("");
-
   // Redux :
   const token = useSelector((state) => state.auth.token);
-  const isAdmin = useSelector((state) => state.auth.isAdmin);
+
+  // Pour gérer le message de succès si tous les inputs sont valides :
+  const [success, setSuccess] = useState("");
 
   // Pour gérer les messages d'erreurs dans le formulaire selon l'input :
   const [errors, setErrors] = useState({
@@ -77,7 +72,6 @@ export default function UpdateExercise() {
       }));
     }
 
-
     //05. Vérification du champ type d'exercice :
     if (name === "type") {
       const regexType = /^.{3,}$/; // Au moins 3 caractères
@@ -101,41 +95,6 @@ export default function UpdateExercise() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        if (!isAdmin) {
-          navigate("/login");
-          return;
-        }
-
-        const response = await fetch(`${EXERCISES_API}/${id}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          credentials: "include",
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setFormData(data);
-        } else {
-          console.error(
-            "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",
-            response.status
-          );
-          setServerErrors("Impossible d'obtenir les données de l'utilisateur");
-        }
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-        setServerErrors("Erreur lors de la récupération des données");
-      }
-    };
-
-    fetchUserData();
-  }, [isAdmin, token,id, navigate]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -153,8 +112,6 @@ export default function UpdateExercise() {
       return;
     }
 
-    setSuccess("Exercice modifié avec succès");
-
     // Création d'un objet contenant les données du formulaire à envoyer au serveur :
     const requestData = {
       name: formData.name,
@@ -164,13 +121,10 @@ export default function UpdateExercise() {
       muscle: formData.muscle,
     };
 
-    // Envoi de la requête au serveur :
-    console.log("Token obtenu :", token);
-
     try {
-      // Envoi de la requête PUT au serveur
-      const response = await fetch(`${EXERCISES_API}/${id}`, {
-        method: "PUT",
+      // Envoi de la requête POST au serveur
+      const response = await fetch(`${EXERCISES_API}`, {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -183,7 +137,8 @@ export default function UpdateExercise() {
         // La requête a réussi (statut 200 OK)
         const responseData = await response.json();
         console.log("Réponse du serveur :", responseData);
-        setServerErrors(responseData);
+        setSuccess(responseData.msg)
+
         // On vide le formulaire :
         setFormData({
           name: "",
@@ -193,9 +148,8 @@ export default function UpdateExercise() {
           muscle: "",
         });
 
-        // On redirige l'utilisateur vers la liste des exercices :
         setTimeout(() => {
-          navigate("/exercises-list");
+          navigate("/exercise-management");
         }, 3000);
       } else {
         console.error("Échec de la requête :", response.statusText);
@@ -207,8 +161,8 @@ export default function UpdateExercise() {
   };
 
   return (
-    <div className="updateExerciseContainer">
-      <h2>Modifier l'exercice {useParams.name}</h2>
+    <div className="addExerciseContainer">
+      <h2>Ajouter un exercice</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Nom</label>
@@ -220,6 +174,22 @@ export default function UpdateExercise() {
             onChange={handleChange}
           />
           {errors.name && <p className="form-error">{errors.name}</p>}
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
+          <div className="textareaContainer">
+          <textarea
+            id="description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+         
+          />
+          </div>
+          {errors.description && (
+            <p className="form-error">{errors.description}</p>
+          )}
         </div>
 
         <div className="form-group">
@@ -239,20 +209,6 @@ export default function UpdateExercise() {
             onChange={handleChange}
           />
           {errors.image && <p className="form-error">{errors.image}</p>}
-        </div>
-        <div className="form-group">
-          <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            cols={50}
-            rows={25}
-          />
-          {errors.description && (
-            <p className="form-error">{errors.description}</p>
-          )}
         </div>
 
         <div className="form-group">
@@ -288,17 +244,14 @@ export default function UpdateExercise() {
           <span className="error">{errors.muscle}</span>
         </div>
 
-        <button type="submit">Modifier</button>
+        <button type="submit">Ajouter</button>
         {success && <p className="form-success">{success}</p>}
-        {/* <p>{serverErrors}</p> */}
       </form>
       <Link to={"/dashboard"}>Retour au dashboard</Link>
       <Link to={"/exercise-management"}>Retour à gestion des exercices</Link>
-      <Link to={"/exercises-list"}>Retour à la liste des exercices</Link>
     </div>
   );
 }
-
-/*📖 Composant admin et user - Exercises
-Update Exercise
+/*📖 Composant admin - Exercises
+Ajouter un exercise
 📖*/

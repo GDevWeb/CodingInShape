@@ -1,0 +1,29 @@
+// Mixin pour afficher en mode flex
+@mixin flex($direction: row, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+// Mixin pour centrer horizontalement et verticalement un élément en mode flex
+@mixin center-flex {
+    @include flex(column, center, center);
+}
+
+// Mixin pour aligner les éléments horizontalement en mode flex
+@mixin flex-horizontal-center {
+    @include flex(row, center, center);
+}
+
+// Mixin pour aligner les éléments verticalement en mode flex
+@mixin flex-vertical-center {
+    @include flex(column, center, center);
+}
+
+// Mixin pour créer un conteneur flex avec un espacement uniforme entre les éléments
+@mixin flex-space-between {
+    @include flex(row, space-between, center);
+}
+
+// Ajoutez d'autres mixins au besoin

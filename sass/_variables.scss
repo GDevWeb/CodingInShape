@@ -1,30 +1,16 @@
-// contents colors, polices, margin ... 
+$color-danger: #dc3545;
+$color-success: #28a745;
+$color-warning: #ffc107;
+$color-orange: #ffa500;
+$color-info: #17a2b8;
+$color-primary: #007bff;
+$color-secondary: #6c757d;
 
+// ThemeColor : 
+$color-blue-theme : #6DBFF4;
+$color-black-theme : #121212;
+$color-grey-theme : #909090;
+$color-white-theme : #F6F2F2;
 
-// palette_blue : 
-// $primary-color : #50A5B1;
-// $shade-primary-color : rgba(150, 251, 87, 0.60);
-// $secondary-color : #121212;
-// $tertiary-color : #909090;
-// $quaternary-color : #F6F2F2;
-
-// palette_red :
-// $primary-color : #E73725;
-// $secondary-color : #121212;
-// $tertiary-color : #909090;
-// $quaternary-color : #F6F2F2;
-
-// palette_green :
-$primary-color : #97FB57;
-$shade-primary-color : rgba(150, 251, 87, 0.60);
-$secondary-color : #121212;
-$tertiary-color : #909090;
-$quaternary-color : #F6F2F2;
-
-// fonts : 
-$font-family : 'Roboto', sans-serif;
-$base-font-size : 62.5%; //soit 10px
-
-
-
-
+$font-family: 'Roboto', sans-serif;
+$base-font-size: 62.5%; // équivaut à 10px

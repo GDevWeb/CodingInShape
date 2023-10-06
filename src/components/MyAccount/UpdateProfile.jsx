@@ -4,9 +4,11 @@ import { USER_PROFIL } from "../API/apiUser";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import CircleUser from "../../assets/icons/CircleUser.svg";
 import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
-import './UpdateProfile.scss'
+import "./UpdateProfile.scss";
 
 export default function UpdateProfile() {
+  // Local :
+  const [successMessage, setSuccessMessage] = useState();
 
   // Redux :
   const token = useSelector((state) => state.auth.token);
@@ -16,7 +18,6 @@ export default function UpdateProfile() {
 
   // Redirection :
   const navigate = useNavigate();
-
 
   const [userData, setUserData] = useState({
     sex: "",
@@ -60,7 +61,7 @@ export default function UpdateProfile() {
           sex: "Le champ sex ne peut être vide",
         }));
       } else {
-        const regexSex = /^(homme|femme|autre)$/;
+        const regexSex = /^(homme|femme)$/;
         const testRegexSex = regexSex.test(value);
         setErrors((prevErrors) => ({
           ...prevErrors,
@@ -204,7 +205,6 @@ export default function UpdateProfile() {
             securityQuestion: data.userData.securityQuestion,
             securityAnswer: data.userData.securityAnswer,
           });
-
         } else {
           console.error(
             "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",
@@ -274,7 +274,7 @@ export default function UpdateProfile() {
       }
 
       const response = await fetch(
-        `http://localhost:4000/api/admin/users/${userId}`, 
+        `http://localhost:4000/api/admin/users/${userId}`,
         {
           method: "PUT",
           headers: {
@@ -287,6 +287,7 @@ export default function UpdateProfile() {
       );
 
       if (response.ok) {
+        setSuccessMessage("Utilisateur mis à jour avec succès");
         setServerErrors("Utilisateur mis à jour avec succès");
         setTimeout(() => {
           setServerErrors("");
@@ -321,9 +322,7 @@ export default function UpdateProfile() {
         <h2>Modification des données utilisateur</h2>
 
         <div className="updateContainer">
-
-          <form onSubmit={handleSubmit} >
-
+          <form onSubmit={handleSubmit}>
             <div className="form-group-avatar-update">
               <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
               <img
@@ -344,9 +343,7 @@ export default function UpdateProfile() {
             </div>
 
             <div className="form-group-one-update">
-
               <div className="form-group">
-
                 <label htmlFor="lastName">Nom :</label>
                 <input
                   value={userData.lastName}
@@ -389,8 +386,6 @@ export default function UpdateProfile() {
                 />
                 <span className="error">{errors.age}</span>
               </div>
-
-
 
               <div className="form-group">
                 <label htmlFor="pseudo">Pseudo :</label>
@@ -474,14 +469,11 @@ export default function UpdateProfile() {
                   required
                 />
                 <span className="error">{errors.securityAnswer}</span>
-
               </div>
 
               <div className="form-group-gender">
                 <nav>Sexe :</nav>
                 <div className="gender-title">
-
-
                   <div className="homme">
                     <input
                       type="radio"
@@ -507,32 +499,19 @@ export default function UpdateProfile() {
                     />
                     <label htmlFor="femme">Femme</label>
                   </div>
-
-                  <div className="autre">
-                    <input
-                      type="radio"
-                      id="autre"
-                      name="sex"
-                      value="autre"
-                      checked={userData.sex === "autre"}
-                      onChange={handleChange}
-                      readOnly
-                    />
-                    <label htmlFor="autre">Autre</label>
-                  </div>
                   <span className="error">{errors.sex}</span>
                 </div>
               </div>
             </div>
 
-            <button type="submit">Mettre à jour</button>
+            <div className="buttonContainer">
+              <button type="submit">Mettre à jour</button>
+            </div>
             <span className="success-message">{successMessage}</span>
             <div className="server-error">{serverErrors}</div>
-
-            <ConditionalNavLinks isAdmin={isAdmin} />
-
           </form>
         </div>
+        <ConditionalNavLinks isAdmin={isAdmin} />
       </div>
     </>
   );
