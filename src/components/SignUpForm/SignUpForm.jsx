@@ -476,7 +476,7 @@ export default function SignUpForm() {
               </div>
             </div>
 
-              <div className="container_button">
+              <div className="container_button cgu">
               <button onClick={() => setShowCgu(!showCgu)}>
                 {showCgu ? "Cacher CGU" : "Afficher CGU"}
               </button>

@@ -24,7 +24,8 @@
   }
 }
 
-.formRegister, .modal_cgu {
+.formRegister,
+.modal_cgu {
   background-color: rgba(255, 255, 255, 0.61);
   margin: 1rem 5rem;
   border-top: 0.2rem solid $color-white-theme;
@@ -42,7 +43,7 @@
     padding: 2rem;
     text-align: center;
 
-    input{
+    input {
       width: 50%;
     }
   }
@@ -110,7 +111,6 @@
             outline: none;
             border-bottom-width: 0.3rem;
             @include flex-horizontal-center;
-
           }
 
           label {
@@ -149,7 +149,43 @@
         align-items: center;
         width: 100%;
       }
-      
+
+      .container_button.cgu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 4.5rem;
+        margin: 2.5rem 0;
+
+        button {
+          height: 100%;
+          width: 80%;
+          outline: none;
+          color: #020202;
+          border: none;
+          border-radius: 1rem;
+          font-size: 1.8rem;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 0.3rem;
+          background: linear-gradient(135deg, $color-orange, #ff3c27);
+          background-size: 200% 200%;
+          transition: all 0.3s ease-in-out;
+
+          &:hover {
+            transform: scale(1.05);
+            transition: all 1s ease-in-out;
+            background-position: right center;
+            background: linear-gradient(
+              -135deg,
+              darken($color-orange, 10%),
+              darken(#ff3c27, 10%)
+            ); 
+            letter-spacing: 0.5rem;
+            color: $color-white-theme;
+          }
+        }
+      }
 
       .container_button {
         height: 4.5rem;
@@ -180,11 +216,8 @@
     }
   }
 
-  .modal_cgu_content{
+  .modal_cgu_content {
     padding: 2rem;
-  }
-    
-    .content{
   }
 
   @media screen and (max-width: 43.75rem) {
