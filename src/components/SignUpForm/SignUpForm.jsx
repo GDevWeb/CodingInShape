@@ -401,7 +401,7 @@ export default function SignUpForm() {
               </div>
 
               <div className="form-group securityQuestion">
-                <label htmlFor="securityQuestion">Question de sécurité</label>
+                <label htmlFor="securityQuestion">Question:</label>
                 <select
                   value={formData.securityQuestion}
                   onChange={handleChange}
@@ -443,7 +443,7 @@ export default function SignUpForm() {
 
             <div className="form-group gender">
               <div className="genderTitle">
-                <p>Genre</p>
+                <p>Genre :</p>
               </div>
               <div className="genderCategory">
                 <div className="homme">

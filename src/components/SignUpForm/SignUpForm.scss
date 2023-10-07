@@ -151,6 +151,7 @@
       }
 
       .container_button.cgu {
+        flex-basis: 10%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -160,6 +161,7 @@
         button {
           height: 100%;
           width: 80%;
+          margin: 0.1rem;
           outline: none;
           color: #020202;
           border: none;
@@ -188,12 +190,16 @@
       }
 
       .container_button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-basis: 10%;
         height: 4.5rem;
         margin: 2.5rem 0;
 
         button {
           height: 100%;
-          width: 100%;
+          width: 80%;
           outline: none;
           color: #020202;
           border: none;
