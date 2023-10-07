@@ -1,9 +1,9 @@
 export default function CGU() {
   return (
-    <div>
+    <div className="modal_cgu_content">
       <h1>Conditions Générales d'Utilisation (CGU) de Coding in Shape</h1>
 
-      <h2>Dernière mise à jour : [Date de la dernière mise à jour]</h2>
+      <h2>Dernière mise à jour : Le 07/10/2023</h2>
 
       <div className="acceptation_CGU">
         <h3>1. Acceptation des Conditions d'Utilisation</h3>

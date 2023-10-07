@@ -43,6 +43,20 @@
         }
     }
 
+
+    // Message d'information des validation des inputs et du formulaire:
+    .error{
+        color: $color-orange;
+    }
+    .successMesssage{
+        color: $color-success;
+    }
+
+    .errorMessage{
+        color: $color-danger;
+    }
+
+
     //style des Link
     .createAccountLink,
     .FormConnexion {

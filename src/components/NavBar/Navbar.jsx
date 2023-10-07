@@ -1,41 +1,57 @@
 import { useState } from "react";
-import "./navbar.scss";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import LogButton from "../LogButton/LogButton"
+import "./navbar.scss";
 
-function Navbar() {
-  const [active, setActive] = useState("nav__menu");
-  const [icon, setIcon] = useState("nav__toggler");
-  const navToggle = () => {
-    if (active === "nav__menu") {
-      setActive("nav__menu nav__active");
-    } else setActive("nav__menu");
+export default function Navbar() {
+  const [isActive, setIsActive] = useState(false);
+  const [isToggled, setIsToggled] = useState(false);
 
-    // Icon Toggler
-    if (icon === "nav__toggler") {
-      setIcon("nav__toggler toggle");
-    } else setIcon("nav__toggler");
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  const toggleNavbar = () => {
+    setIsActive(!isActive);
+    setIsToggled(!isToggled);
   };
+
   return (
     <nav className="nav">
       <Link to="/" className="nav__brand">
         Coding In Shape
       </Link>
-      <ul className={active}>
+      <ul className={`nav__menu${isActive ? " nav__active" : ""}`}>
         <li className="nav__item">
-        <Link to="/" className="nav__link">
+          <Link to="/" className="nav__link">
             Accueil
-            </Link>
-        </li>
-        <li className="nav__item">
-        <Link to="/signup" className="nav__link">
-            Inscription
-            </Link>
-        </li>
-        <li className="nav__item">
-          <Link to="/myaccount" className="nav__link">
-          Mon compte
           </Link>
         </li>
+
+        {/* Si non authentifié, affiche Inscription */}
+        {!isAuthenticated && (
+          <li className="nav__item">
+            <Link to="/signup" className="nav__link">
+              Inscription
+            </Link>
+          </li>
+        )}
+
+        <li className="nav__item">
+          <Link to="/myaccount" className="nav__link">
+            Mon compte
+          </Link>
+        </li>
+
+        {/* Si admin, affiche Dashboard */}
+        {isAdmin && (
+          <li className="nav__item">
+            <Link to="/dashboard" className="nav__link">
+              DashBoard
+            </Link>
+          </li>
+        )}
+
         <li className="nav__item">
           <a href="/exercises" className="nav__link">
             Mes exercices
@@ -43,17 +59,20 @@ function Navbar() {
         </li>
         <li className="nav__item">
           <Link to="/contact" className="nav__link">
-          Contact
+            Contact
           </Link>
         </li>
       </ul>
-      <div onClick={navToggle} className={icon}>
+      <div
+        onClick={toggleNavbar}
+        className={`nav__toggler${isToggled ? " toggle" : ""}`}
+      >
         <div className="line1"></div>
         <div className="line2"></div>
         <div className="line3"></div>
       </div>
+
+      <LogButton/>
     </nav>
   );
 }
-
-export default Navbar;

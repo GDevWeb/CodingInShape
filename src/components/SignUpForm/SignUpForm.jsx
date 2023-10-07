@@ -1,117 +1,82 @@
-/*📖Composant formulaire d'inscription contenant la CGU📖*/
-
 import { useState } from "react";
-
 import "./SignUpForm.scss";
-
 import { useNavigate } from "react-router-dom";
-
 import { USER_SIGNUP } from "../API/apiUser";
-
 import CGU from "../CGU/CGU";
+import "../../../sass/_preset.scss";
 
 export default function SignUpForm() {
   // State CGU :
-
-  const [cguAcceptation, setCguAcception] = useState(false);
-
+  const [cguAcceptation, setCguAcceptation] = useState(false);
   const [showCgu, setShowCgu] = useState(false);
 
   // Pour gérer le message de succès si tous les inputs sont valides :
-
-  const [success, setSuccess] = useState("");
-
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [formData, setFormData] = useState({
     sex: "",
-
     firstName: "",
-
     lastName: "",
-
     age: "",
-
     avatar: "",
-
     pseudo: "",
-
     email: "",
-
     password: "",
-
     securityQuestion: "",
-
     securityAnswer: "",
-
     isAdmin: false,
-
     isBan: false,
   });
 
   // Pour gérer les messages d'erreurs dans le formulaire selon l'input :
-
   const [errors, setErrors] = useState({
     sex: "",
-
     firstName: "",
-
     lastName: "",
-
     age: "",
-
     avatar: "",
-
     pseudo: "",
-
     email: "",
-
     password: "",
-
     securityQuestion: "",
-
     securityAnswer: "",
+    cgu: "",
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
 
     setFormData({
       ...formData,
-
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
     });
 
     // Vérifications des inputs :
 
-    if (name === "sexe") {
+    if (name === "sex") {
       if (!value) {
         setErrors((prevErrors) => ({
           ...prevErrors,
-
-          sexe: "Le champ sexe ne peut être vide",
+          sex: "Le champ sexe ne peut être vide",
         }));
       } else {
         const regexSex = /^(homme|femme)$/;
-
         const testRegexSex = regexSex.test(value);
 
         setErrors((prevErrors) => ({
           ...prevErrors,
-
-          sexe: testRegexSex ? "" : "Le champ sexe n'est pas valide",
+          sex: testRegexSex ? "" : "Le champ sexe n'est pas valide",
         }));
       }
     }
 
     //02. Vérification du prénom :
-
     if (name === "firstName") {
       const regexFirstName = /^.{3,}$/; // Au moins 3 caractères
-
       const testFirstName = regexFirstName.test(value);
 
       setErrors((prevErrors) => ({
         ...prevErrors,
-
         firstName: testFirstName
           ? ""
           : "Le prénom doit contenir au moins 3 caractères",
@@ -119,15 +84,12 @@ export default function SignUpForm() {
     }
 
     //03. Vérification du nom :
-
     if (name === "lastName") {
       const regexLastName = /^.{3,}$/; // Au moins 3 caractères
-
       const testLastName = regexLastName.test(value);
 
       setErrors((prevErrors) => ({
         ...prevErrors,
-
         lastName: testLastName
           ? ""
           : "Le nom doit contenir au moins 3 caractères",
@@ -135,43 +97,34 @@ export default function SignUpForm() {
     }
 
     //04. Vérification de l'âge :
-
     if (name === "age") {
       const regexAge = /^[0-9]{2,3}$/; // Au moins 2 chiffres
-
       const testAge = regexAge.test(value);
 
       setErrors((prevErrors) => ({
         ...prevErrors,
-
         age: testAge ? "" : "L'âge doit contenir au moins 2 chiffres",
       }));
     }
 
     // 05.Vérification de l'avatar :
-
     if (name === "avatar") {
-      const regexImgAvatar = /\.(jpeg|jpg|gif|png|bmp|svg|webp)$/i;
-
+      const regexImgAvatar = /\.(jpeg|jpg|gif|png|bmp|svg|webp|jpg)$/i;
       const testImgAvatar = regexImgAvatar.test(value);
 
       setErrors((prevErrors) => ({
         ...prevErrors,
-
         avatar: testImgAvatar ? "" : "L'URL de votre image n'est pas valide",
       }));
     }
 
     //06. Vérification du pseudo :
-
     if (name === "pseudo") {
       const regexPseudo = /^.{3,}$/; // Au moins 3 caractères
-
       const testPseudo = regexPseudo.test(value);
 
       setErrors((prevErrors) => ({
         ...prevErrors,
-
         pseudo: testPseudo
           ? ""
           : "Le pseudo doit contenir au moins 3 caractères",
@@ -179,30 +132,24 @@ export default function SignUpForm() {
     }
 
     //07. Vérification de l'email :
-
     if (name === "email") {
       const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
       const testEmail = regexEmail.test(value);
 
       setErrors((prevErrors) => ({
         ...prevErrors,
-
         email: testEmail ? "" : "L'email n'est pas valide",
       }));
     }
 
     //08. Vérification du mot de passe :
-
     if (name === "password") {
       const regexPassword =
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,12}$/;
-
       const testPassword = regexPassword.test(value);
 
       setErrors((prevErrors) => ({
         ...prevErrors,
-
         password: testPassword
           ? ""
           : "Le mot de passe doit contenir entre 8 et 12 caractères, au moins une majuscule, un chiffre et un caractère spécial",
@@ -210,15 +157,12 @@ export default function SignUpForm() {
     }
 
     //09. Vérification de la question secrète :
-
     if (name === "securityQuestion") {
       const regexSecurityQuestion = /^.{3,}$/; // Au moins 3 caractères
-
       const testSecurityQuestion = regexSecurityQuestion.test(value);
 
       setErrors((prevErrors) => ({
         ...prevErrors,
-
         securityQuestion: testSecurityQuestion
           ? ""
           : "La question secrète doit contenir au moins 3 caractères",
@@ -226,15 +170,12 @@ export default function SignUpForm() {
     }
 
     // 10. Vérification de la réponse à la question secrète :
-
     if (name === "securityAnswer") {
       const regexSecurityAnswer = /^.{3,}$/; // Au moins 3 caractères
-
       const testSecurityAnswer = regexSecurityAnswer.test(value);
 
       setErrors((prevErrors) => ({
         ...prevErrors,
-
         securityAnswer: testSecurityAnswer
           ? ""
           : "La réponse à la question secrète doit contenir au moins 3 caractères",
@@ -242,15 +183,12 @@ export default function SignUpForm() {
     }
 
     // 11. Vérification de l'acceptation des Conditions Générales d'utilisation :
-
     if (name === "cgu") {
-      const testCgu = e.target.checked;
-
-      setCguAcception(testCgu);
+      const testCgu = checked;
+      setCguAcceptation(testCgu);
 
       setErrors((prevErrors) => ({
         ...prevErrors,
-
         cgu: testCgu
           ? ""
           : "Vous devez accepter les Conditions Générales d'utilisation pour vous inscrire",
@@ -264,7 +202,6 @@ export default function SignUpForm() {
     e.preventDefault();
 
     // Vérification de la saisie des inputs :
-
     const isValid =
       formData.sex &&
       formData.firstName &&
@@ -276,111 +213,92 @@ export default function SignUpForm() {
       formData.password &&
       formData.securityQuestion &&
       formData.securityAnswer &&
+      formData.cgu &&
       Object.values(errors).every((error) => error === "");
 
     if (!isValid) {
-      setSuccess("");
-
+      setErrorMessage("Erreur");
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
       return;
     }
 
-    setSuccess("Votre compte a bien été créé");
-
     // Création d'un objet contenant les données du formulaire à envoyer au serveur :
-
     const requestData = {
       sex: formData.sex,
-
       firstName: formData.firstName,
-
       lastName: formData.lastName,
-
       age: formData.age,
-
       avatar: formData.avatar,
-
       pseudo: formData.pseudo,
-
       email: formData.email,
-
       password: formData.password,
-
       securityQuestion: formData.securityQuestion,
-
       securityAnswer: formData.securityAnswer,
-
       isAdmin: formData.isAdmin,
-
       isBan: formData.isBan,
     };
 
     try {
       // Envoi de la requête POST au serveur
-
       const response = await fetch(`${USER_SIGNUP}`, {
         method: "POST",
-
         headers: {
           "Content-Type": "application/json",
         },
-
         body: JSON.stringify(requestData),
       });
 
       if (response.ok) {
         // La requête a réussi (statut 200 OK)
-
         const responseData = await response.json();
 
         console.log("Réponse du serveur :", responseData);
 
         // On vide le formulaire :
-
         setFormData({
           sex: "",
-
           firstName: "",
-
           lastName: "",
-
           age: "",
-
           avatar: "",
-
           pseudo: "",
-
           email: "",
-
           password: "",
-
           securityQuestion: "",
-
           securityAnswer: "",
-
           isAdmin: false,
-
           isBan: false,
         });
 
-        navigate("/login");
+        setSuccessMessage(responseData.message);
+        setTimeout(() => {
+          setSuccessMessage("");
+          navigate("/login");
+        }, 3000);
       } else {
         // La requête a échoué
-
         console.error("Échec de la requête :", response.statusText);
-
-        return response({ error: "Une erreur est survenue" });
+        const errorData = await response.json();
+        setErrorMessage(errorData.message);
       }
     } catch (error) {
       // Une erreur s'est produite lors de l'envoi de la requête
-
       console.error(error);
+      setErrorMessage(
+        "Une erreur s'est produite. Veuillez réessayer plus tard."
+      );
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 3000);
     }
   };
 
   return (
     <div className="signUpContainer">
-      <h2>Inscription :</h2>
       <form onSubmit={handleSubmit} className="formRegister">
+      <h2 className="form-title">Inscription</h2>
         <div className="form-group-avatar">
           <label htmlFor="avatar">Image de profil</label>
           <input
@@ -392,7 +310,7 @@ export default function SignUpForm() {
             placeholder="url de votre image de profil"
           />
           <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
-          <img src={formData.avatar} /*alt="avatar de l'utilisateur"*/ />
+          <img src={formData.avatar} alt="avatar de l'utilisateur" />
           <span className="error">{errors.avatar}</span>
         </div>
 
@@ -509,9 +427,7 @@ export default function SignUpForm() {
               </div>
 
               <div className="form-group securityAnswers">
-                <label htmlFor="securityAnswer">
-                  Réponse à la question secrète :
-                </label>
+                <label htmlFor="securityAnswer">Réponse:</label>
                 <input
                   value={formData.securityAnswer}
                   onChange={handleChange}
@@ -527,7 +443,7 @@ export default function SignUpForm() {
 
             <div className="form-group gender">
               <div className="genderTitle">
-                <nav>Genre</nav>
+                <p>Genre</p>
               </div>
               <div className="genderCategory">
                 <div className="homme">
@@ -560,36 +476,39 @@ export default function SignUpForm() {
               </div>
             </div>
 
-            <div className="button">
-              <button type="submit">S'inscrire</button>
-            </div>
-            <span className="success">{success}</span>
-
-            <div className="form-group">
+              <div className="container_button">
+              <button onClick={() => setShowCgu(!showCgu)}>
+                {showCgu ? "Cacher CGU" : "Afficher CGU"}
+              </button>
+              </div>
+            <div className="form-group cgu">
               <label htmlFor="CGU">
                 Conditions Générales d'utilisation (C.G.U)
               </label>
 
-              <input
-                checked={cguAcceptation}
-                onChange={(e) => setCguAcception(e.target.checked)}
-                type="checkbox"
-                name="cgu"
-                id="cgu"
-              />
-              <span className="error">{errors.cgu}</span>
+              <div className="form-group cgu inline">
+                <p>Accepter </p>
+                <input
+                  checked={cguAcceptation}
+                  onChange={handleChange}
+                  type="checkbox"
+                  name="cgu"
+                  id="cgu"
+                />
+                <span className="error">{errors.cgu}</span>
+              </div>
+            </div>
+
+            <span className="successMessage">{successMessage}</span>
+            <span className="errorMessage">{errorMessage}</span>
+            <div className="container_button">
+              <button type="submit">S'inscrire</button>
             </div>
           </div>
         </div>
       </form>
 
-      <button onClick={() => setShowCgu(!showCgu)}>
-        {showCgu ? "Cacher CGU" : "Afficher CGU"}
-      </button>
-
       <div className="modal_cgu">{showCgu && <CGU />}</div>
     </div>
   );
 }
-
-/*📖Composant formulaire d'inscription contenant la CGU📖*/
