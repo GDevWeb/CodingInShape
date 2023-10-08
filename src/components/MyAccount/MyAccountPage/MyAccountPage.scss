@@ -1,4 +1,4 @@
-@import "../../../../sass/index";
+@import "../../../../sass/index.scss";
 
 .myAccountPage_container {
   display: flex;
@@ -8,48 +8,41 @@
   height: auto;
 
   .user-profile-section {
-    flex-basis: 25%;
-    width: 100%;
+    padding: 1rem;
+    text-align: center;
 
     p.welcome_user {
-      flex-basis: 5%;
-      padding: 0.2rem;
       font-size: 1rem;
       text-transform: uppercase;
       font-weight: bolder;
-      text-align: center;
+      margin-bottom: 1rem;
     }
 
     .user_profile_identity {
-      flex-basis: 15%;
-      margin-top: 0.5rem;
-      padding: 0.25rem;
-      border: 0.25rem solid $color-white-theme;
+      border: 0.125rem solid $color-white-theme;
       border-radius: 0.5rem;
       background: $linear-blue-gradient;
+      margin-top: 0.5rem;
+      padding: 0.25rem;
 
       figure {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-basis: fill;
+        @include flex-horizontal-center;
         width: 45%;
+
         .avatar {
-          width: 100%;
-          height: auto;
-          object-fit: cover;
+          @include responsiveImg(80%, auto, cover);
           border-radius: 50%;
         }
       }
+
       .user_profile {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include flex-horizontal-center;
         gap: 0.5rem;
 
         .user_detail {
           width: 50%;
           font-size: 1rem;
+          text-align: left;
           line-height: 1.5;
           color: $color-white-theme;
         }
@@ -57,11 +50,10 @@
     }
 
     .container_btn_avatar {
-      flex-basis: 5%;
+      margin-top: 0.25rem;
       display: flex;
       align-items: center;
-      justify-content: right;
-      margin-top: 0.25rem;
+      justify-content: flex-end;
       background-color: $linear-orange-gradient;
 
       button.btn_avatar {
@@ -72,23 +64,62 @@
       }
     }
 
-    // Responsive pour les écrans de petite taille (par exemple, smartphones en mode portrait)
     @media screen and (max-width: 768px) {
-      flex-basis: 100%; // Occupe toute la largeur
+      flex-basis: 100%;
     }
   }
 
-  .container_render.card {
-    flex-basis: fill;
+  .container_render {
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
     flex-wrap: wrap;
     width: 100%;
+    margin: 12vh 0;
 
-    // Responsive pour les écrans de petite taille (par exemple, smartphones en mode portrait)
-    @media screen and (max-width: 768px) {
-      .user-profile-section {
-        flex-basis: 100%; // Occupe toute la largeur
+    .cardContainer {
+      flex-basis: calc(33.3333% - 2rem); //ici, 3 cartes par ligne
+      margin: 1rem;
+
+      .icon {
+        @include responsiveImg(10%, auto, cover);
+        margin-top: 0.25rem;
+      }
+
+      .card-header {
+        font-size: 1.6rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .card-content {
+        font-size: 1.2rem;
+      }
+
+      .card-link {
+        justify-content: flex-end;
+        margin-top: 0.625rem;
+        letter-spacing: 0.125rem;
+        margin-bottom: 0.3125rem;
+
+        .linkTo {
+          font-size: 1.2rem;
+          font-style: italic;
+          font-weight: bolder;
+        }
+      }
+
+      &:hover {
+        background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.572),
+            rgba(6, 237, 237, 0.452),
+            rgba(13, 36, 206, 0.486));
+        border-top: 0.125rem solid rgb(9, 8, 8);
+        border-left: 0.125rem solid rgb(0, 0, 0);
+        box-shadow: 0.125rem 0.125rem 0.125rem rgb(255, 255, 255);
+        cursor: pointer;
+      }
+
+      @media screen and (max-width: 768px) {
+        flex-basis: 100%;
       }
     }
   }

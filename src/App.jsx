@@ -25,7 +25,7 @@ import Contact from "./pages/Contact";
 import "./App.scss";
 import { Provider } from "react-redux";
 import store from "../redux/store/store";
-import UpdateProfile from "./components/MyAccount/UpdateProfile";
+import UpdateProfile from "./components/MyAccount/UpdateProfile/UpdateProfile";
 import UserSettings from "./components/MyAccount/UserSettings";
 
 function App() {

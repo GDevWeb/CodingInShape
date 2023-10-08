@@ -26,12 +26,8 @@
 
 .formRegister,
 .modal_cgu {
-  background-color: rgba(255, 255, 255, 0.61);
   margin: 1rem 5rem;
-  border-top: 0.2rem solid $color-white-theme;
-  border-left: 0.2rem solid $color-white-theme;
-  box-shadow: 0.2rem 0.2rem 0.2rem black;
-  border-radius: 1.5rem;
+  @include GlassMorphism();
 
   .form-group-avatar {
     margin: 1.25rem 5rem;
@@ -182,7 +178,7 @@
               -135deg,
               darken($color-orange, 10%),
               darken(#ff3c27, 10%)
-            ); 
+            );
             letter-spacing: 0.5rem;
             color: $color-white-theme;
           }

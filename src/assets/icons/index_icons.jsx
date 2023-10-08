@@ -22,6 +22,7 @@ export default {
     Gauge,
     Gears,
     Hamburger,
+    House,
     Walking,
     Refresh,
     Spinner,

@@ -40,3 +40,27 @@
 
 }
 
+// Apparence : 
+@mixin GlassMorphism {
+    background-color: rgba(255, 255, 255, 0.61);
+    border-top: 0.2rem solid $color-white-theme;
+    border-left: 0.2rem solid $color-white-theme;
+    box-shadow: 0.2rem 0.2rem 0.2rem black;
+    border-radius: 1.5rem;
+}
+
+//Formulaires :
+@mixin inputs {
+    height: 4.5rem;
+    width: 100%;
+    margin-top: 0.25rem;
+    opacity: 0.7;
+    text-align: center;
+    border-radius: 1rem;
+    border: 0.1rem solid #ccc;
+    font-size: 2rem;
+    outline: none;
+    border-bottom-width: 0.3rem;
+    @include flex-horizontal-center;
+}
+
