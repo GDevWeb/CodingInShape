@@ -26,4 +26,17 @@
     @include flex(row, space-between, center);
 }
 
-// Ajoutez d'autres mixins au besoin
+
+//Images :
+@mixin responsiveImg($width, $height, $object-fit) {
+    width: $width;
+    height: $height;
+    object-fit: $object-fit;
+}
+
+// Border : 
+@mixin firstBorderRadius{
+    border-radius: 0.5rem;
+
+}
+

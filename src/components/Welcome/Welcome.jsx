@@ -10,14 +10,13 @@ export default function Welcome() {
     <>
       <div className="welcomePage">
         <div className="welcomeTitle">
-          <h1>Coding In Shape !</h1>
           <h2>🤸La plateforme qui prend soin de vous🤸</h2>
         </div>
 
         <div className="welcomeText">
           <p>
             Bienvenue sur notre site dédié à votre bien-être au bureau ! En tant
-            que développeur web, vous savez à quel point les longues heures
+            que développeur web ou bien employé de bureau, vous savez à quel point les longues heures
             devant l'ordinateur peuvent être éprouvantes pour votre corps. Nous
             sommes là pour vous offrir des conseils posturaux simples et des
             exercices de quelques minutes qui vous aideront à soulager les

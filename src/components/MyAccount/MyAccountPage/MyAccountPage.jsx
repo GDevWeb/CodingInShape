@@ -4,12 +4,14 @@ import { useNavigate } from "react-router-dom";
 import UserProfile from "../UserProfile/UserProfile";
 import { USER_PROFIL } from "../../API/apiUser";
 import Card from "../../Card/Card";
+import index_icons from "../../../assets/icons/index_icons";
 import Spinner from "../../../assets/icons/spinner.svg";
 import {
   updateAdminStatus,
   setUserData,
 } from "../../../../redux/slices/authSlice";
 import ConditionalNavLinks from "../../ConditionalNavLinks/ConditionalNavLinks";
+import "./MyAccountPage.scss"
 
 export default function MyAccountPage() {
   // Redux :
@@ -77,19 +79,26 @@ export default function MyAccountPage() {
         {/* Affichage des données de l'utilisateur connecté */}
         {userData && (
           <div className="user-profile-section">
-            <h1>
+            <p className="welcome_user">
               Bienvenue sur votre espace personnel{" "}
-              {isAdmin ? "administrateur" : "utilisateur"} {userData.pseudo}
-            </h1>
-            <button onClick={() => setShowUserProfile(!showUserProfile)}>
+              <p>{isAdmin ? "administrateur" : "utilisateur"} {userData.pseudo}</p>
+            </p>
+            <div className="user_profile_identity">
+            {showUserProfile && <UserProfile userData={userData} />}
+            <div className="container_btn_avatar">
+            <button  onClick={() => setShowUserProfile(!showUserProfile)} className="btn_avatar">
               {showUserProfile ? "Cacher mon profil" : "Afficher mon profil"}
             </button>
-            {showUserProfile && <UserProfile userData={userData} />}
+            </div>
           </div>
+            </div>
         )}
+
+          <div className="container_render card">
 
         {/* Mise à jour du profil */}
         <Card
+          icon={index_icons.CircleInfo}
           title={"Modifier mes informations"}
           content={
             "Modifier mes informations , mail, mot de passe, questions / réponse secrète, image de profil"
@@ -100,6 +109,8 @@ export default function MyAccountPage() {
 
         {/* Affichage des exercices */}
         <Card
+                  icon={index_icons.Walking}
+
           title={"Exercices"}
           content={"Accéder à la liste des différents exercices disponibles"}
           link={`/exercises`}
@@ -108,6 +119,7 @@ export default function MyAccountPage() {
 
         {/* Section paramètres de l'utilisateur */}
         <Card
+        icon={index_icons.Gears}
           title={"Mes paramètres"}
           content={"Accéder à la gestion de vos paramètres"}
           link={`/update-settings/${userId}`}
@@ -116,6 +128,7 @@ export default function MyAccountPage() {
 
         {/* Section historique de l'utilisateur */}
         <Card
+                          icon={index_icons.Clock}
           title={"Mon historique"}
           content={"Accéder à votre historique d'exercices"}
           link={`/user-history/${userId}`}
@@ -125,13 +138,17 @@ export default function MyAccountPage() {
         {/* Si admin, lien vers dashboard : */}
         {isAdmin && (
           <Card
+          icon={index_icons.Table}
+
             title={"Accéder au dashboard"}
-            content={`Bienvenue administrateur ${userData?.pseudo} accéder au accéder au dashboard`}
+            content={`${userData?.pseudo} accéder au dashboard`}
             link={`/dashboard`}
             textLink={"Accéder au dashboard"}
           />
         )}
+        </div>
         
+        {/* Affiche un lien vers DashBoard si administrateur par défaut n'affiche qu'un lien vers mon c */}
         <ConditionalNavLinks 
         isAdmin={isAdmin}
         />

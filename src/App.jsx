@@ -33,8 +33,8 @@ function App() {
     <BrowserRouter>
       <Provider store={store}>
         <div className="wrapper">
-          <NavBar />
-          {/* <Header /> */}
+          <Header />
+          {/* <NavBar /> */}
 
           <main>
             <Routes>

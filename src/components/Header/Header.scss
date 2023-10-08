@@ -1,8 +1,26 @@
-.box{
-    padding: 10rem;
-    
-    .logo-link{
-        color: white;
-        background-color: aliceblue;
+@import "../sass/index";
+
+header {
+  @include center-flex;
+  flex-basis: 15%;
+  background-color: $color-blue-theme;
+  border: 0.25rem solid $color-white-theme;
+  @include firstBorderRadius;
+  padding: 1rem;
+  z-index: 1;
+
+  figure {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      @include responsiveImg(50%, auto, cover);
     }
+  }
+
+  .header_title {
+    text-transform: uppercase;
+    color: $color-white-theme;
+  }
 }

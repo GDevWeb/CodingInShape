@@ -14,3 +14,8 @@ $color-white-theme : #F6F2F2;
 
 $font-family: 'Roboto', sans-serif;
 $base-font-size: 62.5%; // équivaut à 10px
+
+$linear-blue-gradient :linear-gradient(135deg, #0ec5c2, #2447d4);
+$linear-blue-reverse-gradient :linear-gradient(-135deg, #0ec5c2, #2447d4);
+$linear-orange-gradient : linear-gradient(135deg, $color-orange, #ff3c27);
+$linear-orange-reverse-gradient : linear-gradient(-135deg, $color-orange, #ff3c27);

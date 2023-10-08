@@ -1,70 +1,39 @@
-import { useState } from 'react';
-import './RandomQuote.scss';
-import reload from './refresh_icon.png';
+import { useState, useEffect } from 'react';
+import quotes from './Quotes.jsx';
+import Icons from '../../assets/icons/index_icons.jsx';
+import "./RandomQuote.scss";
 
+export default function RandomQuote() {
+    const [selectedQuote, setSelectedQuote] = useState({ text: '', author: '' });
 
-const RandomQuote = () => {
+    const getRandomQuote = () => {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        const randomQuote = quotes[randomIndex];
+        setSelectedQuote(randomQuote);
+    };
 
-
-    let quotes = [{
-        text: "Tiens toi droit.",
-        author: "Maman",
-    },
-    {
-        "text": "Vas ranger ta chambre.",
-        "author": "Maman"
-    },
-    {
-        "text": "Mais qui m'a donné un enfant aussi bete",
-        "author": "Papa"
-    },
-    {
-        "text": "Reprend une part de gateau, tu es tout maigre",
-        "author": "Mami"
-    },
-    {
-        "text": "tiens prends ça, et ne dis rien à ta mami",
-        "author": "Papi"
-    },
-    {
-        "text": "De toute façon tu as triché",
-        "author": "petit Frere"
-    },
-    {
-        "text": "Tu auras le droit de jouer aprés moi",
-        "author": "Grand frere"
-    }];
-
-    // async function loadQuotes(){
-    //     const response = await fetch("https://type.fit/api/quotes");
-    //     quotes = await response.json();
-    // }
-
-    const [quote, setQuote] = useState({
-        text: "Tips pour toi ",
-        author: "Webmaster",
-    });
-
-    const random = () => {
-        const select = quotes[Math.floor(Math.random() * quotes.length)];
-        setQuote(select);
-    }
+    useEffect(() => {
+        getRandomQuote();
+    }, []);
 
     return (
         <div className="container">
-            <h2>Citation du jour :</h2>
-            <div className="quote"> {quote.text}</div>
-            <div className='space'>
+            <h2>Citations du jour :</h2>
+            <div className="quote">{selectedQuote.text}</div>
+            <div className="space">
                 <div className="line"></div>
                 <div className="bottom">
-                    <div className="author">{quote.author}</div>
+                    <div className="author">{selectedQuote.author}</div>
                     <div className="icons">
-                        <img src={reload} onClick={() => { random() }} alt="" />
+                        <img
+                            src={Icons.Refresh}
+                            onClick={getRandomQuote}
+                            alt="icon refresh"
+                            width={"100px"}
+                        />
                     </div>
                 </div>
             </div>
         </div>
     );
 }
-
-export default RandomQuote

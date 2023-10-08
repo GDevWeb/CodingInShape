@@ -208,12 +208,12 @@
           font-weight: 500;
           text-transform: uppercase;
           letter-spacing: 0.3rem;
-          background: linear-gradient(135deg, #0ec5c2, #2447d4);
+          background: $linear-blue-gradient;
 
           &:hover {
             transform: scale(1.05);
             transition: all 1s ease-in-out;
-            background: linear-gradient(-135deg, #0ec5c2, #2447d4);
+            background: $linear-blue-reverse-gradient;
             letter-spacing: 0.5rem;
             color: $color-white-theme;
           }

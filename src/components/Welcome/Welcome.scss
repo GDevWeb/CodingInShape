@@ -9,60 +9,75 @@
   height: 80vh;
   margin-bottom: 2rem;
 
-  .welcomeTitle{
-    flex-basis: fill;
-    h1,
-    h2 {
-      text-align: center;
+  .welcomeTitle {
+    text-align: center;
+    margin-bottom: 0.25rem;
+    h1 {
       text-transform: uppercase;
       margin-top: 1rem;
+    }
+
+    h2 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 1rem;
+      font-size: 1.2rem;
     }
   }
 
   .welcomeText {
-    flex-basis: 22%;
     width: 80%;
     padding: 1rem;
     background-color: rgba(16, 141, 213, 0.431);
     border-radius: 0.5rem;
     box-shadow: outset 0.25rem 0.25rem 0.25rem $color-white-theme;
+    text-align: left;
+    margin: 0.5rem auto;
+    line-height: 2rem;
+
+    @media screen and (min-width: 768px) {
+      height: 50vh;
+      overflow-y: auto;
+    }
 
     p {
-      text-align: left;
-      margin: 0.5rem auto;
-      line-height: 3rem;
+      margin: 0;
     }
   }
-
   .FormConnexion {
     padding: 2rem;
     margin: 2rem 10rem;
     border-radius: 1rem;
     background-color: rgba(255, 255, 255, 0.366);
     border-radius: 1.5rem;
+    font-size: 1.2rem;
 
     &:hover {
       color: aliceblue;
       overflow: hidden;
-      background-color: black;
+      background-color: $color-black-theme;
       text-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.324);
-      border: 0.1rem outset black;
+      border: 0.1rem outset $color-black-theme;
     }
   }
 
-  .buttons.links-log{
-    flex-basis: 10%;
-    width: 80%;
+  .buttons.links-log {
+    flex: 1;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    gap: 0.5rem;
 
-    .FormConnexion{
+    .FormConnexion {
       padding: 1rem;
       text-align: center;
+      width: 50%;
+      border: 2px solid $color-white-theme;
+      border-radius: 0.5rem;
+      box-shadow: 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.3);
     }
-
   }
 
   @media screen and (max-width: 768px) {
@@ -71,12 +86,10 @@
       margin: 0;
     }
 
-    .createAccountLink,
-    .FormConnexion {
+    .FormConnexion,
+    .createAccountLink {
       width: 100%;
-      margin: 0 1rem;
+      margin: 0.5rem 0;
     }
-
-    padding: 1rem;
   }
 }

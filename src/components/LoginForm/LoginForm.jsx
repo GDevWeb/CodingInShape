@@ -156,6 +156,7 @@ export default function LoginForm() {
           <button type="submit">Se connecter</button>
         </div>
 
+    {/* Lien invitant le visiteur à créer un compte  */}
         <p className="invitCreateAccount">
           Pas encore de compte ?
           <Link className="createAccountLink" to="/signup">

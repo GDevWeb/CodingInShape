@@ -10,9 +10,11 @@ export default function SignUpForm() {
   const [cguAcceptation, setCguAcceptation] = useState(false);
   const [showCgu, setShowCgu] = useState(false);
 
+
   // Pour gérer le message de succès si tous les inputs sont valides :
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  
   const [formData, setFormData] = useState({
     sex: "",
     firstName: "",
@@ -51,8 +53,7 @@ export default function SignUpForm() {
       [name]: type === "checkbox" ? checked : value,
     });
 
-    // Vérifications des inputs :
-
+    // Vérifications des inputs :*
     if (name === "sex") {
       if (!value) {
         setErrors((prevErrors) => ({

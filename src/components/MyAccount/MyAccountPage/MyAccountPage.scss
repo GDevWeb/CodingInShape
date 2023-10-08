@@ -1,7 +1,95 @@
-.myAccountPage_container{
+@import "../../../../sass/index";
+
+.myAccountPage_container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  height: auto;
+
+  .user-profile-section {
+    flex-basis: 25%;
+    width: 100%;
+
+    p.welcome_user {
+      flex-basis: 5%;
+      padding: 0.2rem;
+      font-size: 1rem;
+      text-transform: uppercase;
+      font-weight: bolder;
+      text-align: center;
+    }
+
+    .user_profile_identity {
+      flex-basis: 15%;
+      margin-top: 0.5rem;
+      padding: 0.25rem;
+      border: 0.25rem solid $color-white-theme;
+      border-radius: 0.5rem;
+      background: $linear-blue-gradient;
+
+      figure {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-basis: fill;
+        width: 45%;
+        .avatar {
+          width: 100%;
+          height: auto;
+          object-fit: cover;
+          border-radius: 50%;
+        }
+      }
+      .user_profile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+
+        .user_detail {
+          width: 50%;
+          font-size: 1rem;
+          line-height: 1.5;
+          color: $color-white-theme;
+        }
+      }
+    }
+
+    .container_btn_avatar {
+      flex-basis: 5%;
+      display: flex;
+      align-items: center;
+      justify-content: right;
+      margin-top: 0.25rem;
+      background-color: $linear-orange-gradient;
+
+      button.btn_avatar {
+        padding: 0.25rem;
+        border-radius: 0.5rem;
+        background-color: $color-orange;
+        color: $color-white-theme;
+      }
+    }
+
+    // Responsive pour les écrans de petite taille (par exemple, smartphones en mode portrait)
+    @media screen and (max-width: 768px) {
+      flex-basis: 100%; // Occupe toute la largeur
+    }
+  }
+
+  .container_render.card {
+    flex-basis: fill;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    background-color: orange;
     width: 100%;
+
+    // Responsive pour les écrans de petite taille (par exemple, smartphones en mode portrait)
+    @media screen and (max-width: 768px) {
+      .user-profile-section {
+        flex-basis: 100%; // Occupe toute la largeur
+      }
+    }
+  }
 }

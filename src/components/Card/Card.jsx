@@ -8,12 +8,13 @@ function truncateText(text, maxLength) {
   return text;
 }
 
-export default function Card({ title, content, link, textLink, userData }) {
+export default function Card({ title, icon, content, link, textLink, userData }) {
 
   const truncatedContent = truncateText(content, 300);
   
   return (
     <div className="cardContainer">
+      <img src={icon} alt="icon de card"className="icon" />
       <h2 className="card-header">{title}</h2>
       <p className="card-content">{truncatedContent}</p>
       <div className="card-link">

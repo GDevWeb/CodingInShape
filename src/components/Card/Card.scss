@@ -1,36 +1,51 @@
 .cardContainer {
+    flex-basis: 25%;
     display: flex;
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
-    width: 400px;
     background-color: rgba(127, 255, 212, 0.534);
-    margin: 20px;
+    margin: 1.25rem; 
     text-align: center;
-    border-radius: 15px;
-    border-top: 2px solid white;
-    border-left: 2px solid white;
-    box-shadow: 2px 2px 2px rgb(9, 9, 9);
-    .card-header{
-        font-size: 3rem;
-        margin-bottom: 20px;
+    border-radius: 0.9375rem; 
+    border-top: 0.125rem solid white;
+    border-left: 0.125rem solid white;
+    box-shadow: 0.125rem 0.125rem 0.125rem rgb(9, 9, 9);
+    
+    .card-header {
+      font-size: 1.6rem;
+      margin-bottom: 1.25rem;
     }
-    .card-content{
-        margin-bottom: 10px;
-        font-weight: 600;
-        font-size: 2rem;
+
+    .icon{
+        margin-top: 0.25rem;
+        width: 15%;
+        height: auto;
     }
-    .card-link{
-        justify-content: end;
-        margin-top: 10px;
-        letter-spacing: 2px;
-        margin-bottom: 5px;
+    
+    .card-content {
+      font-size: 1.2rem;
     }
+    
+    .card-link {
+      justify-content: flex-end;
+      margin-top: 0.625rem; 
+      letter-spacing: 0.125rem;
+      margin-bottom: 0.3125rem;
+
+      .linkTo{
+        font-size: 1.2rem;
+        font-style: italic;
+        font-weight: bolder;
+      }
+    }
+    
     &:hover {
-        background: linear-gradient(135deg,rgba(255, 255, 255, 0.572), rgba(6, 237, 237, 0.452),  rgba(13, 36, 206, 0.486));
-        border-top: 2px solid rgb(9, 8, 8);
-        border-left: 2px solid rgb(0, 0, 0);
-        box-shadow: 2px 2px 2px rgb(255, 255, 255);
-        cursor: grab;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.572), rgba(6, 237, 237, 0.452), rgba(13, 36, 206, 0.486));
+      border-top: 0.125rem solid rgb(9, 8, 8);
+      border-left: 0.125rem solid rgb(0, 0, 0);
+      box-shadow: 0.125rem 0.125rem 0.125rem rgb(255, 255, 255);
+      cursor: grab;
     }
-}
+  }
+  
