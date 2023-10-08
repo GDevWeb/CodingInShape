@@ -1,4 +1,4 @@
-import ExercisePage from '../components/Exercises/ExercisesPage';
+import ExercisePage from '../components/Exercises/ExercisePage/ExercisesPage';
 import Introduction from '../components/Introduction/Introduction';
 import '../../sass/pages.scss'
 

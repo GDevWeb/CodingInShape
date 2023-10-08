@@ -1,16 +1,15 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
-import Card from "../Card/Card";
-import '../../../sass/pages.scss'
+import Card from "../../Card/Card";
+import index_icons from "../../../assets/icons/index_icons";
+import "./ExercisePage.scss"
 
 export default function ExercisesPage() {
   // Redux :
   const token = useSelector((state) => state.auth.token);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const userData = useSelector((state) => state.auth.userData);
-  const isAdmin = useSelector((state) => state.auth.isAdmin);
 
   // Navigation :
   const navigate = useNavigate();
@@ -27,6 +26,7 @@ export default function ExercisesPage() {
       {userData && (
         <div className="ContainerCardsExercices">
           <Card
+          icon={index_icons.List}
             title={"Liste des exercices"}
             content={"Retrouvez la liste des exercices"}
             link={`/exercises-list/`}
@@ -34,6 +34,7 @@ export default function ExercisesPage() {
           />
 
           <Card
+          icon={index_icons.Shuffle}
             title={"Routine aléatoire"}
             content={`🚀 Vous ne savez pas par où commencer ? Laissez-vous guider par notre app !
             💪 Elle vous proposera 1 exercice par zone musculaire : 🧘‍♂️ cou, 💪 épaules, 🏋️‍♂️ dos, 🕺 hanches et 🏃‍♂️ jambes.
@@ -43,10 +44,9 @@ export default function ExercisesPage() {
             link={"/get-random-routine"}
             textLink={"Démarrer la routine"}
           />
+          
         </div>
       )}
-
-      <ConditionalNavLinks isAdmin={isAdmin} />
     </>
   );
 }
