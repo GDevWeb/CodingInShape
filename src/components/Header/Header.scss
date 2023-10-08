@@ -7,7 +7,7 @@ header {
   border: 0.25rem solid $color-white-theme;
   @include firstBorderRadius;
   padding: 1rem;
-  z-index: 1;
+  // z-index: 1;
 
   figure {
     display: flex;
@@ -20,7 +20,13 @@ header {
   }
 
   .header_title {
+    text-align: center;
     text-transform: uppercase;
     color: $color-white-theme;
+
+    p.slogan{
+      font-size: 0.9rem;
+      font-weight: bolder;
+    }
   }
 }

@@ -17,7 +17,7 @@ export default function RandomQuote() {
     }, []);
 
     return (
-        <div className="container">
+        <div className="container_quotes">
             <h2>Citations du jour :</h2>
             <div className="quote">{selectedQuote.text}</div>
             <div className="space">

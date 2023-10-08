@@ -15,6 +15,7 @@ export default function Header() {
       </div>
       <div className="header_title">
         <h1>coding in shape</h1>
+        <p className="slogan">🤸La plateforme qui prend soin de vous🤸</p>
       </div>
     </header>
   );
