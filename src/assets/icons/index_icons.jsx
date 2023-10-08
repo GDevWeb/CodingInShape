@@ -6,6 +6,7 @@ import Dumbbell from "./dumbbell-solid.svg";
 import Gauge from "./gauge-solid.svg";
 import Gears from "./gears-solid.svg";
 import Hamburger from "./hamburger.svg";
+import House from "./house.svg";
 import Walking from "./person-walking-solid.svg";
 import Refresh from "./refresh_icon.png";
 import Spinner from "./spinner.svg";

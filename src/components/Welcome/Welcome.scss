@@ -1,6 +1,5 @@
 // welcomePage.scss
-@import "../../../sass/variables.scss";
-
+@import "../../../sass/index.scss";
 .welcomePage {
   display: flex;
   flex-direction: column;
@@ -27,6 +26,7 @@
   }
 
   .welcomeText {
+    @include  center-flex();
     width: 80%;
     padding: 1rem;
     background-color: rgba(16, 141, 213, 0.431);
@@ -64,10 +64,7 @@
 
   .buttons.links-log {
     flex: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    @include flex-horizontal-center();
     gap: 0.5rem;
 
     .FormConnexion {

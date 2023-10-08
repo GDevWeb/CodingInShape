@@ -10,7 +10,6 @@ export default function Welcome() {
     <>
       <div className="welcomePage">
         <div className="welcomeTitle">
-          {/* <h2>🤸La plateforme qui prend soin de vous🤸</h2> */}
         </div>
 
         <div className="welcomeText">

@@ -34,7 +34,7 @@ function App() {
       <Provider store={store}>
         <div className="wrapper">
           <Header />
-          {/* <NavBar /> */}
+          <NavBar />
 
           <main>
             <Routes>

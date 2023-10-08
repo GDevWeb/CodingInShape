@@ -29,7 +29,6 @@ export default function RandomQuote() {
                             src={Icons.Refresh}
                             onClick={getRandomQuote}
                             alt="icon refresh"
-                            width={"100px"}
                         />
                     </div>
                 </div>

@@ -1,34 +1,38 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import LogButton from "../LogButton/LogButton"
+import Icons from "../../assets/icons/index_icons";
 import "./navbar.scss";
 
 export default function Navbar() {
   const [isActive, setIsActive] = useState(false);
-  const [isToggled, setIsToggled] = useState(false);
 
   const isAdmin = useSelector((state) => state.auth.isAdmin);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const toggleNavbar = () => {
     setIsActive(!isActive);
-    setIsToggled(!isToggled);
   };
 
   return (
-    <nav className="nav">
-      <Link to="/" className="nav__brand">
-        Coding In Shape
-      </Link>
+    <nav className={`nav${isActive ? " active" : ""}`}>
+      <div className="nav__mobile">
+        <div onClick={toggleNavbar} className="nav__toggler">
+          <img
+            src={isActive ? Icons.Close : Icons.Hamburger}
+            alt="Toggle Icon"
+          className="icon"/>
+        </div>
+        <Link to="/" className="nav__brand">
+          Menu
+        </Link>
+      </div>
       <ul className={`nav__menu${isActive ? " nav__active" : ""}`}>
         <li className="nav__item">
           <Link to="/" className="nav__link">
             Accueil
           </Link>
         </li>
-
-        {/* Si non authentifié, affiche Inscription */}
         {!isAuthenticated && (
           <li className="nav__item">
             <Link to="/signup" className="nav__link">
@@ -36,14 +40,11 @@ export default function Navbar() {
             </Link>
           </li>
         )}
-
         <li className="nav__item">
           <Link to="/myaccount" className="nav__link">
             Mon compte
           </Link>
         </li>
-
-        {/* Si admin, affiche Dashboard */}
         {isAdmin && (
           <li className="nav__item">
             <Link to="/dashboard" className="nav__link">
@@ -51,7 +52,6 @@ export default function Navbar() {
             </Link>
           </li>
         )}
-
         <li className="nav__item">
           <a href="/exercises" className="nav__link">
             Mes exercices
@@ -63,16 +63,7 @@ export default function Navbar() {
           </Link>
         </li>
       </ul>
-      <div
-        onClick={toggleNavbar}
-        className={`nav__toggler${isToggled ? " toggle" : ""}`}
-      >
-        <div className="line1"></div>
-        <div className="line2"></div>
-        <div className="line3"></div>
-      </div>
-
-      <LogButton/>
+      {/* <LogButton /> */}
     </nav>
   );
 }
