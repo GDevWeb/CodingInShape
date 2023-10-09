@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import './RandomQuote.scss'
 import reload from './refresh_icon.png'
 
@@ -34,6 +34,8 @@ const RandomQuote = () => {
         "text": "Tu auras le droit de jouer aprés moi",
         "author": "Grand frere"
     }];
+
+// fonction asynchrone avec appel d'api (ne fonctionne pas car il fait encore mettre une autorisation à l'url.)
 
     // async function loadQuotes(){
     //     const response = await fetch("https://type.fit/api/quotes");
