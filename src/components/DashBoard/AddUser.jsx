@@ -249,7 +249,7 @@ export default function AddUser() {
             id="avatar"
             placeholder="url de votre image de profil"
           />
-          <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
+          <label htmlFor="previewAvatar">Aperçu de l&apos;avatar</label>
           <img src={formData.avatar} /*alt="avatar de l'utilisateur"*/ />
           {/* <span className="error">{errors.avatar}</span> */}
         </div>

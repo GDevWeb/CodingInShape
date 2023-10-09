@@ -554,7 +554,7 @@ export default function SignUpForm() {
             id="avatar"
             placeholder="url de votre image de profil"
           />
-          <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
+          <label htmlFor="previewAvatar">Aperçu de l&apos;avatar</label>
           <img src={formData.avatar} /*alt="avatar de l'utilisateur"*/ />
           <span className="error">{errors.avatar}</span>
         </div>
@@ -728,13 +728,13 @@ export default function SignUpForm() {
             </div>
 
             <div className="button">
-              <button type="submit">S'inscrire</button>
+              <button type="submit">S&apos;inscrire</button>
             </div>
             <span className="success">{success}</span>
 
             <div className="form-group">
               <label htmlFor="CGU">
-                Conditions Générales d'utilisation (C.G.U)
+                Conditions Générales d&apos;utilisation (C.G.U)
               </label>
 
               <input

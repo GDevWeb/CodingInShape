@@ -221,7 +221,7 @@ export default function AddExercise() {
             name="type"
             id="type"
           >
-            <option value="0">Choisissez le type d'exercice</option>
+            <option value="0">Choisissez le type d&apos;exercice</option>
             <option value="Upper Body">Exercice pour le haut du corps</option>
             <option value="Lower Body">Exercice pour le bas du corps</option>
           </select>

@@ -651,7 +651,7 @@ export default function UpdateProfile() {
           <form onSubmit={handleSubmit} >
 
             <div className="form-group-avatar-update">
-              <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
+              <label htmlFor="previewAvatar">Aperçu de l&apos;avatar</label>
               <img
                 src={userData.avatar || CircleUser}
                 alt="Avatar de l'utilisateur"

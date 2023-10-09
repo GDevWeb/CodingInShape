@@ -32,7 +32,7 @@ export default function Introduction() {
         garder votre esprit affûté. Coding in Shape vous accompagnera dans votre
         parcours vers une vie de développeur en pleine forme ! */}
         
-        "Coding in Shape" est une plateforme dédiée aux développeurs web, offrant des exercices et routines pour contrer les effets néfastes du travail sédentaire, améliorer la posture et stimuler la créativité. Une fonctionnalité unique propose des séances d'entraînement aléatoires pour des pauses énergisantes. L'objectif est d'aider les codeurs à maintenir un équilibre sain entre travail et bien-être physique.
+        &quot;Coding in Shape&quot; est une plateforme dédiée aux développeurs web, offrant des exercices et routines pour contrer les effets néfastes du travail sédentaire, améliorer la posture et stimuler la créativité. Une fonctionnalité unique propose des séances d'entraînement aléatoires pour des pauses énergisantes. L'objectif est d'aider les codeurs à maintenir un équilibre sain entre travail et bien-être physique.
       </p>
     </div>
   );

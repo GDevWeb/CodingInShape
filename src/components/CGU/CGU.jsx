@@ -1,17 +1,17 @@
 export default function CGU() {
   return (
     <div>
-      <h1>Conditions Générales d'Utilisation (CGU) de Coding in Shape</h1>
+      <h1>Conditions Générales d&apos;Utilisation (CGU) de Coding in Shape</h1>
 
       <h2>Dernière mise à jour : [Date de la dernière mise à jour]</h2>
 
       <div className="acceptation_CGU">
-        <h3>1. Acceptation des Conditions d'Utilisation</h3>
+        <h3>1. Acceptation des Conditions d&apos;Utilisation</h3>
 
         <p>
-          En accédant ou en utilisant le service "Coding in Shape" (ci-après "le
-          Service"), vous acceptez de vous conformer aux présentes Conditions
-          Générales d'Utilisation ("CGU"). Si vous n'acceptez pas ces CGU,
+          En accédant ou en utilisant le service &quot;Coding in Shape&quot; (ci-après &quot;le
+          Service&quot;), vous acceptez de vous conformer aux présentes Conditions
+          Générales d&apos;Utilisation (&quot;CGU&quot;). Si vous n&apos;acceptez pas ces CGU,
           veuillez ne pas utiliser le Service.
         </p>
       </div>
@@ -20,15 +20,15 @@ export default function CGU() {
         <h3>2. Utilisation du Service</h3>
 
         <p>
-          2.1. Description du Service : "Coding in Shape" est une plateforme en
+          2.1. Description du Service : &quot;Coding in Shape&quot; est une plateforme en
           ligne qui fournit des routines de stretching aux employés de bureau
           dans le but de promouvoir le bien-être au travail.
         </p>
 
         <p>
           2.2. Éligibilité : Vous du Service par des mineurs doit être
-          supervisée par un parent ou un devez avoir l'âge légal requis pour
-          utiliser le Service. L'utilisation tuteur légal.
+          supervisée par un parent ou un devez avoir l&apos;âge légal requis pour
+          utiliser le Service. L&apos;utilisation tuteur légal.
         </p>
 
         <p>
@@ -42,29 +42,29 @@ export default function CGU() {
       <div className="propriete_intellectuelle">
         <h3>3. Propriété Intellectuelle</h3>
         <p>
-          3.1. Droits d'Auteur : Tous les contenus disponibles sur le Service, y
+          3.1. Droits d&apos;Auteur : Tous les contenus disponibles sur le Service, y
           compris les textes, images, vidéos, et autres matériaux, sont protégés
-          par des droits d'auteur. Vous ne pouvez pas copier, reproduire,
+          par des droits d&apos;auteur. Vous ne pouvez pas copier, reproduire,
           distribuer ou utiliser ces contenus sans autorisation préalable.
         </p>
         <p>
           3.2. Marques Déposées : Toutes les marques déposées, logos et noms de
           produits utilisés sur le Service sont la propriété de leurs détenteurs
-          respectifs. Aucune utilisation non autorisée de ces marques n'est
+          respectifs. Aucune utilisation non autorisée de ces marques n&apos;est
           autorisée.
         </p>
 
         <div className="responsabilite">
-          <h3> 4. Responsabilités de l'Utilisateur</h3>
+          <h3> 4. Responsabilités de l&apos;Utilisateur</h3>
           <p>
             {" "}
             4.1. Utilisation Légale : Vous vous engagez à utiliser le Service
             conformément à toutes les lois et réglementations applicables.{" "}
           </p>
           <p>
-            4.2. Contenu Généré par l'Utilisateur : Si vous soumettez du contenu
-            généré par l'utilisateur sur le Service, vous garantissez que ce
-            contenu est conforme aux présentes CGU, qu'il ne viole pas les
+            4.2. Contenu Généré par l&apos;Utilisateur : Si vous soumettez du contenu
+            généré par l&apos;utilisateur sur le Service, vous garantissez que ce
+            contenu est conforme aux présentes CGU, qu&apos;il ne viole pas les
             droits de tiers, et que vous avez le droit de le publier.
           </p>
         </div>
@@ -72,11 +72,11 @@ export default function CGU() {
         <div className="limitation">
           <h3> 5. Limitation de Responsabilité</h3>
           <p>
-            Le Service est fourni "tel quel" et nous n'offrons aucune garantie
+            Le Service est fourni &quot;tel quel&quot; et nous n&apos;offrons aucune garantie
             quant à son exactitude, sa fiabilité ou son adéquation à un usage
             particulier. Nous ne serons pas responsables des dommages directs,
             indirects, spéciaux, accessoires ou consécutifs découlant de
-            l'utilisation ou de l'incapacité à utiliser le Service.
+            l&apos;utilisation ou de l&apos;incapacité à utiliser le Service.
           </p>
         </div>
 

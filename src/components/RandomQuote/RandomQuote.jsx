@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import './RandomQuote.scss'
-import twitter from './twitter.png'
 import reload from './refresh_icon.png'
 
 

@@ -177,7 +177,7 @@ export default function FormContact() {
 
   return (
     <div className="updateExerciseContainer">
-      <h2>Modifier l'exercice {useParams.name}</h2>
+      <h2>Modifier l&apos;exercice {useParams.name}</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Nom</label>
