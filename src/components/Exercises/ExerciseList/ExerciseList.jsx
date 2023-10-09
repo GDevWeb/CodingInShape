@@ -153,9 +153,9 @@ export default function ExerciseList() {
          <img src={Icons.ArrowLeft} alt="page précédente" className="icon"/> 
         </button>
 
-        <p>
-          page {currentPage} sur {Math.ceil(exercises.length / exercisePerPage)}
-        </p>
+        <div className="index_pagination">
+        <p>  page {currentPage} sur {Math.ceil(exercises.length / exercisePerPage)}</p>
+        </div>
         <button
           onClick={() => setCurrentPage(currentPage + 1)}
           disabled={

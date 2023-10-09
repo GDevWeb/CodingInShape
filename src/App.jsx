@@ -6,6 +6,7 @@ import DashBoard from "./pages/DashBoard";
 import UserManagement from "./components/DashBoard/UserManagement";
 import AddUser from "./components/DashBoard/AddUser";
 import UpdateUser from "./components/DashBoard/UpdateUser";
+import ExercisesPage from "./components/Exercises/ExercisePage/ExercisesPage";
 import Exercise from "./pages/Exercise";
 import Exercises from "./pages/Exercises";
 import ExerciseManagement from "./components/DashBoard/ExerciseManagementPage";
@@ -54,6 +55,7 @@ function App() {
                 path="/get-random-routine"
                 element={<GetRandomRoutine />}
               />
+              <Route path="/exercise-page" element={<ExercisesPage />} />
               <Route path="/add-exercise" element={<AddExercise />} />
               <Route path="/update-exercise/:id" element={<UpdateExercise />} />
               <Route path="/delete-exercise/:id" element={<DeleteExercise />} />

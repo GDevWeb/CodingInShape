@@ -1,10 +1,10 @@
-import bodyBuilder from '../assets/BodyBuilder1.jpg'
-import '../../sass/pages.scss'
+import '../../sass/pages.scss';
+import underConstruction from '../assets/background/under_construction.jpg';
 
 export default function NotFound() {
   return (
     <div className='notFound'>
-      <img src={bodyBuilder} alt="" />
+      <img src={underConstruction} alt="" />
     </div>
   )
 }

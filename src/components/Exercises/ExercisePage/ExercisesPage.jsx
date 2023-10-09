@@ -16,9 +16,9 @@ export default function ExercisesPage() {
 
   // Contrôle de l'état authentifié :
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-    }
+    // if (!token) {
+    //   navigate("/login"); //provisoirement commenté
+    // }
   }, [isAuthenticated, token, navigate]);
 
   return (

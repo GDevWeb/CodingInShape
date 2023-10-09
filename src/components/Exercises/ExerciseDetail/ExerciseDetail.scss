@@ -1,27 +1,56 @@
-.exerciseDetailContainer{
-    display: flex;
+/* ExerciseDetail.scss */
+
+@import "../../../../sass/index.scss"; // Assurez-vous d'importer vos variables et mixins nécessaires depuis votre fichier principal de styles
+
+.exerciseDetailContainer {
+  @include flex-vertical-center;
+  flex-direction: column;
+  background-color: rgba(22, 128, 227, 0.242);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 2rem;
+  box-shadow: 0.2rem 0.2rem 0.2rem black;
+  border-top: 0.2rem solid $color-white-theme;
+  border-left: 0.2rem solid $color-white-theme;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .exerciseDetail {
+    @include flex-vertical-center;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-   text-align: center;
-    margin: 5rem;
-    h2{
-        font-size: 3rem;
-        margin-bottom: 2rem;
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
     }
-    .exerciseDetail{
-       
-        margin: 2rem;
-        p{
-            padding: 1rem 2rem;
-          font-size: 2rem;
-            
-        }
-        img{
-            margin-top: 2rem;
-            border-radius: 10px;
-            margin-bottom: 5rem;
-        }
+
+    p {
+      font-size: 1.6rem;
+      text-align: center;
+      margin: 1rem 0;
     }
+
+    img {
+      @include responsiveImg(200px, auto, cover);
+      border-radius: 1.5rem;
+      margin-top: 1rem;
+    }
+  }
+
+  a {
+    font-size: 1.6rem;
+    text-decoration: none;
+    color: $color-primary;
+
+    &:hover {
+      color: $color-secondary;
+    }
+  }
+
+  .spinner {
+    @include responsiveImg(50px, 50px, contain);
+  }
 }

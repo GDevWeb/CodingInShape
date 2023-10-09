@@ -52,18 +52,20 @@ export default function Navbar() {
             </Link>
           </li>
         )}
+
+        {isAuthenticated &&
         <li className="nav__item">
-          <a href="/exercises" className="nav__link">
+          <a href="/exercise-page" className="nav__link">
             Mes exercices
           </a>
         </li>
+        }
         <li className="nav__item">
           <Link to="/contact" className="nav__link">
             Contact
           </Link>
         </li>
       </ul>
-      {/* <LogButton /> */}
     </nav>
   );
 }
