@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { callApi } from "../../API/callApi"; 
 import { EXERCISES_API } from '../../API/apiAdminExercises';
 import './DeleteExercise.scss'; 
 
@@ -29,27 +30,23 @@ export default function DeleteExercise() {
         return;
       }
 
-      const response = await fetch(`${EXERCISES_API}/${id}`, {
+      const { data, status } = await callApi({
         method: "GET",
+        url: `${EXERCISES_API}/${id}`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        credentials: "include",
       });
 
-      if (response.ok) {
-        const data = await response.json();
+      if (status === 200) {
         setFormData(data);
       } else {
-        console.error(
-          "Impossible d'obtenir les données de l'exercice. HTTP Status:",
-          response.status
-        );
-        setServerErrors("Impossible d'obtenir les données de l'exercice");
+        console.error("Impossible d'obtenir les données de l'exercice.");
+        setServerErrors(`Erreur du serveur : ${status}`);
       }
     } catch (error) {
       console.error("Erreur lors de la récupération des données:", error);
-      setServerErrors("Erreur lors de la récupération des données");
+      setServerErrors(`Erreur lors de la récupération des données : ${error.message}`);
     }
   };
 
@@ -59,22 +56,22 @@ export default function DeleteExercise() {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`${EXERCISES_API}/${id}`, {
+      const { status } = await callApi({
         method: "DELETE",
+        url: `${EXERCISES_API}/${id}`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        credentials: "include",
       });
 
-      if (response.ok) {
+      if (status === 200) {
         setSuccess("Exercice supprimé avec succès");
         setTimeout(() => {
           navigate("/exercise-management");
         }, 3000);
       } else {
-        console.error("Échec de la requête de suppression:", response.statusText);
+        console.error("Échec de la requête de suppression:", status);
         setServerErrors("Une erreur est survenue lors de la suppression");
       }
     } catch (error) {

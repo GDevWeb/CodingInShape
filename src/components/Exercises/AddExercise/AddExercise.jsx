@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import {EXERCISES_API}from '../../API/apiAdminExercises';
-import './AddExercise.scss';
-import '../../../../sass/_index.scss'
+import { EXERCISES_API } from "../../API/apiAdminExercises";
+import "./AddExercise.scss";
+import "../../../../sass/_index.scss";
+import { callApi } from "../../API/callApi";
 
 export default function AddExercise() {
   const [formData, setFormData] = useState({
@@ -14,13 +15,10 @@ export default function AddExercise() {
     muscle: "",
   });
 
-  // Redux :
   const token = useSelector((state) => state.auth.token);
+  const navigate = useNavigate();
 
-  // Pour gérer le message de succès si tous les inputs sont valides :
   const [success, setSuccess] = useState("");
-
-  // Pour gérer les messages d'erreurs dans le formulaire selon l'input :
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -36,11 +34,8 @@ export default function AddExercise() {
       [name]: value,
     });
 
-    // Vérifications des inputs :
-
-    //01. Vérification du nom de l'exercice :
     if (name === "name") {
-      const regexName = /^.{3,}$/; // Au moins 3 caractères
+      const regexName = /^.{3,}$/;
       const testName = regexName.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -50,9 +45,8 @@ export default function AddExercise() {
       }));
     }
 
-    //02. Vérification de la description :
     if (name === "description") {
-      const regexDescription = /^.{25,}$/; // Au moins 3 caractères
+      const regexDescription = /^.{25,}$/;
       const testDescription = regexDescription.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -62,7 +56,6 @@ export default function AddExercise() {
       }));
     }
 
-    //03. Vérification du champ image :
     if (name === "image") {
       const regexImgURL = /\.(jpeg|jpg|gif|png|bmp|svg)$/i;
       const testImageUrl = regexImgURL.test(value);
@@ -72,19 +65,17 @@ export default function AddExercise() {
       }));
     }
 
-    //05. Vérification du champ type d'exercice :
     if (name === "type") {
-      const regexType = /^.{3,}$/; // Au moins 3 caractères
+      const regexType = /^.{3,}$/;
       const testType = regexType.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
-        type: testType ? "" : "Le champs type ne peut être vide",
+        type: testType ? "" : "Le champ type ne peut être vide",
       }));
     }
 
-    // 07. Vérification du champ muscle :
     if (name === "muscle") {
-      const regexMuscle = /^.{3,}$/; // Au moins 3 caractères
+      const regexMuscle = /^.{3,}$/;
       const testMuscle = regexMuscle.test(value);
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -93,12 +84,9 @@ export default function AddExercise() {
     }
   };
 
-  const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Vérification de la saisie des inputs :
     const isValid =
       formData.name &&
       formData.description &&
@@ -112,7 +100,6 @@ export default function AddExercise() {
       return;
     }
 
-    // Création d'un objet contenant les données du formulaire à envoyer au serveur :
     const requestData = {
       name: formData.name,
       description: formData.description,
@@ -122,24 +109,18 @@ export default function AddExercise() {
     };
 
     try {
-      // Envoi de la requête POST au serveur
-      const response = await fetch(`${EXERCISES_API}`, {
+      const { status, data } = await callApi({
         method: "POST",
+        url: EXERCISES_API,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        credentials: "include",
-        body: JSON.stringify(requestData),
+        data: requestData,
       });
 
-      if (response.ok) {
-        // La requête a réussi (statut 200 OK)
-        const responseData = await response.json();
-        console.log("Réponse du serveur :", responseData);
-        setSuccess(responseData.msg)
-
-        // On vide le formulaire :
+      if (status === 201) {
+        setSuccess(data.msg);
         setFormData({
           name: "",
           description: "",
@@ -152,11 +133,12 @@ export default function AddExercise() {
           navigate("/exercise-management");
         }, 3000);
       } else {
-        console.error("Échec de la requête :", response.statusText);
-        return response({ error: "Une erreur est survenue" });
+        console.error("Échec de la requête :", status);
+        setSuccess("Une erreur est survenue");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Erreur lors de la requête :", error);
+      setSuccess("Une erreur est survenue");
     }
   };
 
@@ -179,13 +161,12 @@ export default function AddExercise() {
         <div className="form-group">
           <label htmlFor="description">Description</label>
           <div className="textareaContainer">
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-         
-          />
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+            />
           </div>
           {errors.description && (
             <p className="form-error">{errors.description}</p>
@@ -235,7 +216,7 @@ export default function AddExercise() {
             id="muscle"
           >
             <option value="0">Choisissez la zone musculaire travaillée</option>
-            <option value="Neck"> Cervical</option>
+            <option value="Neck">Cervical</option>
             <option value="Shoulders">Épaules</option>
             <option value="Back">Dos</option>
             <option value="Hips">Hanches</option>
@@ -252,6 +233,3 @@ export default function AddExercise() {
     </div>
   );
 }
-/*📖 Composant admin - Exercises
-Ajouter un exercise
-📖*/
