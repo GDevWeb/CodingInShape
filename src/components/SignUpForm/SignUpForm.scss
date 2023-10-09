@@ -1,251 +1,164 @@
 @import "../../../sass/index.scss";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap");
-
-// Message d'information des validation des inputs et du formulaire:
-.error {
-  color: $color-orange;
-}
-
-.successMessage {
-  color: $color-success;
-}
-
-.errorMessage {
-  color: $color-danger;
-}
 
 .signUpContainer {
-  h2.form-title {
-    @include center-flex;
-    margin: 1.5rem 0;
-    font-size: 5rem;
-    color: $color-black-theme;
-    letter-spacing: 0.5rem;
-  }
-}
-
-.formRegister,
-.modal_cgu {
-  margin: 1rem 5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  flex-wrap: wrap;
   @include GlassMorphism();
 
-  .form-group-avatar {
-    margin: 1.25rem 5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 30rem;
-    border-radius: 1.5rem;
-    padding: 2rem;
+  .form-title {
     text-align: center;
-
-    input {
-      width: 50%;
-    }
+    font-size: 1.4rem;
+    text-transform: uppercase;
   }
 
-  @media screen and (max-width: 56.25rem) {
+  form.formRegister {
+    width: 100%;
+    height: auto;
+
     .form-group-avatar {
-      margin: 1.25rem auto;
-    }
-  }
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem;
+      font-size: 2rem;
 
-  label {
-    height: 3.5rem;
-    border-radius: 0.5rem;
-    padding: 0.5rem 0;
-    font-size: 2rem;
-    font-weight: 500;
-  }
-
-  input {
-    text-align: center;
-    height: 4rem;
-    border-radius: 0.5rem;
-    border: none;
-  }
-
-  img {
-    margin: auto;
-    width: 20rem;
-    &:hover {
-      transform: scale(1.5);
-      transition: all 1s ease-in-out;
-    }
-  }
-
-  .formContainer {
-    font-family: "Poppins", sans-serif;
-    @include center-flex;
-    height: 80vh;
-    padding: 1rem;
-
-    .formRegister__container {
-      max-width: 56.25rem;
-      width: 100%;
-      padding: 2.5rem 2rem;
-
-      .form-group-one {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-
-        .form-group {
-          width: calc(100% / 2 - 1.25rem);
-          margin: 1.25rem 0 0.75rem 0;
-
-          input,
-          select {
-            height: 4.5rem;
-            width: 100%;
-            margin-top: 0.25rem;
-            opacity: 0.7;
-            text-align: center;
-            border-radius: 1rem;
-            border: 0.1rem solid #ccc;
-            font-size: 2rem;
-            outline: none;
-            border-bottom-width: 0.3rem;
-            @include flex-horizontal-center;
-          }
-
-          label {
-            font-weight: 500;
-            font-size: 2rem;
-          }
-        }
+      img {
+        @include responsiveImg(50%, auto, cover);
+        border-radius: 1rem;
+        cursor: pointer;
       }
 
-      .genderTitle {
-        font-size: 2rem;
-        font-weight: 700;
-        text-align: center;
-        letter-spacing: 0.2rem;
-        @include center-flex;
+      label {
+        font-size: 1.8rem;
       }
 
-      .genderCategory {
-        font-size: 2rem;
-        font-weight: 400;
-        display: flex;
-        width: 80%;
-        justify-content: space-between;
-        margin: 1.4rem auto;
-        input {
-          width: 2rem;
-          height: 2rem;
-          margin-right: 0.625rem;
-        }
-      }
-
-      .form-group.cgu {
-        flex-basis: 10%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      input {
+        height: 3rem;
         width: 100%;
+        margin-top: 0.5rem;
+        padding: 0.25rem;
+        border: none;
+        border-radius: 2rem;
+        font-size: 1rem;
+        text-align: center;
+      }
+    } // .form-group-avatar
+  } // form.formRegister
+
+  .form-group-gender {
+    width: 100%;
+    text-align: center;
+    margin-top: 0.2rem;
+    font-size: 3rem;
+    font-weight: 800;
+
+    nav {
+      font-size: 1.8rem;
+    }
+
+    .genders {
+      display: flex;
+      justify-content: space-evenly;
+      font-weight: 500;
+      margin: auto;
+
+      label {
+        font-size: 1.6rem;
+        padding-left: 0.5rem;
       }
 
-      .container_button.cgu {
-        flex-basis: 10%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 4.5rem;
-        margin: 2.5rem 0;
-
-        button {
-          height: 100%;
-          width: 80%;
-          margin: 0.1rem;
-          outline: none;
-          color: #020202;
-          border: none;
-          border-radius: 1rem;
-          font-size: 1.8rem;
-          font-weight: 500;
-          text-transform: uppercase;
-          letter-spacing: 0.3rem;
-          background: linear-gradient(135deg, $color-orange, #ff3c27);
-          background-size: 200% 200%;
-          transition: all 0.3s ease-in-out;
-
-          &:hover {
-            transform: scale(1.05);
-            transition: all 1s ease-in-out;
-            background-position: right center;
-            background: linear-gradient(
-              -135deg,
-              darken($color-orange, 10%),
-              darken(#ff3c27, 10%)
-            );
-            letter-spacing: 0.5rem;
-            color: $color-white-theme;
-          }
-        }
-      }
-
-      .container_button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-basis: 10%;
-        height: 4.5rem;
-        margin: 2.5rem 0;
-
-        button {
-          height: 100%;
-          width: 80%;
-          outline: none;
-          color: #020202;
-          border: none;
-          border-radius: 1rem;
-          font-size: 1.8rem;
-          font-weight: 500;
-          text-transform: uppercase;
-          letter-spacing: 0.3rem;
-          background: $linear-blue-gradient;
-
-          &:hover {
-            transform: scale(1.05);
-            transition: all 1s ease-in-out;
-            background: $linear-blue-reverse-gradient;
-            letter-spacing: 0.5rem;
-            color: $color-white-theme;
-          }
-        }
+      input {
+        width: 1rem;
+        height: 1rem;
       }
     }
   }
+  .form-group-one {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1rem;
+    justify-content: space-between;
 
-  .modal_cgu_content {
-    padding: 2rem;
-  }
+    .form-group {
+      width: calc(50% - 1rem);
+      margin: 1rem 0.5rem 0.6rem 0.5rem;
 
-  @media screen and (max-width: 43.75rem) {
-    .formRegister {
-      background-color: #2447d4;
-      display: block;
-    }
-
-    .formRegister__container {
-      max-width: 100%;
-      .form-group-one {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-
-        .form-group {
-          width: 100%;
-          margin: 1.25rem 0 0.75rem 0;
-        }
+      label {
+        font-weight: 800;
+        text-align: center;
       }
-    }
-  }
 
-  @media screen and (max-width: 43.75rem) {
-    .formContainer {
-      height: 120vh;
+      input,
+      select {
+        height: 2rem;
+        width: 100%;
+        text-align: center;
+        border-radius: 1rem;
+        border: 1px solid #ccc;
+        outline: none;
+        border-bottom-width: 0.3rem;
+      }
+    } // .form-group
+  } // .form-group-one
+
+  .form-group .cgu {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 0.25rem;
+  }
+  .container_button {
+    margin: 1rem 0;
+    width: 100%;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+
+    button {
+      height: 100%;
+      width: 50%;
+      outline: none;
+      color: $color-white-theme;
+      border: none;
+      border-radius: 1rem;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.3rem;
+      background: $linear-blue-gradient;
+
+      &:hover {
+        transform: scale(1.1);
+        transition: all 2s ease;
+        background: $linear-blue-reverse-gradient;
+        border: 1px solid black;
+      }
+
+
+    } // button
+  } // .buttonContainer
+  
+  
+  .error, .successMessage, .errorMessage {
+    font-size: 1.2rem;
+    font-style: italic;
+    text-align: center;
+    color: $color-orange;
+  }
+  
+  .container_message{
+    text-align: center;
+    
+    .successMessage {
+      color: $color-success;
+    }
+    
+    .errorMessage {
+      color: $color-danger;
     }
   }
 }

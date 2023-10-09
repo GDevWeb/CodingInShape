@@ -72,12 +72,12 @@ export default function MyAccountPage() {
   return (
     <div className="myAccountPage_container">
       <div className="user-profile-section">
-        <p className="welcome_user">
-          Bienvenue sur votre espace personnel{" "}
+        <div className="welcome_user">
+          <p> Bienvenue sur votre espace personnel{" "} </p>
           <p>
             {isAdmin ? "administrateur" : "utilisateur"} {userData.pseudo}
           </p>
-        </p>
+        </div>
         <div className="user_profile_identity">
           {showUserProfile && <UserProfile userData={userData} />}
           <div className="container_btn_avatar">

@@ -1,9 +1,8 @@
 import { useState } from "react";
-import "./SignUpForm.scss";
 import { useNavigate } from "react-router-dom";
 import { USER_SIGNUP } from "../API/apiUser";
 import CGU from "../CGU/CGU";
-import "../../../sass/_preset.scss";
+import "./SignUpForm.scss";
 
 export default function SignUpForm() {
   // State CGU :
@@ -301,6 +300,8 @@ export default function SignUpForm() {
       <form onSubmit={handleSubmit} className="formRegister">
       <h2 className="form-title">Inscription</h2>
         <div className="form-group-avatar">
+          <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
+          <img src={formData.avatar} alt="avatar de l'utilisateur" />
           <label htmlFor="avatar">Image de profil</label>
           <input
             type="text"
@@ -310,14 +311,47 @@ export default function SignUpForm() {
             id="avatar"
             placeholder="url de votre image de profil"
           />
-          <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
-          <img src={formData.avatar} alt="avatar de l'utilisateur" />
           <span className="error">{errors.avatar}</span>
         </div>
 
         <div className="formContainer">
           <div className="formRegister__container">
             <div className="form-group-one">
+            <div className="form-group-gender">
+              <div className="genderTitle">
+                <nav>Genre :</nav>
+              </div>
+              <div className="genders">
+                <div className="homme">
+                  <input
+                    type="radio"
+                    id="homme"
+                    name="sex"
+                    value="homme"
+                    checked={formData.sex === "homme"}
+                    onChange={handleChange}
+                    readOnly
+                  />
+                  <label htmlFor="homme">Homme</label>
+                </div>
+
+                <div className="femme">
+                  <input
+                    type="radio"
+                    id="femme"
+                    name="sex"
+                    value="femme"
+                    checked={formData.sex === "femme"}
+                    onChange={handleChange}
+                    readOnly
+                  />
+                  <label htmlFor="femme">Femme</label>
+                </div>
+
+                <span className="error">{errors.sex}</span>
+              </div>
+            </div>
+
               <div className="form-group lname">
                 <label htmlFor="lastName">Nom :</label>
                 <input
@@ -442,46 +476,6 @@ export default function SignUpForm() {
               </div>
             </div>
 
-            <div className="form-group gender">
-              <div className="genderTitle">
-                <p>Genre :</p>
-              </div>
-              <div className="genderCategory">
-                <div className="homme">
-                  <input
-                    type="radio"
-                    id="homme"
-                    name="sex"
-                    value="homme"
-                    checked={formData.sex === "homme"}
-                    onChange={handleChange}
-                    readOnly
-                  />
-                  <label htmlFor="homme">Homme</label>
-                </div>
-
-                <div className="femme">
-                  <input
-                    type="radio"
-                    id="femme"
-                    name="sex"
-                    value="femme"
-                    checked={formData.sex === "femme"}
-                    onChange={handleChange}
-                    readOnly
-                  />
-                  <label htmlFor="femme">Femme</label>
-                </div>
-
-                <span className="error">{errors.sex}</span>
-              </div>
-            </div>
-
-              <div className="container_button cgu">
-              <button onClick={() => setShowCgu(!showCgu)}>
-                {showCgu ? "Cacher CGU" : "Afficher CGU"}
-              </button>
-              </div>
             <div className="form-group cgu">
               <label htmlFor="CGU">
                 Conditions Générales d'utilisation (C.G.U)
@@ -496,18 +490,26 @@ export default function SignUpForm() {
                   name="cgu"
                   id="cgu"
                 />
-                <span className="error">{errors.cgu}</span>
               </div>
+                <span className="error">{errors.cgu}</span>
             </div>
 
+            <div className="container_message">
             <span className="successMessage">{successMessage}</span>
             <span className="errorMessage">{errorMessage}</span>
+            </div>
             <div className="container_button">
               <button type="submit">S'inscrire</button>
             </div>
           </div>
         </div>
+        
       </form>
+              <div className="container_button cgu">
+              <button onClick={() => setShowCgu(!showCgu)} className="btn-info">
+                {showCgu ? "Cacher CGU" : "Afficher CGU"}
+              </button>
+              </div>
 
       <div className="modal_cgu">{showCgu && <CGU />}</div>
     </div>
