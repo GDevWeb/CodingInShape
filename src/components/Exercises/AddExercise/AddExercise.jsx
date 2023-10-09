@@ -2,9 +2,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { EXERCISES_API } from "../../API/apiAdminExercises";
-import "./AddExercise.scss";
-import "../../../../sass/_index.scss";
 import { callApi } from "../../API/callApi";
+import "./AddExercise.scss";
 
 export default function AddExercise() {
   const [formData, setFormData] = useState({
@@ -228,8 +227,10 @@ export default function AddExercise() {
         <button type="submit">Ajouter</button>
         {success && <p className="form-success">{success}</p>}
       </form>
-      <Link to={"/dashboard"}>Retour au dashboard</Link>
-      <Link to={"/exercise-management"}>Retour à gestion des exercices</Link>
+      <div className="return-link">
+      <span><Link to={"/dashboard"}>Retour au dashboard</Link></span>
+      <span><Link to={"/exercise-management"}>Retour à gestion des exercices</Link></span>
+      </div>
     </div>
   );
 }
