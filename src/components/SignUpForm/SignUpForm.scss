@@ -22,11 +22,13 @@
     display: flex;
     flex-direction: column;
     min-width: 300px;
-   
     border-radius: 15px;
     padding: 20px;
     text-align: center;
-   
+   input{
+    width: 50%;
+    margin: 0 auto;
+   }
   }
   @media screen and (max-width: 900px) {
     .form-group-avatar{

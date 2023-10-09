@@ -10,6 +10,7 @@ import {
   setUserData,
 } from "../../../../redux/slices/authSlice";
 import ConditionalNavLinks from "../../ConditionalNavLinks/ConditionalNavLinks";
+import '../MyAccountPage.scss'
 
 export default function MyAccountPage() {
   // Redux :

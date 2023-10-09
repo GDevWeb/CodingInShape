@@ -57,11 +57,9 @@ const RandomQuote = () => {
             <h2>Citation du jour :</h2>
             <div className="quote"> {quote.text}</div>
             <div className='space'>
-                <div className="line"></div>
                 <div className="bottom">
                     <div className="author">{quote.author}</div>
                     <div className="icons">
-                        {/* <img src={twitter} alt="" /> */}
                         <img src={reload} onClick={() => { random() }} alt="" />
                     </div>
                 </div>

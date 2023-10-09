@@ -7,7 +7,7 @@
   justify-content: space-between;
   margin: 0 auto;
   padding: 0 20rem;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   height: 80vh;
   h1,
   h2 {
@@ -36,8 +36,16 @@
   }
   @media screen and (max-width: 768px) {
     .buttons{
-     width: 100%;
-      margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+     width: 70%;
+      margin: 0 auto;
+      .createAccountLink,
+      .FormConnexion {
+       margin: 0  2rem;
+       padding: 1rem 2rem;
+       height: 40px;
+      }
     }
   }
   //style des Link
@@ -50,11 +58,11 @@
     border-radius: 15px;
 
     &:hover {
-      color: aliceblue;
+      color: rgb(18, 128, 225);
       overflow: hidden;
-      background-color: black;
-      text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.324);
-      border: 1px outset black;
+      background-color: rgb(255, 255, 255);
+      text-shadow: 2px 2px 2px rgba(19, 18, 18, 0.324);
+      border: 1px outset rgb(255, 255, 255);
      
     }
   }
