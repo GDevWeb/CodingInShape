@@ -323,7 +323,7 @@ export default function UpdateProfile() {
           <img
             src={userData.avatar || Icons.CircleUser}
             alt="Avatar de l'utilisateur"
-            width={"100px"}
+            className="avatar-preview"
           />
           <label htmlFor="avatar">Image de profil</label>
           <input

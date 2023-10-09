@@ -4,6 +4,7 @@ export const callApi = async (args) => {
       headers: {
         ...args.headers,
         "Content-Type": "application/json",
+        
       },
       credentials: "include",
       body: JSON.stringify(args.data),
@@ -16,7 +17,6 @@ export const callApi = async (args) => {
     }
     
     const data = await response.json();
-    console.log(token)
     return { data, status: response.status };
   };
   

@@ -29,8 +29,8 @@
         @include flex-horizontal-center;
         width: 45%;
 
-        .avatar {
-          @include responsiveImg(80%, auto, cover);
+        img.userProfile-avatar {
+          @include responsiveImg(100%, auto, cover);
           border-radius: 50%;
         }
       }
@@ -43,7 +43,7 @@
           width: 50%;
           font-size: 1rem;
           text-align: left;
-          line-height: 1.5;
+          // line-height: 1.5;
           color: $color-white-theme;
         }
       }

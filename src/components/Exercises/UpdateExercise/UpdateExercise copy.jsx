@@ -1,16 +1,12 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { EXERCISES_API } from "../../API/apiAdminExercises";
-import { callApi } from "../../API/callApi"; 
 import "./UpdateExercise.scss";
 
 export default function UpdateExercise() {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const isAdmin = useSelector((state) => state.auth.isAdmin);
-  
-  const token = useSelector((state) => state.auth.token); 
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -19,9 +15,17 @@ export default function UpdateExercise() {
     muscle: "",
   });
 
+  // Pour gérer le message de succès si tous les inputs sont valides :
   const [success, setSuccess] = useState("");
+
+  //   Pour gérer les messages d'erreur server :
   const [serverErrors, setServerErrors] = useState("");
 
+  // Redux :
+  const token = useSelector((state) => state.auth.token);
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
+
+  // Pour gérer les messages d'erreurs dans le formulaire selon l'input :
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -29,7 +33,6 @@ export default function UpdateExercise() {
     type: "",
     muscle: "",
   });
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -95,41 +98,47 @@ export default function UpdateExercise() {
     }
   };
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    const fetchExerciseData = async () => {
+    const fetchUserData = async () => {
       try {
         if (!isAdmin) {
           navigate("/login");
           return;
         }
-  
-        const { data, status } = await callApi({
+
+        const response = await fetch(`${EXERCISES_API}/${id}`, {
           method: "GET",
-          url: `${EXERCISES_API}/${id}`,
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          credentials: "include",
         });
-  
-        if (status === 200) {
+
+        if (response.ok) {
+          const data = await response.json();
           setFormData(data);
         } else {
-          console.error("Impossible d'obtenir les données de l'exercice.");
-          setServerErrors(`Erreur du serveur : ${status}`);
+          console.error(
+            "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",
+            response.status
+          );
+          setServerErrors("Impossible d'obtenir les données de l'utilisateur");
         }
       } catch (error) {
         console.error("Erreur lors de la récupération des données:", error);
-        setServerErrors(`Erreur lors de la récupération des données : ${error.message}`);
+        setServerErrors("Erreur lors de la récupération des données");
       }
     };
-  
-    fetchExerciseData();
+
+    fetchUserData();
   }, [isAdmin, token, id, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Vérification de la saisie des inputs:
+    // Vérification de la saisie des inputs :
     const isValid =
       formData.name &&
       formData.description &&
@@ -143,19 +152,38 @@ export default function UpdateExercise() {
       return;
     }
 
+    // setSuccess("Exercice modifié avec succès");
+
+    // Création d'un objet contenant les données du formulaire à envoyer au serveur :
+    const requestData = {
+      name: formData.name,
+      description: formData.description,
+      image: formData.image,
+      type: formData.type,
+      muscle: formData.muscle,
+    };
+
+    // Envoi de la requête au serveur :
+    console.log("Token obtenu :", token);
+
     try {
-      const { status} = await callApi({
+      // Envoi de la requête PUT au serveur
+      const response = await fetch(`${EXERCISES_API}/${id}`, {
         method: "PUT",
-        url: `${EXERCISES_API}/${id}`,
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        data: formData,
+        credentials: "include",
+        body: JSON.stringify(requestData),
       });
 
-      if (status === 200) {
-        setSuccess("Exercice modifié avec succès");
-        setServerErrors("");
+      if (response.ok) {
+        // La requête a réussi (statut 200 OK)
+        const responseData = await response.json();
+        console.log("Réponse du serveur :", responseData);
+        setSuccess(responseData);
+        // On vide le formulaire :
         setFormData({
           name: "",
           description: "",
@@ -164,16 +192,17 @@ export default function UpdateExercise() {
           muscle: "",
         });
 
+        // On redirige l'utilisateur vers la liste des exercices :
         setTimeout(() => {
           navigate("/exercises-list");
         }, 3000);
       } else {
-        console.error("Échec de la requête :", status);
-        setServerErrors("Une erreur est survenue");
+        console.error("Échec de la requête :", response.statusText);
+        return response({ error: "Une erreur est survenue" });
+        setServerErrors(response.statusText);
       }
     } catch (error) {
       console.error(error);
-      setServerErrors(error.message);
     }
   };
 
@@ -261,8 +290,12 @@ export default function UpdateExercise() {
           Modifier
         </button>
         {success && <p className="form-success">{success}</p>}
-        <span className="server-error">{serverErrors.toString()}</span>
+        <p>{serverErrors.toString()}</p>
       </form>
     </div>
   );
 }
+
+/*📖 Composant admin et user - Exercises
+Update Exercise
+📖*/

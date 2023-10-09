@@ -9,7 +9,7 @@ export default function Header() {
       <div className="logo">
         <Link to="/" className="logo-link">
           <figure>
-            <img src={logo} alt="logo coding in shape" />
+            <img src={logo} alt="logo coding in shape" className="header_logo"/>
           </figure>
         </Link>
       </div>

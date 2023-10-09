@@ -1,56 +1,90 @@
-/* ExerciseDetail.scss */
-
-@import "../../../../sass/index.scss"; // Assurez-vous d'importer vos variables et mixins nécessaires depuis votre fichier principal de styles
+@import "../../../../sass/index.scss";
 
 .exerciseDetailContainer {
-  @include flex-vertical-center;
-  flex-direction: column;
-  background-color: rgba(22, 128, 227, 0.242);
-  border-radius: 1rem;
-  padding: 2rem;
-  margin: 2rem;
-  box-shadow: 0.2rem 0.2rem 0.2rem black;
-  border-top: 0.2rem solid $color-white-theme;
-  border-left: 0.2rem solid $color-white-theme;
+  font-size: $base-font-size;
+  text-align: center;
+  @include GlassMorphism();
+  background-color: $color-blue-theme;
 
   h2 {
     font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-
-  .exerciseDetail {
-    @include flex-vertical-center;
-    flex-direction: column;
-
-    h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      font-size: 1.6rem;
-      text-align: center;
-      margin: 1rem 0;
-    }
-
-    img {
-      @include responsiveImg(200px, auto, cover);
-      border-radius: 1.5rem;
-      margin-top: 1rem;
-    }
-  }
-
-  a {
-    font-size: 1.6rem;
-    text-decoration: none;
-    color: $color-primary;
-
-    &:hover {
-      color: $color-secondary;
-    }
+    margin: 2rem 0;
   }
 
   .spinner {
-    @include responsiveImg(50px, 50px, contain);
+    width: 100px;
+    margin: 2rem auto;
   }
+
+  .exerciseDetail {
+    margin: 2rem;
+  }
+
+  a {
+    color: blue;
+    font-size: 1.6rem;
+    text-decoration: none;
+
+    &:hover {
+      color: white;
+      text-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.516);
+      transition: all 0.5s ease-in-out;
+    }
+  }
+}
+
+.exercise-card {
+  background-color: rgba(22, 128, 227, 0.242);
+  border-radius: 1rem;
+  border-top: 0.2rem solid white;
+  border-left: 0.2rem solid white;
+  box-shadow: 0.2rem 0.2rem 0.2rem black;
+  padding: 2rem;
+  margin: 2rem auto;
+  width: 80%;
+
+  .exercise-name::first-letter {
+    text-transform: uppercase;
+  }
+  .exercise-name {
+    font-size: 2rem;
+    margin: 1rem 0;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .exercise-description {
+    font-size: 1.6rem;
+    margin: 1rem 0;
+    color: #555;
+  }
+
+  .exercise-type {
+    font-size: 1.6rem;
+    margin: 1rem 0;
+    font-style: italic;
+    color: #777;
+  }
+
+  .exercise-muscle {
+    font-size: 1.6rem;
+    margin: 1rem 0;
+    font-weight: bold;
+    color: #444;
+  }
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin: 1rem 0;
+}
+
+p {
+  font-size: 1.4rem;
+  margin: 1rem 0;
+}
+
+img.exercise-img {
+  width: 20rem;
+  border-radius: 1.5rem;
 }

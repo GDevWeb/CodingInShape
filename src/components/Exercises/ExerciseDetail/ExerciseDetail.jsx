@@ -1,17 +1,17 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { EXERCISES_API } from "../../API/apiAdminExercises";
 import Spinner from "../../../assets/icons/spinner.svg";
-import { setExerciseData } from "../../../../redux/slices/exerciseSlice"; 
-import './ExerciseDetail.scss';
+import { setExerciseData } from "../../../../redux/slices/exerciseSlice";
+import "./ExerciseDetail.scss";
 
 export default function ExerciseDetail() {
   const { id } = useParams();
 
   // Redux :
-  const exercise = useSelector((state) => state.exercise.data); 
-  const isLoading = useSelector((state) => state.exercise.isLoading); 
+  const exercise = useSelector((state) => state.exercise.data);
+  const isLoading = useSelector((state) => state.exercise.isLoading);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
@@ -64,25 +64,31 @@ export default function ExerciseDetail() {
 
   return (
     <div className="exerciseDetailContainer">
-      <h2>Exercise Detail</h2>
+      <h2>Détail de l'exercice </h2>
       {isLoading ? (
         <img src={Spinner} alt="Chargement en cours..." />
       ) : (
         <>
           {exercise ? (
-            <div className="exerciseDetail">
-              <h2>{exercise.name}</h2>
-              <p>Description : {exercise.description}</p>
-              <p>Type : {exercise.type}</p>
-              <p>Muscle ciblé : {exercise.muscle}</p>
+            <div className="exercise-card">
+              <h2 className="exercise-name">{exercise.name}</h2>
+              <p className="exercise-description">
+                Description : {exercise.description}
+              </p>
+              <p className="exercise-type">Type : {exercise.type}</p>
+              <p className="exercise-muscle">
+                Muscle ciblé : {exercise.muscle}
+              </p>
               <img
                 src={exercise.image}
                 alt={`Image de ${exercise.name}`}
                 width={"200px"}
+
+                className="exercise-img"
               />
             </div>
           ) : (
-            <p>Exercice non trouvé</p>
+            <p className="errors">Exercice non trouvé</p>
           )}
         </>
       )}

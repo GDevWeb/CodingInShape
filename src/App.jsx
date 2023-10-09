@@ -15,7 +15,7 @@ import ExerciseDetail from "./pages/Exercise";
 import GetRandomRoutine from "../src/components/Exercises/GetRandomRoutine";
 import AddExercise from "./components/Exercises/AddExercise/AddExercise";
 import UpdateExercise from "./components/Exercises/UpdateExercise/UpdateExercise";
-import DeleteExercise from "./components/Exercises/DeleteExercise";
+import DeleteExercise from "./components/Exercises/DeleteExercise/DeleteExercise";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";

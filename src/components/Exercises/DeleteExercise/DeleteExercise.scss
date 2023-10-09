@@ -1,0 +1,74 @@
+@import "../../../../sass/index.scss";
+
+.deleteExerciseContainer {
+    // width: 80%;
+    // margin: auto;
+    text-align: center;
+    @include GlassMorphism();
+    background-color: $linear-blue-gradient;
+    @include GlassMorphism(); 
+    padding: 2rem; 
+    border-radius: 1.5rem; 
+  
+    h2 {
+      margin: 20px auto;
+    }
+  
+    .exercise-info {
+      font-size: 1.6rem;
+      margin: 1rem 0;
+  
+      @media screen and (max-width: 768px) {
+        font-size: 1.4rem;
+      }
+    }
+  
+    .exercise-image {
+      width: 20rem;
+      border-radius: 1rem;
+      margin: 1rem auto;
+  
+      @media screen and (max-width: 768px) {
+        width: 15rem;
+      }
+    }
+  
+    .delete-button {
+      background-color: $color-danger;
+      color: #fff;
+      border: none;
+      border-radius: 1rem;
+      padding: 1rem 2rem;
+      margin: 1rem 0;
+      cursor: pointer;
+      transition: background-color 0.3s;
+  
+      &:hover {
+        background-color: darken($color-danger, 10%); 
+      }
+    }
+  
+    .form-error {
+      font-size: 1.6rem;
+      color: $color-danger;
+    }
+  
+    .form-success {
+      font-size: 1.6rem;
+      color: $color-success;
+    }
+  
+    .return-link {
+      padding: 1rem 2rem;
+      border-radius: 1rem;
+      text-decoration: none;
+      color: $color-black-theme;
+      margin-top: 1rem;
+      display: inline-block;
+  
+      @media screen and (max-width: 768px) {
+        font-size: 1.4rem;
+      }
+    }
+  }
+  

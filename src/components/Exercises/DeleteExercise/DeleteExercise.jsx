@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { EXERCISES_API } from '../API/apiAdminExercises';
+import { EXERCISES_API } from '../../API/apiAdminExercises';
+import './DeleteExercise.scss'; 
 
 export default function DeleteExercise() {
-
   const token = useSelector((state) => state.auth.token);
   const isAdmin = useSelector((state) => state.auth.isAdmin);
-
-
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -26,7 +24,6 @@ export default function DeleteExercise() {
 
   const fetchData = async () => {
     try {
-
       if (!isAdmin) {
         navigate("/login");
         return;
@@ -61,7 +58,6 @@ export default function DeleteExercise() {
   }, [id, navigate]);
 
   const handleDelete = async () => {
-
     try {
       const response = await fetch(`${EXERCISES_API}/${id}`, {
         method: "DELETE",
@@ -88,27 +84,29 @@ export default function DeleteExercise() {
   };
 
   return (
-    <>
+    <div className="deleteExerciseContainer">
       <h2>Supprimer l'exercice {formData.name}</h2>
       <div>
         <p>Confirmez la suppression de l'exercice :</p>
-        <p>Nom : {formData.name}</p>
-        <p>Description : {formData.description}</p>
-        <img src={formData.image} alt={formData.name} width={"200px"}/>
-        <p>Vidéo : {formData.video}</p>
-        <p>Type d'exercice : {formData.type}</p>
-        <p>Zone travaillée : {formData.muscle}</p>
+        <p className="exercise-info">Nom : {formData.name}</p>
+        <p className="exercise-info">Description : {formData.description}</p>
+        <img src={formData.image} alt={formData.name} className="exercise-image" />
+        <p className="exercise-info">Type d'exercice : {formData.type}</p>
+        <p className="exercise-info">Zone travaillée : {formData.muscle}</p>
       </div>
       <div>
-        <button onClick={handleDelete}>Confirmer la suppression</button>
+        <button onClick={handleDelete} className="delete-button">
+          Confirmer la suppression
+        </button>
         {serverErrors && <p className="form-error">{serverErrors}</p>}
         {success && <p className="form-success">{success}</p>}
       </div>
-      <Link to={"/dashboard"}>Retour au dashboard</Link>
-      <Link to={"/exercise-management"}>Retour à la gestion des exercices</Link>
-      <Link to={"/exercises-list"}>Retour à la liste des exercices</Link>
-    </>
+      <Link to="/exercise-management" className="return-link">
+        Retour à la gestion des exercices
+      </Link>
+      <Link to="/exercises-list" className="return-link">
+        Retour à la liste des exercices
+      </Link>
+    </div>
   );
 }
-
-// updates with redux auth :

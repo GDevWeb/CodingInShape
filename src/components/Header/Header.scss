@@ -14,8 +14,8 @@ header {
     align-items: center;
     justify-content: center;
 
-    img {
-      @include responsiveImg(50%, auto, cover);
+    img.header_logo {
+      @include responsiveImg(40%, auto, cover);
     }
   }
 

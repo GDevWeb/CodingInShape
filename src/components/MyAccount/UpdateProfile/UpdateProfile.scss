@@ -28,8 +28,8 @@
       padding: 2rem;
       font-size: 2rem;
 
-      img {
-        @include responsiveImg(50%, auto, cover);
+      img.avatar-preview {
+        @include responsiveImg(40%, auto, cover);
         border-radius: 1rem;
         cursor: pointer;
       }
@@ -82,7 +82,7 @@
       width: 100%;
       text-align: center;
       margin-top: 0.2rem;
-      font-size: 3rem;
+      // font-size: 3rem;
       font-weight: 800;
 
       nav {
@@ -137,12 +137,18 @@
     } // button
   } // .buttonContainer
 
-  @media screen and (max-width: 700px) {
+  @media screen and (min-width: 700px) {
     .updateContainer {
       height: auto;
 
-      form {
+      form.updateForm {
         width: 100%;
+
+
+        img.avatar-preview {
+          @include responsiveImg(10%, auto, cover);
+        }
+  
       }
     }
   }

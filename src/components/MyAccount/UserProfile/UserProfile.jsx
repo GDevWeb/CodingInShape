@@ -66,7 +66,7 @@ export default function UserProfile() {
               
             </div>
             <figure>
-            <img src={userData.avatar || CircleUser} alt={userData.lastName} className="avatar"/>
+            <img src={userData.avatar || CircleUser} alt={userData.lastName} className="userProfile-avatar"/>
             </figure>
           </>
         )}

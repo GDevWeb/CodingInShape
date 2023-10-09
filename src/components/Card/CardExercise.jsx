@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 export default function CardExercise ({ exercise, isAdmin }){
   return (
     <li className="exercise-item">
-      <h2 className="exercise-title">{exercise.name}</h2>
+      <h2 className="exercise-name">{exercise.name}</h2>
       <p className="exercise-description">
-        {exercise.description.length > 100 ? (
-          `${exercise.description.substring(0, 100)}...`
+        {exercise.description.length > 50 ? (
+          `${exercise.description.substring(0, 20)}...`
         ) : (
           exercise.description
         )}
