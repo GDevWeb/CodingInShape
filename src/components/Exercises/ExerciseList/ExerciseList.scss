@@ -1,107 +1,166 @@
-.exerciceContainer {
-    height: 90vh;
-    .title {
-        text-align: center;
-    }
+@import "../../../../sass/index.scss";
 
+.exerciseContainer {
+  font-size: $base-font-size;
+  flex-basis: calc(45% - 2rem); //ici, 3 cartes par ligne
 
-    .filterContainer {
-        font-size: 3rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        margin: 2rem 10rem;
-        text-align: center;
-        option,
-        select {
-            height: 40px;
-            text-align: center;
-            margin: 0 2rem;
-            border-radius: 5px;
-            font-size: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-    }
-.title{
+  p.title {
     text-align: center;
-    font-size: 3rem;
-    margin: 2rem 0;
-}
+    font-size: 2rem;
+    margin: 1rem 0;
+  }
+
+  .filterContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 5rem;
+    text-align: center;
+    padding: 0.5rem;
+
+    label {
+      font-size: 1.6rem;
+      text-transform: uppercase;
+    }
+
+    select {
+      text-align: center;
+      margin: 0 2rem;
+      border-radius: 0.5rem;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+    }
+  }
+
+  .exercise-item {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin: 0 auto;
+    background-color: rgba(22, 128, 227, 0.242);
+    background-color: $linear-blue-reverse-gradient;
+    border-radius: 1rem;
+    border-top: 0.2rem solid white;
+    border-left: 0.2rem solid white;
+    box-shadow: 0.2rem 0.2rem 0.2rem black;
+
+    li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 2rem;
+      flex-wrap: wrap;
+
+      p {
+        text-align: center;
+        margin: 1rem 0;
+      }
+
+      img {
+        width: 12rem;
+        border-radius: 1.5rem;
+      }
+
+      .exercise-title::first-letter {
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      .exercise-title {
+        text-align: center;
+        font-size: 1.6rem;
+        color: #333;
+      }
+
+      .exercise-description {
+        font-size: 1.2rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .exercise-type {
+        color: $color-info;
+        font-size: 1.4rem;
+      }
+
+      .exercise-muscle {
+        color: $color-primary;
+        font-size: 1.4rem;
+      }
+
+      .exercise-image {
+        width: 12rem;
+        border-radius: 1.5rem;
+      }
+
+      .exercise-link {
+        font-size: 1.2rem;
+        text-decoration: none;
+        color: #007bff;
+        margin-top: 1rem;
+        transition: color 0.3s ease-in-out;
+        cursor: cell;
+
+        &:hover {
+          color: #0056b3;
+        }
+      }
+
+      .put {
+        color: $color-orange;
+      }
+      .delete {
+        color: $color-danger;
+        margin-bottom: 0.25rem;
+      }
+    }
+  }
+
+  @media screen and (max-width: 48rem) {
     ul {
-        display: flex;
-        justify-content: space-around;
-        width: 80%;
-        margin: 0 auto;
-        background-color: rgba(22, 128, 227, 0.242);
-        border-radius: 10px;
-        border-top: 2px solid white;
-        border-left: 2px solid white;
-        box-shadow: 2px 2px 2px black;
+      flex-wrap: wrap;
+    }
+  }
 
-        li {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 20px;
-            flex-wrap: wrap;
+  .paginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
 
-            p {
-                text-align: center;
-                margin: 1rem 0;
-            }
+    button {
+      height: 4rem;
+      width: 15rem;
+      border-radius: 1rem;
+      margin: 0 1rem;
 
-            img {
-                width: 200px;
-                border-radius: 15px;
-            }
+      img.icon{
+        @include responsiveImg(40%, auto, cover)
+      }
+    }
+  }
 
-        }
+  .navigate-link {
+    text-align: center;
+    color: aqua;
+    margin: 2rem auto;
 
+    p {
+      color: blue;
+      font-style: italic;
+      &:hover {
+        color: white;
+        transition: all 0.5s ease-in-out;
+        text-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.516);
+      }
     }
 
-    @media screen and (max-width: 768px) {
-        ul {
-            flex-wrap: wrap;
-            
-        }
+    &:hover {
+      transform: scale(1.5);
+      transition: all 0.5s ease-in-out;
+      color: white;
+      overflow: hidden;
     }
-
-    .paginContainer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 2rem;
-
-        button {
-            height: 40px;
-            width: 150px;
-            border-radius: 10px;
-            margin: 0 1rem;
-        }
-  
-    }      
-    .navigate-link{
-            text-align: center;
-            color: aqua;
-            margin: 2rem auto;
-            width: 400px;
-            p{
-                color: blue;
-                font-size: 2rem;
-                &:hover{
-                    color: white;
-                    transition: all 0.5s ease-in-out;
-                    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.516);
-                }
-            }
-            &:hover{
-                transform: scale(1.5);
-                transition: all 0.5s ease-in-out;
-                color: white;
-                overflow: hidden;
-                
-            }
-        }
+  }
 }

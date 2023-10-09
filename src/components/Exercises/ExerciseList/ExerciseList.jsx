@@ -4,8 +4,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { EXERCISES_API } from "../../API/apiAdminExercises";
 import Spinner from "../../../assets/icons/spinner.svg";
 import { setUserData } from "../../../../redux/slices/authSlice";
-import ConditionalNavLinks from "../../ConditionalNavLinks/ConditionalNavLinks";
-import './ExerciseList.scss'
+import CardExercise from "../../Card/CardExercise";
+import Icons from "../../../assets/icons/index_icons";
+import "./ExerciseList.scss";
 
 export default function ExerciseList() {
   // État local :
@@ -98,9 +99,9 @@ export default function ExerciseList() {
   };
 
   return (
-    <div className="exerciceContainer">
+    <div className="exerciseContainer">
       <div className="title">
-        <h2>Liste des exercices disponibles :</h2>
+        <h1>Liste des exercices :</h1>
       </div>
       <div className="filterContainer">
         <h3>Filtres :</h3>
@@ -135,39 +136,13 @@ export default function ExerciseList() {
         </div>
       </div>
 
-
-      <p className="title">Exercices</p>
-
-
       {isLoading && <img src={Spinner} alt="Chargement en cours..." />}
-      <ul>
-
+      <ul className="exercise-item">
         {filterExercises(exercises, filterOptions).map((exercise) => (
 
-          <li key={exercise._id}>
-            <h2>{exercise.name}</h2>
-            <p>Description : {exercise.description}</p>
-            <p>Type : {exercise.type}</p>
-            <p>Muscle ciblé : {exercise.muscle}</p>
-            <img
-              src={exercise.image}
-              alt={`Image de ${exercise.name}`}
-            />
-            <Link to={`/exercise-detail/${exercise._id}`}>Voir détail de l'exercice</Link>
-            {isAdmin && (
-              <>
-                <Link to={`/update-exercise/${exercise._id}`}>
-                  Modifier l'exercice
-                </Link>
-                <Link to={`/delete-exercise/${exercise._id}`}>
-                  Supprimer l'exercice
-                </Link>
-              </>
-            )}
-          </li>
+<CardExercise key={exercise._id} exercise={exercise} isAdmin={isAdmin} />
 
-        ))}
-
+))}
       </ul>
 
       <div className="paginContainer">
@@ -175,31 +150,31 @@ export default function ExerciseList() {
           onClick={() => setCurrentPage(currentPage - 1)}
           disabled={currentPage === 1}
         >
-          Page précédente
+         <img src={Icons.ArrowLeft} alt="page précédente" className="icon"/> 
         </button>
-
 
         <p>
           page {currentPage} sur {Math.ceil(exercises.length / exercisePerPage)}
         </p>
         <button
           onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage === Math.ceil(exercises.length / exercisePerPage)}
+          disabled={
+            currentPage === Math.ceil(exercises.length / exercisePerPage)
+          }
         >
-          Page suivante
+                  <img src={Icons.ArrowRight} alt="page suivante" className="icon"/> 
+
         </button>
       </div>
 
-      <ConditionalNavLinks
-        isAdmin={isAdmin}
-      />
-
       <div className="navigate-links">
-        {isAdmin &&
+        {isAdmin && (
           <div className="navigate-link">
-            <Link to={"/exercise-management"}><p>Retour à la gestion des exercices</p></Link>
+            <Link to={"/exercise-management"}>
+              <p>Retour à la gestion des exercices</p>
+            </Link>
           </div>
-        }
+        )}
       </div>
     </div>
   );
