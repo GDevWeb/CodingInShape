@@ -1,83 +1,100 @@
 // Mixin pour afficher en mode flex
 @mixin flex($direction: row, $justify: center, $align: center) {
-    display: flex;
-    flex-direction: $direction;
-    justify-content: $justify;
-    align-items: $align;
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
 }
 
 // Mixin pour centrer horizontalement et verticalement un élément en mode flex
 @mixin center-flex {
-    @include flex(column, center, center);
+  @include flex(column, center, center);
 }
 
 // Mixin pour aligner les éléments horizontalement en mode flex
 @mixin flex-horizontal-center {
-    @include flex(row, center, center);
+  @include flex(row, center, center);
 }
 
 // Mixin pour aligner les éléments verticalement en mode flex
 @mixin flex-vertical-center {
-    @include flex(column, center, center);
+  @include flex(column, center, center);
 }
 
 // Mixin pour créer un conteneur flex avec un espacement uniforme entre les éléments
 @mixin flex-space-between {
-    @include flex(row, space-between, center);
+  @include flex(row, space-between, center);
 }
-
 
 //Images :
 @mixin responsiveImg($width, $height, $object-fit) {
-    width: $width;
-    height: $height;
-    object-fit: $object-fit;
+  width: $width;
+  height: $height;
+  object-fit: $object-fit;
 }
 
-// Border : 
-@mixin firstBorderRadius{
-    border-radius: 0.5rem;
-
+// Border :
+@mixin firstBorderRadius {
+  border-radius: 0.5rem;
 }
 
-// Apparence : 
+// Containers :
+@mixin mobile-first {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+// Titres et paragraphes :
+@mixin section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+// Apparence :
 @mixin GlassMorphism {
-    background-color: rgba(255, 255, 255, 0.61);
-    border-top: 0.2rem solid $color-white-theme;
-    border-left: 0.2rem solid $color-white-theme;
-    box-shadow: 0.2rem 0.2rem 0.2rem black;
-    border-radius: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.61);
+  border-top: 0.2rem solid $color-white-theme;
+  border-left: 0.2rem solid $color-white-theme;
+  box-shadow: 0.2rem 0.2rem 0.2rem black;
+  border-radius: 1.5rem;
 }
 
 //Formulaires :
 @mixin inputs {
-    height: 3.5rem;
-    width: 100%;
-    margin-top: 0.25rem;
-    opacity: 0.7;
-    text-align: center;
-    border-radius: 1rem;
-    border: 0.1rem solid #ccc;
-    font-size: 1rem;
-    outline: none;
-    border-bottom-width: 0.3rem;
-    @include flex-horizontal-center;
+  height: 3.5rem;
+  width: 100%;
+  margin-top: 0.25rem;
+  opacity: 0.7;
+  text-align: center;
+  border-radius: 1rem;
+  border: 0.1rem solid #ccc;
+  font-size: 1rem;
+  outline: none;
+  border-bottom-width: 0.3rem;
+  @include flex-horizontal-center;
 }
 
 @mixin button-style {
-    height: 3.5rem;
-    width: 60%;
-    font-size: 1.3rem;
-    text-transform: capitalize;
-    border: none;
-    background: linear-gradient(135deg, #39a3ca, #0c41d4);
-    border-radius: 0.5rem;
-    color: white;
-  
-    &:hover {
-      background: linear-gradient(-135deg, #39a3ca, #0c41d4);
-      border: 1px inset black;
-      text-shadow: 1px 1px 1px black;
-    }
+  height: 3.5rem;
+  width: 60%;
+  font-size: 1.3rem;
+  text-transform: capitalize;
+  border: none;
+  background: linear-gradient(135deg, #39a3ca, #0c41d4);
+  border-radius: 0.5rem;
+  color: white;
+
+  &:hover {
+    background: linear-gradient(-135deg, #39a3ca, #0c41d4);
+    border: 1px inset black;
+    text-shadow: 1px 1px 1px black;
   }
-  
+}
+
+// * {
+//   border: 0.1rem solid red;
+// }

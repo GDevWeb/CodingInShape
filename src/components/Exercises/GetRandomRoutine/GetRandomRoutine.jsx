@@ -1,10 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { Link, useNavigate } from "react-router-dom";
-import { GET_RANDOM_ROUTINE } from "../API/apiUserExercises";
-import Spinner from "../../assets/icons/spinner.svg";
-import Introduction from "../Introduction/Introduction";
-import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
+import { callApi } from "../../API/callApi";
+import { GET_RANDOM_ROUTINE } from "../../API/apiUserExercises";
+import Introduction from "../../Introduction/Introduction";
+import ConditionalNavLinks from "../../ConditionalNavLinks/ConditionalNavLinks";
+import icons from "../../../assets/icons/index_icons";
+import "./GetRandomRoutine.scss";
 
 export default function GetRandomRoutine() {
   const [exercises, setExercises] = useState([]);
@@ -16,7 +18,7 @@ export default function GetRandomRoutine() {
 
   // Slider :
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false); // Démarre en mode "Pause"
+  const [isPlaying, setIsPlaying] = useState(false); //"Pause"
   const [timeLeft, setTimeLeft] = useState(20);
   const [completedSlides, setCompletedSlides] = useState(0);
   const [showCongratulations, setShowCongratulations] = useState(false);
@@ -29,33 +31,27 @@ export default function GetRandomRoutine() {
   useEffect(() => {
     const fetchExercises = async () => {
       try {
-
-        if ( !isAuthenticated) {
+        if (!isAuthenticated) {
           navigate("/login");
           return;
         }
 
-        const response = await fetch(
-          `${GET_RANDOM_ROUTINE}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            credentials: "include",
-          }
-        );
+        const { data, status } = await callApi({
+          method: "GET",
+          url: `${GET_RANDOM_ROUTINE}`,
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-        if (response.ok) {
-          const data = await response.json();
-          console.log("Données de la routine des exercices récupérées :", data);
+        if (status === 200) {
           setExercises(data);
           setIsLoading(false);
         } else {
           console.error(
             "Impossible de récupérer les données des exercices. Statut HTTP :",
-            response.status
+            status
           );
           setIsLoading(false);
         }
@@ -69,7 +65,7 @@ export default function GetRandomRoutine() {
     };
 
     fetchExercises();
-  }, [navigate]);
+  }, [navigate, isAuthenticated, token]);
 
   const startTimer = () => {
     if (intervalIdRef.current) {
@@ -99,7 +95,7 @@ export default function GetRandomRoutine() {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % exercises.length);
     setTimeLeft(20);
 
-    if (completedSlides === 4) { //Ajouter +1 stat routine terminée pour la V+
+    if (completedSlides === 4) {
       setShowCongratulations(true);
       setIsPlaying(false);
     } else if (completedSlides < 4) {
@@ -115,52 +111,61 @@ export default function GetRandomRoutine() {
   };
 
   return (
-    <div>
+    <div className="random-routine-container">
+      <h2 className="section-title">Introduction :</h2>
+      <Introduction />
+
       {isLoading ? (
-        <>
-          <img src={Spinner} alt="Chargement en cours" />
+        <div className="loading">
+          <img src={icons.Spinner} alt="Chargement en cours" />
           <p>Chargement en cours...</p>
-        </>
+        </div>
       ) : (
-        <div>
-          <h2>Introduction :</h2>
-          <Introduction />
-          <h2>Diaporama d'exercices</h2>
-          <div>
-            <button onClick={handlePrevious}>Précédent</button>
-            <button onClick={handleNext}>Suivant</button>
-            <button onClick={() => setIsPlaying(!isPlaying)}>
-              {isPlaying ? "Pause" : "Démarrer"}
-            </button>
-            <button onClick={() => setCurrentIndex(0)}>Recommencer</button>
-          </div>
-          <div>
+        <div className="exercise-slider">
+          <h2 className="section-title">Diaporama d'exercices</h2>
+          <div className="exercise-details">
             {showCongratulations ? (
-              <p>
+              <p className="congratulations-message">
                 Félicitations, vous avez terminé les 5 exercices de la routine !
               </p>
             ) : (
               <>
-                <h3>{exercises[currentIndex]?.muscle}</h3>
-                <p>Description : {exercises[currentIndex]?.description}</p>
+                <h3 className="exercise-muscle">
+                  {exercises[currentIndex]?.muscle}
+                </h3>
+                <p className="exercise-description">
+                  Description : {exercises[currentIndex]?.description}
+                </p>
 
+                <figure className="exercise-image_container">
                 <img
+                  className="exercise-image"
                   src={exercises[currentIndex].image}
                   alt="Image de l'exercice"
-                />
-
-                {isPlaying && <p>Temps restant : {timeLeft} secondes</p>}
+                  />
+                  </figure>
+          <div className="slider-controls">
+            <button onClick={handlePrevious}>Précédent</button>
+            <button onClick={() => setIsPlaying(!isPlaying)}>
+              {isPlaying ? "Pause" : "Démarrer"}
+            </button>
+            <button onClick={handleNext}>Suivant</button>
+            {/* <button onClick={() => setCurrentIndex(0)}>Recommencer</button> */}
+          </div>
+                {isPlaying && (
+                  <p className="time-left">Temps restant : {timeLeft} secondes</p>
+                )}
               </>
             )}
           </div>
         </div>
       )}
-      <ConditionalNavLinks />
-      <Link to={"/exercises"}>Retour à mon espace exercices</Link>
+
+<div className="return-link_container">
+      <Link to={"/exercises"} className="return-link">
+        Retour à mon espace exercices
+      </Link>
+</div>
     </div>
   );
 }
-
-/*📖 Composant admin et user - Exercises
-Routine aléatoire
-📖*/

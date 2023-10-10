@@ -12,7 +12,7 @@ import Exercises from "./pages/Exercises";
 import ExerciseManagement from "./components/DashBoard/ExerciseManagementPage";
 import ExerciseList from "./components/Exercises/ExerciseList/ExerciseList";
 import ExerciseDetail from "./pages/Exercise";
-import GetRandomRoutine from "../src/components/Exercises/GetRandomRoutine";
+import GetRandomRoutine from "../src/components/Exercises/GetRandomRoutine/GetRandomRoutine";
 import AddExercise from "./components/Exercises/AddExercise/AddExercise";
 import UpdateExercise from "./components/Exercises/UpdateExercise/UpdateExercise";
 import DeleteExercise from "./components/Exercises/DeleteExercise/DeleteExercise";

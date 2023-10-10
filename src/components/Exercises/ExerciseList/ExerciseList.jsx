@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { EXERCISES_API } from "../../API/apiAdminExercises";
 import Spinner from "../../../assets/icons/spinner.svg";
+import { callApi } from "../../API/callApi";
 import { setUserData } from "../../../../redux/slices/authSlice";
 import CardExercise from "../../Card/CardExercise";
 import Icons from "../../../assets/icons/index_icons";
@@ -12,6 +13,7 @@ export default function ExerciseList() {
   // État local :
   const [exercises, setExercises] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [errorMssg, setErrorMssg] = useState(""); // Variable pour afficher les erreurs serveur
 
   // Redux :
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -38,31 +40,29 @@ export default function ExerciseList() {
           return;
         }
 
-        const response = await fetch(`${EXERCISES_API}`, {
+        const { data, status } = await callApi({
           method: "GET",
+          url: EXERCISES_API,
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          credentials: "include",
         });
 
-        if (response.ok) {
-          const data = await response.json();
+        if (status === 200) {
           dispatch(setUserData(data));
           setExercises(data);
           setIsLoading(false);
         } else {
-          console.error(
-            "Impossible de récupérer les données des exercices. Statut HTTP :",
-            response.status
+          setErrorMssg(
+            "Impossible de récupérer les données des exercices. Statut HTTP : " +
+              status
           );
           setIsLoading(false);
         }
       } catch (error) {
-        console.error(
-          "Erreur lors de la récupération des données des exercices :",
-          error
+        setErrorMssg(
+          "Erreur lors de la récupération des données des exercices : " + error
         );
         setIsLoading(false);
       }
@@ -137,12 +137,15 @@ export default function ExerciseList() {
       </div>
 
       {isLoading && <img src={Spinner} alt="Chargement en cours..." />}
+      {errorMssg && <span className="error">{errorMssg}</span>}
       <ul className="exercise-item">
         {filterExercises(exercises, filterOptions).map((exercise) => (
-
-<CardExercise key={exercise._id} exercise={exercise} isAdmin={isAdmin} />
-
-))}
+          <CardExercise
+            key={exercise._id}
+            exercise={exercise}
+            isAdmin={isAdmin}
+          />
+        ))}
       </ul>
 
       <div className="paginContainer">
@@ -150,11 +153,14 @@ export default function ExerciseList() {
           onClick={() => setCurrentPage(currentPage - 1)}
           disabled={currentPage === 1}
         >
-         <img src={Icons.ArrowLeft} alt="page précédente" className="icon"/> 
+          <img src={Icons.ArrowLeft} alt="page précédente" className="icon" />
         </button>
 
         <div className="index_pagination">
-        <p>  page {currentPage} sur {Math.ceil(exercises.length / exercisePerPage)}</p>
+          <p>
+            page {currentPage} sur{" "}
+            {Math.ceil(exercises.length / exercisePerPage)}
+          </p>
         </div>
         <button
           onClick={() => setCurrentPage(currentPage + 1)}
@@ -162,8 +168,7 @@ export default function ExerciseList() {
             currentPage === Math.ceil(exercises.length / exercisePerPage)
           }
         >
-                  <img src={Icons.ArrowRight} alt="page suivante" className="icon"/> 
-
+          <img src={Icons.ArrowRight} alt="page suivante" className="icon" />
         </button>
       </div>
 
@@ -179,6 +184,3 @@ export default function ExerciseList() {
     </div>
   );
 }
-/*📖 Composant admin - Exercises
-Lire la liste des exercises
-📖*/

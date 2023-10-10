@@ -23,6 +23,7 @@ export default function LoginForm() {
     password: "",
   });
 
+  const [errorMssg, setErrorMssg] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -107,6 +108,7 @@ try {
     }
   } catch (error) {
     console.log(error);
+    setErrorMssg(error)
   }
 };
 
@@ -149,6 +151,7 @@ try {
           </Link>
         </p>
         
+        <span className="error">{errorMssg}</span>
         <div className="button">
           <button type="submit">Se connecter</button>
         </div>

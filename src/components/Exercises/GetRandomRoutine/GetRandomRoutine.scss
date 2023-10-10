@@ -1,0 +1,99 @@
+@import "../../../../sass/index";
+// @import '../../../sass/variables.scss';
+
+.random-routine-container {
+  width: 100%;
+  @include GlassMorphism()
+;
+  @include mobile-first {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .loading {
+    text-align: center;
+
+    img {
+      @include responsiveImg(4rem, 4rem, contain);
+    }
+  }
+
+  .section-title {
+    @include section-title;
+  }
+
+  .exercise-slider {
+    .slider-controls {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+
+      button {
+        font-size: 1rem;
+        @include button-style;
+        width: 32%;
+        height: 2.5rem;
+        padding: 0.5rem 1rem;
+
+        &:not(:last-child) {
+          margin-right: 1rem;
+        }
+      }
+    }
+
+    .exercise-details {
+      h3.exercise-muscle {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-top: 1rem;
+      }
+
+      h3.exercise-muscle{
+        @include section-title();
+      }
+      p.exercise-description {
+        font-size: 1.6rem;
+        margin-top: 1rem;
+      }
+
+      figure.exercise-image_container{
+        @include center-flex();
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-color: $color-orange;
+        width: 100%
+      }
+      img.exercise-image {
+        @include responsiveImg(55%, auto, contain);
+        margin: 1rem 0;
+      }
+
+      p.time-left {
+        font-size: 1.6rem;
+        margin-top: 1rem;
+      }
+
+      p.congratulations-message {
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 1rem;
+        color: $color-success;
+      }
+    }
+  }
+
+  .return-link_container {
+    @include flex(column, center, center);
+    .return-link {
+      @include button-style;
+      letter-spacing: 0.25rem;
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+    }
+  }
+}

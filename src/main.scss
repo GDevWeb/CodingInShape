@@ -32,6 +32,7 @@ a {
 .wrapper {
     display: flex;
     flex-direction: column;
+    margin: auto;
     min-height: 100vh;
     padding: 0 0.5rem;
 }
@@ -67,8 +68,7 @@ span.error{
     color: $color-orange;
 }
 
-
-// Styles pour les écrans de petite taille (Mobile-First)
+// Styles pour les écrans de petite taille (MBF pas apple ;))
 @media screen and (max-width: 768px) {
     body {
         font-size: 1.2rem; 

@@ -82,7 +82,7 @@ export default function DeleteExercise() {
 
   return (
     <div className="deleteExerciseContainer">
-      <h2>Supprimer l'exercice {formData.name}</h2>
+      <h2>Suppression l'exercice {formData.name} ?</h2>
       <div>
         <p>Confirmez la suppression de l'exercice :</p>
         <p className="exercise-info">Nom : {formData.name}</p>

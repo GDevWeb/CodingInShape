@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { EXERCISES_API } from "../../API/apiAdminExercises";
 import Spinner from "../../../assets/icons/spinner.svg";
+import { callApi } from "../../API/callApi";
 import { setExerciseData } from "../../../../redux/slices/exerciseSlice";
 import "./ExerciseDetail.scss";
 
@@ -16,6 +17,7 @@ export default function ExerciseDetail() {
   const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [errorMssg, setErrorMssg] = useState("");
 
   useEffect(() => {
     const fetchExercise = async () => {
@@ -30,31 +32,26 @@ export default function ExerciseDetail() {
           return;
         }
 
-        const response = await fetch(`${EXERCISES_API}/${id}`, {
+        const { data, status } = await callApi({
           method: "GET",
+          url: `${EXERCISES_API}/${id}`,
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          credentials: "include",
         });
 
-        if (response.ok) {
-          const data = await response.json();
-          console.log("Données de l'exercice récupérées :", data);
-
-          // Utilisez l'action Redux pour mettre à jour l'état de l'exercice
+        if (status === 200) {
           dispatch(setExerciseData(data));
         } else {
-          console.error(
-            "Impossible de récupérer les données de l'exercice. Statut HTTP :",
-            response.status
+          setErrorMssg(
+            "Impossible de récupérer les données de l'exercice. Statut HTTP : " +
+              status
           );
         }
       } catch (error) {
-        console.error(
-          "Erreur lors de la récupération des données de l'exercice :",
-          error
+        setErrorMssg(
+          "Erreur lors de la récupération des données de l'exercice : " + error
         );
       }
     };
@@ -83,20 +80,16 @@ export default function ExerciseDetail() {
                 src={exercise.image}
                 alt={`Image de ${exercise.name}`}
                 width={"200px"}
-
                 className="exercise-img"
               />
             </div>
           ) : (
             <p className="errors">Exercice non trouvé</p>
           )}
+      {errorMssg && <span className="error">{errorMssg}</span>}
         </>
       )}
       <Link to={"/exercises-list"}>Retour à la liste des exercices</Link>
     </div>
   );
 }
-
-/*📖 Composant admin - Exercises
-Supprimer un exercise
-📖*/
