@@ -1,5 +1,5 @@
-// welcomePage.scss
 @import "../../../sass/index.scss";
+
 .welcomePage {
   display: flex;
   flex-direction: column;
@@ -11,9 +11,11 @@
   .welcomeTitle {
     text-align: center;
     margin-bottom: 0.25rem;
+
     h1 {
       text-transform: uppercase;
       margin-top: 1rem;
+      font-size: 2rem; // Utilisation de REM
     }
 
     h2 {
@@ -26,11 +28,11 @@
   }
 
   .welcomeText {
-    @include  center-flex();
+    @include center-flex;
     width: 80%;
     padding: 1rem;
     background-color: rgba(16, 141, 213, 0.431);
-    border-radius: 0.5rem;
+    border-radius: 1rem; // Utilisation de REM
     box-shadow: outset 0.25rem 0.25rem 0.25rem $color-white-theme;
     text-align: left;
     margin: 0.5rem auto;
@@ -45,35 +47,37 @@
       margin: 0;
     }
   }
+
   .FormConnexion {
     padding: 2rem;
     margin: 2rem 10rem;
-    border-radius: 1rem;
+    border-radius: 1rem; 
     background-color: rgba(255, 255, 255, 0.366);
-    border-radius: 1.5rem;
     font-size: 1.2rem;
 
     &:hover {
-      color: aliceblue;
+      color: $color-success;
       overflow: hidden;
       background-color: $color-black-theme;
       text-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.324);
-      border: 0.1rem outset $color-black-theme;
+      border: 0.1rem outset $linear-blue-gradient;
     }
   }
 
   .buttons.links-log {
     flex: 1;
-    @include flex-horizontal-center();
+    @include flex-horizontal-center;
     gap: 0.5rem;
 
     .FormConnexion {
+      width: 50%;
+      height: 2.1.8rem; 
       padding: 1rem;
       text-align: center;
-      width: 50%;
-      border: 2px solid $color-white-theme;
+      border: 0.2rem solid $color-white-theme;
       border-radius: 0.5rem;
       box-shadow: 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.3);
+      @include GlassMorphism;
     }
   }
 
