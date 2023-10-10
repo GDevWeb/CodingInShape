@@ -5,7 +5,7 @@ const  quotes = [
     },
     {
         "text": "Le bien-être mental est aussi important que le bien-être physique.",
-        "author": "Le gar de la salle de sport"
+        "author": "Le gars de la salle de sport"
     },
     {
         "text": "Garde une posture ergonomique pour éviter les douleurs au bureau.",

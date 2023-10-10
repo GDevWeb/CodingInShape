@@ -480,7 +480,6 @@ export default function SignUpForm() {
               <label htmlFor="CGU">
                 Conditions Générales d'utilisation (C.G.U)
               </label>
-
               <div className="form-group cgu inline">
                 <p>Accepter </p>
                 <input

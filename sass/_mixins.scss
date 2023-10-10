@@ -58,9 +58,26 @@
     text-align: center;
     border-radius: 1rem;
     border: 0.1rem solid #ccc;
-    font-size: 2rem;
+    font-size: 1.6rem;
     outline: none;
     border-bottom-width: 0.3rem;
     @include flex-horizontal-center;
 }
 
+@mixin button-style {
+    height: 3.5rem;
+    width: 60%;
+    font-size: 1.3rem;
+    text-transform: capitalize;
+    border: none;
+    background: linear-gradient(135deg, #39a3ca, #0c41d4);
+    border-radius: 0.5rem;
+    color: white;
+  
+    &:hover {
+      background: linear-gradient(-135deg, #39a3ca, #0c41d4);
+      border: 1px inset black;
+      text-shadow: 1px 1px 1px black;
+    }
+  }
+  

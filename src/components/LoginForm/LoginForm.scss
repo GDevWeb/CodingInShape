@@ -1,205 +1,100 @@
 @import '../../../sass/index.scss';
 
 
-.loginForm {
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .LoginForm__container {
-        background-color: rgba(221, 230, 230, 0.387);
-        padding: 20px;
-        border-radius: 10px;
-        border-top: 2px solid white;
-        border-left: 2px solid white;
-        box-shadow: 2px 2px 2px black;
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            margin: 15px 0 15px 0;
-
-            label {
-                font-size: 20px;
-                font-weight: 400;
-            }
-
-            input {
-                box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.472);
-                width: 100%;
-                height: 35px;
-                margin-top: 5px;
-                text-align: center;
-                font-size: 15px;
-                letter-spacing: 2px;
-                border-radius: 5px;
-                font-weight: 600;
-            }
-
-        }
-
-        .recupPassword {
-            text-align: center;
-            text-decoration: none;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin: 5rem 0 2rem 0;
-
-            &:hover {
-                transform: scale(1.2);
-                transition: all 0.6s ease-in-out;
-                color: white;
-            }
-
-            .forgottenPasswordLink {
-                color: rgb(28, 4, 203);
-
-                &:hover {
-                    color: white;
-                    transition: all 0.6s ease-in-out;
-                }
-            }
-        }
-
-        .button {
-            height: 35px;
-            margin: 5rem 0;
-
-            button {
-                height: 100%;
-                width: 100%;
-                font-size: 20px;
-                letter-spacing: 3px;
-                text-transform: capitalize;
-                border-style: none;
-                background: linear-gradient(135deg, #39a3ca, #0c41d4);
-                border-radius: 10px;
-                color: white;
-
-                &:hover {
-                    background: linear-gradient(-135deg, #39a3ca, #0c41d4);
-
-                    border: 1px inset black;
-                    text-shadow: 1px 1px 1px black;
-                }
-            }
-        }
-        .invitCreateAccount{
-            font-weight: 600;
-            margin: 5rem 0 2rem;
-            .createAccountLink{
-                color: rgb(28, 4, 203);
-                margin-left: 10px;
-                &:hover{
-                    transform: scale(1.2);
-                    transition: all 0.6s ease-in-out;
-                    color: white;
-                    
-                }
-            }
-        }
-    }
+.invitToConnect{
+    font-size: 1.8rem;
 }
 
+.loginForm {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-////////////////////////////////////////////////
+  .LoginForm__container {
+    @include GlassMorphism();
+    padding: 2rem;
+    margin: 2rem;
+    text-align: center;
+    border-radius: 1.5rem;
+    font-size: 1.2rem;
 
-// form.LoginForm {
-//     margin: 0 auto;
-//     .LoginForm__container {
-//         // display: flex;
-//         // flex-direction: column;
-//         justify-content: center;
-//         align-items: center;
-//         margin: 0 auto;
-//         padding: 1rem 2rem;
-//         border: 1px solid $tertiary-color;
-//         border-radius: 0.5rem;
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin: 1.5rem 0;
 
-//         .LoginForm__title {
-//             margin-bottom: 2rem;
-//             font-size: 2rem;
-//             font-weight: 700;
-//         }
+      label {
+        font-size: 1.6rem;
+        font-weight: 400;
+      }
 
-//         .form-group {
+      input {
+        @include inputs;
+        margin-top: 0.5rem;
+      }
 
+      .recupPassword {
+        @include flex-horizontal-center;
+        text-align: center;
+        text-decoration: none;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin: 5rem 0 2rem 0;
 
-//             width: 60%;
-//             margin-bottom: 2rem;
+        &:hover {
+          transform: scale(1.2);
+          transition: all 0.6s ease-in-out;
+          color: white;
+        }
 
-//             label {
-//                 margin-bottom: 0.5rem;
-//                 font-size: 1.6rem;
-//                 font-weight: 700;
-//             }
+        .forgottenPasswordLink {
+          color: $color-primary;
 
-//             input {
+          &:hover {
+            color: white;
+            transition: all 0.6s ease-in-out;
+          }
+        }
+      }
+    }
 
+    .button {
+      height: 3.5rem;
+      margin: 5rem 0;
+      button {
+        @include button-style;
+      }
+    }
 
-//                 margin-bottom: 2rem;
-//                 padding: 0.5rem 1rem;
-//                 border: none;
-//                 width: 100%;
-//                 height: 3rem;
-//                 padding: 0 0.5rem;
-//                 font-size: 1.6rem;
-//                 text-align: center;
-//                 border-radius: 0.5rem;
-//             }
+    .invitCreateAccount {
+        font-size: 1.4rem;
+      font-weight: 600;
+      margin: 5rem 0 2rem;
 
+      .createAccountLink {
+        color: $color-primary;
+        margin-left: 1rem;
 
-//             p.forgetPassword {
-//                 margin-top: 1rem;
-//                 font-size: 1.6rem;
-//                 font-weight: 700;
-//                 color: $color-info;
-//                 text-decoration: none;
+        &:hover {
+          transform: scale(1.2);
+          transition: all 0.6s ease-in-out;
+          color: white;
+        }
+      }
+    }
+  }
 
-//                 &:hover {
-//                     color: lighten($color-info, 10%);
-//                 }
-//             }
-//         }
-//     }
+  @media screen and (max-width: 768px) {
+    .buttons {
+      width: 100%;
+      margin: 0;
+    }
 
-//     button {
-//         height: 3rem;
-//         padding: 1rem;
-//         font-size: 1.6rem;
-//         font-weight: 700;
-//         line-height: 1.6rem;
-//         border: none;
-//         border-radius: 0.5rem;
-//         background-color: $color-primary;
-//         color: $quaternary-color;
-
-//         &:hover {
-//             background-color: lighten($color-primary, 10%);
-//         }
-//     }
-// }
-
-// .invitCreateAccount, .recupPassword {
-//     font-size: 1.6rem;
-//     font-weight: 700;
-//     color: $secondary-color;
-//     text-decoration: none;
-//     margin-top: 2rem;
-
-//     .createAccountLink, .forgottenPasswordLink {
-//         color: $color-primary; 
-//         text-decoration: none;
-
-//         &:hover {
-//           color: lighten($color-primary, 10%); 
-//         }
-//     }}
-
-//     .error{
-//         color: $color-danger;
-//         font-size: 1.6rem;
-//         font-weight: 700;
-//         margin-top: 1rem;
-//     }
+    .FormConnexion,
+    .createAccountLink {
+      width: 100%;
+      margin: 0.5rem 0;
+    }
+  }
+}
