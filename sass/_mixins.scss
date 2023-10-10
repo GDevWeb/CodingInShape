@@ -51,14 +51,14 @@
 
 //Formulaires :
 @mixin inputs {
-    height: 4.5rem;
+    height: 3.5rem;
     width: 100%;
     margin-top: 0.25rem;
     opacity: 0.7;
     text-align: center;
     border-radius: 1rem;
     border: 0.1rem solid #ccc;
-    font-size: 1.6rem;
+    font-size: 1rem;
     outline: none;
     border-bottom-width: 0.3rem;
     @include flex-horizontal-center;

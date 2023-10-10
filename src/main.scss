@@ -51,8 +51,6 @@ main {
 
 // Pied de page
 footer {
-    // position: relative;
-    // bottom: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,6 +60,13 @@ footer {
     border-radius: 0.5rem;
     border-top: 2px solid $color-white-theme;
 }
+
+// MEssages d'erreurs et de validation : 
+// erreurs : 
+span.error{
+    color: $color-orange;
+}
+
 
 // Styles pour les écrans de petite taille (Mobile-First)
 @media screen and (max-width: 768px) {

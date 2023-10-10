@@ -8,6 +8,7 @@ import {
   updateAdminStatus,
 } from "../../../redux/slices/authSlice";
 import Cookies from "js-cookie";
+import { callApi } from "../API/callApi";
 import { USER_LOGIN} from "../API/apiUser";
 import "./LoginForm.scss";
 
@@ -75,43 +76,39 @@ export default function LoginForm() {
       password: formData.password,
     };
 
-    try {
-      const response = await fetch(`${USER_LOGIN}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-        credentials: "include",
+try {
+    const { status, data } = await callApi({
+      method: "POST",
+      url: USER_LOGIN,
+      data: requestData,
+    });
+
+    if (status === 200) {
+      // Stocke le token dans un cookie sécurisé et strict
+      Cookies.set("token", data.token, { secure: true, sameSite: "strict" });
+
+      // Dispatch l'action loginSuccess pour stocker le token dans Redux
+      dispatch(loginSuccess(data));
+
+      // Récupère les données utilisateur :
+      // Dispatch l'action setUserData pour stocker les données utilisateur dans Redux
+      dispatch(setUserData(data));
+      dispatch(updateAdminStatus(data.isAdmin));
+
+      setFormData({
+        email: "",
+        password: "",
       });
-      const data = await response.json();
 
-      if (response.ok) {
-        // Stocke le token dans un cookie sécurisé et strict
-        Cookies.set("token", data.token, { secure: true, sameSite: "strict" });
-
-        // Dispatch l'action loginSuccess pour stocker le token dans Redux
-        dispatch(loginSuccess(data));
-
-        // Récupère les données utilisateur :
-        // Dispatch l'action setUserData pour stocker les données utilisateur dans Redux
-        dispatch(setUserData(data));
-        dispatch(updateAdminStatus(data.isAdmin));
-
-        setFormData({
-          email: "",
-          password: "",
-        });
-
-        // Redirige l'utilisateur vers la page mon compte :
-        navigate("/myaccount");
-      } else {
-        dispatch(loginFailure(data.error));
-      }
-    } catch (error) {
-      console.log(error);
+      // Redirige l'utilisateur vers la page mon compte :
+      navigate("/myaccount");
+    } else {
+      dispatch(loginFailure(data.error));
     }
-  };
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   return (
     <form onSubmit={handleSubmit} className="loginForm">
