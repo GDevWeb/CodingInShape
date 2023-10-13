@@ -52,7 +52,7 @@ export default function SignUpForm() {
       [name]: type === "checkbox" ? checked : value,
     });
 
-    // Vérifications des inputs :*
+    //01. Vérifications des inputs :*
     if (name === "sex") {
       if (!value) {
         setErrors((prevErrors) => ({
@@ -301,7 +301,7 @@ export default function SignUpForm() {
       <h2 className="form-title">Inscription</h2>
         <div className="form-group-avatar">
           <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
-          <img src={formData.avatar} alt="avatar de l'utilisateur" />
+          <img src={formData.avatar} alt="avatar de l'utilisateur"  aria-label="avatar de l'utilisateur"/>
           <label htmlFor="avatar">Image de profil</label>
           <input
             type="text"
@@ -310,6 +310,7 @@ export default function SignUpForm() {
             name="avatar"
             id="avatar"
             placeholder="url de votre image de profil"
+            aria-label="avatar de l'utilisateur"
           />
           <span className="error">{errors.avatar}</span>
         </div>

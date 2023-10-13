@@ -215,11 +215,11 @@ export default function AddExercise() {
             id="muscle"
           >
             <option value="0">Choisissez la zone musculaire travaillée</option>
-            <option value="Neck">Cervical</option>
-            <option value="Shoulders">Épaules</option>
-            <option value="Back">Dos</option>
-            <option value="Hips">Hanches</option>
-            <option value="Legs">Jambes</option>
+            <option value="Cervicaux">Cervicaux</option>
+            <option value="Épaules">Épaules</option>
+            <option value="Dos">Dos</option>
+            <option value="Hanches">Hanches</option>
+            <option value="Jambes">Jambes</option>
           </select>
           <span className="error">{errors.muscle}</span>
         </div>

@@ -1,9 +1,7 @@
 @import "../../../sass/index.scss";
 
 .welcomePage {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  @include flex(column, space-evenly, center);
   align-items: center;
   height: 80vh;
   margin: 10vh 0 0;
@@ -15,7 +13,7 @@
     h1 {
       text-transform: uppercase;
       margin-top: 1rem;
-      font-size: 2rem; // Utilisation de REM
+      font-size: 2rem; 
     }
 
     h2 {
@@ -62,26 +60,12 @@
     gap: 0.5rem;
     
     .FormConnexion {
-      width: 50%;
-      height: 2rem; 
       padding: 1rem;
       text-align: center;
-      vertical-align: middle;
-      border: 0.2rem solid $color-white-theme;
-      border-radius: 0.5rem;
-      box-shadow: 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.3);
       @include GlassMorphism;
-
-      &:hover {
-        overflow: hidden;
-        background-color: $linear-blue-gradient;
-        text-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.324);
-        border: 0.1rem outset $linear-blue-gradient;
-        background-color: $color-success;
-        color: $color-white-theme;
-    
-        
-      }
+      @include button-style;
+      width: 60%;
+      height: 2rem; 
     }
   }
 

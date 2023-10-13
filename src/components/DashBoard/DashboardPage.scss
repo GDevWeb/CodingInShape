@@ -1,13 +1,30 @@
-.dashBoardContainer{
-   
-    
-    
-    .dashBoardCardContainer{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 80vh;
-        width: 100%;
-        flex-wrap: wrap;
+@import "../../../sass/index";
+
+.dashBoard_container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  height: auto;
+
+  .user-profile-section {
+    padding: 1rem;
+    text-align: center;
+
+    p.welcome_user {
+        @include section-title;
+        text-align: center;
+      font-size: 1.6rem; 
+      font-weight: bold; 
+      margin-bottom: 1rem;
     }
-}
+
+    
+     
+
+    @media screen and (max-width: 768px) {
+      flex-basis: 100%;
+
+    }
+  }
+  }

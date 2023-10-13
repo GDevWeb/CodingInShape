@@ -24,7 +24,7 @@ export default function MyAccountPage() {
   const navigate = useNavigate();
 
   // Toggle :
-  const [showUserProfile, setShowUserProfile] = useState(true);
+  const [showUserProfile, setShowUserProfile] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {

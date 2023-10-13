@@ -33,7 +33,7 @@ function App() {
   return (
     <BrowserRouter>
       <Provider store={store}>
-        <div className="wrapper">
+        <div className="wrapper bg-blue-500 text-white p-4">
           <Header />
           <NavBar />
 

@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { callApi } from "../../API/callApi";
 import { GET_RANDOM_ROUTINE } from "../../API/apiUserExercises";
 import Introduction from "../../Introduction/Introduction";
-import ConditionalNavLinks from "../../ConditionalNavLinks/ConditionalNavLinks";
 import icons from "../../../assets/icons/index_icons";
 import "./GetRandomRoutine.scss";
 

@@ -13,6 +13,7 @@ export const callApi = async (args) => {
     const response = await fetch(args.url, requestOptions);
   
     if (!response.ok) {
+      console.log(response.message)
       throw new Error(`Échec de la requête avec le status: ${response.status}`);
     }
     

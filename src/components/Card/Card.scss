@@ -1,3 +1,5 @@
+@import "../../../sass/index";
+
 .cardContainer {
     flex-basis: 25%;
     display: flex;
@@ -11,6 +13,7 @@
     border-top: 0.125rem solid white;
     border-left: 0.125rem solid white;
     box-shadow: 0.125rem 0.125rem 0.125rem rgb(9, 9, 9);
+
     
     .card-header {
       font-size: 1.6rem;
@@ -18,9 +21,8 @@
     }
 
     .icon{
+      @include responsiveImg(15%, auto, cover);
         margin-top: 0.25rem;
-        width: 15%;
-        height: auto;
     }
     
     .card-content {

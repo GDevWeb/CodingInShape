@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ConditionalNavLinks from "../ConditionalNavLinks/ConditionalNavLinks";
 import Card from "../Card/Card";
-import './DashBoardPage.scss'
+import Icons from "../../assets/icons/index_icons";
+import './DashBoardPage.scss';
+
 
 export default function DashboardPage() {
   // Redux :
@@ -29,31 +31,35 @@ export default function DashboardPage() {
   }, [isAuthenticated, isAdmin, navigate, dispatch]);
 
   return (
-    <div className="dashBoardContainer">
+    <div className="dashBoard_container">
       {userData && (
         <>
-          <h1>
+          <p className="welcome_user">
             Bienvenue dans l'espace admin, administrateur {userData.pseudo}
-          </h1>
+          </p>
           <Card
+          icon={Icons.Users}
             title={"Liste des utilisateurs"}
             content={"Retrouver la liste des utilisateurs"}
             link="/users-list"
           />
 
           <Card
+          icon={Icons.UsersPlus}
             title={"Ajouter un utilisateur"}
             content={"Formulaire d'ajout d'utilisateur"}
             link="/add-user"
           />
 
           <Card
+          icon={Icons.Dumbbell}
             title={"Gestion des exercices"}
             content={"Accéder à la gestion des exercices"}
             link="/exercise-management"
           />
 
           <Card
+          icon={Icons.Envelope}
             title={"Liste des messages"}
             content={
               "Accéder à la liste des messages provenant des utilisateurs"

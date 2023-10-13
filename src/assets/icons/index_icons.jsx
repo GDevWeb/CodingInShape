@@ -6,6 +6,7 @@ import CircleUser from "./circleUser.svg";
 import Clock from "./clock-rotate-left.svg";
 import Close from "./close.svg";
 import Dumbbell from "./dumbbell.svg";
+import Envelope from "./envelope.svg";
 import Forward from "./forward.svg";
 import Gauge from "./gauge-solid.svg";
 import Gears from "./gears-solid.svg";
@@ -19,17 +20,21 @@ import Shuffle from "./shuffle.svg"
 import Spinner from "./spinner.svg";
 import Table from "./table-columns.svg";
 import Twitter from "./twitter.png";
+import Users from "./users.svg";
+import UsersMinus from "./user-minus.svg";
+import UsersPlus from "./user-plus.svg";
 import Walking from "./person-walking.svg";
 
 export default {
     ArrowLeft,
     ArrowRight,
+    BackWard,
     CircleInfo,
     CircleUser,
     Clock,
     Close,
-    BackWard,
     Dumbbell,
+    Envelope,
     Forward,
     Gauge,
     Gears,
@@ -43,6 +48,9 @@ export default {
     Spinner,
     Table,
     Twitter,
+    Users,
+    UsersMinus,
+    UsersPlus,
     Walking,
 
 };

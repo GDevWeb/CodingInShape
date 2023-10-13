@@ -4,7 +4,7 @@ import './ConditionalNavLinks.scss'
 export default function ConditionalNavLinks({ isAdmin }) {
   return (
     <>
-    <div className="containerLink">
+    <div className="return-link_container">
       {isAdmin && (
         <Link to="/dashboard" className="linkTo">
           Retour au dashboard

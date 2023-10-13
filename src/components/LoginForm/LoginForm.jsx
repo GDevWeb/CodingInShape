@@ -108,7 +108,10 @@ try {
     }
   } catch (error) {
     console.log(error);
-    setErrorMssg(error)
+    setErrorMssg(error.message)
+    setTimeout(() => {
+      setErrorMssg("")
+    }, 3000);
   }
 };
 
@@ -150,6 +153,8 @@ try {
             mot de passe oublié ?
           </Link>
         </p>
+        
+
         
         <span className="error">{errorMssg}</span>
         <div className="button">
