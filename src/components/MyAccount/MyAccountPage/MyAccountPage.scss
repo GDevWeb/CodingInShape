@@ -3,13 +3,15 @@
 .myAccountPage_container {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  width: 100%;
+  // flex-wrap: wrap;
+  width: 80%;
   height: auto;
+  margin: auto;
 
   .user-profile-section {
     padding: 1rem;
     text-align: center;
+    background-color: orange;
 
     p.welcome_user {
       font-size: 1rem;
@@ -19,11 +21,17 @@
     }
 
     .user_profile_identity {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
       border: 0.125rem solid $color-white-theme;
       border-radius: 0.5rem;
       background: $linear-blue-gradient;
       margin-top: 0.5rem;
       padding: 0.25rem;
+      width: 25%;
+
 
       figure {
         @include flex-horizontal-center;

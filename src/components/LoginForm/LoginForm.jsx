@@ -157,12 +157,12 @@ try {
         </div>
 
     {/* Lien invitant le visiteur à créer un compte  */}
-        <p className="invitCreateAccount">
-          Pas encore de compte ?
-          <Link className="createAccountLink" to="/signup">
+        <div className="invitCreateAccount">
+         <p> Pas encore de compte ?</p>
+         <p> <Link className="createAccountLink" to="/signup">
             Créer un compte
-          </Link>
-        </p>
+          </Link></p>
+        </div>
       </div>
     </form>
   );

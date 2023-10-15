@@ -1,101 +1,108 @@
 @import "../sass/index";
 
 // Reset CSS
-*, ::before, ::after {
-    margin: 0;
-    padding: 0;
+*,
+::before,
+::after {
+  margin: 0;
+  padding: 0;
 }
 
-// header : 
+// header :
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    font-size: 1.4rem;
-    background-image: url('/src/assets/background/background_calm.png');
-    background-size: cover; 
-    background-repeat: no-repeat; 
-    background-attachment: fixed; 
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: $font-family;
+  font-size: $base-font-size;
+  background-color: $color-body-theme;
 }
 
 // Styles des liens
 li {
-    list-style: none;
+  list-style: none;
 }
 
 a {
-    text-decoration: none;
-    font-size: 1.6rem;
-    font-weight: 700;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 700;
 }
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    min-height: 100vh;
-    padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  min-height: 100vh;
+  padding: 0 0.5rem;
 }
 
 main {
-    flex-grow: 1; 
-    padding: 2rem; 
-    margin: 5vh 0;
+  flex-grow: 1;
+  padding: 2rem;
+  margin: 5vh 0;
+}
+
+// Messages d'erreurs et de validation :
+// erreurs :
+span.error {
+  color: $color-orange;
 }
 
 .server-error {
-    font-size: 2rem;
-    color: $color-danger; 
-    font-weight: bolder;
-}
-
-
-// Pied de page
-footer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 5vh;
-    background-color: rgba(245, 245, 220, 0.298);
-    border-radius: 0.5rem;
-    border-top: 2px solid $color-white-theme;
-}
-
-// MEssages d'erreurs et de validation : 
-// erreurs : 
-span.error{
-    color: $color-orange;
+  color: $color-danger;
+  font-weight: bolder;
 }
 
 // Styles pour les écrans de petite taille (MBF pas apple ;))
-@media screen and (max-width: 768px) {
-    body {
-        font-size: 1.2rem; 
-    }
-    
-    main {
-        padding: 1rem; 
-        margin: 2vh 0; 
-    }
-    
-    .server-error {
-        font-size: 1.6rem; 
-    }
+@media screen and (min-width: 768px) {
+  body {
+    font-size: 1.2rem;
+    background-color: pink;
+  }
+
+  main {
+    padding: 1rem;
+    margin: 2vh 0;
+  }
 }
 
 @media screen and (min-width: 965px) {
+  body {
+    font-size: 1.4rem;
+    background-color: orange;
+  }
+
+  @media screen and (min-width: 1024px) {
     body {
-        font-size: 1.8rem; 
+      font-size: 1.6rem;
+      background-color: green;
     }
-    
-    main {
-        padding: 1rem; 
-        margin: 2vh 0; 
+  }
+
+  @media screen and (min-width: 1240px) {
+    body {
+      font-size: 1.8rem;
+      background-color: red;
     }
-    
-    .server-error {
-        font-size: 1.6rem; 
-        color: $color-danger;
+  }
+
+  @media screen and (min-width: 1440px) {
+    body {
+      font-size: 2rem;
+      background-color: crimson;
     }
+  }
+
+  @media screen and (min-width: 1440px) {
+    body {
+      font-size: 2.2rem;
+      background-color: darkred;
+    }
+  }
+
+  // main {
+  //     padding: 1rem;
+  //     margin: 2vh 0;
+  // }
 }

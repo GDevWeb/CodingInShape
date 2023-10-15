@@ -17,7 +17,6 @@
     margin: 2rem;
     text-align: center;
     border-radius: 1.5rem;
-    font-size: 1.2rem;
 
     .form-group {
       display: flex;
@@ -25,7 +24,6 @@
       margin: 1.5rem 0;
 
       label {
-        font-size: 1.6rem;
         font-weight: 400;
       }
 
@@ -48,7 +46,7 @@
           color: white;
         }
 
-        .forgottenPasswordLink {
+        a.forgottenPasswordLink {
           color: $color-primary;
 
           &:hover {
@@ -68,13 +66,15 @@
     }
 
     .invitCreateAccount {
-        font-size: 1.4rem;
       font-weight: 600;
       margin: 5rem 0 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
       .createAccountLink {
         color: $color-primary;
-        margin-left: 1rem;
 
         &:hover {
           transform: scale(1.2);

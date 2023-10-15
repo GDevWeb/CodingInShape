@@ -9,11 +9,10 @@ export default function SignUpForm() {
   const [cguAcceptation, setCguAcceptation] = useState(false);
   const [showCgu, setShowCgu] = useState(false);
 
-
   // Pour gérer le message de succès si tous les inputs sont valides :
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  
+
   const [formData, setFormData] = useState({
     sex: "",
     firstName: "",
@@ -52,7 +51,7 @@ export default function SignUpForm() {
       [name]: type === "checkbox" ? checked : value,
     });
 
-    // Vérifications des inputs :*
+    // Vérifications des inputs :
     if (name === "sex") {
       if (!value) {
         setErrors((prevErrors) => ({
@@ -298,11 +297,21 @@ export default function SignUpForm() {
   return (
     <div className="signUpContainer">
       <form onSubmit={handleSubmit} className="formRegister">
-      <h2 className="form-title">Inscription</h2>
+        <h2 className="form-title" aria-label="Inscription">
+          Inscription
+        </h2>
         <div className="form-group-avatar">
-          <label htmlFor="previewAvatar">Aperçu de l'avatar</label>
-          <img src={formData.avatar} alt="avatar de l'utilisateur" />
-          <label htmlFor="avatar">Image de profil</label>
+          <label htmlFor="previewAvatar" aria-label="Aperçu de l'avatar">
+            Aperçu de l'avatar
+          </label>
+          <img
+            src={formData.avatar}
+            alt="avatar de l'utilisateur"
+            aria-label="Image de profil de l'utilisateur"
+          />
+          <label htmlFor="avatar" aria-label="Image de profil">
+            Image de profil
+          </label>
           <input
             type="text"
             value={formData.avatar}
@@ -311,49 +320,55 @@ export default function SignUpForm() {
             id="avatar"
             placeholder="url de votre image de profil"
           />
-          <span className="error">{errors.avatar}</span>
+          <span className="error" aria-label={errors.avatar}>
+            {errors.avatar}
+          </span>
         </div>
 
         <div className="formContainer">
           <div className="formRegister__container">
             <div className="form-group-one">
-            <div className="form-group-gender">
-              <div className="genderTitle">
-                <nav>Genre :</nav>
-              </div>
-              <div className="genders">
-                <div className="homme">
-                  <input
-                    type="radio"
-                    id="homme"
-                    name="sex"
-                    value="homme"
-                    checked={formData.sex === "homme"}
-                    onChange={handleChange}
-                    readOnly
-                  />
-                  <label htmlFor="homme">Homme</label>
+              <div className="form-group-gender">
+                <div className="genderTitle">
+                  <nav aria-label="Genre">Genre :</nav>
                 </div>
+                <div className="genders">
+                  <div className="homme">
+                    <input
+                      type="radio"
+                      id="homme"
+                      name="sex"
+                      value="homme"
+                      checked={formData.sex === "homme"}
+                      onChange={handleChange}
+                      readOnly
+                    />
+                    <label htmlFor="homme">Homme</label>
+                  </div>
 
-                <div className="femme">
-                  <input
-                    type="radio"
-                    id="femme"
-                    name="sex"
-                    value="femme"
-                    checked={formData.sex === "femme"}
-                    onChange={handleChange}
-                    readOnly
-                  />
-                  <label htmlFor="femme">Femme</label>
+                  <div className="femme">
+                    <input
+                      type="radio"
+                      id="femme"
+                      name="sex"
+                      value="femme"
+                      checked={formData.sex === "femme"}
+                      onChange={handleChange}
+                      readOnly
+                    />
+                    <label htmlFor="femme">Femme</label>
+                  </div>
+
+                  <span className="error" aria-label={errors.sex}>
+                    {errors.sex}
+                  </span>
                 </div>
-
-                <span className="error">{errors.sex}</span>
               </div>
-            </div>
 
               <div className="form-group lname">
-                <label htmlFor="lastName">Nom :</label>
+                <label htmlFor="lastName" aria-label="Nom">
+                  Nom :
+                </label>
                 <input
                   value={formData.lastName}
                   onChange={handleChange}
@@ -363,11 +378,15 @@ export default function SignUpForm() {
                   placeholder="Votre nom"
                   required
                 />
-                <span className="error">{errors.lastName}</span>
+                <span className="error" aria-label={errors.lastName}>
+                  {errors.lastName}
+                </span>
               </div>
 
               <div className="form-group fname">
-                <label htmlFor="firstName">Prénom :</label>
+                <label htmlFor="firstName" aria-label="Prénom">
+                  Prénom :
+                </label>
                 <input
                   value={formData.firstName}
                   onChange={handleChange}
@@ -377,11 +396,15 @@ export default function SignUpForm() {
                   placeholder="Votre prénom"
                   required
                 />
-                <span className="error">{errors.firstName}</span>
+                <span className="error" aria-label={errors.firstName}>
+                  {errors.firstName}
+                </span>
               </div>
 
               <div className="form-group age">
-                <label htmlFor="age">Âge :</label>
+                <label htmlFor="age" aria-label="Âge">
+                  Âge :
+                </label>
                 <input
                   type="number"
                   name="age"
@@ -390,11 +413,15 @@ export default function SignUpForm() {
                   onChange={handleChange}
                   placeholder="votre âge"
                 />
-                <span className="error">{errors.age}</span>
+                <span className="error" aria-label={errors.age}>
+                  {errors.age}
+                </span>
               </div>
 
               <div className="form-group">
-                <label htmlFor="pseudo">Pseudo :</label>
+                <label htmlFor="pseudo" aria-label="Pseudo">
+                  Pseudo :
+                </label>
                 <input
                   value={formData.pseudo}
                   onChange={handleChange}
@@ -404,11 +431,15 @@ export default function SignUpForm() {
                   placeholder="Votre pseudo"
                   required
                 />
-                <span className="error">{errors.pseudo}</span>
+                <span className="error" aria-label={errors.pseudo}>
+                  {errors.pseudo}
+                </span>
               </div>
 
               <div className="form-group email">
-                <label htmlFor="email">Votre mail :</label>
+                <label htmlFor="email" aria-label="Votre mail">
+                  Votre mail :
+                </label>
                 <input
                   value={formData.email}
                   onChange={handleChange}
@@ -418,11 +449,15 @@ export default function SignUpForm() {
                   placeholder="Votre mot de passe"
                   required
                 />
-                <span className="error">{errors.email}</span>
+                <span className="error" aria-label={errors.email}>
+                  {errors.email}
+                </span>
               </div>
 
               <div className="form-group password">
-                <label htmlFor="password">Mot de passe :</label>
+                <label htmlFor="password" aria-label="Mot de passe">
+                  Mot de passe :
+                </label>
                 <input
                   value={formData.password}
                   onChange={handleChange}
@@ -432,11 +467,15 @@ export default function SignUpForm() {
                   placeholder="Votre mot de passe"
                   required
                 />
-                <span className="error">{errors.password}</span>
+                <span className="error" aria-label={errors.password}>
+                  {errors.password}
+                </span>
               </div>
 
               <div className="form-group securityQuestion">
-                <label htmlFor="securityQuestion">Question:</label>
+                <label htmlFor="securityQuestion" aria-label="Question">
+                  Question:
+                </label>
                 <select
                   value={formData.securityQuestion}
                   onChange={handleChange}
@@ -445,7 +484,6 @@ export default function SignUpForm() {
                 >
                   <option value="0">Question secrète</option>
                   <option value="nomAnimal">
-                    {" "}
                     Quel est le nom de votre premier animal de compagnie ?
                   </option>
                   <option value="nomMere">
@@ -458,11 +496,15 @@ export default function SignUpForm() {
                     Quelle est votre série préférée ?
                   </option>
                 </select>
-                <span className="error">{errors.securityQuestion}</span>
+                <span className="error" aria-label={errors.securityQuestion}>
+                  {errors.securityQuestion}
+                </span>
               </div>
 
               <div className="form-group securityAnswers">
-                <label htmlFor="securityAnswer">Réponse:</label>
+                <label htmlFor="securityAnswer" aria-label="Réponse">
+                  Réponse:
+                </label>
                 <input
                   value={formData.securityAnswer}
                   onChange={handleChange}
@@ -472,12 +514,17 @@ export default function SignUpForm() {
                   placeholder="Votre réponse"
                   required
                 />
-                <span className="error">{errors.securityAnswer}</span>
+                <span className="error" aria-label={errors.securityAnswer}>
+                  {errors.securityAnswer}
+                </span>
               </div>
             </div>
 
             <div className="form-group cgu">
-              <label htmlFor="CGU">
+              <label
+                htmlFor="CGU"
+                aria-label="Conditions Générales d'utilisation (C.G.U)"
+              >
                 Conditions Générales d'utilisation (C.G.U)
               </label>
               <div className="form-group cgu inline">
@@ -490,25 +537,34 @@ export default function SignUpForm() {
                   id="cgu"
                 />
               </div>
-                <span className="error">{errors.cgu}</span>
+              <span className="error" aria-label={errors.cgu}>
+                {errors.cgu}
+              </span>
             </div>
 
             <div className="container_message">
-            <span className="successMessage">{successMessage}</span>
-            <span className="errorMessage">{errorMessage}</span>
+              <span className="successMessage" aria-label={successMessage}>
+                {successMessage}
+              </span>
+              <span className="errorMessage" aria-label={errorMessage}>
+                {errorMessage}
+              </span>
             </div>
             <div className="container_button">
               <button type="submit">S'inscrire</button>
             </div>
           </div>
         </div>
-        
       </form>
-              <div className="container_button cgu">
-              <button onClick={() => setShowCgu(!showCgu)} className="btn-info">
-                {showCgu ? "Cacher CGU" : "Afficher CGU"}
-              </button>
-              </div>
+      <div className="container_button cgu">
+        <button
+          onClick={() => setShowCgu(!showCgu)}
+          className="btn-info"
+          aria-label={showCgu ? "Cacher CGU" : "Afficher CGU"}
+        >
+          {showCgu ? "Cacher CGU" : "Afficher CGU"}
+        </button>
+      </div>
 
       <div className="modal_cgu">{showCgu && <CGU />}</div>
     </div>

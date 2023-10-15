@@ -1,18 +1,15 @@
 @import "../../../sass/variables.scss";
 
 .container_quotes {
-  width: 50%;
-  margin: 2.5vh 0 12vh;
+  flex-grow: 1;
   text-align: center;
+  margin-bottom: 7vh;
 
   h2 {
-    font-size: 1.6rem;
-    text-transform: uppercase;
     color: $color-primary;
   }
 
   .quote {
-    font-size: 1.4rem;
     margin-top: 1rem;
     padding: 1rem;
     background-color: rgba(16, 141, 213, 0.431);
@@ -21,7 +18,6 @@
 
     p {
       text-align: left;
-      line-height: 2rem;
     }
   }
 
@@ -41,7 +37,7 @@
       margin-top: 0.5rem;
 
       .author {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
         font-weight: bold;
         color: $color-primary;
       }
@@ -62,9 +58,9 @@
   }
 }
 
-@media screen and (max-width: 768px) {
-  .container_quotes {
-    width: 80%; 
-    margin: 2.5vh 0 8vh; 
-  }
-}
+// @media screen and (max-width: 768px) {
+//   .container_quotes {
+//     width: 80%; 
+//     margin: 2.5vh 0 8vh; 
+//   }
+// }

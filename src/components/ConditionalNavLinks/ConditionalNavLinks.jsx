@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import './ConditionalNavLinks.scss'
+// import './ConditionalNavLinks.scss'
 
 export default function ConditionalNavLinks({ isAdmin }) {
   return (

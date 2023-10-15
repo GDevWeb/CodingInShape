@@ -1,3 +1,9 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+  $font-family: 'Montserrat', sans-serif;
+  $base-font-size: 62.5%; 
+
+// Utils colors : 
 $color-danger: #dc3545;
 $color-success: #28a745;
 $color-warning: #ffc107;
@@ -11,10 +17,10 @@ $color-blue-theme : #6DBFF4;
 $color-black-theme : #121212;
 $color-grey-theme : #909090;
 $color-white-theme : #F6F2F2;
+$color-body-theme:  #f2f2f2;
 
-$font-family: 'Roboto', sans-serif;
-$base-font-size: 62.5%; 
 
+//  Linear Gradient Color :
 $linear-blue-gradient :linear-gradient(135deg, #0ec5c2, #2447d4);
 $linear-blue-reverse-gradient :linear-gradient(-135deg, #0ec5c2, #2447d4);
 $linear-orange-gradient : linear-gradient(135deg, $color-orange, #ff3c27);

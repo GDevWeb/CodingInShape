@@ -35,7 +35,6 @@ function App() {
       <Provider store={store}>
         <div className="wrapper">
           <Header />
-          <NavBar />
 
           <main>
             <Routes>
@@ -71,6 +70,7 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
+          <NavBar />
           <Footer />
         </div>
       </Provider>

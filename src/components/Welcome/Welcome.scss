@@ -3,10 +3,9 @@
 .welcomePage {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  height: 80vh;
-  margin: 10vh 0 0;
+  flex-wrap: wrap;
 
   .welcomeTitle {
     text-align: center;
@@ -15,7 +14,6 @@
     h1 {
       text-transform: uppercase;
       margin-top: 1rem;
-      font-size: 2rem; // Utilisation de REM
     }
 
     h2 {
@@ -23,55 +21,44 @@
       overflow: hidden;
       text-overflow: ellipsis;
       margin-top: 1rem;
-      font-size: 1.2rem;
     }
   }
 
   .welcomeText {
     @include center-flex;
+    flex-grow: 1;
     width: 80%;
     padding: 1rem;
-    background-color: rgba(16, 141, 213, 0.431);
-    border-radius: 1rem; 
+    border-radius: 1rem;
     box-shadow: outset 0.25rem 0.25rem 0.25rem $color-white-theme;
     text-align: left;
     margin: 0.5rem auto;
     line-height: 2rem;
-
-    @media screen and (min-width: 768px) {
-      height: 50vh;
-      overflow-y: auto;
-    }
-
-    p {
-      margin: 0;
-    }
   }
 
   .FormConnexion {
     padding: 2rem;
     margin: 2rem 10rem;
-    border-radius: 1rem; 
-    font-size: 1.2rem;
-    
+    border-radius: 1rem;
   }
   
   .buttons.links-log {
-    flex: 1;
     @include flex-horizontal-center;
+    width: 100%;
     gap: 0.5rem;
-    
+    flex-wrap: wrap;
+  
     .FormConnexion {
-      width: 50%;
-      height: 2rem; 
-      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      vertical-align: middle;
-      border: 0.2rem solid $color-white-theme;
-      border-radius: 0.5rem;
-      box-shadow: 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.3);
+      flex-shrink: 3;
+      width: 100%;
+      height: 2rem;
+      padding: 2rem;
       @include GlassMorphism;
-
+  
       &:hover {
         overflow: hidden;
         background-color: $linear-blue-gradient;
@@ -79,22 +66,24 @@
         border: 0.1rem outset $linear-blue-gradient;
         background-color: $color-success;
         color: $color-white-theme;
-    
-        
       }
     }
   }
-
-  @media screen and (max-width: 768px) {
-    .buttons {
-      width: 100%;
-      margin: 0;
+  
+  @media screen and (min-width: 768px) {
+    .buttons.links-log {
+      width: 75%;
+      flex-direction: row;
+      flex-wrap: wrap;
+      background-color: orange;
     }
-
-    .FormConnexion,
-    .createAccountLink {
-      width: 100%;
-      margin: 0.5rem 0;
+  }
+  
+  @media screen and (min-width: 965px) {
+    .buttons.links-log {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      width: 75%;
     }
   }
 }

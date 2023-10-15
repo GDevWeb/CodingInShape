@@ -7,7 +7,6 @@ header {
   border: 0.25rem solid $color-white-theme;
   @include firstBorderRadius;
   padding: 1rem;
-  // z-index: 1;
 
   figure {
     display: flex;
@@ -25,8 +24,8 @@ header {
     color: $color-white-theme;
 
     p.slogan{
-      font-size: 0.9rem;
-      font-weight: bolder;
+      font-size: 0.8rem;
+      font-weight: 500;
     }
   }
 }
