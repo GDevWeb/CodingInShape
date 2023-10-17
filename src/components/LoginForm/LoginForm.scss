@@ -6,15 +6,14 @@
 }
 
 .loginForm {
-  height: 80vh;
+  @include flex-horizontal-center;
   display: flex;
   justify-content: center;
   align-items: center;
 
   .LoginForm__container {
     @include GlassMorphism();
-    padding: 2rem;
-    margin: 2rem;
+    padding: 1rem;
     text-align: center;
     border-radius: 1.5rem;
 
@@ -24,7 +23,8 @@
       margin: 1.5rem 0;
 
       label {
-        font-weight: 400;
+        font-size: 1.2rem;
+        font-weight: bolder;
       }
 
       input {

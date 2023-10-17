@@ -117,7 +117,7 @@ export default function GetRandomRoutine() {
 
       {isLoading ? (
         <div className="loading">
-          <img src={icons.Spinner} alt="Chargement en cours" />
+          <img src={icons.Spinner} alt="Chargement en cours" className="spinnerImg"/>
           <p>Chargement en cours...</p>
         </div>
       ) : (
@@ -134,7 +134,7 @@ export default function GetRandomRoutine() {
                   {exercises[currentIndex]?.muscle}
                 </h3>
                 <p className="exercise-description">
-                  Description : {exercises[currentIndex]?.description}
+                 <strong> Description :</strong> {exercises[currentIndex]?.description}
                 </p>
 
                 <figure className="exercise-image_container">
@@ -163,7 +163,7 @@ export default function GetRandomRoutine() {
 
 <div className="return-link_container">
       <Link to={"/exercises"} className="return-link">
-        Retour à mon espace exercices
+        Mon espace exercices
       </Link>
 </div>
     </div>

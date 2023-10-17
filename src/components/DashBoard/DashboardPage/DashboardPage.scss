@@ -1,0 +1,71 @@
+@import "../../../../sass/index";
+
+
+// #filters{
+//   background-color: orange;
+
+//   label{
+//     font-size: 1rem;
+//   }
+//   input{
+//     padding: 2rem;
+//     background-color: pink;
+//   }
+// }
+
+.dashBoardContainer {
+  display: flex;
+  flex-direction: column;
+
+  .containerCards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .cardContainer {
+      flex-basis: calc(95% - 1rem);
+      height: 15rem;
+
+      @media screen and (min-width: 768px) {
+        flex-basis: calc(45% - 1rem);
+      }
+      @media screen and (min-width: 990px) {
+        flex-basis: calc(33.3333% - 2rem);
+      }
+    }
+  }
+}
+
+.navigate-link.dashboard{
+    @include flex(column, center, center);
+    width: 65%;
+    margin: auto;
+    gap: 0.25rem;
+    text-align: center;
+    background-color: orange;
+    flex-wrap: wrap;
+
+    @media screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    }
+
+    .return-link {
+      @include button-style;
+      letter-spacing: 0.2rem;
+      text-align: center;
+      padding: 1rem;
+      display: flex;
+      margin: 0.25rem auto;
+    }
+  }
+
+@media screen and (min-width: 965px) {
+  .exercise-item {
+    flex-basis: calc(45% - 1rem);
+    margin: 1rem;
+    height: 40rem;
+  }
+}

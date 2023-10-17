@@ -1,11 +1,14 @@
 @import "../../../../sass/index.scss";
 
 .updateExerciseContainer{
-    width: 80%;
-    margin: auto;
-    text-align: center;
-    background-color: $linear-blue-gradient;
+    margin: 10vh 0;
+    padding: 2rem; 
     @include GlassMorphism();
+    border-radius: 1.5rem; 
+    text-align: center;
+  
+
+
     h2{
         margin: 20px auto;
     }
@@ -26,26 +29,28 @@
             border: none;
             border-radius: 1;
             margin: 1rem 0;
-            @include GlassMorphism();
+            border: 0.1rem solid ;
+            border-radius: 1rem;
         }
         textarea{
             width: 80%;
             height: 10rem;
             padding: 0.5rem;
             border-radius: 1rem;
-            @include GlassMorphism();
+            resize: none;
         }
     }
  button.put-exercise{
-    height: 40px;
-    width: 150px;
-    border-radius: 10px;
+    height: 4rem;
+    width: 15rem;
+    border-radius: 1rem;
     margin: 1rem 0;
+    color: $color-white-theme;
     letter-spacing: 2px;
-    @include GlassMorphism();
+    background-color: $color-orange;
 
     &:hover{
-        background-color: $color-orange;
+        background-color: lighter($color-orange, 10%)
     }
  }
 }

@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
-// import './ConditionalNavLinks.scss'
+import './ConditionalNavLinks.scss'
 
 export default function ConditionalNavLinks({ isAdmin }) {
   return (
     <>
     <div className="containerLink">
       {isAdmin && (
-        <Link to="/dashboard" className="linkTo">
-          Retour au dashboard
+        <Link to="/dashboard" className="return-link">
+          Dashboard
         </Link>
       )}
 
-          <Link to="/myaccount" className="linkTo">
-            Retour à mon compte
+          <Link to="/myaccount" className="return-link">
+            Mon compte
           </Link>
     </div>
     </>

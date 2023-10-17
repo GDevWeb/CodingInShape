@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { EXERCISES_API } from "../../API/apiAdminExercises";
 import { callApi } from "../../API/callApi"; 
+import ConditionalNavLinks from "../../ConditionalNavLinks/ConditionalNavLinks"
 import "./UpdateExercise.scss";
 
 export default function UpdateExercise() {
@@ -263,6 +264,10 @@ export default function UpdateExercise() {
         {success && <p className="form-success">{success}</p>}
         <span className="server-error">{serverErrors.toString()}</span>
       </form>
+      <Link to={"/exercises-list"}>Retour à la liste des exercices</Link>
+      <ConditionalNavLinks
+      isAdmin={isAdmin}
+      />
     </div>
   );
 }

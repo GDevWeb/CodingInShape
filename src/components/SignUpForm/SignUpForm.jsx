@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { USER_SIGNUP } from "../API/apiUser";
 import CGU from "../CGU/CGU";
+import icons from "../../assets/icons/index_icons";
 import "./SignUpForm.scss";
 
 export default function SignUpForm() {
@@ -314,7 +315,8 @@ export default function SignUpForm() {
           </label>
           <input
             type="text"
-            value={formData.avatar}
+            value={formData.avatar || icons.CircleUSer}  
+
             onChange={handleChange}
             name="avatar"
             id="avatar"

@@ -6,22 +6,34 @@ header {
   border: 0.25rem solid $color-white-theme;
   @include firstBorderRadius;
   padding: 1rem;
+  
+  @media screen and (min-width: 768px) {
+    height: 15vh;
+  }
 }
 
 figure {
+  @include flex(row, center, center);
   display: flex;
   align-items: center;
   justify-content: center;
-
+  
   img.header_logo {
     @include responsiveImg(40%, auto, cover);
+    
+    @media screen and (min-width: 768px) {
+      @include responsiveImg(15%, auto, cover);
+    }
+    @media screen and (min-width: 990px) {
+      @include responsiveImg(10%, auto, cover);
+    }
   }
 }
 
 .header_title {
   text-align: center;
   text-transform: uppercase;
-  color: $color-white-theme;
+  color: $color-black-theme;
 
   p.slogan {
     font-size: 0.8rem;

@@ -1,9 +1,8 @@
-import DashBoardPage from '../components/DashBoard/DashBoardPage'
+import DashBoardPage from '../components/DashBoard/DashBoardPage/DashBoardPage'
 
 export default function DashBoard() {
   return (
     <>
-    <h1>DashBoard</h1>
 
     <DashBoardPage/>
 

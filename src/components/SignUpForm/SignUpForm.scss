@@ -1,15 +1,13 @@
 @import "../../../sass/index.scss";
 
 .signUpContainer {
-  display: flex;
-  flex-direction: column;
+  @include flex(column, start, start);
   padding: 1rem;
   flex-wrap: wrap;
   @include GlassMorphism();
 
   .form-title {
     text-align: center;
-    font-size: 1.4rem;
     text-transform: uppercase;
   }
 
@@ -18,12 +16,12 @@
     height: auto;
 
     .form-group-avatar {
+      @include flex(column, space-between, center);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
       padding: 2rem;
-      font-size: 2rem;
 
       img {
         @include responsiveImg(50%, auto, cover);
@@ -32,7 +30,7 @@
       }
 
       label {
-        font-size: 1.8rem;
+        font-weight: bolder;
       }
 
       input {
@@ -42,7 +40,6 @@
         padding: 0.25rem;
         border: none;
         border-radius: 2rem;
-        font-size: 1rem;
         text-align: center;
       }
     } // .form-group-avatar
@@ -52,11 +49,10 @@
     width: 100%;
     text-align: center;
     margin-top: 0.2rem;
-    font-size: 3rem;
     font-weight: 800;
 
     nav {
-      font-size: 1.8rem;
+      font-size: 1.4rem;
     }
 
     .genders {
@@ -66,7 +62,7 @@
       margin: auto;
 
       label {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
         padding-left: 0.5rem;
       }
 
@@ -76,6 +72,7 @@
       }
     }
   }
+
   .form-group-one {
     display: flex;
     flex-wrap: wrap;
@@ -83,10 +80,11 @@
     justify-content: space-between;
 
     .form-group {
-      width: calc(50% - 1rem);
+      width: calc(100% - 1rem);
       margin: 1rem 0.5rem 0.6rem 0.5rem;
 
       label {
+        font-size: 1.4rem;
         font-weight: 800;
         text-align: center;
       }
@@ -102,7 +100,19 @@
         border-bottom-width: 0.3rem;
       }
     } // .form-group
-  } // .form-group-one
+
+    @media screen and (min-width: 768px) {
+      .form-group-one {
+        flex-direction: row;
+        margin: 0;
+      }
+
+      .form-group {
+        width: calc(50% - 0.5rem);
+        margin: 0.25rem;
+      } // .form-group-one
+    }
+  }
 
   .form-group .cgu {
     display: inline-flex;
@@ -110,6 +120,16 @@
     align-items: center;
     width: 100%;
     gap: 0.25rem;
+    text-align: center;
+    
+    
+  }
+  
+  .cgu_label{
+    display: inline-block;
+    width: 100%;
+    font-size: 1.1rem;
+    text-align: center;
   }
   .container_button {
     margin: 1rem 0;
@@ -125,40 +145,19 @@
       color: $color-white-theme;
       border: none;
       border-radius: 1rem;
-      font-size: 1rem;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.3rem;
       background: $linear-blue-gradient;
-
+      
       &:hover {
         transform: scale(1.1);
         transition: all 2s ease;
         background: $linear-blue-reverse-gradient;
         border: 1px solid black;
       }
-
-
+      
     } // button
-  } // .buttonContainer
-  
-  
-  .error, .successMessage, .errorMessage {
-    font-size: 1.2rem;
-    font-style: italic;
-    text-align: center;
-    color: $color-orange;
-  }
-  
-  .container_message{
-    text-align: center;
-    
-    .successMessage {
-      color: $color-success;
-    }
-    
-    .errorMessage {
-      color: $color-danger;
-    }
-  }
+    } // .buttonContainer
+
 }

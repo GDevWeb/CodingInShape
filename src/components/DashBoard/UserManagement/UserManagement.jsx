@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import StatsTab from "./StatsTab";
-import useUserFilter from "../Hooks/useUserFilter";
-import usePagination from "../Hooks/usePagination";
-import UserRow from "./UserRow";
-import "../../../src/main.scss";
+import StatsTab from "../StatsTab/StatsTab";
+import useUserFilter from "../../Hooks/useUserFilter";
+import usePagination from "../../Hooks/usePagination";
+import UserCard from "../UserCard/UserCard";
+import "../../../../src/main.scss";
 import './UserManagement.scss'
 
 // Import des composants locaux :
-import Spinner from "../../assets/icons/spinner.svg";
+import Spinner from "../../../assets/icons/spinner.svg";
 
 // Import des constantes et variables d'API :
 import {
@@ -16,14 +16,14 @@ import {
   BAN_USER_API,
   UNBAN_USER_API,
   ADMIN_USER_API,
-} from "../API/apiAdmin";
+} from "../../API/apiAdmin";
 import { useSelector, useDispatch } from "react-redux";
 import {
   apiStart,
   apiSuccess,
   apiFailure,
-} from "../../../redux/slices/apiUsersSlice";
-import { callApi } from "../API/callApi";
+} from "../../../../redux/slices/apiUsersSlice";
+import { callApi } from "../../API/callApi";
 
 export default function UserManagement() {
   const [usersData, setUsersData] = useState([]);
@@ -288,56 +288,38 @@ export default function UserManagement() {
   };
 
   return (
-    <div className="UserManagementContainer">
+    <div id="userManagementContainer">
       {isLoading && <img src={Spinner} alt="Chargement en cours" />}
-      {/* Affichage du titre et des statistiques */}
       <h2>Liste des utilisateurs</h2>
       <StatsTab usersData={usersData} adminCount={usersData.adminCount} />
-      <label htmlFor="filtre">Rechercher par nom, prénom ...</label>
-      <input
-        type="text"
-        placeholder="Filtre"
-        value={filterText}
-        onChange={(e) => {
-          setFilterText(e.target.value);
-        }}
-        name="filtre"
-        id="filtre"
-      />{" "}
-      <table>
-        <thead>
-          <tr>
-            <th>Prénom</th>
-            <th>Nom</th>
-            <th>Email</th>
-            <th>Administrateur</th>
-            <th>Banni</th>
-            <th>Actions</th>
-            <th>Supprimer</th>
-            <th>Modifier</th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* Mapping des utilisateurs pour afficher chaque ligne utilisateur */}
-          {displayedData &&
-            displayedData.map((user) => (
-              <UserRow
-                key={user._id}
-                user={user}
-                handleAdminChange={handleAdminChange}
-                handleBanChange={handleBanChange}
-                handleUnbanChange={handleUnbanChange}
-                handleDeleteUser={handleDeleteUser}
-              />
-            ))}
-        </tbody>
-      </table>
-      {/* Buttons de pagination : */}
-
+      <div id="filters">
+        <label htmlFor="filtre">Rechercher par nom, prénom ...</label>
+        <input
+          type="text"
+          placeholder="Filtre"
+          value={filterText}
+          onChange={(e) => {
+            setFilterText(e.target.value);
+          }}
+          name="filtre"
+          id="filtre"
+        />
+      </div>
+      <div className="user-cards">
+        {displayedData &&
+          displayedData.map((user) => (
+            <UserCard 
+              key={user._id}
+              user={user}
+              handleAdminChange={handleAdminChange}
+              handleBanChange={handleBanChange}
+              handleUnbanChange={handleUnbanChange}
+              handleDeleteUser={handleDeleteUser}
+            />
+          ))}
+      </div>
       <div className="ButtonContainer">
-
         <div className="buttonList">
-
           <button onClick={() => setPage(currentPage - 1)} disabled={currentPage === 1}>
             Previous
           </button>
@@ -346,27 +328,20 @@ export default function UserManagement() {
             Next
           </button>
         </div>
-
       </div>
-
-      {/* Affichage des messages de succès et d'erreurs */}
       <div className="success-message">
         {successMessage && <p>{successMessage}</p>}
       </div>
       <div className="server-error">
         {serverErrors && <p>{serverErrors}</p>}
       </div>
-
       <div className="linkContainer">
         <Link to={"/dashboard"} className="Return">Retour au dashboard</Link>
       </div>
     </div>
   );
-}
-
-/*📖 Composant admin - User 
-Gestion de l'état de user via le dashboard :
-passer administrateur
-banni - débanni
-supprimer le compte
-📖*/
+}// /*📖 Composant admin - User 
+// Gestion de l'état de user via le dashboard :
+// passer administrateur
+// banni - débanni
+// supprimer le compte

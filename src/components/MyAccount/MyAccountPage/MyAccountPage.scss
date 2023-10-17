@@ -3,15 +3,24 @@
 .myAccountPage_container {
   display: flex;
   flex-direction: column;
-  // flex-wrap: wrap;
-  width: 80%;
-  height: auto;
-  margin: auto;
+  width: 100%;
 
   .user-profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     padding: 1rem;
     text-align: center;
-    background-color: orange;
+
+    @media screen and (min-width: 769px) {
+      align-items: center;
+      width: fit-content;
+    }
+
+    @media screen and (min-width: 990px) {
+      align-items: center;
+      width: 100%;
+    }
 
     p.welcome_user {
       font-size: 1rem;
@@ -22,20 +31,27 @@
 
     .user_profile_identity {
       display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
       border: 0.125rem solid $color-white-theme;
       border-radius: 0.5rem;
       background: $linear-blue-gradient;
       margin-top: 0.5rem;
       padding: 0.25rem;
-      width: 25%;
+      width: 100%;
 
+      @media screen and (min-width: 769px) {
+        width: 45%;
+      }
 
       figure {
         @include flex-horizontal-center;
+        height: 100%;
         width: 45%;
+        display: flex;
+        align-items: flex-start;
+        flex: 1;
 
         img.userProfile-avatar {
           @include responsiveImg(100%, auto, cover);
@@ -49,10 +65,20 @@
 
         .user_detail {
           width: 50%;
-          font-size: 1rem;
           text-align: left;
-          // line-height: 1.5;
           color: $color-white-theme;
+
+          p {
+            font-size: 0.8rem;
+          }
+
+          @media screen and (min-width: 768px) {
+            p{
+              font-size: 1rem;
+            }
+            
+          }
+
         }
       }
     }
@@ -65,7 +91,7 @@
       background-color: $linear-orange-gradient;
 
       button.btn_avatar {
-        padding: 0.25rem;
+        padding: 0.5rem;
         border-radius: 0.5rem;
         background-color: $color-orange;
         color: $color-white-theme;
@@ -73,7 +99,6 @@
     }
 
     @media screen and (max-width: 768px) {
-      flex-basis: 100%;
     }
   }
 
@@ -85,8 +110,12 @@
     margin: 12vh 0;
 
     .cardContainer {
-      flex-basis: calc(33.3333% - 2rem); //ici, 3 cartes par ligne
+      flex-basis: calc(95% - 2rem); //ici, 3 cartes par ligne
       margin: 1rem;
+
+      @media screen and (min-width: 760px) {
+        flex-basis: calc(45% - 2rem); //ici, 2 cartes par ligne
+      }
 
       .icon {
         @include responsiveImg(10%, auto, cover);
@@ -116,10 +145,12 @@
       }
 
       &:hover {
-        background: linear-gradient(135deg,
-            rgba(255, 255, 255, 0.572),
-            rgba(6, 237, 237, 0.452),
-            rgba(13, 36, 206, 0.486));
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.572),
+          rgba(6, 237, 237, 0.452),
+          rgba(13, 36, 206, 0.486)
+        );
         border-top: 0.125rem solid rgb(9, 8, 8);
         border-left: 0.125rem solid rgb(0, 0, 0);
         box-shadow: 0.125rem 0.125rem 0.125rem rgb(255, 255, 255);
@@ -127,7 +158,6 @@
       }
 
       @media screen and (max-width: 768px) {
-        flex-basis: 100%;
       }
     }
   }

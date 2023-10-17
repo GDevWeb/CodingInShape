@@ -6,8 +6,6 @@
   padding: 0 10px;
   text-align: justify;
   padding: 1rem;
-  @include GlassMorphism();
-  background-color: rgba(16, 141, 213, 0.431);
   border-radius: 0.5rem;
   box-shadow: outset 0.25rem 0.25rem 0.25rem $color-white-theme;
   margin: 0.5rem auto;
@@ -22,12 +20,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex-wrap: wrap;
+  flex-basis: calc(95% - 2rem); //ici, 3 cartes par ligne
 
-  .Card {
-    width: 100%;
-    max-width: 300px;
-    margin-bottom: 1rem;
+
+  @media screen and (min-width: 768px) {
+    flex-basis: calc(45% - 2rem); //ici, 2 cartes par ligne
   }
+
+  // .Card {
+  //   height: 100%;
+  //   width: 100%;
+  //   margin-bottom: 1rem;
+  // }
 
   .buttonContainer {
     width: 100%;

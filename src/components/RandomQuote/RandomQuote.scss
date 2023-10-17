@@ -12,12 +12,13 @@
   .quote {
     margin-top: 1rem;
     padding: 1rem;
-    background-color: rgba(16, 141, 213, 0.431);
+    // background-color: rgba(16, 141, 213, 0.431);
+    border: 0.1 solid $color-black-theme;
     border-radius: 0.5rem;
     box-shadow: outset 0.25rem 0.25rem 0.25rem $color-white-theme;
 
     p {
-      text-align: left;
+      text-align: center;
     }
   }
 
@@ -39,7 +40,7 @@
       .author {
         font-size: 1.1rem;
         font-weight: bold;
-        color: $color-primary;
+        // color: $color-primary;
       }
 
       .icons {

@@ -1,4 +1,3 @@
-import "../../../sass/pages.scss";
 
 export default function Introduction() {
   return (

@@ -79,7 +79,6 @@ export default function ExerciseDetail() {
               <img
                 src={exercise.image}
                 alt={`Image de ${exercise.name}`}
-                width={"200px"}
                 className="exercise-img"
               />
             </div>
@@ -89,7 +88,9 @@ export default function ExerciseDetail() {
       {errorMssg && <span className="error">{errorMssg}</span>}
         </>
       )}
-      <Link to={"/exercises-list"}>Retour à la liste des exercices</Link>
+    <Link to={"/exercises-list"}>Retour à la liste des exercices</Link>
     </div>
+    // <div className="container_links">
+    // </div>
   );
 }

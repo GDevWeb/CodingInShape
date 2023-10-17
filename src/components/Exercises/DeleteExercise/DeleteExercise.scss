@@ -1,13 +1,9 @@
 @import "../../../../sass/index.scss";
 
 .deleteExerciseContainer {
-    // width: 80%;
-    // margin: auto;
     text-align: center;
-    @include GlassMorphism();
-    background-color: $linear-blue-gradient;
-    @include GlassMorphism(); 
     padding: 2rem; 
+    @include GlassMorphism();
     border-radius: 1.5rem; 
   
     h2 {

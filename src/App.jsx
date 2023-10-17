@@ -3,7 +3,7 @@ import NavBar from "./components/NavBar/Navbar";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer";
 import DashBoard from "./pages/DashBoard";
-import UserManagement from "./components/DashBoard/UserManagement";
+import UserManagement from "./components/DashBoard/UserManagement/UserManagement";
 import AddUser from "./components/DashBoard/AddUser";
 import UpdateUser from "./components/DashBoard/UpdateUser";
 import ExercisesPage from "./components/Exercises/ExercisePage/ExercisesPage";
@@ -70,8 +70,8 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
-          <NavBar />
           <Footer />
+          <NavBar />
         </div>
       </Provider>
     </BrowserRouter>

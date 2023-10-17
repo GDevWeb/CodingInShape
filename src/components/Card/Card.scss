@@ -1,5 +1,4 @@
 .cardContainer {
-    flex-basis: 25%;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -13,7 +12,7 @@
     box-shadow: 0.125rem 0.125rem 0.125rem rgb(9, 9, 9);
     
     .card-header {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       margin-bottom: 1.25rem;
     }
 

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"; 
-// import "./Card.scss";
+import "./Card.scss";
 
 function truncateText(text, maxLength) {
   if (text.length > maxLength) {

@@ -340,7 +340,7 @@ export default function UpdateProfile() {
 
         <div className="form-group-one-update">
         <div className="form-group-gender">
-          <nav>Sexe :</nav>
+          <nav>Genre :</nav>
           <div className="genders">
             <div className="homme">
               <input
@@ -502,9 +502,12 @@ export default function UpdateProfile() {
         <div className="buttonContainer">
           <button type="submit">Mise à jour</button>
         </div>
-        <span className="success-message">{successMessage}</span>
-        <div className="server-error">{serverErrors}</div>
       </form>
+
+        <div className="info-message">
+        <span className="success-message"><p>{successMessage}</p></span>
+        <div className="server-error"><p>{serverErrors}</p></div>
+        </div>
     </div>
   );
 }

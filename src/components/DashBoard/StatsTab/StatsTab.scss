@@ -1,0 +1,11 @@
+@import "../../../../sass/index";
+
+.statsContainer{
+    @include flex(row, center, center);
+    width: 100%;
+    text-align: center;
+
+    font-size: $base-font-size;
+
+  }
+

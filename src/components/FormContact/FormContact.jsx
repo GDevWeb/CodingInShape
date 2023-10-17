@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useSelector} from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { EXERCISES_API } from "../API/apiAdminExercises";
-// import './UpdateExercise.scss'
 
 export default function FormContact() {
   const { id } = useParams();
@@ -76,40 +75,40 @@ export default function FormContact() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        if (!isAdmin) {
-          navigate("/login");
-          return;
-        }
+  // useEffect(() => {
+  //   const fetchUserData = async () => {
+  //     try {
+  //       if (!isAdmin) {
+  //         navigate("/login");
+  //         return;
+  //       }
 
-        const response = await fetch(`${EXERCISES_API}/${id}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          credentials: "include",
-        });
+  //       const response = await fetch(`${EXERCISES_API}/${id}`, {
+  //         method: "GET",
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //         credentials: "include",
+  //       });
 
-        if (response.ok) {
-          const data = await response.json();
-          setFormData(data);
-        } else {
-          console.error(
-            "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",
-            response.status
-          );
-          setServerErrors("Impossible d'obtenir les données de l'utilisateur");
-        }
-      } catch (error) {
-        console.error("Erreur lors de la récupération des données:", error);
-        setServerErrors("Erreur lors de la récupération des données");
-      }
-    };
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         setFormData(data);
+  //       } else {
+  //         console.error(
+  //           "Impossible d'obtenir les données de l'utilisateur. HTTP Status:",
+  //           response.status
+  //         );
+  //         setServerErrors("Impossible d'obtenir les données de l'utilisateur");
+  //       }
+  //     } catch (error) {
+  //       console.error("Erreur lors de la récupération des données:", error);
+  //       setServerErrors("Erreur lors de la récupération des données");
+  //     }
+  //   };
 
-    fetchUserData();
-  }, [isAdmin, token,id, navigate]);
+  //   fetchUserData();
+  // }, [isAdmin, token,id, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -177,7 +176,7 @@ export default function FormContact() {
 
   return (
     <div className="updateExerciseContainer">
-      <h2>Modifier l'exercice {useParams.name}</h2>
+      <h2>Contacter l'équipe</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Nom</label>
@@ -205,15 +204,14 @@ export default function FormContact() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="category">Quel est la categorie de la question</label>
+          <label htmlFor="category">Le sujet de votre message</label>
           <select
             value={formData.category}
             onChange={handleChange}
             name="category"
             id="category"
           >
-            <option value="0">Choisissez la categorie</option>
-            <option value="Accueil"> Page d'acceuil</option>
+            <option value="0">Choisissez la catégorie</option>
             <option value="exercice">Exercice</option>
             <option value="auth">Authentification</option>
             <option value="myAccount">Mon compte</option>
@@ -224,9 +222,8 @@ export default function FormContact() {
 
         <button type="submit">Modifier</button>
         {success && <p className="form-success">{success}</p>}
-        {/* <p>{serverErrors}</p> */}
+        <p>{serverErrors}</p>
       </form>
-      <Link to={"/"}>Retour au dashboard</Link>
     </div>
   );
 }

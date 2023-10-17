@@ -31,14 +31,17 @@
       img.avatar-preview {
         @include responsiveImg(40%, auto, cover);
         border-radius: 1rem;
-        cursor: pointer;
+
+        @media screen and (min-width: 990px) {
+          @include responsiveImg(25%, auto, cover);
+        }
       }
 
       label {
         font-size: 1.8rem;
       }
 
-      input {
+      input#avatar {
         height: 3rem;
         width: 100%;
         margin-top: 0.5rem;
@@ -47,6 +50,10 @@
         border-radius: 2rem;
         font-size: 1rem;
         text-align: center;
+
+        @media screen and (min-width: 990px) {
+          width: 75%;
+        }
       }
     } // .form-group.update_avatar
   } // form.updateForm
@@ -58,10 +65,16 @@
     justify-content: space-between;
 
     .form-group {
-      width: calc(50% - 1rem);
+      width: calc(95% - 1rem);
       margin: 1rem 0.5rem 0.6rem 0.5rem;
+      text-align: center;
+
+      @media screen and (min-width: 768px) {
+        width: calc(45% - 1rem);
+      }
 
       label {
+        font-size: 1.1rem;
         font-weight: 800;
         text-align: center;
       }
@@ -115,6 +128,11 @@
     display: flex;
     justify-content: center;
 
+    @media screen and (min-width: 768px) {
+      width: 50%;
+      margin: auto;
+    }
+
     button {
       height: 100%;
       width: 50%;
@@ -136,20 +154,9 @@
       }
     } // button
   } // .buttonContainer
-
-  @media screen and (min-width: 700px) {
-    .updateContainer {
-      height: auto;
-
-      form.updateForm {
-        width: 100%;
-
-
-        img.avatar-preview {
-          @include responsiveImg(10%, auto, cover);
-        }
-  
-      }
-    }
-  }
+}
+.info-message {
+  @include flex(row, center, center);
+  width: 100%;
+  height: 2.5rem;
 }

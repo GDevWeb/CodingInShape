@@ -3,6 +3,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-height: 80vh;
+
+
+  .card{
+
+
+    @media screen and (min-width: 768px) {
+     flex-basis: width(95%, 2rem);
+      
+    }
+  }
 
 }

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { login, logout, startSignUp} from "../../../redux/slices/authSlice";
-// import { loginSuccess, logout, startSignUp} from "../../../redux/slices/authSlice";
+import {logout, startSignUp} from "../../../redux/slices/authSlice";
+import icons from "../../assets/icons/index_icons"
 
 export default function LogButton() {
   const dispatch = useDispatch();
@@ -9,15 +9,13 @@ export default function LogButton() {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const isSignUp = useSelector((state) => state.auth.isSignUp);
 
-  // Feature btn isAdmin :
-  // const isAdmin = useSelector((state) => state.auth.isAdmin);
 
   const handleLogout = async () => {
     dispatch(logout(navigate("/")));
   };
 
   const handleLogin = () => {
-    dispatch(loginSuccess());
+    // dispatch(loginSuccess());
     navigate("/login");
   };
 
@@ -27,10 +25,10 @@ export default function LogButton() {
   };
 
   const buttonText = isAuthenticated
-    ? "Déconnexion"
+    ? <img src={icons.Logout} alt="icon déconnexion"  className="logButton"/>
     : isSignUp
     ? "Inscription"
-    : "Connexion";
+    : <img src={icons.Login} alt="icon connexion" width={"48px"} className="logButton"/>;
 
   const handleClick = isAuthenticated
     ? handleLogout
@@ -40,3 +38,6 @@ export default function LogButton() {
 
   return <button onClick={handleClick}>{buttonText}</button>;
 }
+
+
+///hello

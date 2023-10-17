@@ -369,7 +369,7 @@ export default function AddUser() {
 
               <div className="form-group securityAnswers">
                 <label htmlFor="securityAnswer">
-                  Réponse à la question secrète :
+                  Réponse à la question:
                 </label>
                 <input
                   value={formData.securityAnswer}
@@ -417,29 +417,14 @@ export default function AddUser() {
                   />
                   <label htmlFor="femme">Femme</label>
                 </div>
-
-                <div className="autre">
-
-                  <input
-                    type="radio"
-                    id="autre"
-                    name="sex"
-                    value="autre"
-                    checked={formData.sex === "autre"}
-                    onChange={handleChange}
-                    readOnly
-                  />
-                  <label htmlFor="autre">Autre</label>
-                </div>
-
-                {/* <span className="error">{errors.sex}</span> */}
+                <span className="error">{errors.sex}</span>
               </div>
             </div>
 
             <div className="button">
               <button type="submit">Ajouter</button>
             </div>
-            {/* <span className="success">{success}</span> */}
+            <span className="success">{success}</span>
           </div>
         </div>
       </form >

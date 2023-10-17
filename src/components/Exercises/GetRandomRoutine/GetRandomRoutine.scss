@@ -2,19 +2,11 @@
 // @import '../../../sass/variables.scss';
 
 .random-routine-container {
-  width: 100%;
-  @include GlassMorphism()
-;
-  @include mobile-first {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-  }
 
   .loading {
     text-align: center;
 
-    img {
+    img.spinnerImg {
       @include responsiveImg(4rem, 4rem, contain);
     }
   }
@@ -31,9 +23,8 @@
       margin-bottom: 1rem;
 
       button {
-        font-size: 1rem;
         @include button-style;
-        width: 32%;
+        width: 33%;
         height: 2.5rem;
         padding: 0.5rem 1rem;
 
@@ -45,17 +36,15 @@
 
     .exercise-details {
       h3.exercise-muscle {
-        font-size: 1.8rem;
         font-weight: bold;
-        margin-top: 1rem;
       }
 
       h3.exercise-muscle{
         @include section-title();
       }
       p.exercise-description {
-        font-size: 1.6rem;
         margin-top: 1rem;
+        font-style: italic
       }
 
       figure.exercise-image_container{
@@ -64,20 +53,25 @@
         justify-content: center;
         align-items: center;
         border-color: $color-orange;
-        width: 100%
+        width: 100%;        
       }
+
       img.exercise-image {
         @include responsiveImg(55%, auto, contain);
         margin: 1rem 0;
+        
+        
+        @media screen and (min-width: 768px) {
+          @include responsiveImg(45%, auto, contain);
+          
+        }
       }
 
       p.time-left {
-        font-size: 1.6rem;
         margin-top: 1rem;
       }
 
       p.congratulations-message {
-        font-size: 1.8rem;
         font-weight: bold;
         text-align: center;
         margin-top: 1rem;
@@ -88,12 +82,17 @@
 
   .return-link_container {
     @include flex(column, center, center);
+    margin: auto;
     .return-link {
       @include button-style;
-      letter-spacing: 0.25rem;
+      letter-spacing: 0.2rem;
       display: block;
       text-align: center;
-      margin-top: 2rem;
+    }
+
+
+    @media screen and (min-width: 768px) {
+      width: 35%;
     }
   }
 }

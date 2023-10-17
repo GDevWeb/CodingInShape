@@ -128,10 +128,10 @@ export default function ExerciseList() {
             }
           >
             <option value="">Tous</option>
-            <option value="Neck">Cervicaux</option>
-            <option value="Shoulders">Épaules</option>
-            <option value="Hips">Hanches</option>
-            <option value="Legs">Jambes</option>
+            <option value="Cervicaux">Cervicaux</option>
+            <option value="Épaules">Épaules</option>
+            <option value="Hanches">Hanches</option>
+            <option value="Jambes">Jambes</option>
           </select>
         </div>
       </div>
@@ -175,12 +175,19 @@ export default function ExerciseList() {
       <div className="navigate-links">
         {isAdmin && (
           <div className="navigate-link">
-            <Link to={"/exercise-management"}>
-              <p>Retour à la gestion des exercices</p>
+            <Link to={"/exercise-management"} className="return-link">
+              <p>Gestion des exercices</p>
             </Link>
+      <Link to={"/exercises"} className="return-link">
+        Mon espace exercices
+      </Link>
           </div>
         )}
       </div>
+
+      <div className="return-link_container">
+</div>
+
     </div>
   );
 }
