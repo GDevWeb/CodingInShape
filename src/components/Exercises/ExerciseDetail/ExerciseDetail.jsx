@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { EXERCISES_API } from "../../API/apiAdminExercises";
@@ -90,7 +90,5 @@ export default function ExerciseDetail() {
       )}
     <Link to={"/exercises-list"}>Retour à la liste des exercices</Link>
     </div>
-    // <div className="container_links">
-    // </div>
   );
 }

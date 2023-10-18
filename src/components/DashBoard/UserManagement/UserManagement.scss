@@ -4,6 +4,13 @@
   align-items: center;
   padding: 2rem;
   text-align: center;
+
+  
+  @media screen and (min-width: 990px) {
+    width: 50%;
+    margin: auto;
+  }
+
 }
   h2 {
     font-size: 1.5rem;

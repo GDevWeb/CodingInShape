@@ -7,6 +7,12 @@
   flex-wrap: wrap;
   @include GlassMorphism();
 
+  @media screen and (min-width: 990px) {
+    width: 50%;
+    margin: auto;
+    
+  }
+
   .titleUpdate {
     text-align: center;
 
@@ -52,7 +58,7 @@
         text-align: center;
 
         @media screen and (min-width: 990px) {
-          width: 75%;
+          width: 55%;
         }
       }
     } // .form-group.update_avatar

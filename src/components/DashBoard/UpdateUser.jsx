@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { USERS_API } from "../API/apiAdmin";
+import './UpdateUser.scss';
 
 export default function UpdateUser() {
   const { userId } = useParams();
@@ -332,7 +333,9 @@ export default function UpdateUser() {
           <span className="error">{formErrors.securityAnswer}</span>
         </div>
 
-        <button type="submit">Mettre à jour</button>
+<div className="container_put-button">
+        <button type="submit" className="putUser">Mettre à jour</button>
+</div>
       </form>
 
       <div className="success-message">

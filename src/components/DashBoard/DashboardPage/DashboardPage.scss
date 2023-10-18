@@ -17,6 +17,12 @@
   display: flex;
   flex-direction: column;
 
+  @media screen and (min-width: 990px) {
+    width: 50%;
+    margin: auto;
+  }
+
+
   .containerCards {
     display: flex;
     justify-content: center;

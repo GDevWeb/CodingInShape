@@ -6,6 +6,11 @@
   flex-wrap: wrap;
   @include GlassMorphism();
 
+  @media screen and (min-width: 1024px) {
+    width: 80%;
+    margin: auto;
+  }
+
   .form-title {
     text-align: center;
     text-transform: uppercase;
@@ -27,6 +32,11 @@
         @include responsiveImg(50%, auto, cover);
         border-radius: 1rem;
         cursor: pointer;
+
+        @media screen and (min-width : 990px) {
+          @include responsiveImg(25%, auto, cover);
+
+        }
       }
 
       label {
@@ -41,6 +51,10 @@
         border: none;
         border-radius: 2rem;
         text-align: center;
+
+        @media screen and (min-width: 990px){
+width: 45%;
+        }
       }
     } // .form-group-avatar
   } // form.formRegister
@@ -78,6 +92,11 @@
     flex-wrap: wrap;
     padding: 1rem;
     justify-content: space-between;
+
+    @media screen and (min-width: 1024px) {
+      width: 80%;
+      margin: auto;
+    }
 
     .form-group {
       width: calc(100% - 1rem);
@@ -137,6 +156,11 @@
     height: 4rem;
     display: flex;
     justify-content: center;
+
+    @media screen and (min-width: 990px) {
+      width: 45%;
+      margin: auto;
+    }
 
     button {
       height: 100%;

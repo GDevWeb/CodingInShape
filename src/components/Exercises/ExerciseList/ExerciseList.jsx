@@ -104,7 +104,7 @@ export default function ExerciseList() {
         <h1>Liste des exercices :</h1>
       </div>
       <div className="filterContainer">
-        <h3>Filtres :</h3>
+        {/* <h3>Filtres :</h3> */}
         <div className="filterType">
           <label>Type :</label>
           <select

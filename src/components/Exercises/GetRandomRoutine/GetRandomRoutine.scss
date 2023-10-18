@@ -3,6 +3,12 @@
 
 .random-routine-container {
 
+  @media screen and (min-width: 990px) {
+    width: 50%;
+    margin: auto;
+  }
+
+
   .loading {
     text-align: center;
 
@@ -68,7 +74,9 @@
       }
 
       p.time-left {
-        margin-top: 1rem;
+        margin: 1rem auto;
+        text-align: center;
+        color: $color-success;
       }
 
       p.congratulations-message {
@@ -82,7 +90,7 @@
 
   .return-link_container {
     @include flex(column, center, center);
-    margin: auto;
+    margin: 5vh auto;
     .return-link {
       @include button-style;
       letter-spacing: 0.2rem;
@@ -92,7 +100,7 @@
 
 
     @media screen and (min-width: 768px) {
-      width: 35%;
+      width: 45%;
     }
   }
 }

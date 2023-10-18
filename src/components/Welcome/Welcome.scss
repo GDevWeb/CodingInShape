@@ -7,6 +7,12 @@
   align-items: center;
   flex-wrap: wrap;
 
+  @media screen and (min-width: 990px) {
+    width: 50%;
+    margin: auto;
+  }
+
+
   .welcomeTitle {
     text-align: center;
     margin-bottom: 0.25rem;
@@ -47,7 +53,8 @@
     width: 100%;
     gap: 0.5rem;
     flex-wrap: wrap;
-  
+    
+    
     .FormConnexion {
       display: flex;
       justify-content: center;
@@ -58,12 +65,15 @@
       height: 2rem;
       padding: 2rem;
       @include GlassMorphism;
+      
+
+      @media screen and (min-width: 768px) {
+        width: 15%;
+        
+      }
   
       &:hover {
-        overflow: hidden;
-        background-color: $linear-blue-gradient;
         text-shadow: 0.2rem 0.2rem 0.2rem rgba(0, 0, 0, 0.324);
-        border: 0.1rem outset $linear-blue-gradient;
         background-color: $color-success;
         color: $color-white-theme;
       }

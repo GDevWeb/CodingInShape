@@ -1,0 +1,178 @@
+@import "../../../sass/index";
+
+.updateContainer {
+  @include flex(column, center, center);
+  padding: 1rem;
+  flex-wrap: wrap;
+  @include GlassMorphism();
+
+  @media screen and (min-width: 1024px) {
+    width: 50%;
+    margin: auto;
+  }
+
+  h3 {
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  form {
+    width: 100%;
+    height: auto;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1rem 0.5rem 0.6rem 0.5rem;
+
+      label {
+        font-size: 1.4rem;
+        font-weight: 800;
+        text-align: center;
+      }
+
+      input,
+      select {
+        height: 2rem;
+        width: 60%;
+        font-size: 1.1rem;
+        text-align: center;
+        border-radius: 1rem;
+        border: 1px solid #ccc;
+        outline: none;
+        border-bottom-width: 0.3rem;
+        padding: 0.25rem;
+        margin-top: 0.5rem;
+      }
+
+      .error {
+        color: red;
+      }
+    }
+
+    .form-group-avatar {
+      @include flex(column, center, center);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem;
+
+      img {
+        @include responsiveImg(50%, auto, cover);
+        border-radius: 1rem;
+        cursor: pointer;
+
+        @media screen and (min-width: 990px) {
+          @include responsiveImg(25%, auto, cover);
+        }
+      }
+
+      label {
+        font-weight: bolder;
+      }
+
+      input {
+        height: 3rem;
+        width: 100%;
+        margin-top: 0.5rem;
+        padding: 0.25rem;
+        border: none;
+        border-radius: 2rem;
+        text-align: center;
+
+        @media screen and (min-width: 990px) {
+          width: 45%;
+        }
+      }
+    }
+
+    .form-group-gender {
+      width: 100%;
+      text-align: center;
+      margin-top: 0.2rem;
+      font-weight: 800;
+
+      nav {
+        font-size: 1.4rem;
+      }
+
+      .genders {
+        display: flex;
+        justify-content: space-evenly;
+        font-weight: 500;
+        margin: auto;
+
+        label {
+          font-size: 1.4rem;
+          padding-left: 0.5rem;
+        }
+
+        input {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+    }
+
+    .cgu_label {
+      display: inline-block;
+      width: 100%;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    .container_button {
+      margin: 1rem 0;
+      width: 100%;
+      height: 4rem;
+      display: flex;
+      justify-content: center;
+      background-color: orange;
+
+      @media screen and (min-width: 990px) {
+        width: 45%;
+        margin: auto;
+      }
+    }
+
+    .container_put-button {
+      display: flex;
+      align-items: center;
+
+      button.putUser {
+        height: 100%;
+        width: 50%;
+        padding: 1rem;
+        outline: none;
+        color: $color-white-theme;
+        border: none;
+        border-radius: 1rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.3rem;
+        background: $color-orange;
+        margin: auto;
+
+        &:hover {
+          transform: scale(1.1);
+          transition: all 2s ease;
+          background: lighten($color-orange, 20%);
+          border: 1px solid black;
+        }
+      }
+    }
+
+    .success-message {
+      margin-top: 1rem;
+      color: green;
+    }
+
+    .server-error {
+      margin-top: 1rem;
+      color: red;
+    }
+  }
+}
